@@ -1,13 +1,136 @@
 \documentclass{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{array}
 
 \author{Carl Ehrett}
-\title{Fourth Exam Working Title}
+\title{Computer model calibration as a method of selecting material properties for design of a wind turbine blade}
 
 \begin{document}
 
 \maketitle
 
+\section{Introduction}
+% Overview of project goals.
+Blah
+
+\section{Gaussian processes and computer calibration}
+% Background and conceptual underpinnings 
+Blah
+
+\subsection{Gaussian processes}
+Blah
+
+\subsection{Gaussian process regression}
+Blah
+
+\subsection{Gaussian processes in computer model calibration}
+Blah
+
+\section{The emulator}
+Blah
+
+\subsection{Wind turbine blade simulator}
+% Here the finite element model will be described
+Blah
+
+\subsection{Mathematical basis for the emulator}
+% Includes formulae for trained mean and covariance functions
+Blah
+
+\subsection{Design}
+% How we selected the design points at which to observe the simulator
+Blah
+
+\subsection{Covariance parameters}
+% How they were selected
+Blah
+
+\subsubsection{Finding covariance parameters via MCMC}
+% Why we didn't do it (computational difficulties
+Blah
+
+\subsubsection{Grid optimization}
+% Advantages and disadvantages; full grid and integration of lambda
+Blah
+
+\subsubsection{Gradient method}
+% Explanation and advantages
+Blah
+
+\subsection{Normalization of inputs and standardization of outputs}
+Blah
+
+\subsection{Computational difficulties}
+% And solutions
+Blah
+
+\subsubsection{Likelihoods}
+Blah
+
+\subsubsection{Ill-conditioned covariance matrices}
+Blah
+
+\section{MCMC using the emulator}
+Blah
+
+\subsection{MCMC methods}
+% Background on MCMC
+Blah
+
+\subsection{The model}
+% Choice of priors and resulting likelihood
+Blah
+
+\subsubsection{Desired observation variance}
+% 4 versions: heterosked constant, homosked constant, heterosked prior, homosked prior
+\begin{table}[h]
+\centering
+\begin{tabular}{| c | c  |  c  | c |  c  |}
+\hline
+ \vspace{-3mm}
+& & & & \\
+& \parbox{24mm}{\centering Heteroskedastic, constant}& \parbox{24mm}{\centering Homoskedastic, constant}& \parbox{24mm}{\centering Heteroskedastic, prior} & \parbox{24mm}{\centering Homoskedastic, prior}\\
+ \vspace{-3.5mm}
+& & & & \\
+\hline
+Deflection & 0.749 & 0.729 & 0.659 & 0.709\\
+Rotation & 0.0904 & 0.0865 & 0.0773 & 0.0843\\
+Cost & 276.16 & 236.11 & 350.80 & 233.95 \\
+\hline
+\end{tabular}
+\caption{Comparison of model outputs, where the desired data outputs are assumed to be either homoskedastic or heteroskedastic, with either a specified constant variance or a $1/\sigma^2$ prior.}
+\label{table:obs_var_comp}
+\end{table}
+
+\subsubsection{Full model and likelihood}
+Blah
+
+\subsubsection{Computational difficulties}
+% And solutions: log-likelihoods, parallelization of multiple chains
+Blah
+
+\subsection{Boundary constraints}
+% How and why to elminate them
+Blah
+
+\subsubsection{Convergence difficulties}
+% And the idea to eliminate boundary constraints
+Blah
+
+\subsubsection{The Metropolis-Hastings algorithm}
+Blah
+
+\subsubsection{Implementation of the Metropolis-Hastings algorithm}
+Blah
+
+\subsection{Which data to desire?}
+Blah
+
+\subsubsection{Motivations behind the choice of desired data}
+Blah
+
+\subsubsection{Differing results}
+% for different desired data values
 \begin{table}[h]
 \centering
 \begin{tabular}{| c | c  | c  |  c | c  | c | c | c |}
@@ -23,7 +146,64 @@ $(0.65, 0.077, 96)$ & 16.74 & 15.25 & $4.62 \cdot 10^{-7}$ &
 \hline
 \end{tabular}
 \caption{Comparison of results for two different (low) values of $d$. Values listed are, respectively, the posterior means for the observation variance of each model output, posterior means for volume fraction ($v$) and thickness ($h$), and posterior variance of volume fraction and thickness.}
+\label{table:d_comp}
 \end{table}
+
+\subsection{Exponentially distributed desired data}
+Blah
+
+\subsubsection{Motivation}
+Blah
+
+\subsubsection{Implementation and results}
+Blah
+
+
+\subsection{Identifiability issues}
+% Issues arising from the non-identifiability of VF, thickness when cost is relaxed
+Blah
+
+\section{Future work}
+Blah
+
+\subsection{Alternative means of handling cost}
+Blah
+
+\subsubsection{Removing cost from the model}
+Blah
+
+\subsubsection{Alternative priors for controlling cost}
+Blah
+
+\subsection{Building a desired data response surface}
+Blah
+
+\subsection{Implementing Hamiltonian Monte Carlo}
+Blah
+
+\subsubsection{Hamiltonian Monte Carlo}
+% Background
+Blah
+
+\subsubsection{Benefits}
+Blah
+
+\subsection{Model discrepancy}
+% Include (or investigate the inclusion of) a model discrepancy function
+Blah
+
+\section{Conclusion}
+% Discussion of the role of computer model validation as a potential methodology for design
+Blah
+
+
+
+
+
+
+
+
+
 
 
 
