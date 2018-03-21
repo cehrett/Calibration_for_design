@@ -59,6 +59,8 @@
 
 \usepackage{booktabs} % Top and bottom rules for tables
 
+\usepackage{amsmath}
+
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION 
 %----------------------------------------------------------------------------------------
@@ -103,16 +105,24 @@ Researchers increasingly look to computer experiments as a method for investigat
 
 \begin{block}{Computer model calibration}
 
-
+Often computer models contain unknown inputs, called calibration inputs, the values of which must be estimated for successful simulation. Examples might include when a model's output depends upon a physical constant the value of which is unknown. 
+The value of a calibration input is often estimated by combining observations of the simulator output with real-world experimental data. Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality.
 
 \end{block}
 
 %------------------------------------------------
 
-\begin{figure}
-\includegraphics[width=0.8\linewidth]{placeholder.jpg}
-\caption{Figure caption}
-\end{figure}
+%\begin{alertblock}{Central idea}
+%\begin{itemize}
+%\item Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality.
+%
+%\item In the present work, we consider computer model calibration as a method for design. 
+%
+%\item Under this framework, we calibrate a computer model not using physical experimental data, but rather using ``desired data'' which describes the performance one hopes to achieve in the simulated system. 
+%
+%\end{itemize}
+%
+%\end{alertblock} 
 
 %----------------------------------------------------------------------------------------
 
@@ -130,27 +140,30 @@ Researchers increasingly look to computer experiments as a method for investigat
 %	MATERIALS
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Materials}
+\begin{block}{Gaussian process emulator}
 
-The following materials were required to complete the research:
+Gaussian processes (GPs) can be thought of as generalizations of multivariate normal random variables. Whereas a multivariate normal random variable is a random vector of finite length, a GP is a random function. Just as a multivariate random variable is characterized by its mean vector and covariance matrix, a GP is fully characterized by its mean function $\mu:D\to R$ and covariance function $V:D\times D\to R$, where $D$ is the domain of the process.
 
+\begin{figure}[h!]
+\includegraphics[width=0.95\linewidth]{../../gp_example}
+\caption{Figure caption}
+\label{gp_ex}
+\end{figure}
+
+
+
+GPs are advantageous for emulating computationally expensive deterministic computer code because 
+\vspace{-15mm}
 \begin{itemize}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\item Eu facilisis est tempus quis
+\item Use of a GP does not require detailed foreknowledge of the approximate parametric form of the model; we often lack such knowledge
+\item GPs easily interpolate the observed data; since the simulation code is deterministic and free of observation error, this is desirable
+\item The variance of GPs provides a natural form of uncertainty quantification (see Figure \ref{gp_ex})
 \end{itemize}
 
-The materials were prepared according to the steps outlined below:
 
-\begin{enumerate}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\item Curabitur pellentesque dignissim
-\end{enumerate}
 
 \end{block}
+
 
 %----------------------------------------------------------------------------------------
 
@@ -162,13 +175,30 @@ The materials were prepared according to the steps outlined below:
 %	METHODS
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Methods}
+\begin{block}{Emulator implementation}
 
-Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed laoreet accumsan mattis. Integer sapien tellus, auctor ac blandit eget, sollicitudin vitae lorem. Praesent dictum tempor pulvinar. Suspendisse potenti. Sed tincidunt varius ipsum, et porta nulla suscipit et. Etiam congue bibendum felis, ac dictum augue cursus a. \textbf{Donec} magna eros, iaculis sit amet placerat quis, laoreet id est. In ut orci purus, interdum ornare nibh. Pellentesque pulvinar, nibh ac malesuada accumsan, urna nunc convallis tortor, ac vehicula nulla tellus eget nulla. Nullam lectus tortor, \textit{consequat tempor hendrerit} quis, vestibulum in diam. Maecenas sed diam augue.
-
+Our model inputs are a dummy input $x_1$ (to convert our trivariate output into univariate), temperature $x_2$, volume fraction $x_3$ and thickness $x_4$. For our GP emulator prior we use the covariance function
+\[
+V(\mathbf x,\mathbf x' ) = \frac1\lambda \exp\{-\sum_{i=1}^4 \beta_i(x_i-x_i')^2 \}
+\]
+where $\lambda,\boldsymbol \beta$ were estimated using gradient methods to find their MLEs. 
+% Ref, + more expl?
+A prior mean $\mu(\mathbf x) = 0$ was also used. Observations $\eta(\mathbf x_i)$, $i=1,\cdots,504$ were collected from the simulation model using a LHC design. %ref?
+The updated (posterior) GP emulator has mean given by
+\[\mu^*(\mathbf x) = v(\mathbf x)^T \Sigma^{-1} \boldsymbol \eta \]
+where $v(\mathbf x) = (V(\mathbf x, \mathbf x_1),\cdots,V(\mathbf x,\mathbf x_{504}))^T$, $\Sigma$ is a matrix with $\Sigma_{i,j} = V(\mathbf x_i,\mathbf x_j)$, and $\boldsymbol \eta = (\eta(\mathbf x_1),\cdots,\eta(\mathbf x_{504}))^T$. The updated covariance is 
+\[
+V^* (\mathbf x, \mathbf x') = V(\mathbf x, \mathbf x') - v(\mathbf x)^T \Sigma^{-1} v(\mathbf x')
+\]
 \end{block}
 
 %----------------------------------------------------------------------------------------
+
+\begin{block}{Desired data}
+
+We calibrate the model to ``desired data'' which reflect extremely low tip deflection, rotation, and cost. Because we are antecedently ignorant of how close the model can come to our desired data, we place an improper $1/\sigma^2$ prior on the observation variance of each model output. We considered a range of desired outcomes.
+
+\end{block}
 
 \end{column} % End of column 2.2
 
@@ -178,9 +208,9 @@ Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed laoreet ac
 %	IMPORTANT RESULT
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{Important Result}
+\begin{alertblock}{Central idea}
 
-Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed commodo molestie porta. Sed ultrices scelerisque sapien ac commodo. Donec ut volutpat elit.
+Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality. \textbf{In the present work, we consider computer model calibration as a method for design.} Under this framework, we calibrate a computer model not using physical experimental data, but rather using ``desired data'' which describes the performance one hopes to achieve in the simulated system. 
 
 \end{alertblock} 
 
@@ -269,9 +299,40 @@ Treatment 3 & 0.0009271 & 0.296 \\
 %	CONCLUSION
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Conclusion}
+\begin{block}{MCMC implementation}
 
-Nunc tempus venenatis facilisis. \textbf{Curabitur suscipit} consequat eros non porttitor. Sed a massa dolor, id ornare enim. Fusce quis massa dictum tortor \textbf{tincidunt mattis}. Donec quam est, lobortis quis pretium at, laoreet scelerisque lacus. Nam quis odio enim, in molestie libero. Vivamus cursus mi at \textit{nulla elementum sollicitudin}.
+\begin{itemize}
+
+\item Calibrate volume fraction and thickness to the desired data. Set a uniform prior over each.
+
+\item Each iteration of the MCMC, draw new values for volume fraction, thickness, and the observation variances for each of tip deflection, rotation, and cost $(\sigma^2_{d},\sigma^2_{r},\sigma^2_{c}$). 
+
+\item Where $\mathbf y$ is the desired data, $\mathcal D = (\mathbf y,\boldsymbol \eta)^T$ and $\Sigma_{\mathcal D} = \mathrm {Var}(\mathcal D)$, the likelihood of $\mathcal D$ is
+\[%\begin{multline*}
+L(\mathcal D| x_3,x_4,\lambda,\boldsymbol \beta,\Sigma_{\mathcal D}) = 
+|\Sigma_{\mathcal D} | ^{-\frac 12} \exp \{ -\frac 12 \mathcal D ^T \Sigma_{\mathcal D}^{-1} \mathcal D  \}
+\]%\end{multline*}
+hence the full posterior density is
+\begin{flalign*}
+\pi(x_3,x_4,\sigma^2_d,\sigma^2_r,\sigma^2_c) \propto &&
+\end{flalign*}
+
+\vspace{-20mm}
+\begin{eqnarray*}
+\phantom = &L(\mathcal D| x_3,x_4,\lambda,\boldsymbol \beta,\Sigma_{\mathcal D}) \times &
+\pi(x_3)\times \pi(x_4) \times \\&& \pi(\sigma^2_d) \times \pi (\sigma^2_r) \times \pi(\sigma^2_c)\\
+=&L(\mathcal D| x_3,x_4,\lambda,\boldsymbol \beta,\Sigma_{\mathcal D}) \times& \frac1{\sigma^2_d\sigma^2_r\sigma^2_c}
+\end{eqnarray*}
+
+
+\item We eliminate boundary constraints with $z_i = \mathrm{logit}(x_i)$, $\tau_j = \log(\sigma^2_j)$ for $i=3,4$, $j=d,r,c$.
+
+\item Metropolis-Hastings %ref
+algorithm is used with normal proposals on $z_i^{(n)}|z_i^{(n-1)}$ and $\tau_j^{(n)}|\tau_j^{(n-1)}$, $\forall i \forall j$.
+
+\end{itemize}
+
+
 
 \end{block}
 
