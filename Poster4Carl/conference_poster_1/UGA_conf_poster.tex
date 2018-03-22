@@ -28,11 +28,17 @@
 
 \usetheme{confposter} % Use the confposter theme supplied with this template
 
+
+\definecolor{cpurple}{Gray}{0.15}
+\definecolor{corange}{RGB}{246,103,51}
+
 \setbeamercolor{block title}{fg=ngreen,bg=white} % Colors of the block titles
 \setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
-\setbeamercolor{block alerted title}{fg=white,bg=dblue!70} % Colors of the highlighted block titles
-\setbeamercolor{block alerted body}{fg=black,bg=dblue!10} % Colors of the body of highlighted blocks
+\setbeamercolor{block alerted title}{fg=Gray!15,bg=BrickRed!95} % Change the alert block title colors
+\setbeamercolor{block alerted body}{fg=black,bg=BrickRed!05} % Change the alert block body colors
 % Many more colors are available for use in beamerthemeconfposter.sty
+
+\setbeamercolor{background canvas}{bg=gray!50}
 
 %-----------------------------------------------------------
 % Define the column widths and overall poster size
@@ -65,21 +71,25 @@
 %	TITLE SECTION 
 %----------------------------------------------------------------------------------------
 
-\title{Computer model calibration as a method for design, with an application to wind turbine blades} % Poster title
+\title{\huge Computer model calibration for design, with an application to wind turbine blades} % Poster title
 
-\author{Carl Ehrett} % Author(s)
+\author{Carl Ehrett\textsuperscript{1,2}, Andrew Brown\textsuperscript{1,2}, Sez Atamturktur\textsuperscript{1,3}, Christopher Kitchens\textsuperscript{1,4}, Mingzhe Jiang\textsuperscript{1,4}, Caleb Arp\textsuperscript{1,4}, Evan Chodora\textsuperscript{1,3}} % Author(s)
 
-\institute{Clemson University Department of Mathematical Sciences} % Institution(s)
+\institute{\textsuperscript{1}Clemson University, \textsuperscript{2}Department of Mathematical Sciences, \textsuperscript{3}Glenn Department of Civil Engineering, 
+\textsuperscript{4}Chemical and Biomolecular Engineering} % Institution(s)
 
 %----------------------------------------------------------------------------------------
 
 \begin{document}
 
-\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
-\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
 
-\setlength{\belowcaptionskip}{2ex} % White space under figures
+\addtobeamertemplate{alertblock end}{}{\vspace*{2ex}} % White space under blocks
+\addtobeamertemplate{alertblock alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
+
+\setlength{\belowcaptionskip}{1ex} % White space under figures
 \setlength\belowdisplayshortskip{2ex} % White space under equations
+
+
 
 \begin{frame}[t] % The whole poster is enclosed in one beamer frame
 
@@ -93,22 +103,59 @@
 %	OBJECTIVES
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Computer experiments}
 
-Researchers increasingly look to computer experiments as a method for investigating phenomena for which it is difficult or impossible to acquire data through direct physical experimentation.
 
-\end{block}
+\begin{alertblock}{Computer experiments}
+
+Researchers increasingly look to computer experiments to investigate phenomena for which it is difficult or impossible to acquire data through direct physical experimentation.
+
+\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Computer model calibration}
+\begin{alertblock}{Computer model calibration}
+\begin{itemize}
+\item Often computer models contain unknown inputs, called calibration inputs, which must be estimated for successful simulation. 
 
-Often computer models contain unknown inputs, called calibration inputs, the values of which must be estimated for successful simulation. Examples might include when a model's output depends upon a physical constant the value of which is unknown. 
-The value of a calibration input is often estimated by combining observations of the simulator output with real-world experimental data. Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality.
+\item E.g.: a model's output depends upon a physical constant the value of which is unknown. 
 
-\end{block}
+\item Calibration input is often estimated by combining simulator output with field data. 
+
+\item Calibration is ordinarily thought of as bringing a computer model into agreement with reality.
+%\item Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality.
+
+\end{itemize}
+
+\end{alertblock}
+
+%------------------------------------------------
+
+\begin{alertblock}{Finite element smulator}
+Using a fixed geometry for a wind turbine blade, we rely on a finite element simulator of the blade cost and performance.
+
+\begin{figure}[h!]
+\includegraphics[width=0.9\linewidth]{blade3}
+\caption{Wind turbine blade}
+\label{blade}
+\end{figure}
+
+\vspace{-8mm}
+\begin{itemize}
+\item Calibration inputs are volume fraction and thickness of the blade material.
+
+\item Control input is temperature.
+
+\item Outputs are tip deflection, rotation, and cost; the design goal is to minimize these.
+
+\item Model utilizes \texttt{ANSYS} simulation software.
+
+\item Computational cost of the model too high for direct use in MCMC.
+
+\end{itemize}
+\end{alertblock}
+
 
 %------------------------------------------------
 
@@ -128,9 +175,23 @@ The value of a calibration input is often estimated by combining observations of
 
 \end{column} % End of the first column
 
+
+
 \begin{column}{\sepwid}\end{column} % Empty spacer column
 
 \begin{column}{\twocolwid} % Begin a column which is two columns wide (column 2)
+
+\setbeamercolor{block alerted title}{fg=Gray!15,bg=MidnightBlue!95} % Change the alert block title colors
+\setbeamercolor{block alerted body}{fg=black,bg=MidnightBlue!10} % Change the alert block body colors
+
+\begin{alertblock}{Central idea}
+
+Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality. \textbf{In the present work, we consider computer model calibration as a method for design.} Under this framework, we calibrate a computer model not using physical experimental data, but rather using ``desired data'' which describes the performance one hopes to achieve in the simulated system. 
+
+\end{alertblock} 
+
+\setbeamercolor{block alerted title}{fg=Gray!15,bg=BrickRed!95} % Change the alert block title colors
+\setbeamercolor{block alerted body}{fg=black,bg=BrickRed!05} % Change the alert block body colors
 
 \begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column
 
@@ -140,20 +201,20 @@ The value of a calibration input is often estimated by combining observations of
 %	MATERIALS
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Gaussian process emulator}
+\begin{alertblock}{Gaussian process emulator}
 
-Gaussian processes (GPs) can be thought of as generalizations of multivariate normal random variables. Whereas a multivariate normal random variable is a random vector of finite length, a GP is a random function. Just as a multivariate random variable is characterized by its mean vector and covariance matrix, a GP is fully characterized by its mean function $\mu:D\to R$ and covariance function $V:D\times D\to R$, where $D$ is the domain of the process.
+Gaussian processes (GPs) can be thought of as random functions, which are generalizations of multivariate normal random variables. A GP is fully characterized by its mean function $\mu:D\to R$ and covariance function $V:D\times D\to R$, where $D$ is the domain of the process.
 
 \begin{figure}[h!]
 \includegraphics[width=0.95\linewidth]{../../gp_example}
-\caption{Figure caption}
+\caption{Example of a univariate Gaussian process}
 \label{gp_ex}
 \end{figure}
 
 
 
 GPs are advantageous for emulating computationally expensive deterministic computer code because 
-\vspace{-15mm}
+%\vspace{-8mm}
 \begin{itemize}
 \item Use of a GP does not require detailed foreknowledge of the approximate parametric form of the model; we often lack such knowledge
 \item GPs easily interpolate the observed data; since the simulation code is deterministic and free of observation error, this is desirable
@@ -162,7 +223,7 @@ GPs are advantageous for emulating computationally expensive deterministic compu
 
 
 
-\end{block}
+\end{alertblock}
 
 
 %----------------------------------------------------------------------------------------
@@ -175,9 +236,9 @@ GPs are advantageous for emulating computationally expensive deterministic compu
 %	METHODS
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Emulator implementation}
+\begin{alertblock}{Emulator implementation}
 
-Our model inputs are a dummy input $x_1$ (to convert our trivariate output into univariate), temperature $x_2$, volume fraction $x_3$ and thickness $x_4$. For our GP emulator prior we use the covariance function
+Model inputs are a dummy input $x_1$ (to convert trivariate output into univariate), temperature $x_2$, volume fraction $x_3$ and thickness $x_4$. For our GP emulator prior we use the covariance function
 \[
 V(\mathbf x,\mathbf x' ) = \frac1\lambda \exp\{-\sum_{i=1}^4 \beta_i(x_i-x_i')^2 \}
 \]
@@ -186,19 +247,19 @@ where $\lambda,\boldsymbol \beta$ were estimated using gradient methods to find 
 A prior mean $\mu(\mathbf x) = 0$ was also used. Observations $\eta(\mathbf x_i)$, $i=1,\cdots,504$ were collected from the simulation model using a LHC design. %ref?
 The updated (posterior) GP emulator has mean given by
 \[\mu^*(\mathbf x) = v(\mathbf x)^T \Sigma^{-1} \boldsymbol \eta \]
-where $v(\mathbf x) = (V(\mathbf x, \mathbf x_1),\cdots,V(\mathbf x,\mathbf x_{504}))^T$, $\Sigma$ is a matrix with $\Sigma_{i,j} = V(\mathbf x_i,\mathbf x_j)$, and $\boldsymbol \eta = (\eta(\mathbf x_1),\cdots,\eta(\mathbf x_{504}))^T$. The updated covariance is 
+where $v(\mathbf x) = (V(\mathbf x, \mathbf x_1),\cdots,V(\mathbf x,\mathbf x_{504}))^T$, $\Sigma$ is a matrix with $\Sigma_{i,j} = V(\mathbf x_i,\mathbf x_j)$, and $\boldsymbol \eta = (\eta(\mathbf x_1),\cdots,\eta(\mathbf x_{504}))^T$. The updated covariance:
 \[
 V^* (\mathbf x, \mathbf x') = V(\mathbf x, \mathbf x') - v(\mathbf x)^T \Sigma^{-1} v(\mathbf x')
 \]
-\end{block}
+\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Desired data}
+\begin{alertblock}{Desired data}
 
 We calibrate the model to ``desired data'' which reflect extremely low tip deflection, rotation, and cost. Because we are antecedently ignorant of how close the model can come to our desired data, we place an improper $1/\sigma^2$ prior on the observation variance of each model output. We considered a range of desired outcomes.
 
-\end{block}
+\end{alertblock}
 
 \end{column} % End of column 2.2
 
@@ -208,11 +269,21 @@ We calibrate the model to ``desired data'' which reflect extremely low tip defle
 %	IMPORTANT RESULT
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{Central idea}
+\setbeamercolor{block alerted title}{fg=Gray!15,bg=MidnightBlue!95} % Change the alert block title colors
+\setbeamercolor{block alerted body}{fg=black,bg=MidnightBlue!10} % Change the alert block body colors
 
-Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality. \textbf{In the present work, we consider computer model calibration as a method for design.} Under this framework, we calibrate a computer model not using physical experimental data, but rather using ``desired data'' which describes the performance one hopes to achieve in the simulated system. 
+\begin{alertblock}{Full model}
+
+Where $\boldsymbol \theta$ is the vector of true (optimal) values of the calibration parameter, $\mathbf w$ is a vector of control parameter settings, and $\boldsymbol \epsilon\sim N_3(0,\mathrm{diag}(\sigma^2_d,\sigma^2_r,\sigma^2_c))$, we may describe the model for the desired data as
+\[
+f(\mathbf w,\boldsymbol \theta) = f(\mathbf w) = f(\eta(\mathbf w,\boldsymbol \theta ) + \boldsymbol \epsilon
+\]
 
 \end{alertblock} 
+
+\setbeamercolor{block alerted title}{fg=Gray!15,bg=BrickRed!95} % Change the alert block title colors
+\setbeamercolor{block alerted body}{fg=black,bg=BrickRed!05} % Change the alert block body colors
+
 
 %----------------------------------------------------------------------------------------
 
@@ -224,29 +295,29 @@ Previous explorations of computer model calibration have approached calibration 
 %	MATHEMATICAL SECTION
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Mathematical Section}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-  
-\begin{equation}
-E = mc^{2}
-\label{eqn:Einstein}
-\end{equation}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-
-\begin{equation}
-\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
-\label{eq:refname}
-\end{equation}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-
-\begin{equation}
-\kappa =\frac{\xi}{E_{\mathrm{max}}} %\mathbb{ZNR}
-\end{equation}
-
-\end{block}
+%\begin{alertblock}{Mathematical Section}
+%
+%Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
+%  
+%\begin{equation}
+%E = mc^{2}
+%\label{eqn:Einstein}
+%\end{equation}
+%
+%Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
+%
+%\begin{equation}
+%\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
+%\label{eq:refname}
+%\end{equation}
+%
+%Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
+%
+%\begin{equation}
+%\kappa =\frac{\xi}{E_{\mathrm{max}}} %\mathbb{ZNR}
+%\end{equation}
+%
+%\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 
@@ -257,31 +328,31 @@ Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sol
 %----------------------------------------------------------------------------------------
 %	RESULTS
 %----------------------------------------------------------------------------------------
-
-\begin{block}{Results}
-
-\begin{figure}
-\includegraphics[width=0.8\linewidth]{placeholder.jpg}
-\caption{Figure caption}
-\end{figure}
-
-Nunc tempus venenatis facilisis. Curabitur suscipit consequat eros non porttitor. Sed a massa dolor, id ornare enim:
-
-\begin{table}
-\vspace{2ex}
-\begin{tabular}{l l l}
-\toprule
-\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
-\midrule
-Treatment 1 & 0.0003262 & 0.562 \\
-Treatment 2 & 0.0015681 & 0.910 \\
-Treatment 3 & 0.0009271 & 0.296 \\
-\bottomrule
-\end{tabular}
-\caption{Table caption}
-\end{table}
-
-\end{block}
+%
+%\begin{alertblock}{Results}
+%
+%\begin{figure}
+%\includegraphics[width=0.8\linewidth]{placeholder.jpg}
+%\caption{Figure caption}
+%\end{figure}
+%
+%Nunc tempus venenatis facilisis. Curabitur suscipit consequat eros non porttitor. Sed a massa dolor, id ornare enim:
+%
+%\begin{table}
+%\vspace{2ex}
+%\begin{tabular}{l l l}
+%\toprule
+%\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
+%\midrule
+%Treatment 1 & 0.0003262 & 0.562 \\
+%Treatment 2 & 0.0015681 & 0.910 \\
+%Treatment 3 & 0.0009271 & 0.296 \\
+%\bottomrule
+%\end{tabular}
+%\caption{Table caption}
+%\end{table}
+%
+%\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 
@@ -299,7 +370,7 @@ Treatment 3 & 0.0009271 & 0.296 \\
 %	CONCLUSION
 %----------------------------------------------------------------------------------------
 
-\begin{block}{MCMC implementation}
+\begin{alertblock}{MCMC implementation}
 
 \begin{itemize}
 
@@ -309,8 +380,8 @@ Treatment 3 & 0.0009271 & 0.296 \\
 
 \item Where $\mathbf y$ is the desired data, $\mathcal D = (\mathbf y,\boldsymbol \eta)^T$ and $\Sigma_{\mathcal D} = \mathrm {Var}(\mathcal D)$, the likelihood of $\mathcal D$ is
 \[%\begin{multline*}
-L(\mathcal D| x_3,x_4,\lambda,\boldsymbol \beta,\Sigma_{\mathcal D}) = 
-|\Sigma_{\mathcal D} | ^{-\frac 12} \exp \{ -\frac 12 \mathcal D ^T \Sigma_{\mathcal D}^{-1} \mathcal D  \}
+L(\mathcal D| x_3,\!x_4,\!\lambda,\!\boldsymbol \beta,\!\Sigma_{\mathcal D}) = 
+|\Sigma_{\mathcal D} | ^{-\frac 12} \exp \{\! -\frac 12 \mathcal D ^T \Sigma_{\mathcal D}^{-1} \mathcal D  \}
 \]%\end{multline*}
 hence the full posterior density is
 \begin{flalign*}
@@ -319,9 +390,9 @@ hence the full posterior density is
 
 \vspace{-20mm}
 \begin{eqnarray*}
-\phantom = &L(\mathcal D| x_3,x_4,\lambda,\boldsymbol \beta,\Sigma_{\mathcal D}) \times &
+\phantom = &L(\mathcal D| x_3,\!x_4,\!\lambda,\!\boldsymbol \beta,\!\Sigma_{\mathcal D}) \times &
 \pi(x_3)\times \pi(x_4) \times \\&& \pi(\sigma^2_d) \times \pi (\sigma^2_r) \times \pi(\sigma^2_c)\\
-=&L(\mathcal D| x_3,x_4,\lambda,\boldsymbol \beta,\Sigma_{\mathcal D}) \times& \frac1{\sigma^2_d\sigma^2_r\sigma^2_c}
+=&L(\mathcal D| x_3,\!x_4,\!\lambda,\!\boldsymbol \beta,\!\Sigma_{\mathcal D}) \times& \frac1{\sigma^2_d\sigma^2_r\sigma^2_c}
 \end{eqnarray*}
 
 
@@ -330,73 +401,71 @@ hence the full posterior density is
 \item Metropolis-Hastings %ref
 algorithm is used with normal proposals on $z_i^{(n)}|z_i^{(n-1)}$ and $\tau_j^{(n)}|\tau_j^{(n-1)}$, $\forall i \forall j$.
 
+\item During the burn-in period, the proposal distribution covariances adapt using the sample covariance of previous draws to achieve optimal acceptance ratios ($\sim40\%$).
+
 \end{itemize}
 
 
 
-\end{block}
+\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 %	ADDITIONAL INFORMATION
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Additional Information}
+\begin{alertblock}{Results}
 
-Maecenas ultricies feugiat velit non mattis. Fusce tempus arcu id ligula varius dictum. 
+
+
 \begin{itemize}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
+\item The posterior means are sensitive to choice of desired data. Therefore it is advisable to consider a surface over a range of desired data.
+\item Where desired output is insufficiently ambitious, this can be seen in the MCMC output as a lack of identifiability amongst the calibration parameters.
 \end{itemize}
 
-\end{block}
+\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 %	REFERENCES
 %----------------------------------------------------------------------------------------
 
-\begin{block}{References}
-
-\nocite{*} % Insert publications even if they are not cited in the poster
-\small{\bibliographystyle{unsrt}
-\bibliography{sample}\vspace{0.75in}}
-
-\end{block}
+%\begin{alertblock}{References}
+%
+%\nocite{*} % Insert publications even if they are not cited in the poster
+%\small{\bibliographystyle{unsrt}
+%\bibliography{sample}\vspace{0.75in}}
+%
+%\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS
 %----------------------------------------------------------------------------------------
 
-\setbeamercolor{block title}{fg=red,bg=white} % Change the block title color
-
-\begin{block}{Acknowledgements}
-
-\small{\rmfamily{Nam mollis tristique neque eu luctus. Suspendisse rutrum congue nisi sed convallis. Aenean id neque dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.}} \\
-
-\end{block}
+%\setbeamercolor{alertblock title}{fg=red,bg=white} % Change the block title color
+%
+%\begin{alertblock}{Acknowledgements}
+%
+%\small{\rmfamily{Nam mollis tristique neque eu luctus. Suspendisse rutrum congue nisi sed convallis. Aenean id neque dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.}} \\
+%
+%\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 %	CONTACT INFORMATION
 %----------------------------------------------------------------------------------------
 
-\setbeamercolor{block alerted title}{fg=black,bg=norange} % Change the alert block title colors
-\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
+\setbeamercolor{alertblock alerted title}{fg=black,bg=norange} % Change the alert block title colors
+\setbeamercolor{alertblock alerted body}{fg=black,bg=white} % Change the alert block body colors
 
 \begin{alertblock}{Contact Information}
 
-\begin{itemize}
-\item Web: \href{http://www.university.edu/smithlab}{http://www.university.edu/smithlab}
-\item Email: \href{mailto:john@smith.com}{john@smith.com}
-\item Phone: +1 (000) 111 1111
-\end{itemize}
+%\begin{itemize}
+%\item Web: \href{http://www.university.edu/smithlab}{http://www.university.edu/smithlab}
+%\item Email: \href{mailto:cehrett@clemson.edu}{cehrett@clemson.edu}
+\centering Email: \href{mailto:cehrett@clemson.edu}{cehrett@clemson.edu}
+%\item Phone: +1 (774) 234 7388
+%\end{itemize}
 
 \end{alertblock}
 
-\begin{center}
-\begin{tabular}{ccc}
-\includegraphics[width=0.4\linewidth]{logo.png} & \hfill & \includegraphics[width=0.4\linewidth]{logo.png}
-\end{tabular}
-\end{center}
 
 %----------------------------------------------------------------------------------------
 
