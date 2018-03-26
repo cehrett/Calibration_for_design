@@ -83,7 +83,7 @@
 \begin{document}
 
 
-\addtobeamertemplate{alertblock end}{}{\vspace*{2ex}} % White space under blocks
+\addtobeamertemplate{alertblock end}{}{\vspace*{1ex}} % White space under blocks
 \addtobeamertemplate{alertblock alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
 
 \setlength{\belowcaptionskip}{1ex} % White space under figures
@@ -92,6 +92,8 @@
 
 
 \begin{frame}[t] % The whole poster is enclosed in one beamer frame
+
+\vspace{-20mm}
 
 \begin{columns}[t] % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
 
@@ -107,7 +109,7 @@
 
 \begin{alertblock}{Computer experiments}
 
-Researchers increasingly look to computer experiments to investigate phenomena where physical experimentation is difficult or impossible\cite{Sacks1989}.
+Researchers increasingly look to computer experiments to investigate phenomena where physical experimentation is difficult or impossible\cite{Sacks1989,Santner2003a}.
 
 \end{alertblock}
 
@@ -117,9 +119,9 @@ Researchers increasingly look to computer experiments to investigate phenomena w
 
 \begin{alertblock}{Computer model calibration}
 \begin{itemize}
-\item Computer models may include unknown inputs (calibration inputs) which must be estimated. 
+\item Computer models may include unknown inputs (calibration inputs) that must be estimated\cite{Kennedy2001}. 
 
-\item E.g.: a model's output depends upon a physical constant which is unknown. 
+%\item E.g.: a model's output depends upon a physical constant which is unknown. 
 
 \item Calibration input is often estimated by combining simulator output with field data. 
 
@@ -143,26 +145,27 @@ We rely on a finite element simulator of the blade cost and performance.
 
 \vspace{-18mm}
 \begin{itemize}
-\item Calibration inputs are volume fraction and thickness of the blade material.
+\item Calibration inputs: volume fraction, thickness of blade material. Control input: temperature.
 
-\item Control input is temperature.
+%\item Control input is temperature.
 
 \item Outputs are tip deflection, rotation, and cost; the design goal is to minimize these.
 
-\item Model utilizes \texttt{ANSYS} simulation software.
+\item Model utilizes \texttt{ANSYS} simulation software; computation cost is too high for use in MCMC.
 
-\item \texttt{ANSYS} model cost too high for use in MCMC.
+%\item \texttt{ANSYS} model cost too high for use in MCMC.
 
 \end{itemize}
 \end{alertblock}
 
 \begin{alertblock}{References}
-
+{
 \tiny
 
-\bibliographystyle{plain}
+\bibliographystyle{abbrv}
 
 \bibliography{poster}
+}
 
 \end{alertblock}
 
@@ -196,7 +199,7 @@ We rely on a finite element simulator of the blade cost and performance.
 
 \begin{alertblock}{Central idea}
 
-Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality. \textbf{In the present work, we consider computer model calibration as a method for design.} Under this framework, we calibrate a computer model not using physical experimental data, but rather using ``desired data'' which describes the performance one hopes to achieve in the simulated system. 
+Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality\cite{Bayarri2007,Kennedy2001,Higdon2004,Williams2006}. \textbf{In the present work, we consider computer model calibration as a method for design.} Under this framework, we calibrate a computer model not using physical experimental data, but rather using ``desired data'' which describes the performance one hopes to achieve in the simulated system. 
 
 \end{alertblock} 
 
@@ -213,7 +216,7 @@ Previous explorations of computer model calibration have approached calibration 
 
 \begin{alertblock}{Gaussian process emulator}
 
-Gaussian processes (GPs) can be thought of as random functions, which are generalizations of multivariate normal random variables. A GP is fully characterized by its mean function $\mu:D\to R$ and covariance function $V:D\times D\to R$, where $D$ is the domain of the process.
+Gaussian processes (GPs) can be thought of as random functions which are generalizations of multivariate normal random variables\cite{OHagan1978}. A GP is fully characterized by its mean function $\mu:D\to R$ and covariance function $V:D\times D\to R$, where $D$ is the domain of the process.
 
 \begin{figure}[h!]
 \includegraphics[width=0.95\linewidth]{../../gp_example}
@@ -223,7 +226,7 @@ Gaussian processes (GPs) can be thought of as random functions, which are genera
 
 
 
-GPs are advantageous for emulating computationally expensive deterministic computer code because 
+GPs are advantageous for emulating computationally expensive deterministic computer code\cite{Sacks1989,Santner2003a} because 
 %\vspace{-8mm}
 \begin{itemize}
 \item Use of a GP does not require detailed foreknowledge of the approximate parametric form of the model; we often lack such knowledge
@@ -286,8 +289,9 @@ We calibrate the model to ``desired data'' which reflect extremely low tip defle
 
 Where $\boldsymbol \theta$ is the vector of true (optimal) values of the calibration parameter, $\mathbf w$ is a vector of control parameter settings, and $\boldsymbol \epsilon\sim N_3(0,\mathrm{diag}(\sigma^2_d,\sigma^2_r,\sigma^2_c))$, we may describe the model for the desired data as
 \[
-f(\mathbf w,\boldsymbol \theta) = f(\mathbf w) = f(\eta(\mathbf w,\boldsymbol \theta ) + \boldsymbol \epsilon
+f(\mathbf w,\boldsymbol \theta) = f(\mathbf w) = \eta(\mathbf w,\boldsymbol \theta) + \boldsymbol \epsilon
 \]
+Note that we are here assuming that the original simulator $\eta(\cdot,\boldsymbol\theta)$ is unbiased with respect to $f$ when the true values of $\boldsymbol\theta$ are used as inputs.
 
 \end{alertblock} 
 
@@ -393,7 +397,7 @@ f(\mathbf w,\boldsymbol \theta) = f(\mathbf w) = f(\eta(\mathbf w,\boldsymbol \t
 L(\mathcal D| x_3,\!x_4,\!\lambda,\!\boldsymbol \beta,\!\Sigma_{\mathcal D}) = 
 |\Sigma_{\mathcal D} | ^{-\frac 12} \exp \{\! -\frac 12 \mathcal D ^T \Sigma_{\mathcal D}^{-1} \mathcal D  \}
 \]%\end{multline*}
-hence the full posterior density is
+hence\cite{Williams2006} the full posterior density is:
 \begin{flalign*}
 \pi(x_3,x_4,\sigma^2_d,\sigma^2_r,\sigma^2_c) \propto  & \frac{L(\mathcal D| x_3,\!x_4,\!\lambda,\!\boldsymbol \beta,\!\Sigma_{\mathcal D})}{\sigma^2_d\sigma^2_r\sigma^2_c}
 \end{flalign*}
@@ -408,8 +412,8 @@ hence the full posterior density is
 
 \item Eliminate boundary constraints: $z_i = \mathrm{logit}(x_i)$, $\tau_j = \log(\sigma^2_j)$ for $i=3,4$, $j=d,r,c$.
 
-\item Use Metropolis-Hastings %ref
-algorithm; normal proposals on $z_i^{(n)}|z_i^{(n-1)}$ and $\tau_j^{(n)}|\tau_j^{(n-1)}$, $\forall i \forall j$.
+\item We use the Metropolis-Hastings %ref
+algorithm\cite{Hastings1970}; we set normal proposals on $z_i^{(n)}|z_i^{(n-1)}$ and $\tau_j^{(n)}|\tau_j^{(n-1)}$, $\forall i \forall j$.
 
 \item In burn-in, the proposal distribution adapts using the sample covariance of previous draws, achieving optimal acceptance ratios ($\sim40\%$).
 
@@ -425,19 +429,20 @@ algorithm; normal proposals on $z_i^{(n)}|z_i^{(n-1)}$ and $\tau_j^{(n)}|\tau_j^
 
 \begin{alertblock}{Results}
 
+
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{FIG1}
 %\caption{}
 \label{res}
 \end{figure}
 
-\vspace{-30mm}
+\vspace{-24mm}
 \begin{itemize}
 \item Posterior means are sensitive to choice of desired data. Therefore it is advisable to consider a surface over a range of desired data.
 \item Where desired output is insufficiently ambitious, the MCMC output reflects this as a lack of identifiability in the calibration inputs.
 \end{itemize}
 
-\vspace{-10mm}
+\vspace{-4mm}
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{FIG2}
 %\caption{}
@@ -483,12 +488,13 @@ algorithm; normal proposals on $z_i^{(n)}|z_i^{(n-1)}$ and $\tau_j^{(n)}|\tau_j^
 %\begin{itemize}
 %\item Web: \href{http://www.university.edu/smithlab}{http://www.university.edu/smithlab}
 %\item Email: \href{mailto:cehrett@clemson.edu}{cehrett@clemson.edu}
-\vspace{-15mm}
+%\vspace{-15mm}
+\centering Carl Ehrett\\
 \centering Email: \href{mailto:cehrett@clemson.edu}{cehrett@clemson.edu}
 %\item Phone: +1 (774) 234 7388
 %\end{itemize}
 
-\vspace{-10mm}
+%\vspace{-10mm}
 \end{alertblock}
 
 
