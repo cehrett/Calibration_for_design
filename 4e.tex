@@ -1,74 +1,104 @@
 \documentclass{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{array}
+\usepackage{graphicx}
 
 \author{Carl Ehrett}
-\title{Computer model calibration as a method of selecting material properties for design of a wind turbine blade}
+\title{Computer model calibration as a method of design}
 
 \begin{document}
 
 \maketitle
 
 \section{Introduction}
-% Overview of project goals.
+% Discussion of computer experiments and computer model calibration. Lit review. Overview of project goals.
+
+\subsection{Computer experiments}
+
+\subsection{Computer model calibration}
+
+\subsubsection{Gaussian processes}
+
+\paragraph{Background}
+
+
+
+\paragraph{Gaussian process regression}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.75\linewidth]{gp_example}
+\caption{Example of a Gaussian process trained to interpolate five data points (black dots).}
+\label{gp_example}
+\end{figure}
+
+\paragraph{Gaussian processes in computer model calibration}
+
+\subsubsection{Markov chain Monte Carlo methods}
+
+\paragraph{Background}
+
+\paragraph{Metropolis-Hastings algorithm}
+
+\paragraph{Elimination of boundary constraints}
+
+\subsubsection{Normalization of inputs and standardization of outputs}
 Blah
 
-\section{Gaussian processes and computer calibration}
-% Background and conceptual underpinnings 
-Blah
-
-\subsection{Gaussian processes}
-Blah
-
-\subsection{Gaussian process regression}
-Blah
-
-\subsection{Gaussian processes in computer model calibration}
-Blah
-
-\section{The emulator}
-Blah
-
-\subsection{Wind turbine blade simulator}
-% Here the finite element model will be described
-Blah
-
-\subsection{Mathematical basis for the emulator}
-% Includes formulae for trained mean and covariance functions
-Blah
-
-\subsection{Design}
-% How we selected the design points at which to observe the simulator
-Blah
-
-\subsection{Covariance parameters}
-% How they were selected
-Blah
-
-\subsubsection{Finding covariance parameters via MCMC}
-% Why we didn't do it (computational difficulties
-Blah
-
-\subsubsection{Grid optimization}
-% Advantages and disadvantages; full grid and integration of lambda
-Blah
-
-\subsubsection{Gradient method}
-% Explanation and advantages
-Blah
-
-\subsection{Normalization of inputs and standardization of outputs}
-Blah
-
-\subsection{Computational difficulties}
+\subsubsection{Computational difficulties}
 % And solutions
 Blah
 
-\subsubsection{Likelihoods}
+\paragraph{Likelihoods}
 Blah
 
-\subsubsection{Ill-conditioned covariance matrices}
+\paragraph{Ill-conditioned covariance matrices}
+
+\section{Calibration for design}
+
+
+
+\section{Application}
+
+\subsection{Project background}
+
+\subsection{Emulation of finite element simulator}
 Blah
+
+\subsubsection{Wind turbine blade simulator}
+% Here the finite element model will be described
+Blah
+
+\subsubsection{Mathematical basis for the emulator}
+% Includes formulae for trained mean and covariance functions
+Blah
+
+\subsubsection{Experimental design}
+% How we selected the design points at which to observe the simulator
+Blah
+
+\subsubsection{Covariance parameters}
+% How they were selected
+Blah
+
+\paragraph{Finding covariance parameters via MCMC}
+% Why we didn't do it (computational difficulties
+Blah
+
+\paragraph{Grid optimization}
+% Advantages and disadvantages; full grid and integration of lambda
+Blah
+
+\paragraph{Gradient method}
+% Explanation and advantages
+Blah
+
+\begin{figure}
+\centering
+\includegraphics[width=.65\linewidth]{emulator_surface}
+\caption{A slice of the GP emulator (restricted to the output for tip deflection) at thickness =20mm. Red dots are observations from the simulator.}
+\label{fig:emulator_surface}
+\end{figure}
 
 \section{MCMC using the emulator}
 Blah
@@ -102,26 +132,28 @@ Cost & 276.16 & 236.11 & 350.80 & 233.95 \\
 \label{table:obs_var_comp}
 \end{table}
 
+\begin{figure}
+\centering
+\includegraphics[width=.65\linewidth]{comp_obs_var}
+\caption{MCMC results at various observation variance settings.}
+\label{fig:comp_obs_var}
+\end{figure}
+
 \subsubsection{Full model and likelihood}
-Blah
-
-\subsubsection{Computational difficulties}
-% And solutions: log-likelihoods, parallelization of multiple chains
-Blah
-
-\subsection{Boundary constraints}
-% How and why to elminate them
 Blah
 
 \subsubsection{Convergence difficulties}
 % And the idea to eliminate boundary constraints
 Blah
 
-\subsubsection{The Metropolis-Hastings algorithm}
-Blah
-
 \subsubsection{Implementation of the Metropolis-Hastings algorithm}
 Blah
+
+\begin{figure}
+\centering
+\includegraphics[width=.9\linewidth]{ACF_bnd_cnds_fig}
+\caption{Auto-correlation for draws both with and without the elimination of boundary conditions.}
+\end{figure}
 
 \subsection{Which data to desire?}
 Blah
@@ -148,6 +180,15 @@ $(0.65, 0.077, 96)$ & 16.74 & 15.25 & $4.62 \cdot 10^{-7}$ &
 \caption{Comparison of results for two different (low) values of $d$. Values listed are, respectively, the posterior means for the observation variance of each model output, posterior means for volume fraction ($v$) and thickness ($h$), and posterior variance of volume fraction and thickness.}
 \label{table:d_comp}
 \end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=.9\linewidth]{FIG1}
+\includegraphics[width=.9\linewidth]{FIG2}
+\caption{MCMC results for low deflection and cost (top row) and low deflection with easily achievable cost (bottom row).}
+% NOTE: THESE PLOT TITLES ARE WRONG! GOTTA DO THE PLOTS OVER! LOL!
+\label{fig:des_data}
+\end{figure}
 
 \subsection{Exponentially distributed desired data}
 Blah
