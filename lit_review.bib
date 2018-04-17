@@ -1,3 +1,26 @@
+@article{Geman1984,
+abstract = {We make an analogy between images and statistical mechanics systems. Pixel gray levels and the presence and orientation of edges are viewed as states of atoms or molecules in a lattice-like physical system. The assignment of an energy function in the physical system determines its Gibbs distribution. Because of the Gibbs distribution, Markov random field (MRF) equivalence, this assignment also determines an MRF image model. The energy function is a more convenient and natural mechanism for embodying picture attributes than are the local characteristics of the MRF. For a range of degradation mechanisms, including blurring, nonlinear deformations, and multiplicative or additive noise, the posterior distribution is an MRF with a structure akin to the image model. By the analogy, the posterior distribution defines another (imaginary) physical system. Gradual temperature reduction in the physical system isolates low energy states (“annealing”), or what is the same thing, the most probable states under the Gibbs distribution. The analogous operation under the posterior distribution yields the maximum a posteriori (MAP) estimate of the image given the degraded observations. The result is a highly parallel “relaxation” algorithm for MAP estimation. We establish convergence properties of the algorithm and we experiment with some simple pictures, for which good restorations are obtained at low signal-to-noise ratios.},
+author = {Geman, Stuart and Geman, Donald},
+file = {:C$\backslash$:/Users/carle/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Geman, Geman - 1984 - IEEE Transactions on Pattern Analysis and Machine Intelligence.pdf:pdf},
+journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+number = {6},
+pages = {721--741},
+title = {{IEEE Transactions on Pattern Analysis and Machine Intelligence}},
+url = {http://www.dam.brown.edu/people/documents/stochasticrelaxation.pdf},
+volume = {6},
+year = {1984}
+}
+@article{Gelman1992,
+abstract = {The Gibbs sampler, Metropolis' algorithm, and simi-lar iterative simulation methods are related to rejection sampling and importance sampling, two methods which have been traditionally thought of as non-iterative. We explore connections between importance sampling, iter-ative simulation, and importance-weighted resampling (SIR), and present new algorithms that combine aspects of importance sampling, Metropolis' algorithm, and the Gibbs sampler.},
+author = {Gelman, Andrew},
+file = {:C$\backslash$:/Users/carle/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Gelman - 1992 - Iterative and Non-Iterative Simulation Algorithms.pdf:pdf},
+journal = {Computinlg Science and Statistics (Interface Proceedings)},
+pages = {433--438},
+title = {{Iterative and Non-Iterative Simulation Algorithms}},
+url = {http://digitalassets.lib.berkeley.edu/sdtr/ucb/text/347.pdf},
+volume = {24},
+year = {1992}
+}
 @article{Bornstein1976,
 abstract = {The pace of life},
 author = {Bornstein, Marc H. and Bornstein, Helen G.},
@@ -57,6 +80,8 @@ year = {1970}
 @incollection{Neal,
 abstract = {Gaussian processes are a natural way of specifying prior distributions over functions of one or more input variables. When such a function defines the mean response in a regression model with Gaussian errors, inference can be done using matrix computations, which are feasible for datasets of up to about a thousand cases. The covariance function of the Gaussian process can be given a hierarchical prior, which allows the model to discover high-level properties of the data, such as which inputs are relevant to predicting the response. Inference for these covariance hyperparameters can be done using Markov chain sampling. Classification models can be defined using Gaussian processes for underlying latent values, which can also be sampled within the Markov chain. Gaussian processes are in my view the simplest and most obvious way of defining flexible Bayesian regression and classification models, but despite some past usage, they appear to have been rather neglected as a general-purpose technique. This may be partly due to a confusion between the properties of the function being modeled and the properties of the best predictor for this unknown function. In this paper, I hope to persuade you that Gaussian processes are a fruitful way of defining prior distributions for flexible regression and classification models in which the regression or class probability functions are not limited to simple parametric forms. The basic idea goes back many years in a regression context, but is nevertheless not widely appreciated. The use of general Gaussian process models for classification is more recent, and to my knowledge the work presented here is the first that implements an exact Bayesian approach. One attraction of Gaussian processes is the variety of covariance functions one can choose from, which lead to functions with different degrees of smoothness, or different sorts of additive structure. I will describe some of these possibilities, while also noting the limitations of Gaussian processes. I then discuss computations for Gaussian process models, starting with the basic matrix operations involved. For classification models, one must integrate over the ''latent values'' underlying each case. I show how this can be done using Markov chain Monte Carlo methods. In a full-fledged Bayesian treatment, one must also integrate over the posterior distribution for the hyperparameters of the covariance function, which can also be done using Markov chain sampling. I show how this all works for a synthetic three-way classification problem. The methods I describe are implemented in software that is available from my web page, at http://www.cs.utoronto.ca/radford/. Gaussian processes and related methods have been used in various contexts for many years. Despite this past usage, and despite the fundamental simplicity of the idea, Gaussian process models appear to have been little appreciated by most Bayesians. I speculate that this could be partly due to a confusion between the properties one expects of the true function being modeled and those of the best predictor for this unknown function. Clarity in this respect is particularly important when thinking of flexible models such as those based on Gaussian processes.},
 address = {New York},
+annote = {r2018-04-05
+The paper is a pretty basic introduction to the use of Gaussian processes for regression and classification. There's a nice example near the beginning building the concept of GP regression from a case of linear regression. Correspondingly, there is some discussion of covariate matrices producing linear estimates.},
 author = {Neal, Radford M},
 booktitle = {Bayesian Statistics 6},
 editor = {Bernardo, J M and Berger, J O and Dawid, A P and Smith, A F M},
@@ -364,6 +389,7 @@ Ch. 5: Discusses latin hypercube sampling, stratified sampling, uniform designs,
 Ch. 6: Discusses entropy-based designs, MSPE-based designs, and other optimizing designs.
 Ch. 7: Discusses various methods of sensitivity analysis of computer models.},
 author = {Santner, Thomas J. and Williams, Brian J. and Notz, William I.},
+file = {:C$\backslash$:/Users/carle/Desktop/master-driver.pdf:pdf},
 isbn = {1475737998},
 pages = {286},
 publisher = {Springer},
@@ -371,6 +397,7 @@ title = {{The Design and Analysis of Computer Experiments}},
 year = {2003}
 }
 @article{Williams2006,
+abstract = {A flyer plate experiment involves forcing a plane shock wave through stationary test samples of material and measuring the free surface velocity of the target as a function of time. These experiments are conducted to learn about the behavior of materials subjected to high strain rate environments. Computer simulations of flyer plate experiments are conducted with a two-dimensional hydro- dynamic code developed under the Advanced Strategic Computing (ASC) program at Los Alamos National Laboratory. This code incorporates physical models that contain parameters having uncertain values. The objectives of the analyses pre- sented in this paper are to assess the sensitivity of free surface velocity to variations in the uncertain inputs, to constrain the values of these inputs to be consistent with experiment, and to predict free surface velocity based on the constrained inputs. We implement a Bayesian approach that combines detailed physics simulations with experimental data for the desired statistical inference (Kennedy and O'Hagan 2001; Higdon, Kennedy, Cavendish, Cafeo, and Ryne 2004).},
 annote = {r2018-01-12; 2017-11-01
 Section 2.3 was especially helpful for building a GP emulator of a computationally expensive emulator. The rest of the paper deals with related topics such as using the emulator for sensitivity analysis. I just wonder if the sort of approach they use here is going to be appropriate for us, given how many observations we have. They use only 20 simulation observations, we use 504 times three simulator outputs.},
 author = {Williams, Brian and Higdon, Dave and Gattiker, Jim and Moore, Leslie and McKay, Michael and Keller-McNulty, Sallie},
@@ -392,7 +419,7 @@ year = {2006}
 abstract = {The optimal design problem is tackled in the framework of a new model and new objectives. A regression model is proposed in which the regression function is permitted to take any form over the space X of independent variables. The design objective is based on fitting a simplified function for prediction. The approach is Bayesian throughout. The new designs are more robust than conventional ones. They also avoid the need to limit artificially design points to a predetermined subset of X. New solutions are also offered for the problems of smoothing, curve fitting and the selection of regressor variables.},
 annote = {r2018-03-16; 2017-04-20
 O'Hagan walks the reader through the use of Gaussian process models for smoothing, curve fitting, and prediction. Much time is spent on design; it is the focus of the work. However the fundamental mathematics of GP models is laid out probably as clearly and thoroughly as it is possible to do. This includes the formulae for multivariate GP models, as well as GP models with uninformative prior means.},
-author = {O'Hagan, A. and Kingman, J. F. C.},
+author = {O'Hagan, A.},
 booktitle = {Journal of the Royal Statistical Society. Series B (Methodological)},
 doi = {10.2307/2984861},
 file = {:C$\backslash$:/Users/carle/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/O'Hagan, Kingman - 1978 - Curve Fitting and Optimal Design for Prediction(2).pdf:pdf},
@@ -461,10 +488,13 @@ author = {Brown, D. Andrew and Atamturktur, Sez},
 doi = {10.5705/ss.202015.0344},
 eprint = {1602.06202},
 file = {:C$\backslash$:/Users/carle/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Brown, Atamturktur - 2016 - Nonparametric Functional Calibration of Computer Models.pdf:pdf},
+journal = {Statistica Sinica},
 month = {feb},
+pages = {721--742},
 title = {{Nonparametric Functional Calibration of Computer Models}},
 url = {http://arxiv.org/abs/1602.06202 http://dx.doi.org/10.5705/ss.202015.0344},
-year = {2016}
+volume = {28},
+year = {2018}
 }
 @article{Paulo2012,
 abstract = {The problem of calibrating computer models that produce multivariate output is considered, with a particular emphasis on the situation where the model is computationally demanding. The proposed methodology builds on Gaussian process-based response-surface approximations to each of the components of the output of the computer model to produce an emulator of the multivariate output. This emulator is then combined in a statistical model involving field observations, which is then used to produce calibration strategies for the parameters of the computer model. The results of applying this methodology to a simulated example and to a real application are presented.},
@@ -508,7 +538,8 @@ year = {2017}
 }
 @article{Loeppky2006,
 abstract = {Computer models to simulate physical phenomena are now widely available in engineering and science. Before relying on a computer model, a natural first step is often to compare its output with physical or field data, to assess whether the computer model reliably represents the real world. Field data, when available, can also be used to calibrate or tune unknown parameters in the computer model. Calibration is particularly problematic in the presence of systematic discrepancies between the computer model and field observations. We introduce a likelihood alternative to previous Bayesian methodology for estimation of calibration or tuning parameters. In an important special case, we show that maximum likelihood estimation will asymptotically find values of the calibration parameter that give an unbiased computer model, if such a model exists. However, the calibration parameters are not necessarily estimable. We also show in some settings that calibration or tuning need to take into account the end-use prediction strategy. Depending on the strategy, the choice of the parameter values may be critical or unimportant.},
-annote = {To read},
+annote = {r2018-04-06
+Very clearly written. The authors show that MLE calibration is asymptotically unbiased -- not in the sense that the calibration parameter estimate is unbiased, but in the sense that the calibration parameter estimate provides that the discrepancy function is 0; also this asymptotically the case in that it holds if you can draw indefinitely many times from the simulation.},
 author = {Loeppky, Jason L. and Bingham, Derek and Welch, William J.},
 file = {:C$\backslash$:/Users/carle/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Loeppky, Bingham, Welch - 2006 - Computer Model Calibration or Tuning in Practice.pdf:pdf},
 journal = {Technometrics},
@@ -782,7 +813,10 @@ year = {2007}
 }
 @article{Kennedy2001,
 annote = {r2018-01-11; 2016-05-30
-Very thorough and detailed development of the foundation of Bayesian calibration of computer models. Useful walkthrough of that foundation.},
+Very thorough and detailed development of the foundation of Bayesian calibration of computer models. Useful walkthrough of that foundation.
+
+2018-04-16
+The authors assert that theirs is the first attempt to model all the sources of uncertainty in calibration of computer models. This despite the fact that theirs is not a full Bayesian analysis; they use MLEs for some hyperparameters. The authors are explicit in considering calibration to be a matter of finding ``best-fitting" values for calibration parameters; that is, calibration is for them hopelessly confounded with minimizing model inadequacy. (For the same reason, they even suggest performing model calibration on parameters whose true physical value is actually known.) In the examples considered by the authors, they integrate by crude quadrature (rather than MCMC).},
 author = {Kennedy, Marc C. and O'Hagan, Anthony},
 doi = {10.1111/1467-9868.00294},
 file = {:C$\backslash$:/Users/carle/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Kennedy, O'Hagan - 2001 - Bayesian calibration of computer models(2).pdf:pdf},
