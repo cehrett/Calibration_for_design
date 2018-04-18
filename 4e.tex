@@ -50,21 +50,20 @@ Another extension of the framework of \cite{Kennedy2001} and \cite{Bayarri2007} 
 In principle, model calibration\footnote{In this work, ``calibration'' will usually be used broadly to include model tuning; where it is used in such a way as to exclude tuning, this will be made clear in context.}
 need not rely on a GP emulator, or any other sort of emulator; one could (e.g.) complete a full Bayesian analysis via an MCMC chain that involves running the relevant computer model at each iteration of the chain. However, computer models are frequently too computationally expensive to allow for such profligacy. Instead, a computationally tractable emulator can be constructed using a sample of observations from the computer model. As described in Section \ref{computer_experiments}, GPs are popular prior distributions on computer model output, because (1) their use does not require detailed foreknowledge of the model function's parametric form, (2) GPs easily interpolate the (deterministic) computer model output, and (3) GPs facilitate uncertainty quantification through the variance of the posterior GP. In this section, I provide brief background on Gaussian processes and their use in regression broadly and in computer model calibration specifically.
 
-\paragraph{Background}
+%\paragraph{Background}
 
 Gaussian processes can be thought of as generalizations of multivariate normal random variables. Whereas a multivariate normal random variable is a random vector of finite length, a Gaussian process can be thought of as a random function. The value of the function at any finite selection of points is itself a multivariate normal random variable. Just as a multivariate random variable is characterized by its mean vector and covariance matrix, a Gaussian process is fully characterized by its mean function $\mu:D\to \mathbb R$ and covariance function $C:D\times D\to \mathbb R$, where $D$ is the domain of the process. Thus for any points $x,y$ in the domain of the Gaussian process, $\mu(x)$ gives the mean of the Gaussian process at $x$, and $C(x,y)$ gives the covariance between the values of the Gaussian process at points $x$ and $y$. As a special case, then, $C(x,x)$ gives the marginal variance of the GP at $x$. 
 
-\paragraph{Gaussian process regression}
+%\paragraph{Gaussian process regression}
 
 \cite{OHagan1978} suggested the use of GPs as priors for modeling unknown functions. Given observations $\mathbf f$ from the function $f$ being modeled, an updated mean and covariance function $\mu^*(x)=\mu(x)|\mathbf f$ and $C^*(x,y) = C(x,y)|\mathbf f$ describe a new GP that has been ``trained'' on the observations $\mathbf f$. O'Hagan did not focus in that work on applications to computer models. The use of GPs to produce a computationally efficient predictor $\hat \eta (x)$ of expensive computer code $\eta(x)$ given observations of code output at $\mathbf x=\{x_i\}_{i=1}^n$ is promulgated by \cite{Sacks1989} and explored at length by \cite{Santner2003a}. Since computer code is typically deterministic, these applications differ from O'Hagan's focus in that the updated GP is induced to interpolate the observations $\boldsymbol \eta = (\eta(x_1),\cdots,\eta(x_n))^T$. The updated mean allows for prediction of the computer model at points not observed, with uncertainty quantified by the updated covariance function.
 
 Suppose, for example, that we begin with a prior GP with constant mean function $\mu(x)=0\ \forall x$. Notice that we may use our covariance function $C$ to define an $n\times n$ matrix $\mathbf C_{\mathbf x,\mathbf x}$ such that the $i,j$ entry of $\mathbf C_{\mathbf x,\mathbf x}$ is equal to $C(x_i,x_j)$. We may wish to train our GP on these $n$ observations, and then examine the resulting posterior GP at the points $\mathbf x'=\{x_i' \}_{i=1}^m$. Recall that the GP at the points $\mathbf x'$ is a multivariate normal random variable of length $m$, which is fully characterized by its mean vector $\mu^*_{\mathbf x'}$ and covariance matrix $\mathbf C^*_{\mathbf x',\mathbf x'}$. We can find these as:
-\[
-\mu^*_{\mathbf x'}=\mathbf C_{\mathbf x',\mathbf x}\cdot \mathbf C_{\mathbf x,\mathbf x} ^{-1}\cdot \boldsymbol \eta
-\]
-\[
-\mathbf C^*_{x'}=\mathbf C_{x',x'}-\mathbf C_{x',x}\cdot \mathbf C_{x,x}^{-1}\cdot \mathbf C_{x,x'}
-\]
+\begin{equation}\label{eq:post_gp}\begin{split}
+\mu^*_{\mathbf x'}&=\mathbf C_{\mathbf x',\mathbf x}\cdot \mathbf C_{\mathbf x,\mathbf x} ^{-1}\cdot \boldsymbol \eta
+\\
+\mathbf C^*_{\mathbf x'}&=\mathbf C_{\mathbf x',\mathbf x'}-\mathbf C_{\mathbf x',\mathbf x}\cdot \mathbf C_{\mathbf x,\mathbf x}^{-1}\cdot \mathbf C_{\mathbf x,\mathbf x'}
+\end{split}\end{equation}
 A visualization of this example can be found in Figure \ref{fig:gp_example}. Here, $n=5$, and $x'=(-5,-4.75,⋯,4.75,5)$. 
 
 \begin{figure}[h]
@@ -79,7 +78,7 @@ Though the approach of \cite{OHagan1978} was Bayesian, it did not provide for Ba
 By contrast, much recent attention following the work of \cite{Santner2003a} and \cite{Sacks1989} has focused specifically on the use of GPs for computer model emulation. 
 \cite{Kennedy2001} themselves develop an influential framework for Bayesian analysis using GPs specifically for computer model calibration. \cite{Kennedy2006} showcase this use of GP emulators for uncertainty and sensitivity analyses. \cite{Bastos2009} describes both numerical and graphical diagnostic techniques for assessing when a GP emulator of a computer model is successful, as well as discussion of likely causes of poor diagnostic results. While most work in the area of GP emulation uses stationary covariance functions (in which $C(x,y)=C(|x-y|)$ depends only on the distance between $x$ and $y$, and not on their location in the input domain) and quantitative inputs, efforts have been made to branch away from these core uses. \cite{Gramacy2008} use treed partitioning to deal with a nonstationary computer model. \cite{Qian2008} explore methods for using GP emulators that include both quantitative and qualitative inputs.
 
-\paragraph{Gaussian processes in computer model calibration}
+%\paragraph{Gaussian processes in computer model calibration}
 
 Aside from \cite{Kennedy2001}, recent applications of GP emulation specifically to problems of calibration have focused largely on the works of \cite{Williams2006} and \cite{Bayarri2007}. It will be helpful here to provide an illustrative summary of the approach taken by \cite{Williams2006}, both to exemplify the use of GPs for computer model calibration and because the approach utilized in the present work closely follows theirs.
 
@@ -142,30 +141,41 @@ $\pi(\mathcal D | \theta,c,\lambda_\eta, \beta^\eta,\lambda_\delta,\beta^\delta,
 
 \subsubsection{Markov chain Monte Carlo methods}
 
-\paragraph{Background}
+%\paragraph{Background}
 
 The central idea of Markov chain Monte Carlo (MCMC) integration is to construct a Markov chain which has as its equilibrium distribution the target distribution one wishes to explore. The Markov chain is observed, and beyond an initial ``burn-in'' period during which the chain is allowed to approach its equilibrium distribution, samples are considered to be drawn approximately from the target distribution.
 
 For example, consider a model with full distribution given by (\ref{eq:full_dist}), but where discrepancy is not included and $\lambda_\eta,\rho^\eta$ are found via maximum likelihood estimation. Then the full distribution is given by $\pi(\theta,c,\lambda_\eta,\rho^\eta,\lambda_\delta,\rho^\delta|\mathcal D)
-\propto \pi(\mathcal D | \theta,c,\lambda_\eta, \beta^\eta,\lambda_\delta,\beta^\delta,\mathbf C_y) \times \pi(c)$. A simple means of exploring this distribution via MCMC would begin with an initial guess $\theta^{(1)},c^{(1)}$. At the $i^{\text{th} }$ step for $i=2,\cdots$, using a proposal distribution $\pi_{prop}(\cdot,\cdot)$ from which we may easily sample directly, we draw a new ``proposed'' sample $\theta^*,c^*\sim \pi_{prop}(\theta^{(i-1)},c^{(i-1)})$. We then with probability $\alpha$ accept this new proposed sample, setting $(\theta^{(i)},c^{(i)}) = (\theta^*,c^*)$; otherwise we reject the proposed sample and let $(\theta^{(i)},c^{(i)}) = (\theta^{(i-1)},c^{(i-1)})$. In doing so, we have 
-\[
+\propto \pi(\mathcal D | \theta,c,\lambda_\eta, \beta^\eta,\lambda_\delta,\beta^\delta,\mathbf C_y) \times \pi(c)$. A simple means of exploring this distribution via MCMC would begin with an initial guess $\theta^{(1)},c^{(1)}$. At the $i^{\text{th} }$ step for $i=2,\cdots$, using a proposal distribution $\pi_{prop}(\cdot,\cdot|{\theta^{(i-1)},c^{(i-1)}})$ from which we may easily sample directly, we draw a new ``proposed'' sample $\theta^*,c^*$. We then with probability $\alpha$ accept this new proposed sample, setting $(\theta^{(i)},c^{(i)}) = (\theta^*,c^*)$; otherwise we reject the proposed sample and let $(\theta^{(i)},c^{(i)}) = (\theta^{(i-1)},c^{(i-1)})$. In doing so, we have 
+\begin{equation}\label{eq:mh-acceptance}
 \alpha = \frac{\pi(\theta^*,c^* | \mathcal D)}{ \pi(\theta^{(i-1)},c^{(i-1)}|\mathcal D) } = 
 \frac{ \pi(\mathcal D | \theta^*,c^*,\lambda_\eta, \beta^\eta,\lambda_\delta,\beta^\delta,\mathbf C_y) \times \pi(c^*)}{\pi(\mathcal D | \theta^{(i-1)},c^{(i-1)},\lambda_\eta, \beta^\eta,\lambda_\delta,\beta^\delta,\mathbf C_y) \times \pi(c^{(i-1)})}
-\]
+\end{equation}
 Note that in order to proceed in this way, it is necessary that $\pi_{prop}$ be a symmetric distribution. The version of MCMC described in this example is known as the Metropolis-Hastings algorithm; it was initially described by \cite{Metropolis1953} and generalized by \cite{Hastings1970}. A thorough exposition of the technique, its theoretical foundation, and its relation to other  varieties of MCMC is provided by \cite{Chib1995}.
 
 % Gibbs
 A related variant of MCMC -- in fact, a special case of Metropolis-Hastings, as shown by \cite{Gelman1992} -- is Gibbs sampling, initially described by \cite{Geman1984}. In using Gibbs sampling, one finds the conditional distribution of each of the parameters one wishes to sample, using the most recent samples of all other parameters. For example, we can convert the above Metropolis-Hastings illustration to a simple case of Gibbs sampling as follows.
-Begin as before, with initial guesses $\theta^{(1)}$ and $c^{(1)}$. Thereafter, sample $\theta$ and $c$ not together, but rather alternating. That is, at the $i^{\text{th} }$ step for $i=2,\cdots$, draw $\theta^{(i)}$ conditional on $c=c^{(i-1)}$, then draw $c^{(i)}$ conditional on $\theta=\theta^{(i)}$. Thus, for example, when drawing $c^{(i)}$, its conditional distribution would be proportional to $\pi(\mathcal D | \theta^{(i)},c^{*},\lambda_\eta, \beta^\eta,\lambda_\delta,\beta^\delta,\mathbf C_y) \times \pi(c^{*})$. 
+Begin as before, with initial guesses $\theta^{(1)}$ and $c^{(1)}$. Thereafter, sample $\theta$ and $c$ not together, but rather in alternating draws. That is, at the $i^{\text{th} }$ step for $i=2,\cdots$, draw $\theta^{(i)}$ conditional on $c=c^{(i-1)}$, then draw $c^{(i)}$ conditional on $\theta=\theta^{(i)}$. Thus, for example, when drawing $c^{(i)}$, its conditional distribution would be proportional to $\pi(\mathcal D | \theta^{(i)},c^{*},\lambda_\eta, \beta^\eta,\lambda_\delta,\beta^\delta,\mathbf C_y) \times \pi(c^{*})$. 
 If the conditional distribution is something from which we may easily draw directly, then we can draw $c^{(i)}$ that way; otherwise, we can use a so-called Metropolis-within-Gibbs scheme, and draw $c^{(i)}$ similarly to what was described above for the Metropolis-Hastings algorithm: draw a proposed $c^*$ from a proposal distribution, find the appropriate ratio $\alpha_c$, and accept or reject $c^*$ accordingly. In the application considered in the present work, Metropolis-within-Gibbs will be used.
-\paragraph{Elimination of boundary constraints}
 
-\subsubsection{Normalization of inputs and standardization of outputs}
-Blah
+%\paragraph{Elimination of boundary constraints}
+
+Recall that a symmetric proposal distribution is required in order for the Metropolis-Hastings algorithm to proceed as described in the above illustration of that technique. However, the algorithm can accommodate an asymmetric proposal distribution with only slight complication. A frequent reason for using an asymmetric proposal distribution is the existence of boundary constraints on the parameter being sampled. Thus, for example, in the application considered in the present work, one of the calibration parameters is the thickness (in mm) of the material forming a wind turbine blade. Expert opinion was used to set the support of this parameter to be the range [10mm, 25mm]. Good mixing in the MCMC chain is promoted by choosing a proposal density such that the distribution $\pi_{prop}(\cdot|\tau)$ has mean $\tau$. With boundary constraints, this requires an asymmetric distribution. When $\pi_{prop}(\cdot|\tau)$ is asymmetric, this changes the above illustration only by way of requiring us to calculate the acceptance probability $\alpha$ as follows:
+\begin{equation}\label{eq:mh-correction}
+\alpha = \frac{\pi(\theta^*,c^* | \mathcal D)}{ \pi(\theta^{(i-1)},c^{(i-1)}|\mathcal D) } \times 
+\frac{
+\pi_{prop}(\theta^{(i-1)},c^{(i-1)}|\theta^*,c^*)
+}{
+\pi_{prop}(\theta^*,c^*|\theta^{(i-1)},c^{(i-1)}).
+}
+\end{equation}
+
+%\subsubsection{Normalization of inputs and standardization of outputs}
+%Blah
 
 \subsubsection{Computational difficulties}
 % And solutions
-Blah
+Note that the joint posterior density given in (\ref{eq:full_dist}) above includes $\mathbf C_{\mathcal D}$, which, depending on how many field and simulation observations one has, may be of fearsomely high dimension. This can lead to computational difficulties in calculating $\alpha$ in the course of the MCMC routine. Difficulties arise in two ways. Firstly, the likelihood given in (\ref{eq:full_dist}) evaluated at a given point can be so small as to be vulnerable to significant round-off error. Secondly, the poor conditioning of $\mathbf C_{x,x}$ in (\ref{eq:post_gp}) can make it difficult to invert. The latter problem can be alleviated by adding a small nugget to $\mathbf C_{x,x}$; i.e., (abusing notation somewhat) we can set $\mathbf C_{x,x}= \mathbf C_{x,x} + \xi \cdot \mathbf I_{\mathrm{dim}(\mathbf x)}$
 
 \paragraph{Likelihoods}
 Blah
