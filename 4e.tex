@@ -161,13 +161,14 @@ If the conditional distribution is something from which we may easily draw direc
 %\paragraph{Elimination of boundary constraints}
 
 Recall that a symmetric proposal distribution is required in order for the Metropolis-Hastings algorithm to proceed as described in the above illustration of that technique. However, the algorithm can accommodate an asymmetric proposal distribution with only slight complication. A frequent reason for using an asymmetric proposal distribution is the existence of boundary constraints on the parameter being sampled. Thus, for example, in the application considered in the present work, one of the calibration parameters is the thickness (in mm) of the material forming a wind turbine blade. Expert opinion was used to set the support of this parameter to be the range [10mm, 25mm]. Good mixing in the MCMC chain is promoted by choosing a proposal density such that the distribution $\pi_{prop}(\cdot|\tau)$ has mean $\tau$. With boundary constraints, this requires an asymmetric distribution. When $\pi_{prop}(\cdot|\tau)$ is asymmetric, this changes the above illustration only by way of requiring us to calculate the acceptance probability $\alpha$ as follows:
-\begin{equation}\label{eq:mh-correction}
-\alpha = \frac{\pi(\theta^*,c^* | \mathcal D)}{ \pi(\theta^{(i-1)},c^{(i-1)}|\mathcal D) } \times 
+\begin{equation}\label{eq:mh_correction}
+\alpha = \frac{\pi(\theta^*,c^* | \mathcal D)}
+{ \pi(\theta^{(i-1)},c^{(i-1)}|\mathcal D) } \times 
 \frac{
 \pi_{prop}(\theta^{(i-1)},c^{(i-1)}|\theta^*,c^*)
 }{
-\pi_{prop}(\theta^*,c^*|\theta^{(i-1)},c^{(i-1)}).
-}
+\pi_{prop}(\theta^*,c^*|\theta^{(i-1)},c^{(i-1)})
+}.
 \end{equation}
 
 %\subsubsection{Normalization of inputs and standardization of outputs}
@@ -175,16 +176,54 @@ Recall that a symmetric proposal distribution is required in order for the Metro
 
 \subsubsection{Computational difficulties}
 % And solutions
-Note that the joint posterior density given in (\ref{eq:full_dist}) above includes $\mathbf C_{\mathcal D}$, which, depending on how many field and simulation observations one has, may be of fearsomely high dimension. This can lead to computational difficulties in calculating $\alpha$ in the course of the MCMC routine. Difficulties arise in two ways. Firstly, the likelihood given in (\ref{eq:full_dist}) evaluated at a given point can be so small as to be vulnerable to significant round-off error. Secondly, the poor conditioning of $\mathbf C_{x,x}$ in (\ref{eq:post_gp}) can make it difficult to invert. The latter problem can be alleviated by adding a small nugget to $\mathbf C_{x,x}$; i.e., (abusing notation somewhat) we can set $\mathbf C_{x,x}= \mathbf C_{x,x} + \xi \cdot \mathbf I_{\mathrm{dim}(\mathbf x)}$
+Note that the joint posterior density given in (\ref{eq:full_dist}) above includes $\mathbf C_{\mathcal D}$, which, depending on how many field and simulation observations one has, may be of fearsomely high dimension. This can lead to computational difficulties in calculating $\alpha$ in the course of the MCMC routine. Difficulties arise in two ways. Firstly, the likelihood given in (\ref{eq:full_dist}) evaluated at a given point can be so small as to be vulnerable to significant round-off error. Secondly, the poor conditioning of $\mathbf C_{x,x}$ in (\ref{eq:post_gp}) can make it difficult to invert and find the determinant of this matrix, as must be done in the course of the MCMC to find the relevant likelihoods. The latter problem can be alleviated by adding a small nugget to $\mathbf C_{x,x}$; i.e., (abusing notation somewhat) we can set $\mathbf C_{x,x}= \mathbf C_{x,x} + \xi \cdot \mathbf I_{\mathrm{dim}(\mathbf x)}$ for some very small value of $\xi$, e.g., $\xi=10^{-4}$. For a more sophisticated way of selecting the nugget size, see \cite{XXX}. Note that adding a nugget here is equivalent to adding a small amount of observation variance for the simulator observations. That is, in adding this nugget, we no longer require that the GP emulator precisely interpolate the simulation observations. However, for very small nuggets, this effect is so small as to be insignificant, though the computational benefits remain. Thus nothing is lost in continuing to think of the GP emulator as interpolating the simulation observations.
 
-\paragraph{Likelihoods}
-Blah
-
-\paragraph{Ill-conditioned covariance matrices}
+The other problem -- round-off error due to small likelihoods -- can be alleviated through substituting the use of log-likelihoods in the MCMC routine. Thus, rather than finding $\alpha$ in (\ref{eq:mh_correction} directly, it is preferable to find 
+\begin{equation}\label{eq:log_lik_alpha}
+\log \alpha = \log \pi(\theta^*\!,c^* | \mathcal D) + \log \pi_{prop}(\theta^{(i-1)}\!,c^{(i-1)}|\theta^*\!,c^*) - \log \pi(\theta^{(i-1)}\!,c^{(i-1)}|\mathcal D) - \log \pi_{prop}(\theta^*\!,c^*|\theta^{(i-1)}\!,c^{(i-1)})
+\end{equation}
+Of course, in order to enjoy the computational benefits of this approach, one must perform calculations on the log scale from the start; it would not do to, e.g., find $\pi(\theta^*, c^*|\mathcal D)$ on its original scale and then take its log. 
 
 \section{Calibration for design}
 
+% Intro: description of sort of situation in which you'd want this
 
+Suppose that a researcher has a fairly reliable computer model of a given system. Suppose furthermore that 
+
+\subsection{Desired observations}
+% This describes the basic idea.
+% Include discussion: how do we select desired data?
+% Also include discussion of how this is actually effected. This discussion will be short, because the answer is that it will use the framework described already in the previous section.
+
+\subsubsection{Level of desired data}
+% Arbitrariness recommending prior on observation variance
+
+\subsubsection{Set target via desired data, or prior distribution?}
+
+\subsection{Model shortcoming}
+% How do we account for the model's failure to achieve our desired data?
+% Through observation variance quote unquote?
+% Or through the discrepancy function.
+% The is a way of letting the errors be correlated, which may be nice
+
+\subsubsection{Observation error}
+
+% Specifying observation error (including specifying different errors)
+
+% Setting a prior on observation error
+
+\subsubsection{Model discrepancy}
+
+\subsection{Field observations and model discrepancy}
+% Here, discuss whether or how to include field observations.
+
+\subsubsection{Pre-calibration}
+
+\subsubsection{Joint calibration}
+% Careful how you do this. You probably want to account for model shortcoming by way of observation variance, not discrepancy, since a discrepancy function would confound model shortcoming with model inadequacy 
+
+\subsection{Hyperparameter estimation}
+% Basically, make the case for modularization here. So your desired data doesn't infect your hyperparameters. After all, you want these set to most closely emulate the computer model. You want these reflecting reality, not reflecting your targets.
 
 \section{Application}
 
@@ -378,6 +417,8 @@ Blah
 
 \bibliographystyle{authordate1}
 % This style file is a version of the plain.bst style file which I edited myself to add abstract and annotation fields.
+
+\pagebreak
 
 \bibliography{lit_review}
 
