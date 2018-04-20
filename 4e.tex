@@ -184,27 +184,41 @@ The other problem -- round-off error due to small likelihoods -- can be alleviat
 \end{equation}
 Of course, in order to enjoy the computational benefits of this approach, one must perform calculations on the log scale from the start; it would not do to, e.g., find $\pi(\theta^*, c^*|\mathcal D)$ on its original scale and then take its log. 
 
-\section{Calibration for design}
+\section{Calibration for design}\label{calib_for_design}
 
 % Intro: description of sort of situation in which you'd want this
 
-Suppose that a researcher has a fairly reliable computer model of a given system. Suppose furthermore that 
+Suppose that a researcher has a fairly reliable computer model of a given system. Suppose furthermore that some of the parameters of that system can be controlled, and that the researcher hopes to select values for these controllable parameters that will facilitate certain target outcomes from the system. An example would be selecting a building layout conducive to efficient evacuation, as modeled using SIMULEX.
+
+We may approach such problems as a matter of calibration. In traditional calibration as described in Section \ref{introduction}, a computer model is calibrated to observations of reality. This is done in order to find settings for the computer model that induce its output to match reality. Similarly, one may seek to ``calibrate'' a computer model to a set of \emph{desired} observations, in order to find settings that induce the model's output to match those desires. 
+
+Of course, computer models are more malleable than reality, and it is trivial to modify a computer model so that its output matches any given target; there is little difficulty and less value to creating a computational ``yes man''. But in many cases one is fortunate to have (perhaps after undertaking traditional model calibration, validation and verification) a computer model such that one is independently confident of the model's faithfulness to reality over a given range $\mathcal T$ of controllable parameters $t$. In such a circumstance, in calibrating $t\in\mathcal T$ to one's desires, one does not risk calibrating the model \emph{away} from agreement with reality; instead, one finds the settings that achieve the best approximation to the desired observations which remains realistic.
+
+The tools of model calibration founded in the work of \cite{Kennedy2001} retain their advantages in this new domain. Most centrally, such calibration to desired observations $y$ produces not merely a static optimum $t\in\mathcal T$, but rather a posterior distribution of $t|y$ reflective of remaining uncertainty about the appropriate value of $t$. Such uncertainty may have its source in parameter uncertainty (uncertainty about the values of certain model inputs), code uncertainty (uncertainty about how closely the code approximates reality), and especially saliently in this case, what in traditional calibration would be considered observation errors. Of course, our desired observations are not actually observations, and the concept of observation error does not cleanly transfer here. But a relevantly similar uncertainty would be uncertainty over how close reality \emph{can} come to our desired observations. The model calibration framework of \cite{Kennedy2001} allows for the quantification of all of these uncertainties.
 
 \subsection{Desired observations}
 % This describes the basic idea.
 % Include discussion: how do we select desired data?
 % Also include discussion of how this is actually effected. This discussion will be short, because the answer is that it will use the framework described already in the previous section.
 
+
 \subsubsection{Level of desired data}
 % Arbitrariness recommending prior on observation variance
+Unlike in the case of field observations, when calibrating to desired observations, the question arises of determining what exactly one's desired observations are. In many cases, no objectively natural target manifests itself. Consider again the case of building evacuation. In the case of a multi-story building, one might plausibly expect to achieve evacuation times of no less than fifteen minutes. But plausibility is no barrier to desire, and it would be a mistake to limit one's desired observations to what is antecedently believed to be achievable, if only because to do so would foreclose on the possibility of exceeding those expectations. In the case of building evacuation, then, one might conclude that the desired observation is in fact instantaneous evacuation -- \textit{per impossible}. But, having discarded realism, even this lower bound is not inevitable. Why not calibrate to a \emph{negative} evacuation time, while we're at it?
+
+Such a choice of desired observation would indeed be consistent with the method of calibrating to desired observations, and in certain situations may even be appropriate. However, in general, desired observations should aim only a little beyond what is realistically achievable. I described above why it is preferable to go beyond what is achievable. There are two reasons why one should go only a little beyond that. (1) If desired observations are set to be too farfetched, then the relevant likelihoods can become unnecessarily computationally unstable due to underflow and round-off error. (2) The desired observations lose a measure of interpretability when they delve too far into the fantastical, such as with negative evacuation times. Identifying the appropriate range of outputs for desired observations, which exceed reality but slightly, will of course often require one to consult expert opinion. 
 
 \subsubsection{Set target via desired data, or prior distribution?}
+
+In undertaking model calibration to achieve desired system output, directly setting desired observation is not the only option. For example, in the application considered below in Section \ref{application}, the calibration parameters are controllable features of material design, and the cost of the resulting material is one of the outputs for which we establish targets. Two approaches are used for doing this. One approach is simply to include a desired observation of cost, and calibrate to that along with the other desired observation targets.
 
 \subsection{Model shortcoming}
 % How do we account for the model's failure to achieve our desired data?
 % Through observation variance quote unquote?
 % Or through the discrepancy function.
 % The is a way of letting the errors be correlated, which may be nice
+
+
 
 \subsubsection{Observation error}
 
@@ -225,7 +239,7 @@ Suppose that a researcher has a fairly reliable computer model of a given system
 \subsection{Hyperparameter estimation}
 % Basically, make the case for modularization here. So your desired data doesn't infect your hyperparameters. After all, you want these set to most closely emulate the computer model. You want these reflecting reality, not reflecting your targets.
 
-\section{Application}
+\section{Application}\label{application}
 
 \subsection{Project background}
 
