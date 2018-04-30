@@ -41,7 +41,7 @@ The work of \cite{Kennedy2001} has been influential in this area. Kennedy and O'
 \cite{Bayarri2007} extends the approach of Kennedy and O'Hagan, providing a framework that is intended to allow for simultaneous validation and calibration of a computer model (using the same training data). Though they  work within the Bayesian framework set by Kennedy and O'Hagan, they mitigate the integrity of the Bayesian analysis through what they call ``modularization''. Modularization refers to separating sources of information, so that the model has distinct components or ``modules'', rather than allowing all information to combine into a single analysis under the umbrella of Bayes' theorem. \cite{Liu2009} focus directly on the use of modularization, exploring its advantages and disadvantages; amongst other potential motivations, they show that modularization can improve the identifiability of calibration parameters. 
 \cite{Bayarri} furthers the project of \cite{Bayarri2007} by applying the latter's methodology to functional data. To do so, the methodology for dealing with scalar data is hierarchically applied to the coefficients of a wavelet representation of the functional data. Similarly, \cite{Paulo2012} focuses on applying the lessons of \cite{Bayarri2007} to computer models with multivariate output.
 
-Above, I have described model calibration as a matter of estimating the true values of unknown parameters. Indeed, that is the sort of model calibration that will form the focus on the present work. However, in a broad sense of the term, model calibration takes a second form as well. For convenience, we may distinguish this second form by referring to it as \emph{tuning}, rather than as calibration. In model tuning, a computer model includes inputs which must be calibrated, but which have no particular interpretation; i.e., tuning parameters do not represent the truth regarding some value of the system being modeled. The work of \cite{Brynjarsdottir2014} emphasizes the distinction between calibration and tuning. They show that whereas a well-modeled discrepancy function ($\delta(\cdot)$ in Equation \ref{model_gen}) may not be necessary for tuning, since the tuning process can accomplish much of the work of a discrepancy function, an accurate discrepancy function is crucial for calibration, for the same reason. Letting the calibration process take on the duties of the discrepancy function reduces the identifiability of the calibration parameters.
+Above, I have described model calibration as a matter of estimating the true values of unknown parameters. Indeed, that is the sort of model calibration that will form the focus on the present work. However, in a broad sense of the term, model calibration takes a second form as well. For convenience, we may distinguish this second form by referring to it as \emph{tuning}, rather than as calibration. In model tuning, a computer model includes inputs which must be calibrated, but which have no particular interpretation; i.e., tuning parameters do not represent the truth regarding some value of the system being modeled. The work of \cite{Brynjarsdottir2014} emphasizes the distinction between calibration and tuning. They show that whereas a well-modeled discrepancy function ($\delta(\cdot)$ in Equation \ref{eq:model_gen}) may not be necessary for tuning, since the tuning process can accomplish much of the work of a discrepancy function, an accurate discrepancy function is crucial for calibration, for the same reason. Letting the calibration process take on the duties of the discrepancy function reduces the identifiability of the calibration parameters.
 
 Another extension of the framework of \cite{Kennedy2001} and \cite{Bayarri2007} is the \emph{state-aware} calibration of \cite{Brown2016}. When one knows or suspects that the appropriate value of a calibration parameter $\theta$ is dependent upon the other inputs $x$, state-aware calibration allows for the calibration procedure to estimate $\theta$ as $\theta(x)$. This may obviate the need for a discrepancy function, either because the true value of the calibration parameter does indeed vary with the other inputs, or (in a tuning problem) because varying the tuning parameter can accomplish the work of a discrepancy function in aligning the computer model response with reality.
 
@@ -86,7 +86,7 @@ Consider that we have inputs $x\in \mathbb R^p$ and $t\in\mathbb R^q$ scaled to 
 \begin{equation}\label{eq:2}
 y(x_i) = f(x_i) + \epsilon(x_i),\quad i=1,\cdots,n,
 \end{equation}
-where $f(\cdot)$ is the true system and $\epsilon(x_i)$ is known measurement error. Then by Equation \ref{model_gen} we have
+where $f(\cdot)$ is the true system and $\epsilon(x_i)$ is known measurement error. Then by Equation \ref{eq:model_gen} we have
 \begin{equation}\label{eq:2}
 y(x_i) = \eta(x_i,\theta) + \delta(x_i) + \epsilon(x_i),\quad i=1,\cdots,n
 \end{equation}
@@ -108,7 +108,7 @@ The authors place the following priors on the hyperparameter:
 \pi(\lambda_\eta) &\sim \mathrm{Gamma}(5,5),\quad\lambda_\eta>0\\
 \pi\left(\rho_k^\eta\right) &\sim \mathrm{Beta}(1,0.1),\quad k=1,\cdots,p+q
 \end{align}
-where $\rho_k^\eta=\exp(-\beta_k^\eta)/4)$ $\forall k$. The parameters of the Gamma and Beta distributions are chosen to encourage $\lambda_\eta$ to be close to one, and $\beta_k$ to be low for all $k$ (encouraging strong dependence; i.e., we antecedently expect each of our inputs to be influential). Furthermore, the authors let $v\to0$, i.e., the GP is assumed to have constant mean $c=0$.
+where $\rho_k^\eta=\exp(-\beta_k^\eta/4)$ $\forall k$. The parameters of the Gamma and Beta distributions are chosen to encourage $\lambda_\eta$ to be close to one, and $\beta_k$ to be low for all $k$ (encouraging strong dependence; i.e., we antecedently expect each of our inputs to be influential). Furthermore, the authors let $v\to0$, i.e., the GP is assumed to have constant mean $c=0$.
 
 The authors similarly model the discrepancy term as a GP, also with mean zero, and covariance function
 \begin{equation}
@@ -132,11 +132,11 @@ C((x_i,t_i),(x_j,t_j)) + I(i,j>n)\cdot(C_{obs}(x_i,x_j) + C_\delta(x_i,x_j))
 \end{equation}
 Thus, the joint posterior density given by the model is
 \begin{equation} \label{eq:full_dist}
-\pi(\theta,c,\lambda_\eta,\rho^\eta,\lambda_\delta,\rho^\delta|\mathcal D)
+\pi(\theta,c,\lambda_\eta,\rho^\eta,\lambda_\delta,\rho^\delta,\sigma^2|\mathcal D)
 \propto \pi(\mathcal D | \theta,c,\lambda_\eta, \beta^\eta,\lambda_\delta,\beta^\delta,\mathbf C_y) \times \pi(c) \times \pi(\lambda_\eta) \times 
 \pi(\rho^\eta) \times \pi(\lambda_\delta) \times \pi(\rho^\delta)
 \end{equation}
-Note that where a discrepancy function is not included in the model and the mean $c$ is treated as a constant, (\ref{eq:full_dist}) simplifies greatly; where furthermore $\lambda_\eta$ and $\rho^\eta$ are estimated via maximum likelihood (as in  \cite{Kennedy2001}),  (\ref{eq:full_dist}) simplifies down merely to 
+where $\sigma^2$ gives the observation variance of the measurement error $\epsilon$. Note that where a discrepancy function is not included in the model and the mean $c$ is treated as a constant, (\ref{eq:full_dist}) simplifies greatly; where furthermore $\lambda_\eta$ and $\rho^\eta$ are estimated via maximum likelihood (as in  \cite{Kennedy2001}),  (\ref{eq:full_dist}) simplifies down merely to 
 $\pi(\mathcal D | \theta,c,\lambda_\eta, \beta^\eta,\lambda_\delta,\beta^\delta,\mathbf C_y)$. Markov chain Monte Carlo methods are useful for evaluating (\ref{eq:full_dist}); the next section takes up this topic.
 
 \subsubsection{Markov chain Monte Carlo methods}
@@ -261,7 +261,7 @@ Thus to simultaneously undertake traditional calibration and calibration to desi
 
 In the unlikely event that the calibration parameters coincide under the two sorts of calibration, it would be possible to undertake a single round of calibration to both field and desired observations. It would be necessary to take care with how to treat model shortcoming in this scenario. Attempting to capture it via the model discrepancy function would likely lead to confounding the true model discrepancy with the model shortcoming, undermining both calibration goals. A more hopeful route would be to use observation variance to incorporate the model shortcoming; this would allow one to specify a larger observation variance for desired observations than for field observations (and that only if these two sets of observations do not share locations in $\mathcal X$). Even this strategy would only mitigate the confounding of the two calibration goals, and should only be used if the budget for simulation observations is so small as to make it infeasible to perform two separate calibrations.
 
-\subsection{Hyperparameter estimation}
+\subsection{Hyperparameter estimation}\label{hyperparameter_estimation}
 % Basically, make the case for modularization here. So your desired data doesn't infect your hyperparameters. After all, you want these set to most closely emulate the computer model. You want these reflecting reality, not reflecting your targets.
 Consider the covariance function parameters $\lambda_\eta,\beta^\eta$ of (\ref{eq:Hig_cov}). In a full Bayesian analysis, these would be searched over in the MCMC along with the calibration parameters. However, \cite{Kennedy2001} instead find the MLEs of these hyperparameters prior to calibration. More generally, \cite{Liu2009} advocate modularization, described in Section \ref{computer_model_calibration} above. A key motivation of modularization is to protect good components of the model from ``suspect'' components of the model, and desired observations are, by their very nature, ``suspect''. In other words, the model most successfully represents reality when the settings for these hyperparameters are guided by accurate and precise information about the true system. Desired observations are deliberately not such information. In essence, attempting a full Bayesian analysis that finds these hyperparameter settings as part of the calibration to desired observations would be committing the same sort of error as described in the previous section: namely, calibration to desired observations should be used to tune only those parameters which are within our control over a range $\mathcal T$ such that the model faithfully represents reality over all of $\mathcal T$. In the true system, the hyperparameters of the covariance function are not under our control.
 
@@ -269,8 +269,7 @@ Therefore, care should be taken to prevent the infection of covariance hyperpara
 
 \section{Application}\label{application}
 
-In this section I apply calibration to desired observations to the problem of selecting a material for constructing a wind turbine blade of fixed geometry. In traditional engineering design, material selection is a matter of selecting a material with appropriate properties for the project at hand from a database of known materials, often as a matter of ad-hoc satisficing. Material design usually occurs separately, and without an eye to specific end-uses. It is desirable to wed these design processes, selecting a material design by modeling its performance outcomes in a particular engineering application. Therefore, here I offer a calibration of material design parameters to desired performance targets for a wind turbine blade. This calibration is mediated by a finite element model using \texttt{ANSYS} simulation software
-\footnote{
+In this section I apply calibration to desired observations to the problem of selecting a material for constructing a wind turbine blade of fixed geometry. In traditional engineering design, material selection is a matter of selecting a material with appropriate properties for the project at hand from a database of known materials, often as a matter of ad-hoc satisficing. Material design usually occurs separately, and without an eye to specific end-uses. It is desirable to wed these design processes, selecting a material design by modeling its performance outcomes in a particular engineering application. Therefore, here I offer a calibration of material design parameters to desired performance targets for a wind turbine blade. This calibration is mediated by a finite element model using \texttt{ANSYS} simulation software\footnote{
 The finite element code was authored by Evan Chodora.
 }
 , which is treated as an unbiased representation of reality.
@@ -281,55 +280,83 @@ Two primary performance targets for the design and construction of wind turbine 
 
 The finite element model takes as inputs a triplet $(t,v,k)$, which are respectively the operating temperature of the wind turbine (in kelvin), the volume fraction of the material, and the thickness of the material. The outputs of the model are a triplet $(d,r,c)$, which are tip deflection (in meters), rotation (in radians), and cost per square meter (USD). The wind turbine should be capable of operating over the range of temperatures 230K-330K. The goal of calibration is thus to find posterior distributions on $v$ and $k$ given observations from the finite element simulator and desired observations.
 
-\subsection{Emulation of finite element simulator}
+\subsection{Emulation of finite element simulator}\label{emulator}
 The finite element simulator is too computationally expensive to be suitable for direct use in (e.g.) an MCMC routine. Thus I employ a GP emulator in the manner of \cite{Williams2006}. For this purpose, 504 observations were drawn from the finite element simulator. These observations follows a LHS design based on plausible ranges for the three inputs, as identified by expert opinion.
 
+We consider the finite element observations to be distributed as $\mathcal{GP}(0,C)$; that is, a GP with mean 0 and covariance function $C$ as described by (\ref{eq:Hig_cov}) above, with $\alpha_\eta=2$. We do not include a discrepancy function, per the considerations of Section \ref{obs_error}.
 
+The hyperparameters $\lambda_\eta,\beta^\eta$ must be estimated. Per the considerations of Section \ref{hyperparameter_estimation}, we do not estimate these values as part of a full, integrated Bayesian analysis; instead, they are estimated prior to calibration to the desired observations, via maximum likelihood estimation. Initially, a grid optimization method was used: a grid of $\beta^\eta$ values was used, finding at each point of the grid the likelihood of the simulation observations integrated over the support of $\lambda_\eta$. However, $\beta^\eta$ is a five-dimensional vector, and a grid fine enough to be useful was too computationally burdensome to be feasible. Instead, a gradient descent method was used to maximize the log-likelihood of the simulation observations over the joint (6-dimensional) support of $\beta^\eta,\lambda_\eta$.  The result is given by
+\begin{equation}\label{eq:MLEs}
+\rho^\eta = (0.9358, 0.6509, 0.6736, 0.4797, 0.9673),\quad
+\lambda_\eta = 0.0152
+\end{equation}
+where $\rho^\eta_k = \exp(-\beta_k^\eta/4)$. A slice of the resulting emulator mean (for thickness = 20mm) for the tip deflection output is shown in Figure \ref{fig:emulator_surface}.
 
-\subsubsection{Wind turbine blade simulator}
-% Here the finite element model will be described
-Blah
+%\subsubsection{Wind turbine blade simulator}
+%% Here the finite element model will be described
+%Blah
+%
+%\subsubsection{Mathematical basis for the emulator}
+%% Includes formulae for trained mean and covariance functions
+%Blah
+%
+%\subsubsection{Experimental design}
+%% How we selected the design points at which to observe the simulator
+%Blah
+%
+%\subsubsection{Covariance parameters}
+%% How they were selected
+%Blah
 
-\subsubsection{Mathematical basis for the emulator}
-% Includes formulae for trained mean and covariance functions
-Blah
-
-\subsubsection{Experimental design}
-% How we selected the design points at which to observe the simulator
-Blah
-
-\subsubsection{Covariance parameters}
-% How they were selected
-Blah
-
-\paragraph{Finding covariance parameters via MCMC}
-% Why we didn't do it (computational difficulties
-Blah
-
-\paragraph{Grid optimization}
-% Advantages and disadvantages; full grid and integration of lambda
-Blah
-
-\paragraph{Gradient method}
-% Explanation and advantages
-Blah
+%\paragraph{Finding covariance parameters via MCMC}
+%% Why we didn't do it (computational difficulties
+%Blah
+%
+%\paragraph{Grid optimization}
+%% Advantages and disadvantages; full grid and integration of lambda
+%Blah
+%
+%\paragraph{Gradient method}
+%% Explanation and advantages
+%Blah
 
 \begin{figure}
 \centering
 \includegraphics[width=.65\linewidth]{emulator_surface}
-\caption{A slice of the GP emulator (restricted to the output for tip deflection) at thickness = 20mm. Red dots are observations from the simulator.}
+\caption{A slice of the GP emulator mean (restricted to the output for tip deflection) at thickness = 20mm. Red dots are observations from the simulator.}
 \label{fig:emulator_surface}
 \end{figure}
 
 \section{MCMC using the emulator}
-Blah
 
-\subsection{MCMC methods}
-% Background on MCMC
-Blah
+%\subsection{MCMC methods}
+%% Background on MCMC
+%Blah
 
 \subsection{The model}
 % Choice of priors and resulting likelihood
+Following the framework laid out in Section \ref{gaussian_processes} and the hyperparameters estimated in Section \ref{emulator}, the model takes the trained emulator to be distributed as
+\begin{equation}\label{posterior_GP}
+\mathcal {GP}\left(\mu^*(z), C^*(z,z')\right)
+\end{equation}
+where $\mu^*(z) = \mathbf C_{z,\mathbf z} \cdot C_{\mathbf z,\mathbf z}^{-1} \cdot \boldsymbol \eta$, $C^*(z,z') = \mathbf C_{(z^T,z'^T)^T,(z^T,z'^T)^T} - \mathbf C_{(z^T,z'^T)^T,\mathbf z}\cdot \mathbf C_{\mathbf z,\mathbf z}^{-1} \cdot \mathbf C_{\mathbf z,(z^T,z'^T)^T}$, $\mathbf C_{a,b}$ is the matrix whose $i,j$ element is equal to the covariance between the $i^{\text{th}}$ row of $a$ and the $j^{\text{th}}$ row of $b$, $z=(x,t)$ is a row vector of control and calibration inputs, $\mathbf z=(z_1^T,z_2^T,\cdots,z_n^T)^T$ is the $1512\times5$ matrix of locations of the 1512 simulation observations, and $\boldsymbol\eta$ is a column vector of the 1512 simulation responses: $\boldsymbol\eta_i=\eta(\mathbf z_i)$.
+
+$C(\cdot,\cdot)$ is given by (\ref{eq:Hig_cov}) on page \pageref{eq:Hig_cov}, where we plug in the MLEs given in (\ref{eq:MLEs}). Generalizing from \cite{Kennedy2006}, we expand the Bayesian analysis to include the diagonal observation variance matrix $\mathbf C_y$, rather than requiring this value to be specified as known, and we allow for a non-uniform prior $\pi(\theta)$ on the calibration parameters. By (\ref{eq:full_dist}) on page \pageref{eq:full_dist}, 
+since we estimate $\rho^\eta,\lambda_\eta$ by maximum likelihoods, set $c=0$ and do not include a discrepancy function, for desired observations $\mathbf y=(y (z_{n+1}),\cdots,y(z_{n+m}))^T$ and $\mathcal D=(y^T, \boldsymbol\eta^T)^T$ we have
+\begin{equation}\label{eq:the_model}
+\pi(\theta,\sigma^2) \propto \pi (\mathcal D|\theta,\mathbf C_y)\times \pi(\theta)\times \pi(\mathbf C_y)
+\end{equation}
+where $\mathcal D|\theta,\mathbf C_y \sim N(\boldsymbol 0_{m+n}, \mathbf C_{\mathcal D})$ with 
+\begin{equation}\label{eq:the_covariance}
+\mathbf C_{\mathcal D} = \mathbf C_{\boldsymbol\eta} + 
+\begin{bmatrix}
+\mathbf C_y & \boldsymbol 0\\ 
+\boldsymbol 0 & \boldsymbol 0
+\end{bmatrix}
+\end{equation}
+where $\mathbf C_{\boldsymbol\eta}$ is a $(m+n)\times(m+n$ matrix with $i,j$ entry $C(z_i,z_j)$.
+
+\subsubsection{Full model and likelihood}
 Blah
 
 \subsubsection{Desired observation variance}
