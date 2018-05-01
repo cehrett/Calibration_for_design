@@ -139,7 +139,7 @@ Thus, the joint posterior density given by the model is
 where $\sigma^2$ gives the observation variance of the measurement error $\epsilon$. Note that where a discrepancy function is not included in the model and the mean $c$ is treated as a constant, (\ref{eq:full_dist}) simplifies greatly; where furthermore $\lambda_\eta$ and $\rho^\eta$ are estimated via maximum likelihood (as in  \cite{Kennedy2001}),  (\ref{eq:full_dist}) simplifies down merely to 
 $\pi(\mathcal D | \theta,c,\lambda_\eta, \beta^\eta,\lambda_\delta,\beta^\delta,\mathbf C_y)$. Markov chain Monte Carlo methods are useful for evaluating (\ref{eq:full_dist}); the next section takes up this topic.
 
-\subsubsection{Markov chain Monte Carlo methods}
+\subsubsection{Markov chain Monte Carlo methods}\label{MCMC_methods}
 
 %\paragraph{Background}
 
@@ -344,7 +344,7 @@ where $\mu^*(z) = \mathbf C_{z,\mathbf z} \cdot C_{\mathbf z,\mathbf z}^{-1} \cd
 $C(\cdot,\cdot)$ is given by (\ref{eq:Hig_cov}) on page \pageref{eq:Hig_cov}, where we plug in the MLEs given in (\ref{eq:MLEs}). Generalizing from \cite{Kennedy2006}, we expand the Bayesian analysis to include the diagonal observation variance matrix $\mathbf C_y$, rather than requiring this value to be specified as known, and we allow for a non-uniform prior $\pi(\theta)$ on the calibration parameters. By (\ref{eq:full_dist}) on page \pageref{eq:full_dist}, 
 since we estimate $\rho^\eta,\lambda_\eta$ by maximum likelihoods, set $c=0$ and do not include a discrepancy function, for desired observations $\mathbf y=(y (z_{n+1}),\cdots,y(z_{n+m}))^T$ and $\mathcal D=(y^T, \boldsymbol\eta^T)^T$ we have
 \begin{equation}\label{eq:the_model}
-\pi(\theta,\sigma^2) \propto \pi (\mathcal D|\theta,\mathbf C_y)\times \pi(\theta)\times \pi(\mathbf C_y)
+\pi(\theta,\mathbf C_y|\mathcal D) \propto \pi (\mathcal D|\theta,\mathbf C_y)\times \pi(\theta)\times \pi(\mathbf C_y)
 \end{equation}
 where $\mathcal D|\theta,\mathbf C_y \sim N(\boldsymbol 0_{m+n}, \mathbf C_{\mathcal D})$ with 
 \begin{equation}\label{eq:the_covariance}
@@ -368,19 +368,30 @@ This problem can be mitigated through utilizing an adaptive proposal covariance,
 
 If the posterior distribution is merely near the boundary, such measures may suffice; however, in calibration to desired observations (which tend to be extreme outliers \textit{qua} observations), often the calibration parameters will be drawn strongly to the boundaries, and in such a situation the sort of adaptive proposal distribution described above may be insufficient to secure good acceptance ratios. Here, some variety of non-symmetric proposal is likely to be of help.
 
-In the case of compact support, 
+In the case of compact support, using the logit transform on the normalized variable removes the boundary constraints. Without boundary constraints, one can recover the convenience of a symmetric proposal, such as a normal distribution. An adaptive proposal covariance further aids strong mixing here. The adaptive proposal strategy sketched above depends upon having a diagonal proposal covariance matrix for the calibration parameters; this is what allows the easy modification of the magnitude of the variance of all and only those parameters which are being drawn outside of their boundary constraints. But where boundary constraints are no longer a problem, it is just as convenient to establish a non-diagonal proposal covariance. This will, of course, be of especially high value when the calibration parameters are correlated in the posterior distribution, which is frequently the case in our application. Thus, when updating the proposal covariance, one can set it to be equal to the sample covariance of the unique samples accepted thus far in the MCMC routine. 
 
-\subsubsection{Implementation of the Metropolis-Hastings algorithm}
-Blah
+More cautiously (lest the proposal covariance become unduly influenced by early, nonrepresentative draws), one can set the proposal covariance to be equal to a weighted mixture of some pre-specified, diffuse covariance with the sample covariance of the most recent 50\% of the unique samples drawn in the MCMC routine, where the weight increases to favor the sample covariance over the course of the burn-in period. Furthermore, a scalar multiplier of the proposal covariance can be adjusted so as to induce acceptance rates close to 25\%. This strategy was found to be most successful in our application.
+
+Recall (from Section \ref{MCMC_methods}) that abandoning symmetry in one's proposal distribution requires that one employ the generalized version of the Metropolis-Hastings algorithm given in \cite{Hastings1970}; and a normal distribution on the logit-transformed variables is of course not symmetric on the original variables. Thus we calculate the log acceptance probability a proposal for the $i^{\text{th}}$ draw of $\theta$ as 
+\begin{equation}
+\log \alpha = \log(\theta^*|\mathcal D, \mathbf C_y) - \log(\theta^{(i-1)}|\mathcal D,\mathbf C_y) + \log \pi_{prop}(\theta^{(i-1)}|\theta^*)
+- \log \pi_{prop}(\theta^* |\theta^{(i-1)})
+\end{equation}
+where the use of the log scale is required in order to avoid significant round-off and underflow errors due to the dimensionality of $\mathcal D$.
+
+The benefits of the logit-transformed, boundaryless proposal over a version of the MCMC using a normal proposal (with adaptive covariance) over the untransformed calibration parameters are displayed in Figure \ref{ACFs}. Sizeable autocorrelation appears in the untransformed version, whereas in the logit-transformed version the autocorrelation drops off to insignificance within about 30 steps.
 
 \begin{figure}
 \centering
 \includegraphics[width=.9\linewidth]{ACF_bnd_cnds_fig}
 \caption{Auto-correlation for draws both with and without the elimination of boundary conditions.}
+\label{ACFs}
 \end{figure}
 
 \subsection{Desired observation variance}\label{des_obs_var}
 % 4 versions: heterosked constant, homosked constant, heterosked prior, homosked prior
+
+In the framework of \cite{Kennedy2006} on which much of the current approach is based, observation variance is assumed to be known. That assumption is problematic in the case of calibration to desired observations. However, as explained below, there are applications in which setting a ``known'' observation variance is appropriate.
 \begin{table}[h]
 \centering
 \begin{tabular}{| c | c  |  c  | c |  c  |}
