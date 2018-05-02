@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{amsmath, amssymb}
+\usepackage{caption}
 
 \author{Carl Ehrett}
 \title{Computer model calibration as a method of design}
@@ -69,6 +70,7 @@ A visualization of this example can be found in Figure \ref{fig:gp_example}. Her
 \begin{figure}[h]
 \centering
 \includegraphics[width=.75\linewidth]{gp_example}
+\captionsetup{width=.75\linewidth}
 \caption{Example of a Gaussian process trained to interpolate five data points (black dots). The posterior mean function is shown in red; the gray lines are 50 draws from the posterior GP.}
 \label{fig:gp_example}
 \end{figure}
@@ -202,7 +204,7 @@ The tools of model calibration founded in the work of \cite{Kennedy2001} retain 
 % Also include discussion of how this is actually effected. This discussion will be short, because the answer is that it will use the framework described already in the previous section.
 
 
-\subsubsection{Level of desired data}
+\subsubsection{Level of desired data}\label{level_of_desired_data}
 % Arbitrariness recommending prior on observation variance
 Unlike in the case of field observations, when calibrating to desired observations, the question arises of determining what exactly one's desired observations are. In many cases, no objectively natural target manifests itself. Consider again the case of building evacuation. In the case of a multi-story building, one might plausibly expect to achieve evacuation times of no less than fifteen minutes. But plausibility is no barrier to desire, and it would be a mistake to limit one's desired observations to what is antecedently believed to be achievable, if only because to do so would foreclose on the possibility of exceeding those expectations. In the case of building evacuation, then, one might conclude that the desired observation is in fact instantaneous evacuation -- \textit{per impossible}. But, having discarded realism, even this lower bound is not inevitable. Why not calibrate to a \emph{negative} evacuation time, while we're at it?
 
@@ -323,6 +325,7 @@ where $\rho^\eta_k = \exp(-\beta_k^\eta/4)$. A slice of the resulting emulator m
 \begin{figure}
 \centering
 \includegraphics[width=.65\linewidth]{emulator_surface}
+\captionsetup{width=.65\linewidth}
 \caption{A slice of the GP emulator mean (restricted to the output for tip deflection) at thickness = 20mm. Red dots are observations from the simulator.}
 \label{fig:emulator_surface}
 \end{figure}
@@ -356,7 +359,7 @@ where $\mathcal D|\theta,\mathbf C_y \sim N(\boldsymbol 0_{m+n}, \mathbf C_{\mat
 \end{equation}
 where $\mathbf C_{\boldsymbol\eta}$ is a $(m+n)\times(m+n)$ matrix with $i,j$ entry $C(z_i,z_j)$.
 
-The model as described above leaves open several details of the model, options for which are explored in the remainder of Section \ref{MCMC}. In \ref{des_obs_var} we consider options for $\pi(\mathbf C_y)$, the prior on observation variance, including setting a degenerate prior corresponding to specifying a known observation variance. In \ref{which_data} we take up the question of which data one ought to desire, showing how the goals of one's analysis can support vastly different choices for desired data. In \ref{non-uniform_prior} we explore options for $\pi(\theta)$, the prior on observation variance. We depart thereby from the framework of \cite{Kennedy2006}, who (implicitly) restrict the calibration model to the case of using a uniform prior. An example is used to show how setting a non-uniform prior here can allow one to reduce the number of calibration parameters in the model. Before taking up these matters, in \ref{convergence_difficulties} we take up convergence difficulties that arise due to boundary constraints on the calibration parameters.
+The model as described above leaves open several details of the model, options for which are explored in the remainder of Section \ref{MCMC}. In \ref{des_obs_var} we consider options for $\pi(\mathbf C_y)$, the prior on observation variance, including setting a degenerate prior corresponding to specifying a known observation variance. In \ref{which_data} we take up the question of which data one ought to desire, showing how the goals of one's analysis can support vastly different choices for desired data. In \ref{removing_cal_pars} we explore options for $\pi(\theta)$, the prior on observation variance. We depart thereby from the framework of \cite{Kennedy2006}, who (implicitly) restrict the calibration model to the case of using a uniform prior. An example is used to show how setting a non-uniform prior here can allow one to reduce the number of calibration parameters in the model. Before taking up these matters, in \ref{convergence_difficulties} we take up convergence difficulties that arise due to boundary constraints on the calibration parameters.
 %\subsubsection{Full model and likelihood}
 %Blah
 
@@ -384,6 +387,7 @@ The benefits of the logit-transformed, boundaryless proposal over a version of t
 \begin{figure}
 \centering
 \includegraphics[width=.9\linewidth]{ACF_bnd_cnds_fig}
+\captionsetup{width=.9\linewidth}
 \caption{Auto-correlation for draws both with and without the elimination of boundary conditions.}
 \label{ACFs}
 \end{figure}
@@ -391,7 +395,16 @@ The benefits of the logit-transformed, boundaryless proposal over a version of t
 \subsection{Desired observation variance}\label{des_obs_var}
 % 4 versions: heterosked constant, homosked constant, heterosked prior, homosked prior
 
-In the framework of \cite{Kennedy2006} on which much of the current approach is based, observation variance is assumed to be known. That assumption is problematic in the case of calibration to desired observations. However, as explained below, there are applications in which setting a ``known'' observation variance is appropriate.
+In the framework of \cite{Kennedy2006} on which much of the current approach is based, observation variance is assumed to be known. That assumption is less straightforward in the case of calibration to desired observations. However, as explained below, there are applications in which setting a ``known'' observation variance is appropriate. In this section, we consider the option of specifying observation variance versus setting a (non-degenerate) prior on observation variance. We also consider the option of whether to set different observation variances for different outputs, or a single observation variance on all (standardized) outputs. Table \ref{table:obs_var_comp} and the corresponding Figure \ref{fig:comp_obs_var} of MCMC results show how impactful are the choices amongst these options in the wind turbine blade design application. The posterior mean model output varies significantly across the four available strategies.
+
+Recall that for calibration to desired observations, observation variance amounts to a measure of how closely reality can approximate our desired observations. When the desired observations are outside the range of what is realistically achievable, the specific level of the observation variance is unlikely to matter much. More important (in the case of multivariate output) is the fact that in specifying the observation variance, one is implicitly specifying the relative importance of each output. E.g., if I set a very diffuse observation variance on cost, and a very small one on deflection, then I have told the model that reduction in deflection is to be prioritized over reduction in cost. Whether one chooses to do so will depend on one's goals in calibration, as well as one's level of prior knowledge as to how close to reality one's desired observations are.
+
+Such prioritization can be harnessed to achieve calibration goals in ways that will be explored in Section \ref{removing_cal_pars}; there, one essentially sets the observation variance for all and only those parameters that one \emph{ceases} to treat as calibration parameters. In general, since there is no true value of the observation variance, it is better to let the data inform us about $\mathbf C_y$: setting a scale-invariant $1/\sigma_i^2$ prior on each diagonal element $\sigma_i^2$ of $\mathbf C_y$ yields posterior values of $\mathbf C_y$ that inform us as to how achievable our desired observations are.
+
+There is another lesson to be derived from Table \ref{table:obs_var_comp}; namely, a warning that it is important to be aware of the impact of correlated outputs on the calibration procedure. Notice from the third column of the table that the posterior mean output almost achieves the desired observation for deflection and rotation, at the expense of falling wildly short on cost. However, it is known that the true model can achieve the desired cost of \$96/m$^2$. So why did the calibration procedure prioritize deflection and rotation at the expense of cost? The answer is simply that deflection and rotation are two responses, and cost is only one. In other words, in the true system, deflection and rotation are strongly correlated. Thus when all three outputs are calibrated to be extremely low values, deflection and rotation will ``win'' over cost, barring the building of an explicit prioritization of cost into the model. 
+
+If one is antecedently unaware of the correlation between two responses, then this correlation can undermine one's calibration goals -- e.g., if our goal was to balance cost with the performance metric -- then column three of the table fails to achieve this goal, due to the calibration amongst the performance metric. For that goal, column four would have been a superior strategy, where $\mathbf C_y = \sigma^2 \mathbf I$ and $\sigma^2$ is allowed to vary under the $1/\sigma^2$ prior. This sets the observation variances of each output to be equal, but more nuanced versions of this strategy could set them to be scalar multiples of one another; in this way different balances could be achieved than the one displayed in column four of Table \ref{table:obs_var_comp}. One may find, however, that one does not antecedently know what balance best suits one's desires. We want low cost, low deflection and low rotation, but exactly how much of each are we willing to trade for gains in the other? There may be no answer this question. It is for such situations that the strategy of Section \ref{removing_cal_pars} is proposed.
+
 \begin{table}[h]
 \centering
 \begin{tabular}{| c | c  |  c  | c |  c  |}
@@ -407,22 +420,28 @@ Rotation & 0.0904 & 0.0865 & 0.0773 & 0.0843\\
 Cost & 276.16 & 236.11 & 350.80 & 233.95 \\
 \hline
 \end{tabular}
-\caption{Comparison of model outputs, where the desired data outputs are assumed to be either homoskedastic or heteroskedastic, with either a specified constant variance or a $1/\sigma^2$ prior.}
+\captionsetup{width=.8\linewidth}
+\caption{Comparison of posterior mean model outputs, where the desired data outputs are assumed to be either homoskedastic or heteroskedastic, with either a specified constant variance or a $1/\sigma^2$ prior. The desired observation was set to $[0.65,\ 0.077,\ 96]$ for each control input, which is known to be the lowest achievable value in each of the three outputs (and not jointly achievable). The heteroskedastic constant variance was chosen so that two standard deviations from that desired output are positive values; the homoskedastic constant was set at 6 for each standardized output.}
 \label{table:obs_var_comp}
 \end{table}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[width=.65\linewidth]{comp_obs_var}
-\caption{MCMC results at various observation variance settings.}
+\captionsetup{width=.65\linewidth}
+\caption{MCMC results of volume fraction at various observation variance settings, on normalized scale.}
 \label{fig:comp_obs_var}
 \end{figure}
 
 \subsection{Which data to desire?}\label{which_data}
-Blah
 
-\subsubsection{Motivations behind the choice of desired data}
-Blah
+A second and related question to the setting of the observation variance of the desired observation is the setting of the desired observations themselves. I described some general considerations in Section \ref{level_of_desired_data} above, the upshot of which is that it is generally preferable to set desired observations as realistic as possible while remaining confident that the observations are not in fact realistically achievable. 
+
+In the case of heteroskedastic observation variance with a (non-degenerate) prior, the specific choice of desired data is not crucial. But where observation variance is either set to a known value or constrained to be equal (up to pre-specified scalar multiple) across outputs, the choice of desired data will matter for the same reason that the constraints on observation variance matter. To see this, consider performing the wind turbine blade calibration with observation variances set equal to $\sigma^2=6$ for all model outputs, where the desired deflection, rotation and cost are set to $d=[0.65,\ 0.077,\ 96]$; the lower bounds on what is known to be plausible ranges for each output. The MCMC results for volume fraction draws and the resulting posterior mean model output for these settings are shown in Figure \ref{fig:comp_obs_var} and Table \ref{table:obs_var_comp}. Consider now replacing $d$ with $d'=[0.65,\ 0.077,\ -500]$. The effect of this would be equivalent to massively reducing the observation variance of cost, while keeping that of deflection and rotation at their previous level. This, in turn, would have the effect in the calibration procedure of prioritizing cost at the expense of the performance metrics. Thus when one wishes to strike a balance of priorities in the calibration procedure, this will necessarily involve both constraints upon the observation variance and the choice of desired observations. A further illustration of the impact of this choice is in Table \ref{table:d_comp}, where two different levels of desired observations are compared under a pre-specified constant observation variance.
+
+Figure \ref{fig:des_data} illustrates the sort of difficulty that can arise if one fails to make one's desired observations sufficiently optimistic. Here, a separate $1/\sigma^2_i$ was set over each of the three outputs. The top set of plots show the MCMC results for an appropriately optimistic (i.e. not realistically achievable) desired observations (here rotation has been removed from the model for simplicity). The desired observations yield good mixing in the MCMC routine. In the bottom plots, the desired observation of deflection is still lower than what is realistically achievable, whereas the cost is low but achievable. The model can yield this desired cost, and so draws of the observation variance for cost quickly drift to extremely low values. Indeed, this outcome of extremely low observation variance -- when observation variance is sampled under a prior -- serves as a way to detect that one's desired observation is in fact realistically achievable.
+
+When (by contrast) one \emph{knowingly} sets a realistically achievable outcomes as a desired observation, it is preferable to specify a constant observation variance, or at least a lower bound on observation variance. In this way, one avoids the convergence difficulties of the lower plots in Figure \ref{fig:des_data}. In essence, setting a lower bound on the observation variance of cost would ``fatten'' the thin line of accepted draws represented in the rightmost plot, enhancing the ease with which the MCMC routine can explore the parameter space, and improving the acceptance ratio.
 
 \subsubsection{Differing results}
 % for different desired data values
@@ -440,6 +459,7 @@ $(0.65, 0.077, 96)$ & 16.74 & 15.25 & $4.62 \cdot 10^{-7}$ &
 	$1.02 \cdot 10^{-5}$ & $9.97 \cdot 10^{-6}$\\
 \hline
 \end{tabular}
+\captionsetup{width=.95\linewidth}
 \caption{Comparison of results for two different (low) values of $d$. Values listed are, respectively, the posterior means for the observation variance of each model output, posterior means for volume fraction ($v$) and thickness ($h$), and posterior variance of volume fraction and thickness.}
 \label{table:d_comp}
 \end{table}
@@ -448,50 +468,89 @@ $(0.65, 0.077, 96)$ & 16.74 & 15.25 & $4.62 \cdot 10^{-7}$ &
 \centering
 \includegraphics[width=.9\linewidth]{FIG1}
 \includegraphics[width=.9\linewidth]{FIG2}
-\caption{MCMC results for low deflection and cost (top row) and low deflection with easily achievable cost (bottom row).}
-% NOTE: THESE PLOT TITLES ARE WRONG! GOTTA DO THE PLOTS OVER! LOL!
+\captionsetup{width=.9\linewidth}
+\caption{MCMC results for low deflection and cost (top row) and low deflection with easily achievable cost (bottom row). The red dots in the righthand plots represent the proposal covariance after the adaptive burn-in period.}
+% NOTE: THESE PLOT TITLES ARE WRONG! GOTTA DO THE PLOTS OVER! LOL! but wait are they still
 \label{fig:des_data}
 \end{figure}
 
-\subsubsection{Identifiability issues}
-% Issues arising from the non-identifiability of VF, thickness when cost is relaxed
-Blah
+\subsection{Removing calibration parameters}\label{removing_cal_pars}
 
-\subsection{Non-uniform prior on $\theta$}\label{non-uniform_prior}
+%\subsubsection{Motivation}
 
-\subsubsection{Motivation}
+Where a model contains several outputs that one wishes to control, it can become complicated to juggle one's priorities in achieving targets for each of these outputs. Again to speak from the wind turbine application: we know we want to keep cost, deflection and rotation low; but we might not antecedently have a clear conception of exactly what sorts of trade-offs amongst those outcomes we would consider optimal, much less how to implement our priorities in the calibration procedure. In this sort of situation, the best strategy is to remove one or more outputs; two strategies for doing so are explored in this section.
 
-\subsubsection{Implementation}
+\subsubsection{Non-uniform prior on $\theta$}\label{non-uniform_prior}
 
+%\subsubsection{Implementation}
 
+This first option is attractive in those scenarios where one has rough knowledge of the correlation between the calibration parameters and a given model output. This correlation can be exploited to remove one of the desired observation outputs, where a prior is placed on the calibration parameters that is design to control the removed model output.
 
-\subsection{Exponentially distributed desired data}
-Blah
+The wind turbine application serves as an example here. It is known that cost correlates strongly with each of the two calibration parameters (volume fraction $v$ and thickness $k$). Thus, we replace the uniform $\pi(\theta)$ of (\ref{eq:the_model}) with a prior that punishes high values of $v$ and $k$, thereby punishing high cost output:
+\begin{equation}\label{eq:theta_prior}
+\pi(\theta)=\pi(v,k)\propto \exp(-\lambda_{cost}\lVert (v,k)\rVert ^2)
+\end{equation}
+where $\lambda_{cost}$ can be set to any nonnegative value, with higher values resulting in stricter cost control.
 
-\subsubsection{Motivation}
-Blah
+This may seem to make little progress in resolving the complication of a model that includes cost, since now instead of specifying a desired cost we must specify a value for $\lambda_{cost}$. However, rather than specify a value for this hyperparameter, we can gain a more comprehensive picture of our options by observing the calibration results over a grid of values of $\lambda_{cost}$. Thus, rather than specifying beforehand what is our desired ``balance'' amongst cost, deflection and rotation, we are able to see a curve describing our options for this trade-off, and to then make an informed choice as to where on that curve we wish to be. 
 
-\subsubsection{Implementation and results}
-Blah
+The decision-making value of such an analysis is further improved by including uncertainty quantification -- which comes easily due to the nature of the Bayesian approach and GP emulator here. The draws of calibration parameters in the MCMC routine each correspond to a GP with posterior mean serving as an estimate of the true model output for those calibration settings. This captures the parameter uncertainty -- i.e., uncertainty remaining in the posterior distribution of the calibration parameters, which is uncertainty about which calibration parameter settings best achieve the desired observations. Furthermore, the GPs themselves are uncertain representations of the true model. For each draw of the calibration parameters in the MCMC routine, (\ref{posterior_GP}) gives us the mean and variance of the output at each control input. Thus we can use the posterior covariance of the GP to estimate the code uncertainty -- the uncertainty due to the variation of the GP around the true system mean. Thus we achieve a sort of ``Pareto band'' of model performance which can guide decision-making in selecting a level for our calibration parameters. Decision-makers can observe surfaces describing the achievable system responses, with included uncertainty measures around those surfaces, and select a target outcome from this comprehensive picture of what is achievable. Figure \ref{fig:non-uniform_prior} gives an example of this for the wind turbine application.
+
+\begin{figure}
+\centering
+\captionsetup{width=.9\linewidth}
+\includegraphics[width=.9\linewidth]{FIG_cost_lambda_code_uncert}
+\caption{``Pareto bands'' of wind turbine blade model outputs over a range of values of $\lambda_{cost}$, where cost has been removed from the model and the prior $\exp(-\lambda_{cost}\lVert \theta \rVert^2)$ placed on the calibration parameters $\theta$, with desired data 0 deflection and 0 rotation. The gray region gives a 90\% credible interval only considering parameter uncertainty; the blue region extends this to include code uncertainty.}
+\label{fig:non-uniform_prior}
+\end{figure}
+
+\subsubsection{Specifying known cost}\label{known_cost}
+
+The above strategy of performing the calibration across a grid and forming a response surface over that grid may be applied even more directly, to largely the same end as in the previous section. Namely: rather than replace one or more desired outputs with a prior on the calibration inputs and drawing a grid over the hyperparameter(s) of that prior, one can instead simply draw a grid over one or more of the desired outputs, treating those outputs as known up to silght deviations at each point of the grid. This strategy has the advantage that, unlike the strategy of Section \ref{non-uniform_prior} above, it does not require that we have antecedent knowledge of any correlation between the calibration parameters and the outputs. Furthermore, whereas the previous strategy requires making significant changes to the model -- removing a parameter -- the current strategy uses the same version of the model, relying solely on changes to the desired observations and observation variance to effect the strategy. In comparison with the previous section's strategy, the approach in the current section also enjoys better interpretability.
+
+For convenience, call an output that is specified as known up to slight deviations in the way suggested here ``d-known''. To specify an output as d-known, it suffices to (1) choose a desired observation of that output which is realistically achievable, and (2) set a constant, low observation variance for that output. The precise value of the observation variance for a d-known output can be tuned during the burn-in period of the MCMC routine; it ought to be as low as possible while still allowing for healthy mixing in the MCMC. If the variance is too small, then proposed draws of the calibration parameters will be likely to take the model output too far away from the d-known output, resulting in the draw being rejected, resulting ultimately in low acceptance rates and poor mixing.
+
+The other desired observations -- those that are not d-known -- can be treated as usual, with their observation variances each drawn from a $1/\sigma^2$ prior, or whichever other treatment of observation variance from Section \ref{des_obs_var} one wishes to use. Thus at the calibration procedure which takes place at each point in the grid of d-known outputs, the d-known outputs have in essence been removed from the calibration to desired observations, and are treated as known up to a slight variance for facilitating healthy MCMC. This ``removal'' requires no actual modification to the model, but still serves to simplify the choice of desired observations and observation variance.
+
+The result of this strategy is similar to that in the previous section: one can derive a response surface over the grid on d-known outputs, where that response describes the achievable results closest to the desired observations (not including the d-known observations) at each point in the space of d-known outputs. Thus a decisionmaker can see all desirable options available without the need for antecedently rigorously determining their exact priorities for weighing gains in each of the outputs against one another, nor (much worse) working out how to translate those priorities into specific choices of desired observations and observation variane schemes. This is similar to the strategy of the previous section, but in addition to other benefits, this result has better interpretability in that the grid is over one of the model outputs, rather than over a hyperparameter whose interpretation is somewhat dubious. For example, a decision-maker is likely to feel quite comfortable choosing a target cost based on expected outcomes at each cost; they may be less comfortable selecting a target value of $\lambda_{cost}$.
+
+The same sort of uncertainty analysis described in Section \ref{non-uniform_prior} is available here; posterior parameter uncertainty and code uncertainty are easily recovered from the results of the MCMC routine. An example of the result of this strategy is shown in Figure \ref{fig:known_cost}, where the strategy was applied to the wind turbine application, treating cost as d-known. An observation variance of 0.05 was set on the standardized cost values. The rightmost plot is included to verify that the posterior model output respected the d-known cost values used in the calibrations.
+
+\begin{figure}
+\centering
+\includegraphics[width=.9\linewidth]{FIG_costs_code_uncert}
+\captionsetup{width=.9\linewidth}
+\caption{``Pareto bands'' of wind turbine blade model outputs over a range of values of cost, where cost is treated as known up to slight deviations, with desired data 0 deflection and 0 rotation. The gray region gives a 90\% credible interval only considering parameter uncertainty; the blue region extends this to include code uncertainty.}
+\label{fig:known_cost}
+\end{figure}
+
+%\subsection{Exponentially distributed desired data}
+%Blah
+
+%\subsubsection{Motivation}
+%Blah
+
+%\subsubsection{Implementation and results}
+%Blah
 
 
 \section{Future work}
-Blah
 
-\subsection{Alternative means of handling cost}
-Blah
 
-\subsubsection{Removing cost from the model}
-Blah
+%\subsection{Alternative means of handling cost}
+%Blah
 
-\subsubsection{Alternative priors for controlling cost}
-Blah
+%\subsubsection{Removing cost from the model}
+%Blah
 
-\subsection{Building a desired data response surface}
-Blah
+%\subsubsection{Alternative priors for controlling cost}
+%Blah
+
+%\subsection{Building a desired data response surface}
+%Blah
 
 \subsection{Implementing Hamiltonian Monte Carlo}
-Blah
+
 
 \subsubsection{Hamiltonian Monte Carlo}
 % Background
@@ -503,6 +562,8 @@ Blah
 \subsection{Model discrepancy}
 % Include (or investigate the inclusion of) a model discrepancy function
 Blah
+
+\subsection{Comparison with optimization techniques}
 
 \section{Conclusion}
 % Discussion of the role of computer model validation as a potential methodology for design
