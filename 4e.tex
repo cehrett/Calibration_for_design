@@ -27,6 +27,7 @@ A Bayesian approach to the study of computer models is undertaken by \cite{Curri
 
 \subsection{Computer model calibration} \label{computer_model_calibration}
 
+% DISCUSS how much Simulex detail
 Suppose that we wish to use the SIMULEX model to compare two different proposed building codes to be enforced in a given area. We may use average walking speed and average interpersonal distance as input parameters for this model, both to settle the initial physical distribution of people throughout the building and to influence their behavior during evacuation. It is well-established that average walking speed \citep{Bornstein1976} and interpersonal distance \citep{Sorokowska2017} vary across locales. These values may be unknown for the case of (e.g.) St.\ Louis. Thus we may wish to find the true values for average walking speed and interpersonal distance in St.\ Louis. We may wish, in other words, to \textit{calibrate} these parameters in the model.
 
 Broadly, in model calibration, we may consider a model to be of the form $\eta(x,\theta)$, where $(x,\theta)$ comprise all inputs to the model. Input vector $x$ is the collection of inputs that are known and/or under the control of the researcher (in the evacuation example, this would include the building layout).  The vector of calibration inputs $\theta$ is the collection of parameters the values of which are unknown and not under researcher control. These must be estimated for successful simulation. Thus where $f$ describes the true system and $y$ our observations of that system, we consider the model to be 
@@ -123,10 +124,12 @@ C_\delta(x,x') = \frac 1{\lambda_\delta} \prod_{k=1}^p
 \exp\left( -\beta_k^\delta |x_k-x_k'|^{\alpha_\delta} \right),
 \end{equation}
 with priors
-\begin{align}
+\begin{equation}
+\begin{aligned}
 \lambda_\delta &\sim \mathrm{Gamma}(a_\delta,b_\delta)\\
 \rho^\delta_k &\sim \mathrm{Beta}(1,0.3).
-\end{align}
+\end{aligned}
+\end{equation}
 where $\rho_k^\delta=\exp(-\beta_k^\delta/4)$ $\forall k$.
 
 Then where $\boldsymbol \eta = (\eta(x_1,t_1),\cdots,\eta(x_n,t_n))^T$ are the simulation observations, $\mathbf y = (y(x_{n+1}),\cdots,y(x_{n+m}))^T= (y(x_{n+1},\theta),\cdots,y(x_{n+m},\theta))^T$ are the field observations, $\mathcal D = (\mathbf y^T, \boldsymbol \eta^T)^T$, $\boldsymbol \beta^\eta = (\beta^\eta_1,\cdots,\beta_{p+q}^\eta)^T$, and $\boldsymbol \beta^\delta = (\beta^\delta_1,\cdots,\beta_{p+q}^\delta)^T$, we have the distribution of $\mathcal D$ as
@@ -267,7 +270,7 @@ Finally, these two methods can be combined. One of the approaches used in Sectio
 
 \subsubsection{Model discrepancy}\label{mod_disc}
 
-A separate means of incorporating model shortcoming would be to treat it as model discrepancy $\delta(\cdot)$ rather than as observation variance. Ordinarily, $\delta(\cdot)$ is itself modeled as a mean-zero GP; see (\ref{gaussian_processes}) above. This has the advantage that it facilitates treating model shortcoming as correlated, which will typically be the case; the deviance of our desired observations from the mean is after all not mere Gaussian noise.
+A separate means of incorporating model shortcoming would be to treat it as model discrepancy rather than as observation error. Often, model discrepancy $\delta(\cdot)$ is itself modeled as a mean-zero GP; see e.g. \cite{Williams2006}. This has the advantage that it facilitates treating model shortcoming as correlated, which will typically be the case; the deviance of our desired observations from the mean is after all not mere Gaussian noise.
 
 Disadvantages are that in contrast with the use of observation variance, it is much less convenient to fine-tune the model discrepancy function to the details and priorities of a particular situation. For example, like \cite{Williams2006}, we use dummy variables to construct a univariate Gaussian emulator for our three model outputs; the dummy variables serve to differentiate the three outputs. If we now wish to either specify different variances for the three outputs or to allow the data to discover different such variances (as suggested above for observation variances) via a model discrepancy function, we will not be able to use a stationary GP to model that discrepancy. That is, the covariance function for the discrepancy GP, $C_\delta(x,x')$, will depend not only on the distance between $x$ and $x'$, but on their location within the input space $\mathcal X$. This is an unattractive complication, but remains a live option.
 
