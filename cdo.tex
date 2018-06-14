@@ -71,8 +71,8 @@ Another extension of the framework of \cite{Kennedy2001} and \cite{Bayarri2007} 
 
 \subsubsection{Gaussian processes} \label{gaussian_processes}
 
-In principle, model calibration\footnote{In this work, ``calibration'' will usually be used broadly to include model tuning; where it is used in such a way as to exclude tuning, this will be made clear in context.}
-need not rely on a GP emulator, or any other sort of emulator; one could (e.g.) complete a full Bayesian analysis via an MCMC chain that involves running the relevant computer model at each iteration of the chain. However, computer models are frequently too computationally expensive to allow for such profligacy. Instead, a computationally tractable emulator can be constructed using a sample of observations from the computer model. As described in Section \ref{computer_experiments}, GPs are popular prior distributions on computer model output for three reasons. Firstly, because their use does not require detailed foreknowledge of the model function's parametric form. Secondly, GPs easily interpolate the computer model output, which is attractive when the computer model is deterministic. This is usually the case, although some attention in model calibration has focused specifically on stochastic computer models; see e.g.\ \cite{Pratola2018}. Thirdly, GPs facilitate uncertainty quantification through the variance of the posterior GP. In this section, I provide brief background on Gaussian processes and their use in regression broadly and in computer model calibration specifically.
+In principle, model calibration%\footnote{In this work, ``calibration'' will usually be used broadly to include model tuning; where it is used in such a way as to exclude tuning, this will be made clear in context.}
+need not rely on a GP emulator, or any other sort of emulator. One could (e.g.) complete a full Bayesian analysis via an MCMC chain that involves running the relevant computer model at each iteration of the chain. However, computer models are frequently too computationally expensive to allow for such profligacy. Instead, a computationally tractable emulator can be constructed using a sample of observations from the computer model. As described in Section \ref{computer_experiments}, GPs are popular prior distributions on computer model output for three reasons. Firstly, because their use does not require detailed foreknowledge of the model function's parametric form. Secondly, GPs easily interpolate the computer model output, which is attractive when the computer model is deterministic. This is usually the case, although some attention in model calibration has focused specifically on stochastic computer models; see e.g.\ \cite{Pratola2018}. Thirdly, GPs facilitate uncertainty quantification through the variance of the posterior GP. In this section, I provide brief background on Gaussian processes and their use in regression broadly and in computer model calibration specifically.
 
 %\paragraph{Background}
 
@@ -171,6 +171,7 @@ Thus, the joint posterior density under the model is
 Note that where a discrepancy function is not included in the model and the mean $c$ is treated as a constant, (\ref{eq:full_dist}) simplifies greatly; where furthermore $\lambda_\eta$ and $\boldsymbol \rho^\eta$ are estimated via maximum likelihood (as in  \cite{Kennedy2001}),  (\ref{eq:full_dist}) simplifies down merely to 
 $\pi(\mathcal D | \boldsymbol \theta,c,\lambda_\eta, \boldsymbol \beta^\eta,\lambda_\delta,\boldsymbol \beta^\delta,\mathbf C_{\mathbf y})$. Markov chain Monte Carlo methods are useful for evaluating (\ref{eq:full_dist}). The next section takes up this topic.
 
+%%HERE
 \subsubsection{Markov chain Monte Carlo methods}\label{MCMC_methods}
 
 %\paragraph{Background}
