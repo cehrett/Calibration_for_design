@@ -162,7 +162,8 @@ Thus, the joint posterior density under the model is
 \pi(\boldsymbol \rho^\eta) \times \pi(\lambda_\delta) \times \pi(\boldsymbol \rho^\delta)
 \end{equation}
 Note that where a discrepancy function is not included in the model and the mean $c$ is treated as a constant, (\ref{eq:full_dist}) simplifies greatly; where furthermore $\lambda_\eta$ and $\boldsymbol \rho^\eta$ are estimated via maximum likelihood (as in  \cite{Kennedy2001}),  (\ref{eq:full_dist}) simplifies down merely to 
-$\pi(\mathcal D | \boldsymbol \theta,c,\lambda_\eta, \boldsymbol \beta^\eta,\lambda_\delta,\boldsymbol \beta^\delta,\mathbf C_{\mathbf y})$. Markov chain Monte Carlo methods are useful for evaluating (\ref{eq:full_dist}). The next section takes up this topic.
+$\pi(\mathcal D | \boldsymbol \theta,c,\lambda_\eta, \boldsymbol \beta^\eta,\lambda_\delta,\boldsymbol \beta^\delta,\mathbf C_{\mathbf y})$. Markov chain Monte Carlo methods are useful for evaluating (\ref{eq:full_dist}).
+%The next section takes up this topic.
 
 %\subsubsection{Markov chain Monte Carlo methods}\label{MCMC_methods}
 %
@@ -211,7 +212,8 @@ Training the GP on the $n$ observations $\boldsymbol \eta$ at $\mathbf X\in \mat
 \end{split}\end{equation}
 %Note that the joint posterior density given in (\ref{eq:full_dist}) above includes $\mathbf C_{\mathcal D}$, which, depending on how many field and simulation observations one has, may be of prohibitively high dimension. This can lead to computational difficulties in calculating $\alpha$ in the course of the MCMC routine. Difficulties arise in two ways. Firstly, the likelihood given in (\ref{eq:full_dist}) evaluated at a given point can be so small as to be vulnerable to significant round-off error. 
 Poor conditioning of $\mathbf C_{\mathbf X,\mathbf X}$ in (\ref{eq:post_gp}) can make it difficult to invert and find the determinant of this matrix, as must be done in the course of the MCMC to find the relevant likelihoods.
-This problem can be alleviated by adding a small nugget to $\mathbf C_{\mathbf X,\mathbf X}$; i.e., we can set $\mathbf C_{\mathbf X,\mathbf X}^\xi= \mathbf C_{\mathbf X,\mathbf X} + \xi \cdot \mathbf I_{\mathrm{dim}(\mathbf X)}$ for some very small value of $\xi$, e.g., $\xi=10^{-4}$. 
+This problem can be alleviated by adding a small nugget to $\mathbf C_{\mathbf X,\mathbf X}$. 
+That is, we can set $\mathbf C_{\mathbf X,\mathbf X}^\xi= \mathbf C_{\mathbf X,\mathbf X} + \xi \cdot \mathbf I_{\mathrm{dim}(\mathbf X)}$ for some very small value of $\xi$, e.g., $\xi=10^{-4}$. 
 Such a simple nugget works quite well in many applications, but for a more sophisticated approach to selecting the nugget size, see \cite{Ranjan2011}. 
 Note that adding a nugget here is equivalent to adding a small amount of observation variance for the simulator observations. 
 That is, in adding this nugget, one no longer requires that the GP emulator precisely interpolate the simulation observations. 
@@ -227,7 +229,6 @@ Furthermore, insofar as the effect is non-negligible, it is argued by \cite{Gram
 % DISCUSS Better not to mention this?
 
 \section{Calibration for design}\label{calib_for_design}
-%%HERE
 
 % Intro: description of sort of situation in which you'd want this
 
@@ -238,11 +239,14 @@ We may approach such problems as a matter of calibration. In traditional calibra
 Of course, computer models are more malleable than reality, and it is trivial to modify a computer model so that its output matches any given target. It is both easy and pointless to create a model which is a computational ``yes man''. But in many cases one is fortunate to have (perhaps after undertaking traditional model calibration, validation and verification) a computer model such that one is independently confident that the model is uniformly valid over a given set $\mathcal T$ of controllable parameters $t$, i.e., the model is known to be faithful to reality over $\mathcal T$. In such a circumstance, in calibrating $t\in\mathcal T$ to one's desires, one does not risk calibrating the model \emph{away} from agreement with reality. 
 Instead, one finds the settings that achieve the best realistic approximation to the desired targets.
 
-The tools of model calibration founded in the work of \cite{Kennedy2001} retain their advantages in this new domain. Most centrally, such calibration to desired observations $y$ produces not merely a static optimum $t\in\mathcal T$, but rather a posterior distribution of $t|y$ reflective of remaining uncertainty about the appropriate value of $t$. Such uncertainty may have its source in parameter uncertainty (uncertainty about the values of certain model inputs), code uncertainty (uncertainty about how closely the code approximates reality), and especially saliently in this case, that which in traditional calibration would be considered either observation error or model inadequacy. Of course, our targets are not actually observations, and the concept of observation error does not cleanly transfer here. 
+The tools of model calibration founded in the work of \cite{Kennedy2001} retain their advantages in this new domain.
+Most centrally, such calibration to desired observations $y$ produces not merely a static optimum $t\in\mathcal T$, but rather a posterior distribution of $t|y$ reflective of remaining uncertainty about the appropriate value of $t$. 
+Such uncertainty may have its source in parameter uncertainty (uncertainty about the values of certain model inputs), code uncertainty (uncertainty about how closely the code approximates reality), and especially saliently in this case, that which in traditional calibration would be considered either observation error or model inadequacy. 
+Of course, our targets are not actually observations, and the concept of observation error does not cleanly transfer here. 
 But a relevantly similar uncertainty would be uncertainty over how close reality \emph{can} come to our desired observations. 
 % DISCUSS AB says explain this more. We have already discussed this a bit
 %But just as the target can be treated as an observation in the calibration process, as it were \emph{aspirationally}, so too an observation error variance can be specified aspirationally, rather than as reflective of reality.
-The model calibration framework of \cite{Kennedy2001} allows for the quantification of all of these uncertainties.
+The model calibration framework of \cite{Kennedy2001} allows for the quantification of all of these uncertainties. Furthermore, by the use of informative priors on the model discrepancy and observation error, the identifiability concerns of the Kennedy-O'Hagan approach (discussed by \cite{Bayarri2007}, \cite{Tuo2016} and others) are avoided.
 
 \subsection{Target observations}
 % This describes the basic idea.
@@ -258,12 +262,12 @@ Such a choice of target observation would indeed be consistent with the method o
 % DISCUSS Andrew and I had talked about how this isn't quite true since the observation variance will expand to be as big as it needs to be to make the likelihoods work. But (a) some versions of CtDO call for a cap on observation variance / discrepancy variance, and (b) even with the version that lets obs var get as high as it likes, still there is a prior on obs var which penalizes high values of it, so it seems to me the point stands.
 (2) The desired observations lose a measure of interpretability when they delve too far into the fantastical, such as with negative evacuation times. Identifying the appropriate range of outputs for desired observations, which exceed reality but slightly, will of course often require one to consult expert opinion. 
 
-\subsubsection{Set target via desired observations, or prior distribution?}
-% DISCUSS (terminology of desired observations) % MAke clear that it is a term of art
-In undertaking model calibration to achieve desired system output, directly setting desired observations is not the only option. For example, in the application considered below in Section \ref{application}, the calibration parameters are controllable features of material design, and the cost of the resulting material is one of the outputs for which I establish targets. 
-%Two approaches are used for doing this. 
-One approach is simply to include a desired observation of cost, and calibrate to that along with the other desired observation targets. 
-An alternative approach is to remove cost from the model, and place a prior distribution on the remaining calibration parameters that places low probability over those regions of the calibration parameter space for which the cost is high. Of course, this requires prior knowledge of the behavior of cost over the calibration parameter space. Without such knowledge, this alternative would be unavailable.
+%\subsubsection{Set target via desired observations, or prior distribution?}
+%% DISCUSS (terminology of desired observations) % MAke clear that it is a term of art
+%In undertaking model calibration to achieve desired system output, directly setting desired observations is not the only option. For example, in the application considered below in Section \ref{application}, the calibration parameters are controllable features of material design, and the cost of the resulting material is one of the outputs for which I establish targets. 
+%%Two approaches are used for doing this. 
+%One approach is simply to include a desired observation of cost, and calibrate to that along with the other desired observation targets. 
+%An alternative approach is to remove cost from the model, and place a prior distribution on the remaining calibration parameters that places low probability over those regions of the calibration parameter space for which the cost is high. Of course, this requires prior knowledge of the behavior of cost over the calibration parameter space. Without such knowledge, this alternative would be unavailable.
 
 A third option is also explored in Section (\ref{application})'s treatment of the material design application. This option is not truly another means of achieving a calibration target, but rather is simply the decision to refrain from doing so. That is, rather than include a desired observation of (e.g.) cost in the above model or set a prior that induces low cost, one can simply specify a known cost and calibrate desired performance targets to a design having that cost. Since it is antecendently unknown which cost settings are optimal, under this third option I calibrate performance targets under each point of a grid of ``known'' costs. Thus I present a comprehensive picture of optimal parameter distributions and resulting performance under a range of costs, which could inform the process of setting a budget for material construction.
 
@@ -276,33 +280,67 @@ A third option is also explored in Section (\ref{application})'s treatment of th
 It is not merely likely but often desirable that the desired observations have low likelihood with respect to the posterior predictive distribution of the calibration process. This is another way in which CDO is unlike traditional calibration. The reason for this is that if the posterior predictive distribution places substantial probability mass at regions of the parameter space that achieve the target desired observations, then this is a sign that the the desired observations may have been insufficiently ambitious. 
 % DISCUSS AB says: "I'm not sure I'm following this argument. We want a design in which our desired performance is unlikely? Or do you mean while also explicitly accounting for discrepancy between the system behavior and the targets?  In the latter case, getting the discrepancy right seems critical to understanding what will happen."
 % Note that your observation variance will grow to make stuff sufficiently likely that you don't have to worry about the extreme low likelihoods
-In some applications, this concern about setting insufficiently ambitious desired observations will not arise. In general, this concern applies whenever one's target output from a system is not limited to what is realistically achievable. In the building design example, we would like to see instantaneous evacuation; in the material design case, we would like to see zero-cost materials that do not deform at all under load. These targets are unattainable, but we wish to induce the system to approach these targets, and so these impossibilities become our desired observations. However, another type of calibration to desired observation may involve searching within the space of what is achievable. In a different application than the one considered in this work (wind turbine blades), it might be ideal to have a material that deforms just so -- rather than a material which does not deform under load. In such a case, it would be appropriate to set desired observations that one indeed does hope to find as the posterior predictive mode after calibration. But in cases such as the wind turbine and building evacuation systems, finding the desired observations to be the posterior mode would be an indication that the desired observation could potentially be outperformed, or else that the model is itself unrealistic. In short, if the system can achieve the desired observations, then either the desired observations are realistically achievable (hence insufficiently ambitious) or else the desired observations are not realistically achievable (hence casting doubt on a model which presents them as achievable).
+%In some applications, this concern about setting insufficiently ambitious desired observations will not arise. 
+%In general, this concern applies whenever one's target output from a system is not limited to what is realistically achievable. In the building design example, we would like to see instantaneous evacuation; in the material design case, we would like to see zero-cost materials that do not deform at all under load. These targets are unattainable, but we wish to induce the system to approach these targets, and so these impossibilities become our desired observations. However, another type of calibration to desired observation may involve searching within the space of what is achievable. 
+In the wind turbine blade application considered in this work, the ideal material would (impossibly) not deform at all under load.
+In a different application, one might wish to design a material that deforms in a pre-specified (possible) way. 
+%In a different application than the one considered in this work (wind turbine blades), it might be ideal to have a material that deforms just so -- rather than a material which does not deform under load. 
+In such a case, it would be appropriate to set desired observations that one indeed does hope to find as the posterior predictive mode after calibration. 
+But in cases such as the wind turbine and building evacuation systems, finding the desired observations to be the posterior mode would be an indication that the desired observation could potentially be outperformed, or else that the model is itself unrealistic. In short, if the system can achieve the desired observations, then either the desired observations are realistically achievable (hence insufficiently ambitious) or else the desired observations are not realistically achievable (hence casting doubt on a model which presents them as achievable).
 
-Where the mean of the posterior GP from CDO fails to interpolate the desired observations, this can be understood in two distinct ways. These correspond to the two distinct sources of error in traditional calibration to field observations. The first such source of error is model discrepancy, or $\delta(\cdot)$ in (\ref{eq:model_gen}). This is defined to be the difference between the mean of the true system and the output of the computer model; it is thus the extent to which the computer model fails to capture reality. The other source of error is observation error, or $\epsilon(\cdot)$ in (\ref{eq:model_gen}). This is usually taken so that $\epsilon(\mathbf x) \equiv \epsilon$ does not depend on $\mathbf x$. Note that this source of error cannot be attributed to any failing on the part of the computer model. Neither of these two sources of error, under their above-described traditional interpretations, succeeds in capturing the nature of the gap between desired observations and the posterior predictive mean. These two sources of error can nonetheless serve as a basis for modeling this gap -- see (\ref{obs_error}) and (\ref{mod_disc}) below.
-Nor does it quite fit even to call this gap ``error'', or a form of model discrepancy. Even under CDO, the model still describes \emph{reality}, not our desires. Thus failure to interpolate our desires is not error. Though for convenience and ease of exposition I will often slip back into referring to this gap as ``error'', we can more properly refer to it as ``model shortcoming''. This is still somewhat infelicitous insofar as it still implies failure on the part of the model, whereas in fact this gap is due to the stubbornness of \emph{reality} in declining to behave according to our desires. %\footnote{Though maybe a more enlightened viewpoint would take a conflict between reality and desire to be due to the latter's shortcomings.}.  
-The model underperforms with respect to our targets insofar as reality does so. Still, the term is appropriate, since the ``error'' observed is a discrepancy between the desired observations and the model, not between the model and the true system.
+Where the mean of the posterior GP from CDO fails to interpolate the desired observations, this can be understood in two distinct ways. 
+These correspond to the two distinct sources of error in traditional calibration to field observations. 
+The first such source of error is model discrepancy, or $\delta(\cdot)$ in (\ref{eq:model_gen}). 
+This is defined to be the difference between the mean of the true system and the output of the computer model; it is thus the extent to which the computer model fails to capture reality. 
+The other source of error is observation error, or $\epsilon(\cdot)$ in (\ref{eq:model_gen}). 
+This is usually taken so that $\epsilon(\mathbf x) \equiv \epsilon$ does not depend on $\mathbf x$. 
+Note that this source of error cannot be attributed to any failing on the part of the computer model. 
+Neither of these two sources of error, under their above-described traditional interpretations, succeeds in capturing the nature of the gap between desired observations and the posterior predictive mean. 
+These two sources of error can nonetheless serve as a basis for modeling this gap -- see (\ref{obs_error}) and (\ref{mod_disc}) below.
+Nor does it quite fit even to call this gap ``error'', or a form of model discrepancy. 
+Even under CDO, the model still describes \emph{reality}, not our desires. 
+Thus failure to interpolate our desires is not error. 
+Though for convenience and ease of exposition I will often slip back into referring to this gap as ``error'', we can more properly refer to it as ``model shortcoming''. 
+This is still somewhat infelicitous insofar as it still implies failure on the part of the model, whereas in fact this gap is due to the stubbornness of \emph{reality} in declining to behave according to our desires. %\footnote{Though maybe a more enlightened viewpoint would take a conflict between reality and desire to be due to the latter's shortcomings.}.  
+The model underperforms with respect to our targets insofar as reality does so. 
+Still, the term is appropriate, since the ``error'' observed is a discrepancy between the desired observations and the model, not between the model and the true system.
 
-\subsubsection{Observation error}\label{obs_error}
+\subsection{Setting the marginal variance for model discrepancy}
 
-% Specifying observation error (including specifying different errors)
+Hereafter in this work, we will assume that model shortcoming will be captured via a discrepancy term $\delta(\cdot)$ modeled as a mean-zero, stationary GP. 
+%
+In order to successfully calibrate to the optimal region of the parameter space, it is necessary to either place an informative prior on the marginal precision $\lambda_\delta$ of the discrepancy, or else to specify that value outright. 
+%
+Otherwise, identifiability issues can cause the calibration to fail. This is a longstanding concern with the Kennedy-O'Hagan framework, raised in the discussion of the initial publication \cite{Kennedy2001} as well as in \cite{Bayarri2007}, \cite{Tuo2015}, and \cite{Plumlee2017}.
 
-% Setting a prior on observation error
-
-Model shortcoming can be accommodated by treating it as observation error $\epsilon(\cdot)$. This approach is flexible and has a number of advantages.
-First, this approach allows one to specify ``known'' observation variance. In the framework of CDO, this amounts to specifying how strongly the posterior GP should be drawn to the desired observations. This would be especially useful in the sort of case, described above, in which one hopes the posterior GP to interpolate the desired data. Even in the more ambitious case when the desired observations are realistically unattainable, there is great flexibility to be exercised in selecting observation variances directly. One can thereby, for example, set priorities in one's targets. For example, in the application of Sections \ref{application} and \ref{MCMC}, there are three outputs: wind turbine blade tip deflection, rotation, and cost. A plausible scenario for design would be that keeping costs low might be a much greater priority than minimizing deflection and rotation. This can be achieved simply by setting the observation variance of cost to be lower than that of deflection and rotation. 
-%To implement a similar approach using a model discrepancy function would require using a non-stationary covariance function, complicating the analysis significantly. 
-
-However, one might antecedently have little information about just how close the model can come to the desired observations. This is especially true when multivariate output is considered. The model may be able to approach some elements of the desired observation much more closely than others. Without prior knowledge, it can thus be difficult to specify an appropriate setting for the observation variance. Too low, and computational difficulties may arise from low likelihoods. Too high, and the model may be insufficiently ``incentivized'' to approach the targets. In such situations, one can simply place a prior on the observation variances, allowing the simulation data to inform us as to how achievable the desired observations are. In Section \ref{MCMC} I implement this, showing that it leads to better performance with respect to the desired observations than specifying a static observation variance.
-
-Finally, these two methods can be combined. One of the approaches used in Section \ref{MCMC} places a prior over the observation variance of deflection and rotation, but specifies a very low observation variance for cost, over a grid of (realistically achievable) desired cost observations, each of which is paired with (unrealistically ambitious) desired observations of zero deflection and rotation. The net result of this is to find distributions of optimally performing materials over a grid of set costs, so that one can see the performance outcomes as variables of a choice of cost over a broad range.
-
-%Thus, the use of observation variance to incorporate model shortcoming is a flexible approach that can accommodate a variety of different calibration problems. The primary disadvantage of this approach to model shortcoming is its interpretability. 
-
-\subsubsection{Model discrepancy}\label{mod_disc}
-
-A separate means of incorporating model shortcoming would be to treat it as model discrepancy rather than as observation error. Often, model discrepancy $\delta(\cdot)$ is itself modeled as a mean-zero GP; see e.g. \cite{Williams2006}. This has the advantage that it facilitates treating model shortcoming as a function of the control input $x$, which will often be the case. The deviance of our desired observations from the mean is after all not mere random noise. Performance targets deviate from the true system mean in a systematic but unknown way. Thus model shortcoming is more accurately represented by a discrepancy function than as random observation error.
-
-Disadvantages are that, in contrast with the use of observation error, it is much less convenient to fine-tune the model discrepancy function to the details and priorities of a particular situation. For example, like \cite{Williams2006}, in the present work dummy variables are used to construct a univariate Gaussian emulator for our three model outputs. If we now wish to either specify different variances for the three outputs or to allow the data to discover different such variances (as suggested above for observation variances) via a model discrepancy function, we will not be able to use a stationary GP to model that discrepancy. That is, the covariance function for the discrepancy GP, $C_\delta(\mathbf x,\mathbf x')$, will depend not only on the distance between $\mathbf x$ and $\mathbf x'$, but on their location within the input space $\mathcal X$. This is an unattractive complication, but remains a live option.
+%\subsubsection{Observation error}\label{obs_error}
+%
+%% Specifying observation error (including specifying different errors)
+%
+%% Setting a prior on observation error
+%
+%Model shortcoming can be accommodated by treating it as observation error $\epsilon(\cdot)$.
+%This approach is flexible and has a number of advantages.
+%First, this approach allows one to specify ``known'' observation variance. In the framework of CDO, this amounts to specifying how strongly the posterior GP should be drawn to the desired observations. 
+%This would be especially useful in the sort of case, described above, in which one hopes for the posterior GP to interpolate the desired data. 
+%Even in the more ambitious case when the desired observations are realistically unattainable, there is great flexibility to be exercised in selecting observation variances directly. 
+%One can thereby, for example, set priorities in one's targets. 
+%For example, in the application of Sections \ref{application} and \ref{MCMC}, there are three outputs: wind turbine blade tip deflection, rotation, and cost. 
+%A plausible scenario for design would be that keeping costs low might be a much greater priority than minimizing deflection and rotation. 
+%This can be achieved simply by setting the observation variance of cost to be lower than that of deflection and rotation. 
+%%To implement a similar approach using a model discrepancy function would require using a non-stationary covariance function, complicating the analysis significantly. 
+%
+%However, one might antecedently have little information about just how close the model can come to the desired observations. This is especially true when multivariate output is considered. The model may be able to approach some elements of the desired observation much more closely than others. Without prior knowledge, it can thus be difficult to specify an appropriate setting for the observation variance. Too low, and computational difficulties may arise from low likelihoods. Too high, and the model may be insufficiently ``incentivized'' to approach the targets. In such situations, one can simply place a prior on the observation variances, allowing the simulation data to inform us as to how achievable the desired observations are. In Section \ref{MCMC} I implement this, showing that it leads to better performance with respect to the desired observations than specifying a static observation variance.
+%
+%Finally, these two methods can be combined. One of the approaches used in Section \ref{MCMC} places a prior over the observation variance of deflection and rotation, but specifies a very low observation variance for cost, over a grid of (realistically achievable) desired cost observations, each of which is paired with (unrealistically ambitious) desired observations of zero deflection and rotation. The net result of this is to find distributions of optimally performing materials over a grid of set costs, so that one can see the performance outcomes as variables of a choice of cost over a broad range.
+%
+%%Thus, the use of observation variance to incorporate model shortcoming is a flexible approach that can accommodate a variety of different calibration problems. The primary disadvantage of this approach to model shortcoming is its interpretability. 
+%
+%\subsubsection{Model discrepancy}\label{mod_disc}
+%
+%A separate means of incorporating model shortcoming would be to treat it as model discrepancy rather than as observation error. Often, model discrepancy $\delta(\cdot)$ is itself modeled as a mean-zero GP; see e.g. \cite{Williams2006}. This has the advantage that it facilitates treating model shortcoming as a function of the control input $x$, which will often be the case. The deviance of our desired observations from the mean is after all not mere random noise. Performance targets deviate from the true system mean in a systematic but unknown way. Thus model shortcoming is more accurately represented by a discrepancy function than as random observation error.
+%
+%Disadvantages are that, in contrast with the use of observation error, it is much less convenient to fine-tune the model discrepancy function to the details and priorities of a particular situation. For example, like \cite{Williams2006}, in the present work dummy variables are used to construct a univariate Gaussian emulator for our three model outputs. If we now wish to either specify different variances for the three outputs or to allow the data to discover different such variances (as suggested above for observation variances) via a model discrepancy function, we will not be able to use a stationary GP to model that discrepancy. That is, the covariance function for the discrepancy GP, $C_\delta(\mathbf x,\mathbf x')$, will depend not only on the distance between $\mathbf x$ and $\mathbf x'$, but on their location within the input space $\mathcal X$. This is an unattractive complication, but remains a live option.
 
 \subsection{Field observations and model discrepancy}
 % Here, discuss whether or how to include field observations.
@@ -315,17 +353,27 @@ The question thus arises as to whether it is possible to undertake both calibrat
 
 This separation between what constitutes the calibration parameters of the two procedures opens the possibility of the two calibrations proceeding simultaneously, without undermining one another. This possibility will be pursued in future work on this subject. However, an alternative solution is to undertake traditional calibration prior to CDO, finding both a distribution on the (traditional) calibration parameters and an estimated model discrepancy function. Thus one arrives at CDO (assuming success in the former calibration) with a model that faithfully represents the true system.
 
-As a first approximation, in the unlikely event that the calibration parameters coincide under the two sorts of calibration, it would be possible to undertake a single round of calibration to both field and desired observations. It would be necessary to take care with how to treat model shortcoming in this scenario. Attempting to capture it via the model discrepancy function would likely lead to confounding the true model discrepancy with the model shortcoming, undermining both calibration goals. A more hopeful route would be to use observation variance to incorporate the model shortcoming; this would allow one to specify a larger observation variance for desired observations than for field observations (and that only if these two sets of observations do not share locations in $\mathcal X$). Even this strategy would only mitigate the confounding of the two calibration goals, and should only be used if the budget for simulation observations is so small as to make it infeasible to perform two separate calibrations.
+%As a first approximation, in the unlikely event that the calibration parameters coincide under the two sorts of calibration, it would be possible to undertake a single round of calibration to both field and desired observations. It would be necessary to take care with how to treat model shortcoming in this scenario. Attempting to capture it via the model discrepancy function would likely lead to confounding the true model discrepancy with the model shortcoming, undermining both calibration goals. A more hopeful route would be to use observation variance to incorporate the model shortcoming; this would allow one to specify a larger observation variance for desired observations than for field observations (and that only if these two sets of observations do not share locations in $\mathcal X$). Even this strategy would only mitigate the confounding of the two calibration goals, and should only be used if the budget for simulation observations is so small as to make it infeasible to perform two separate calibrations.
 
 \subsection{Hyperparameter estimation}\label{hyperparameter_estimation}
 % Basically, make the case for modularization here. So your desired data doesn't infect your hyperparameters. After all, you want these set to most closely emulate the computer model. You want these reflecting reality, not reflecting your targets.
-Consider the covariance function parameters $\lambda_\eta,\boldsymbol \beta^\eta$ in (\ref{eq:Hig_cov}). In a full Bayesian analysis, these would be searched over in the MCMC along with the calibration parameters. However, \cite{Kennedy2001} instead find the MLEs of these hyperparameters prior to calibration. More generally, \cite{Liu2009} advocate modularization, described in Section \ref{computer_model_calibration} above. A key motivation of modularization is to protect good components of the model from ``suspect'' components of the model, and desired observations are, by their very nature, ``suspect''. In other words, the model most successfully represents reality when the settings for these hyperparameters are guided by accurate and precise information about the true system. Desired observations are deliberately not such information. In essence, attempting a full Bayesian analysis that finds these hyperparameter settings as part of CDO would be committing the same sort of error as described in the previous section: namely, CDO should be used to tune only those parameters which are within our control over a range $\mathcal T$ such that the model faithfully represents reality over all of $\mathcal T$. In the true system, the hyperparameters of the covariance function are not under our control.
+Consider the covariance function parameters $\lambda_\eta,\boldsymbol \beta^\eta$ in (\ref{eq:Hig_cov}). 
+In a full Bayesian analysis, these would be searched over in the MCMC along with the calibration parameters. 
+However, \cite{Kennedy2001} instead find the MLEs of these hyperparameters prior to calibration. 
+More generally, \cite{Bayarri2007}and \cite{Liu2009} advocate what they call ``modularization''. 
+Modularization refers to separating sources of information, so that the model has distinct components or ``modules'', rather than allowing all information to combine into a single analysis under the umbrella of Bayes' theorem. \cite{Liu2009} focus directly on the use of modularization, exploring its advantages and disadvantages; amongst other potential motivations, they show that modularization can improve the identifiability of calibration parameters. 
+A key motivation of modularization is to protect good components of the model from ``suspect'' components of the model, and desired observations are, by their very nature, ``suspect''. 
+In other words, the model most successfully represents reality when the settings for these hyperparameters are guided by accurate and precise information about the true system. 
+Desired observations are deliberately not such information. 
+In essence, attempting a full Bayesian analysis that finds these hyperparameter settings as part of CDO would be violate the principle that CDO should be used to tune only those parameters which are within our control over a range $\mathcal T$ such that the model faithfully represents reality over all of $\mathcal T$. 
+In the true system, the hyperparameters of the covariance function are not under our control.
 
 Therefore, care should be taken to prevent the desired observations from ``infecting'' the covariance hyperparameters, since we want the latter to reflect reality rather than our performance targets. The way that this is prevented in the application of Section \ref{application} is by using maximum likelihood estimation from the simulation observations alone to estimate these values. Field observations could be used here as well, either for the maximum likelihood estimation or for a modular Bayesian analysis \`a la \cite{Liu2009}.
 
 \section{Application}\label{application}
+%% HERE
 
-In this and the following sections I describe the use of CDO for the problem of designing a material for constructing a wind turbine blade of fixed geometry. In traditional engineering design, material selection is a matter of selecting a material with appropriate properties for the project at hand from a database of known materials, often as a matter of ad-hoc satisficing. Material design usually occurs separately, and without an eye to specific end-uses. It is desirable to wed these design processes, selecting a material design by modeling its performance outcomes in a particular engineering application. Therefore, here I offer an example of calibrating material design parameters to desired performance targets for a wind turbine blade. This calibration is mediated by a finite element model using \texttt{ANSYS} simulation software\footnote{
+In this section I describe the use of CDO for the problem of designing a material for constructing a wind turbine blade of fixed geometry. In traditional engineering design, material selection is a matter of selecting a material with appropriate properties for the project at hand from a database of known materials, often as a matter of ad-hoc satisficing. Material design usually occurs separately, and without an eye to specific end-uses. It is desirable to wed these design processes, selecting a material design by modeling its performance outcomes in a particular engineering application. Therefore, here I offer an example of calibrating material design parameters to desired performance targets for a wind turbine blade. This calibration is mediated by a finite element model using \texttt{ANSYS} simulation software\footnote{
 The finite element code was authored by Evan Chodora.
 }
 , which is treated as an accurate representation of reality. In this section I describe the emulator, and in Section \ref{MCMC} I describe its use for the calibration procedure.
@@ -387,13 +435,13 @@ where $\rho^\eta_k = \exp(-\beta_k^\eta/4)$. A slice of the resulting emulator m
 %% Explanation and advantages
 %Blah
 
-\begin{figure}
-\centering
-\includegraphics[width=.65\linewidth]{emulator_surface}
-\captionsetup{width=.65\linewidth}
-\caption{A slice of the GP emulator mean (restricted to the output for tip deflection) at thickness = 20mm. Red dots are observations from the simulator.}
-\label{fig:emulator_surface}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=.65\linewidth]{emulator_surface}
+%\captionsetup{width=.65\linewidth}
+%\caption{A slice of the GP emulator mean (restricted to the output for tip deflection) at thickness = 20mm. Red dots are observations from the simulator.}
+%\label{fig:emulator_surface}
+%\end{figure}
 
 \section{MCMC using the emulator}\label{MCMC}
 
@@ -410,208 +458,208 @@ Following the framework laid out in Section \ref{gaussian_processes} and the hyp
 where $\mu^*(\mathbf b) = \mathbf C_{\mathbf b,\mathbf B} \cdot \mathbf C_{\mathbf B,\mathbf B}^{-1} \cdot \boldsymbol \eta$, $C^*(\mathbf b,\mathbf b') = \mathbf C_{(\mathbf b^T,\mathbf b'^T)^T,(\mathbf b^T,\mathbf b'^T)^T} - \mathbf C_{(\mathbf b^T,\mathbf b'^T)^T,\mathbf B}\cdot \mathbf C_{\mathbf B,\mathbf B}^{-1} \cdot \mathbf C_{\mathbf B,(\mathbf b^T,\mathbf b'^T)^T}$, $\mathbf C_{\Upsilon,\Gamma}$ is the matrix whose $i,j$ element is equal to the covariance between the observation at the $i^{\text{th}}$ row of $\Upsilon$ and at the $j^{\text{th}}$ row of $\Gamma$, $\mathbf b=(\mathbf x,\mathbf t)$ is a row vector of control and calibration inputs, $\mathbf B=(\mathbf b_1^T,\mathbf b_2^T,\cdots,\mathbf b_n^T)^T$ is the $1512\times5$ matrix of locations of the 1512 simulation observations, and $\boldsymbol\eta$ is a column vector of the 1512 simulation responses: $\eta_i=\eta(\mathbf b_i)$. All model inputs are normalized to [0,1] over their supports. All model outputs are standardized so that $\boldsymbol\eta$ has mean 0 and standard deviation 1.
 $C(\cdot,\cdot)$ is given by (\ref{eq:Hig_cov}), where I plug in the MLEs given in (\ref{eq:MLEs}). 
 
-Generalizing from \cite{Kennedy2006}, I expand the Bayesian analysis to include the diagonal observation variance matrix $\mathbf C_{\mathbf y}$, rather than requiring this value to be specified as known, and I allow for a non-uniform prior $\pi(\boldsymbol \theta)$ on the calibration parameters. By (\ref{eq:full_dist}) on page \pageref{eq:full_dist}, 
-since I estimate $\boldsymbol \rho^\eta,\lambda_\eta$ by maximum likelihood, set $c=0$, and do not include a discrepancy function, we have for desired observations $\mathbf y=(y (b_{n+1}),\cdots,y(b_{n+m}))^T$ and $\mathcal D=(\mathbf y^T, \boldsymbol\eta^T)^T$:
-\begin{equation}\label{eq:the_model}
-\pi(\boldsymbol \theta,\mathbf C_{\mathbf y}|\mathcal D) \propto \pi (\mathcal D|\boldsymbol \theta,\mathbf C_{\mathbf y})\times \pi(\boldsymbol \theta)\times \pi(\mathbf C_{\mathbf y})
-\end{equation}
-and $\mathcal D|\boldsymbol \theta,\mathbf C_{\mathbf y} \sim N(\boldsymbol 0_{m+n}, \mathbf C_{\mathcal D})$, 
-\begin{equation}\label{eq:the_covariance}
-\mathbf C_{\mathcal D} = \mathbf C_{\boldsymbol\eta} + 
-\begin{bmatrix}
-\mathbf C_{\mathbf y} & \boldsymbol 0\\ 
-\boldsymbol 0 & \boldsymbol 0
-\end{bmatrix}
-\end{equation}
-where $\mathbf C_{\boldsymbol\eta}$ is a $(m+n)\times(m+n)$ matrix with $i,j$ entry $C(b_i,b_j)$.
-
-The model as described above leaves open several details of the model, options for which are explored in the remainder of Section \ref{MCMC}. In \ref{des_obs_var} I consider options for $\pi(\mathbf C_{\mathbf y})$, the prior on observation variance, including setting a degenerate prior corresponding to specifying a known observation variance. In \ref{which_data} I take up the question of which data one ought to desire, showing how the goals of one's analysis can support vastly different choices for desired data. In \ref{removing_cal_pars} I explore options for $\pi(\boldsymbol \theta)$, the prior on the calibration parameters. I depart thereby from the framework of \cite{Kennedy2006}, who (implicitly) restrict the calibration model to the case of using a uniform prior. An example is used to show how setting a non-uniform prior here can allow one to reduce the number of parameters that are subjected to calibration in the model. Before taking up these matters, in \ref{convergence_difficulties} I take up convergence difficulties that arise due to boundary constraints on the calibration parameters.
+%Generalizing from \cite{Kennedy2006}, I expand the Bayesian analysis to include the diagonal observation variance matrix $\mathbf C_{\mathbf y}$, rather than requiring this value to be specified as known, and I allow for a non-uniform prior $\pi(\boldsymbol \theta)$ on the calibration parameters. By (\ref{eq:full_dist}) on page \pageref{eq:full_dist}, 
+%since I estimate $\boldsymbol \rho^\eta,\lambda_\eta$ by maximum likelihood, set $c=0$, and do not include a discrepancy function, we have for desired observations $\mathbf y=(y (b_{n+1}),\cdots,y(b_{n+m}))^T$ and $\mathcal D=(\mathbf y^T, \boldsymbol\eta^T)^T$:
+%\begin{equation}\label{eq:the_model}
+%\pi(\boldsymbol \theta,\mathbf C_{\mathbf y}|\mathcal D) \propto \pi (\mathcal D|\boldsymbol \theta,\mathbf C_{\mathbf y})\times \pi(\boldsymbol \theta)\times \pi(\mathbf C_{\mathbf y})
+%\end{equation}
+%and $\mathcal D|\boldsymbol \theta,\mathbf C_{\mathbf y} \sim N(\boldsymbol 0_{m+n}, \mathbf C_{\mathcal D})$, 
+%\begin{equation}\label{eq:the_covariance}
+%\mathbf C_{\mathcal D} = \mathbf C_{\boldsymbol\eta} + 
+%\begin{bmatrix}
+%\mathbf C_{\mathbf y} & \boldsymbol 0\\ 
+%\boldsymbol 0 & \boldsymbol 0
+%\end{bmatrix}
+%\end{equation}
+%where $\mathbf C_{\boldsymbol\eta}$ is a $(m+n)\times(m+n)$ matrix with $i,j$ entry $C(b_i,b_j)$.
+%
+%The model as described above leaves open several details of the model, options for which are explored in the remainder of Section \ref{MCMC}. In \ref{des_obs_var} I consider options for $\pi(\mathbf C_{\mathbf y})$, the prior on observation variance, including setting a degenerate prior corresponding to specifying a known observation variance. In \ref{which_data} I take up the question of which data one ought to desire, showing how the goals of one's analysis can support vastly different choices for desired data. In \ref{removing_cal_pars} I explore options for $\pi(\boldsymbol \theta)$, the prior on the calibration parameters. I depart thereby from the framework of \cite{Kennedy2006}, who (implicitly) restrict the calibration model to the case of using a uniform prior. An example is used to show how setting a non-uniform prior here can allow one to reduce the number of parameters that are subjected to calibration in the model. Before taking up these matters, in \ref{convergence_difficulties} I take up convergence difficulties that arise due to boundary constraints on the calibration parameters.
 %\subsubsection{Full model and likelihood}
 %Blah
-
-\subsection{Convergence difficulties}\label{convergence_difficulties}
-% And the idea to eliminate boundary constraints
-As will often be the case in calibration problems, in the application considered here the calibration parameters $(v,k)$ have compact support: $v\in [.1,.6],$ $k\in [10\mathrm{mm},25\mathrm{mm}]$.
-%DISCUSS Andrew asks "Is compact support necessary? For the sake of posterior inference, it seems to me that one could do just as well with open parameter sets." I'm not sure what he means: is he suggesting that reparameterization to open sets is possible? Or that ignoring the boundaries is? Or something else? And either way, how does it affect the point made here?
-When the calibration procedure leads to draws near these boundaries, the MCMC routine may suffer poor mixing. For example, consider using proposal density $q$ such that $(v^*,k^*)\sim N((v^{(i)},k^{(i)}),\Sigma)$ for some proposal covariance $\Sigma$. 
-The symmetry of a normal proposal density makes it convenient for MCMC, but also exacerbates the difficulties that come from boundary conditions. 
-Using such a proposal density with $\pi(\boldsymbol \theta)$ a uniform density on the support of $\boldsymbol \theta$ amounts to simply discarding any proposed draw of $(v,k)$ that falls outside of the boundaries for those variables. 
-This is inefficient, as it leads to low acceptance rates during MCMC for new draws of $\boldsymbol \theta$. 
-When a new proposed draw is rejected, the previous draw is repeated, leading to extremely high levels of autocorrelation in the MCMC draws.
-
-%DISCUSS What are some sources for reflecting boundary proposals?
-
-There are several ways to tackle this problem. 
-One approach seeks to improve acceptance rates through utilizing an adaptive proposal covariance magnitude, so that $\Sigma$ is periodically updated during the burn-in period in order to achieve an optimal acceptance ratio of around 23\%; see \cite{Roberts1997}. 
-If $\Sigma$ is diagonal, then this is especially simple to implement. 
-One simply keeps track of the number of times that a proposed draw of $\theta_i$ is outside of its boundaries, and then every 100 MCMC steps or so, if the number of out-of-boundary proposals exceeds a specified threshold, then one reduces $\Sigma_i$, the proposal variance of $\theta_i$. 
-This strategy can easily be paired with a more comprehensive adapative proposal covariance -- e.g., one that is set to increase in magnitude whenever more than 30 of the most recent 100 draws have been accepted, and decrease in magnitude whenever fewer than 20 of the most recent draws have been accepted. 
-If the posterior distribution is merely near the boundary, such measures may suffice; however, in calibration to desired observations (which tend to be extreme outliers \textit{qua} observations), often the calibration parameters will be drawn strongly to the boundaries, and in such a situation the sort of adaptive proposal distribution described above may be insufficient to secure good acceptance ratios. 
-
-A second strategy is to use an independence chain approach \citep{Tierney1994}, in which the proposal density is independent of all previous draws. E.g., for compact support $\mathcal S$, one could simply draw new proposals as uniform over $\mathcal S$. When the posterior distribution is diffuse over its support, this can be effective. Otherwise, it can lead to low acceptance rates, as too many proposals are generated in low-density areas of the posterior distribution. 
-
-A third strategy would be to transform the variables to be unbounded. This requires describing the model in terms of these transformed variables. An adaptive covariance can be used here as well, further improving acceptance rates. A fourth, closely related strategy would be to employ some variety of proposal with the same support as the variables. Indeed, the difference between the third and fourth strategies is largely conceptual. Consider, for example, using the logit transform to remove boundary constraints from variables with compact support. Without boundary constraints, one can recover the convenience of a symmetric, Gaussian proposal distribution, without risk of proposing outside of the variables' support. But in addition to being viewed as a symmetric distribution on the transformed variables, this can equally be viewed as a non-symmetric distribution on the untransformed variables. I apply this logit transform to $(v,k)$ in the wind turbine application, where for convenience I adopt the latter conceptual perspective. 
-
-The adaptive proposal strategy sketched above changes only the magnitude of the proposal covariance, and depends upon having a diagonal covariance matrix. This diagonality is what allows the easy modification of the magnitude of the variance of all and only those parameters which are being drawn outside of their boundary constraints. But where boundary constraints are no longer a problem, it is just as convenient to establish a non-diagonal proposal covariance. This will, of course, be of especially high value when the calibration parameters are correlated in the posterior distribution, which is frequently the case. Thus, when updating the proposal covariance, one can set it to be equal to the sample covariance of the unique samples accepted thus far in the MCMC routine.
-
-%In the case of compact support, using the logit transform on the normalized variable removes the boundary constraints. Without boundary constraints, one can recover the convenience of a symmetric proposal, such as a normal distribution. An adaptive proposal covariance further aids strong mixing here. The adaptive proposal strategy sketched above depends upon having a diagonal proposal covariance matrix for the calibration parameters; this is what allows the easy modification of the magnitude of the variance of all and only those parameters which are being drawn outside of their boundary constraints. But where boundary constraints are no longer a problem, it is just as convenient to establish a non-diagonal proposal covariance. This will, of course, be of especially high value when the calibration parameters are correlated in the posterior distribution, which is frequently the case in our application. Thus, when updating the proposal covariance, one can set it to be equal to the sample covariance of the unique samples accepted thus far in the MCMC routine. 
-
-
-If the acceptance ratio is low early in the MCMC when using this adaptive technique, the resulting proposal covariance may be too small. To promote more efficient exploration of the parameter space, the covariance can be multiplied by a constant $\tau$ which is also updated whenever the proposal covariance is updated. One may adjust $\tau$ so as to induce acceptance rates close to 23\%. Thus, during the burn-in period, every $n_0$ draws (with $n_0$ set to, e.g., 100), the proposal covariance $\Sigma$ and multiplier $\tau$ are updated to $\Sigma^*$ and $\tau^*$ as follows, where $a$ is the proportion of the past $n_0$ draws that were accepted, $I$ is the indicator function, and $\mathbf S$ is the set of all samples drawn so far:
-\begin{equation}
-\begin{aligned}
-\tau^* &= \tau \cdot (1.25  I(a>25) + 0.75 I(a<20))\\
-\Sigma^* &= \tau^* \cdot \mathrm{Cov}(\mathbf S)
-\end{aligned}
-\end{equation}
-
-%More cautiously (lest the proposal covariance become unduly influenced by early, nonrepresentative draws) but in the same spirit, one can proceed as follows. Set the proposal covariance to begin as some pre-specified, diffuse covariance (such as the identity $I$). Periodically update to a weighted mixture of the previous covariance matrix with the sample covariance of the most recent 50\% of the unique samples drawn in the MCMC routine, where the weight increases to favor the sample covariance over the course of the burn-in period. Furthermore, a scalar multiplier $\tau$ of the proposal covariance can be adjusted so as to induce acceptance rates close to 23\%. This strategy was found to be most successful in our application. Thus where the first $g$ samples are treated as burn-in, each time the proposal covariance $\Sigma$ and multiplier $\tau$ are updated to $\Sigma^*$ and $\tau^*$ at the $r^{\text{th} }$ iteration:
+%
+%\subsection{Convergence difficulties}\label{convergence_difficulties}
+%% And the idea to eliminate boundary constraints
+%As will often be the case in calibration problems, in the application considered here the calibration parameters $(v,k)$ have compact support: $v\in [.1,.6],$ $k\in [10\mathrm{mm},25\mathrm{mm}]$.
+%%DISCUSS Andrew asks "Is compact support necessary? For the sake of posterior inference, it seems to me that one could do just as well with open parameter sets." I'm not sure what he means: is he suggesting that reparameterization to open sets is possible? Or that ignoring the boundaries is? Or something else? And either way, how does it affect the point made here?
+%When the calibration procedure leads to draws near these boundaries, the MCMC routine may suffer poor mixing. For example, consider using proposal density $q$ such that $(v^*,k^*)\sim N((v^{(i)},k^{(i)}),\Sigma)$ for some proposal covariance $\Sigma$. 
+%The symmetry of a normal proposal density makes it convenient for MCMC, but also exacerbates the difficulties that come from boundary conditions. 
+%Using such a proposal density with $\pi(\boldsymbol \theta)$ a uniform density on the support of $\boldsymbol \theta$ amounts to simply discarding any proposed draw of $(v,k)$ that falls outside of the boundaries for those variables. 
+%This is inefficient, as it leads to low acceptance rates during MCMC for new draws of $\boldsymbol \theta$. 
+%When a new proposed draw is rejected, the previous draw is repeated, leading to extremely high levels of autocorrelation in the MCMC draws.
+%
+%%DISCUSS What are some sources for reflecting boundary proposals?
+%
+%There are several ways to tackle this problem. 
+%One approach seeks to improve acceptance rates through utilizing an adaptive proposal covariance magnitude, so that $\Sigma$ is periodically updated during the burn-in period in order to achieve an optimal acceptance ratio of around 23\%; see \cite{Roberts1997}. 
+%If $\Sigma$ is diagonal, then this is especially simple to implement. 
+%One simply keeps track of the number of times that a proposed draw of $\theta_i$ is outside of its boundaries, and then every 100 MCMC steps or so, if the number of out-of-boundary proposals exceeds a specified threshold, then one reduces $\Sigma_i$, the proposal variance of $\theta_i$. 
+%This strategy can easily be paired with a more comprehensive adapative proposal covariance -- e.g., one that is set to increase in magnitude whenever more than 30 of the most recent 100 draws have been accepted, and decrease in magnitude whenever fewer than 20 of the most recent draws have been accepted. 
+%If the posterior distribution is merely near the boundary, such measures may suffice; however, in calibration to desired observations (which tend to be extreme outliers \textit{qua} observations), often the calibration parameters will be drawn strongly to the boundaries, and in such a situation the sort of adaptive proposal distribution described above may be insufficient to secure good acceptance ratios. 
+%
+%A second strategy is to use an independence chain approach \citep{Tierney1994}, in which the proposal density is independent of all previous draws. E.g., for compact support $\mathcal S$, one could simply draw new proposals as uniform over $\mathcal S$. When the posterior distribution is diffuse over its support, this can be effective. Otherwise, it can lead to low acceptance rates, as too many proposals are generated in low-density areas of the posterior distribution. 
+%
+%A third strategy would be to transform the variables to be unbounded. This requires describing the model in terms of these transformed variables. An adaptive covariance can be used here as well, further improving acceptance rates. A fourth, closely related strategy would be to employ some variety of proposal with the same support as the variables. Indeed, the difference between the third and fourth strategies is largely conceptual. Consider, for example, using the logit transform to remove boundary constraints from variables with compact support. Without boundary constraints, one can recover the convenience of a symmetric, Gaussian proposal distribution, without risk of proposing outside of the variables' support. But in addition to being viewed as a symmetric distribution on the transformed variables, this can equally be viewed as a non-symmetric distribution on the untransformed variables. I apply this logit transform to $(v,k)$ in the wind turbine application, where for convenience I adopt the latter conceptual perspective. 
+%
+%The adaptive proposal strategy sketched above changes only the magnitude of the proposal covariance, and depends upon having a diagonal covariance matrix. This diagonality is what allows the easy modification of the magnitude of the variance of all and only those parameters which are being drawn outside of their boundary constraints. But where boundary constraints are no longer a problem, it is just as convenient to establish a non-diagonal proposal covariance. This will, of course, be of especially high value when the calibration parameters are correlated in the posterior distribution, which is frequently the case. Thus, when updating the proposal covariance, one can set it to be equal to the sample covariance of the unique samples accepted thus far in the MCMC routine.
+%
+%%In the case of compact support, using the logit transform on the normalized variable removes the boundary constraints. Without boundary constraints, one can recover the convenience of a symmetric proposal, such as a normal distribution. An adaptive proposal covariance further aids strong mixing here. The adaptive proposal strategy sketched above depends upon having a diagonal proposal covariance matrix for the calibration parameters; this is what allows the easy modification of the magnitude of the variance of all and only those parameters which are being drawn outside of their boundary constraints. But where boundary constraints are no longer a problem, it is just as convenient to establish a non-diagonal proposal covariance. This will, of course, be of especially high value when the calibration parameters are correlated in the posterior distribution, which is frequently the case in our application. Thus, when updating the proposal covariance, one can set it to be equal to the sample covariance of the unique samples accepted thus far in the MCMC routine. 
+%
+%
+%If the acceptance ratio is low early in the MCMC when using this adaptive technique, the resulting proposal covariance may be too small. To promote more efficient exploration of the parameter space, the covariance can be multiplied by a constant $\tau$ which is also updated whenever the proposal covariance is updated. One may adjust $\tau$ so as to induce acceptance rates close to 23\%. Thus, during the burn-in period, every $n_0$ draws (with $n_0$ set to, e.g., 100), the proposal covariance $\Sigma$ and multiplier $\tau$ are updated to $\Sigma^*$ and $\tau^*$ as follows, where $a$ is the proportion of the past $n_0$ draws that were accepted, $I$ is the indicator function, and $\mathbf S$ is the set of all samples drawn so far:
 %\begin{equation}
-%\tau^* =  \tau \left ( 0.9 \cdot I(a<0.2) + 1.1 \cdot I(a>0.3)\right),\quad
-%\Sigma^* = \tau^* \left (  
-%\frac{g-r}\rho \Sigma + \frac r g C_U \right)
+%\begin{aligned}
+%\tau^* &= \tau \cdot (1.25  I(a>25) + 0.75 I(a<20))\\
+%\Sigma^* &= \tau^* \cdot \mathrm{Cov}(\mathbf S)
+%\end{aligned}
 %\end{equation}
-%where $I(\cdot)$ is the indicator function, $a$ is the acceptance rate from recent (e.g. previous 100) draws, and $C_U$ is the sample covariance of the most recent half of all unique samples drawn in the MCMC routine.
+%
+%%More cautiously (lest the proposal covariance become unduly influenced by early, nonrepresentative draws) but in the same spirit, one can proceed as follows. Set the proposal covariance to begin as some pre-specified, diffuse covariance (such as the identity $I$). Periodically update to a weighted mixture of the previous covariance matrix with the sample covariance of the most recent 50\% of the unique samples drawn in the MCMC routine, where the weight increases to favor the sample covariance over the course of the burn-in period. Furthermore, a scalar multiplier $\tau$ of the proposal covariance can be adjusted so as to induce acceptance rates close to 23\%. This strategy was found to be most successful in our application. Thus where the first $g$ samples are treated as burn-in, each time the proposal covariance $\Sigma$ and multiplier $\tau$ are updated to $\Sigma^*$ and $\tau^*$ at the $r^{\text{th} }$ iteration:
+%%\begin{equation}
+%%\tau^* =  \tau \left ( 0.9 \cdot I(a<0.2) + 1.1 \cdot I(a>0.3)\right),\quad
+%%\Sigma^* = \tau^* \left (  
+%%\frac{g-r}\rho \Sigma + \frac r g C_U \right)
+%%\end{equation}
+%%where $I(\cdot)$ is the indicator function, $a$ is the acceptance rate from recent (e.g. previous 100) draws, and $C_U$ is the sample covariance of the most recent half of all unique samples drawn in the MCMC routine.
+%
+%The adaptation takes place only during the burn-in period. 
+%As a result, the adaptive nature of the algorithm does not change the fact that it is an implementation of the Metropolis-Hastings algorithm given in \cite{Hastings1970}. Hence it is guaranteed to converge to the target distribution. 
+%However, another option would be to employ the adaptive Metropolis schema of \cite{Haario2001,Haario2005,Haario2006}, who continue to update the proposal covariance to be the sample covariance of all previous draws throughout the sampling procedure (up to a scaling constant which, unlike $\tau$ above, is not itself adaptive). This sampling method loses the Markov property and hence is not an MCMC method. 
+%Nonetheless the authors show it is ergodic under the conditions that the target distribution is bounded with bounded support. 
+%
+%Recall (from Section \ref{MCMC_methods}) that abandoning symmetry in one's proposal distribution requires that one employ the more general Metropolis-Hastings algorithm, rather than the Metropolis algorithm of \cite{Metropolis1953}. Interpreting a normal distribution on the logit-transformed variables as a distribution on the original variables, it is not symmetric. Therefore, calculate the log acceptance probability a proposal for the $i^{\text{th}}$ draw of $\boldsymbol \theta$ as 
+%\begin{equation}
+%\log \alpha = \log(\boldsymbol \theta^*|\mathcal D, \mathbf C_{\mathbf y}) - \log(\boldsymbol \theta^{(i-1)}|\mathcal D,\mathbf C_{\mathbf y}) + \log q(\boldsymbol \theta^{(i-1)}|\boldsymbol \theta^*)
+%- \log q(\theta^* |\boldsymbol \theta^{(i-1)})
+%\end{equation}
+%where the use of the log scale is required in order to avoid significant round-off and underflow errors due to the dimensionality of $\mathcal D$.
+%
+%The benefits of the logit-transformed, unbounded proposal over a version of the MCMC using a normal proposal (with adaptive covariance) over the untransformed calibration parameters are displayed in Figure \ref{ACFs}. Sizeable autocorrelation appears in the untransformed version, whereas in the logit-transformed version the autocorrelation drops off to insignificance within about 30 steps.
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=.65\linewidth]{ACF_bnd_cnds_fig}
+%\captionsetup{width=.65\linewidth}
+%\caption{Auto-correlation for draws both with and without the elimination of boundary conditions.}
+%\label{ACFs}
+%\end{figure}
 
-The adaptation takes place only during the burn-in period. 
-As a result, the adaptive nature of the algorithm does not change the fact that it is an implementation of the Metropolis-Hastings algorithm given in \cite{Hastings1970}. Hence it is guaranteed to converge to the target distribution. 
-However, another option would be to employ the adaptive Metropolis schema of \cite{Haario2001,Haario2005,Haario2006}, who continue to update the proposal covariance to be the sample covariance of all previous draws throughout the sampling procedure (up to a scaling constant which, unlike $\tau$ above, is not itself adaptive). This sampling method loses the Markov property and hence is not an MCMC method. 
-Nonetheless the authors show it is ergodic under the conditions that the target distribution is bounded with bounded support. 
-
-Recall (from Section \ref{MCMC_methods}) that abandoning symmetry in one's proposal distribution requires that one employ the more general Metropolis-Hastings algorithm, rather than the Metropolis algorithm of \cite{Metropolis1953}. Interpreting a normal distribution on the logit-transformed variables as a distribution on the original variables, it is not symmetric. Therefore, calculate the log acceptance probability a proposal for the $i^{\text{th}}$ draw of $\boldsymbol \theta$ as 
-\begin{equation}
-\log \alpha = \log(\boldsymbol \theta^*|\mathcal D, \mathbf C_{\mathbf y}) - \log(\boldsymbol \theta^{(i-1)}|\mathcal D,\mathbf C_{\mathbf y}) + \log q(\boldsymbol \theta^{(i-1)}|\boldsymbol \theta^*)
-- \log q(\theta^* |\boldsymbol \theta^{(i-1)})
-\end{equation}
-where the use of the log scale is required in order to avoid significant round-off and underflow errors due to the dimensionality of $\mathcal D$.
-
-The benefits of the logit-transformed, unbounded proposal over a version of the MCMC using a normal proposal (with adaptive covariance) over the untransformed calibration parameters are displayed in Figure \ref{ACFs}. Sizeable autocorrelation appears in the untransformed version, whereas in the logit-transformed version the autocorrelation drops off to insignificance within about 30 steps.
-
-\begin{figure}
-\centering
-\includegraphics[width=.65\linewidth]{ACF_bnd_cnds_fig}
-\captionsetup{width=.65\linewidth}
-\caption{Auto-correlation for draws both with and without the elimination of boundary conditions.}
-\label{ACFs}
-\end{figure}
-
-\subsection{Desired observation variance}\label{des_obs_var}
-% 4 versions: heterosked constant, homosked constant, heterosked prior, homosked prior
-In the framework of \cite{Kennedy2006} on which much of the current approach is based, observation variance is assumed to be known. 
-That assumption is less straightforward in the case of CDO. 
-However, as explained below, there are applications in which setting a ``known'' observation variance is appropriate. 
-In this section, I consider the option of specifying observation variance versus setting a (non-degenerate) prior on observation variance. 
-I also consider the option of whether to set different observation variances for different outputs, or a single observation variance on all (standardized) outputs. 
-Table \ref{table:obs_vvar_comp} and the corresponding Figure \ref{fig:comp_obs_var} of MCMC results show how impactful are the choices amongst these options in the wind turbine blade design application. 
-The posterior mean model output varies significantly across the four available strategies, which correspond to different specifications of observation variance settings. 
-The table reflects the choices of (1) whether to specify that the observations are homoskedastic with respect to output type (e.g., whether standardized cost output has the same observation variance as standardized deflection output), and (2) whether the observation variance is set to a constant level or given a (nondegenerate) prior.
-From \eqref{eq:the_model} above, the full models corresponding to these choices, assuming a uniform prior on the calibration parameters, are as follows. 
-Columns one and two of the table both correspond to specifying $\boldsymbol \sigma = (\sigma^2_1,\sigma^2_2,\sigma^2_3)^T$ as the observation variance for each of the three outputs. 
-The two columns differ only in the value of $\boldsymbol \sigma$. 
-The prior $\pi(\mathbf C_{\mathbf y})$ in \eqref{eq:the_model} is thus the degenerate prior $\delta_{\boldsymbol\sigma}(\cdot)$, the Dirac delta function centered at $\boldsymbol \sigma$. 
-Here, $\mathbf C_{\mathbf y}$ is a diagonal matrix where the $i,i$ entry is equal to $\sigma^2_j$ iff desired observation $y_i$ is an observation of output $j$. 
-E.g., if $y_4$ is an observation of rotation, then the fourth diagonal element of $\mathbf C_{\mathbf y}$ is $\sigma^2_2$, the observation variance for rotation. 
-So for these two columns the full model is given by:
-\begin{equation}\label{eq:full_model_1}
-\begin{aligned}
-\pi(\boldsymbol\theta,\mathbf C_{\mathbf y}|\mathcal D) &\propto \pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\boldsymbol\theta) \times \pi(\mathbf C_{\mathbf y})\\
-&\propto \pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \\
-&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \mathrm{exp}(\mathcal D^T \mathbf C_{\mathcal D}^{-1} \mathcal D)
-\end{aligned}
-\end{equation}
-where $\mathbf C_{\mathcal D}$ is given in \eqref{eq:the_covariance}, and where in the final expression I do not explicitly include the uniform $\pi(\boldsymbol\theta)$ or the degenerate $\pi(\mathbf C_{\mathbf y})$.
-Columns three and four each place a prior distribution on the observation variances. Column three places independent priors $1/\sigma^2_i$ on each of the $\sigma^2_i$, $i=1,2,3$, which serve as the observation variances of the three outputs. Column four places a single prior $1/\sigma^2_1$ on a scalar value $\sigma^2_1$ which serves as the observation variance for each of the three outputs. Thus the full models for these columns are:
-\begin{equation}\label{eq:full_model_2}
-\begin{aligned}
-\pi(\boldsymbol\theta,\mathbf C_{\mathbf y}|\mathcal D ) &\propto
-\pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\boldsymbol\theta) \times \pi(\mathbf C_{\mathbf y})\\
-&\propto  \pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\mathbf C_{\mathbf y})\\
-&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \mathrm{exp}(\mathcal D^T \mathbf C_{\mathcal D}^{-1} \mathcal D) \times \prod_{i=1}^k \frac1{\sigma^2_i}
-\end{aligned}
-\end{equation}
-where for column three $k=3$ and $\mathbf C_{\mathbf y}$ is defined as in columns one and two, and for column four $k=1$ and $\mathbf C_{\mathbf y}=\sigma^2_1 \mathbf I_{m\times m}$. In both cases, the final expression does not explicitly include the uniform $\pi(\boldsymbol\theta)$.
-
-Notice in Table \ref{table:obs_vvar_comp} that column three is noticeably distinct from the others. Here is the only case in which the MCMC is free to alter the \emph{proportions} of observation variance allotted to the various outputs. In this case, the desired observation was essentially achieved for deflection and rotation, whereas the posterior cost was far from the desired cost. Thus, using the settings reflected in column three, we are able to learn that it is ``easier'' to achieve these two performance metrics than to achieve the cost target.
-
-When CDO is used without a discrepancy function and with observation variance sampled under a prior, the posterior distribution on observation variance amounts to an indirect measure of how closely reality can approximate our desired observations. E.g., from the fact that posterior observation variance from the routine represented in column three of Table \ref{table:obs_vvar_comp} was near zero, we see immediately that the cost target was achieved. Likewise, extremely high posterior observation variance indicates that the target could not be achieved. The posterior distribution reflects the (false) assumption that the difference between the desired observations and the true system mean is accounted for by random, mean-zero noise. 
-
-Matters are different when a set observation variance is specified for each output. Clearly, since the observation variance isn't sampled in the MCMC, there is no Bayesian learning to be had here. However, there is an opportunity to specify priorities through the specification of the variance. When the desired observations are outside the range of what is realistically achievable, the specific level of the observation variance is unlikely to matter much (unless it is so low as to engender computational difficulties). More important (in the case of multivariate output) is the fact that in specifying the observation variance, one is implicitly specifying the relative importance of each output. E.g., if I set a very diffuse observation variance on cost, and a very small one on deflection, then I have told the model that reduction in deflection is to be prioritized over reduction in cost. Whether one chooses to do so will depend on one's goals in calibration, as well as one's level of prior knowledge as to how close to reality one's desired observations are.
-
-Such prioritization can be harnessed to achieve calibration goals in ways that will be explored in Section \ref{removing_cal_pars}. There, one essentially sets the observation variance for all and only those parameters that one \emph{ceases} to treat as calibration parameters. In general, since there is no true value of the observation variance, it is better to let the data inform us about $\mathbf C_{\mathbf y}$: setting a scale-invariant $1/\sigma_i^2$ prior on each diagonal element $\sigma_i^2$ of $\mathbf C_{\mathbf y}$ yields posterior values of $\mathbf C_{\mathbf y}$ that inform us as to how achievable our desired observations are.
-
-There is another lesson to be derived from Table \ref{table:obs_vvar_comp}; namely, a warning that it is important to be aware of the impact of correlated outputs on the calibration procedure. Notice from the third column of the table that the posterior mean output almost achieves the desired observation for deflection and rotation, at the expense of falling wildly short on cost. However, it is known that the true model can achieve the desired cost of \$96/m$^2$ (for high levels of deflection and rotation). Part of what makes this outcome possible is that deflection and rotation are strongly positively correlated with each other, and negatively with cost. Thus when all three outputs are calibrated to be extremely low values, deflection and rotation will jointly pull against cost.
-
-If one is antecedently unaware of the correlations among the responses, this can undermine one's calibration goals. E.g., if our goal was to balance cost with the performance metrics, then column three of the table fails to achieve this goal, due to the correlation amongst the performance metrics. For that goal, column four would have been a superior strategy, where $\mathbf C_{\mathbf y} = \sigma^2_1 \mathbf I_{m\times m}$ and $\sigma^2_1$ is allowed to vary under the $1/\sigma^2_1$ prior. This sets the observation variances of each output to be equal, but more nuanced versions of this strategy could set them to be scalar multiples of one another; in this way different balances could be achieved than the one displayed in column four of Table \ref{table:obs_vvar_comp}. One may find, however, that one does not antecedently know what balance best suits one's desires. We want low cost, low deflection and low rotation, but exactly how much of each are we willing to trade for gains in the other? There may be no answer this question. It is for such situations that the strategy of Section \ref{removing_cal_pars} is proposed.
-
-\begin{table}[h]
-\centering
-\begin{tabular}{| c | c  |  c  | c |  c  |}
-\hline
- \vspace{-3mm}
-& & & & \\
-& \parbox{24mm}{\centering Heteroskedastic, constant}& \parbox{24mm}{\centering Homoskedastic, constant}& \parbox{24mm}{\centering Heteroskedastic, prior} & \parbox{24mm}{\centering Homoskedastic, prior}\\
- \vspace{-3.5mm}
-& & & & \\
-\hline
-Deflection & 0.749 & 0.729 & 0.659 & 0.709\\
-Rotation & 0.0904 & 0.0865 & 0.0773 & 0.0843\\
-Cost & 276.16 & 236.11 & 350.80 & 233.95 \\
-\hline
-\end{tabular}
-\captionsetup{width=.8\linewidth}
-\caption{Comparison of posterior mean model outputs, where the desired data outputs are assumed to be either homoskedastic or heteroskedastic, with either a specified constant variance or a $1/\sigma^2$ prior. The desired observation was set to $[0.65,\ 0.077,\ 96]$ for each control input, which is known to be the lowest achievable value in each of the three outputs (and not jointly achievable). }
-\label{table:obs_vvar_comp}
-\end{table}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=.75\linewidth]{FIG_comp_obs_var}
-\captionsetup{width=.65\linewidth}
-\caption{MCMC results of volume fraction at various observation variance settings, on normalized scale. The heteroskedastic constant variance was chosen so that each of the three desired outputs is two standard deviations above zero; e.g., $\sigma^2_1 = \left(\frac12\cdot 0.65\right)^2\approx0.106$. The homoskedastic constant was set at 6 for each standardized output.}
-\label{fig:comp_obs_var}
-\end{figure}
+%\subsection{Desired observation variance}\label{des_obs_var}
+%% 4 versions: heterosked constant, homosked constant, heterosked prior, homosked prior
+%In the framework of \cite{Kennedy2006} on which much of the current approach is based, observation variance is assumed to be known. 
+%That assumption is less straightforward in the case of CDO. 
+%However, as explained below, there are applications in which setting a ``known'' observation variance is appropriate. 
+%In this section, I consider the option of specifying observation variance versus setting a (non-degenerate) prior on observation variance. 
+%I also consider the option of whether to set different observation variances for different outputs, or a single observation variance on all (standardized) outputs. 
+%Table \ref{table:obs_vvar_comp} and the corresponding Figure \ref{fig:comp_obs_var} of MCMC results show how impactful are the choices amongst these options in the wind turbine blade design application. 
+%The posterior mean model output varies significantly across the four available strategies, which correspond to different specifications of observation variance settings. 
+%The table reflects the choices of (1) whether to specify that the observations are homoskedastic with respect to output type (e.g., whether standardized cost output has the same observation variance as standardized deflection output), and (2) whether the observation variance is set to a constant level or given a (nondegenerate) prior.
+%From \eqref{eq:the_model} above, the full models corresponding to these choices, assuming a uniform prior on the calibration parameters, are as follows. 
+%Columns one and two of the table both correspond to specifying $\boldsymbol \sigma = (\sigma^2_1,\sigma^2_2,\sigma^2_3)^T$ as the observation variance for each of the three outputs. 
+%The two columns differ only in the value of $\boldsymbol \sigma$. 
+%The prior $\pi(\mathbf C_{\mathbf y})$ in \eqref{eq:the_model} is thus the degenerate prior $\delta_{\boldsymbol\sigma}(\cdot)$, the Dirac delta function centered at $\boldsymbol \sigma$. 
+%Here, $\mathbf C_{\mathbf y}$ is a diagonal matrix where the $i,i$ entry is equal to $\sigma^2_j$ iff desired observation $y_i$ is an observation of output $j$. 
+%E.g., if $y_4$ is an observation of rotation, then the fourth diagonal element of $\mathbf C_{\mathbf y}$ is $\sigma^2_2$, the observation variance for rotation. 
+%So for these two columns the full model is given by:
+%\begin{equation}\label{eq:full_model_1}
+%\begin{aligned}
+%\pi(\boldsymbol\theta,\mathbf C_{\mathbf y}|\mathcal D) &\propto \pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\boldsymbol\theta) \times \pi(\mathbf C_{\mathbf y})\\
+%&\propto \pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \\
+%&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \mathrm{exp}(\mathcal D^T \mathbf C_{\mathcal D}^{-1} \mathcal D)
+%\end{aligned}
+%\end{equation}
+%where $\mathbf C_{\mathcal D}$ is given in \eqref{eq:the_covariance}, and where in the final expression I do not explicitly include the uniform $\pi(\boldsymbol\theta)$ or the degenerate $\pi(\mathbf C_{\mathbf y})$.
+%Columns three and four each place a prior distribution on the observation variances. Column three places independent priors $1/\sigma^2_i$ on each of the $\sigma^2_i$, $i=1,2,3$, which serve as the observation variances of the three outputs. Column four places a single prior $1/\sigma^2_1$ on a scalar value $\sigma^2_1$ which serves as the observation variance for each of the three outputs. Thus the full models for these columns are:
+%\begin{equation}\label{eq:full_model_2}
+%\begin{aligned}
+%\pi(\boldsymbol\theta,\mathbf C_{\mathbf y}|\mathcal D ) &\propto
+%\pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\boldsymbol\theta) \times \pi(\mathbf C_{\mathbf y})\\
+%&\propto  \pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\mathbf C_{\mathbf y})\\
+%&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \mathrm{exp}(\mathcal D^T \mathbf C_{\mathcal D}^{-1} \mathcal D) \times \prod_{i=1}^k \frac1{\sigma^2_i}
+%\end{aligned}
+%\end{equation}
+%where for column three $k=3$ and $\mathbf C_{\mathbf y}$ is defined as in columns one and two, and for column four $k=1$ and $\mathbf C_{\mathbf y}=\sigma^2_1 \mathbf I_{m\times m}$. In both cases, the final expression does not explicitly include the uniform $\pi(\boldsymbol\theta)$.
+%
+%Notice in Table \ref{table:obs_vvar_comp} that column three is noticeably distinct from the others. Here is the only case in which the MCMC is free to alter the \emph{proportions} of observation variance allotted to the various outputs. In this case, the desired observation was essentially achieved for deflection and rotation, whereas the posterior cost was far from the desired cost. Thus, using the settings reflected in column three, we are able to learn that it is ``easier'' to achieve these two performance metrics than to achieve the cost target.
+%
+%When CDO is used without a discrepancy function and with observation variance sampled under a prior, the posterior distribution on observation variance amounts to an indirect measure of how closely reality can approximate our desired observations. E.g., from the fact that posterior observation variance from the routine represented in column three of Table \ref{table:obs_vvar_comp} was near zero, we see immediately that the cost target was achieved. Likewise, extremely high posterior observation variance indicates that the target could not be achieved. The posterior distribution reflects the (false) assumption that the difference between the desired observations and the true system mean is accounted for by random, mean-zero noise. 
+%
+%Matters are different when a set observation variance is specified for each output. Clearly, since the observation variance isn't sampled in the MCMC, there is no Bayesian learning to be had here. However, there is an opportunity to specify priorities through the specification of the variance. When the desired observations are outside the range of what is realistically achievable, the specific level of the observation variance is unlikely to matter much (unless it is so low as to engender computational difficulties). More important (in the case of multivariate output) is the fact that in specifying the observation variance, one is implicitly specifying the relative importance of each output. E.g., if I set a very diffuse observation variance on cost, and a very small one on deflection, then I have told the model that reduction in deflection is to be prioritized over reduction in cost. Whether one chooses to do so will depend on one's goals in calibration, as well as one's level of prior knowledge as to how close to reality one's desired observations are.
+%
+%Such prioritization can be harnessed to achieve calibration goals in ways that will be explored in Section \ref{removing_cal_pars}. There, one essentially sets the observation variance for all and only those parameters that one \emph{ceases} to treat as calibration parameters. In general, since there is no true value of the observation variance, it is better to let the data inform us about $\mathbf C_{\mathbf y}$: setting a scale-invariant $1/\sigma_i^2$ prior on each diagonal element $\sigma_i^2$ of $\mathbf C_{\mathbf y}$ yields posterior values of $\mathbf C_{\mathbf y}$ that inform us as to how achievable our desired observations are.
+%
+%There is another lesson to be derived from Table \ref{table:obs_vvar_comp}; namely, a warning that it is important to be aware of the impact of correlated outputs on the calibration procedure. Notice from the third column of the table that the posterior mean output almost achieves the desired observation for deflection and rotation, at the expense of falling wildly short on cost. However, it is known that the true model can achieve the desired cost of \$96/m$^2$ (for high levels of deflection and rotation). Part of what makes this outcome possible is that deflection and rotation are strongly positively correlated with each other, and negatively with cost. Thus when all three outputs are calibrated to be extremely low values, deflection and rotation will jointly pull against cost.
+%
+%If one is antecedently unaware of the correlations among the responses, this can undermine one's calibration goals. E.g., if our goal was to balance cost with the performance metrics, then column three of the table fails to achieve this goal, due to the correlation amongst the performance metrics. For that goal, column four would have been a superior strategy, where $\mathbf C_{\mathbf y} = \sigma^2_1 \mathbf I_{m\times m}$ and $\sigma^2_1$ is allowed to vary under the $1/\sigma^2_1$ prior. This sets the observation variances of each output to be equal, but more nuanced versions of this strategy could set them to be scalar multiples of one another; in this way different balances could be achieved than the one displayed in column four of Table \ref{table:obs_vvar_comp}. One may find, however, that one does not antecedently know what balance best suits one's desires. We want low cost, low deflection and low rotation, but exactly how much of each are we willing to trade for gains in the other? There may be no answer this question. It is for such situations that the strategy of Section \ref{removing_cal_pars} is proposed.
+%
+%\begin{table}[h]
+%\centering
+%\begin{tabular}{| c | c  |  c  | c |  c  |}
+%\hline
+% \vspace{-3mm}
+%& & & & \\
+%& \parbox{24mm}{\centering Heteroskedastic, constant}& \parbox{24mm}{\centering Homoskedastic, constant}& \parbox{24mm}{\centering Heteroskedastic, prior} & \parbox{24mm}{\centering Homoskedastic, prior}\\
+% \vspace{-3.5mm}
+%& & & & \\
+%\hline
+%Deflection & 0.749 & 0.729 & 0.659 & 0.709\\
+%Rotation & 0.0904 & 0.0865 & 0.0773 & 0.0843\\
+%Cost & 276.16 & 236.11 & 350.80 & 233.95 \\
+%\hline
+%\end{tabular}
+%\captionsetup{width=.8\linewidth}
+%\caption{Comparison of posterior mean model outputs, where the desired data outputs are assumed to be either homoskedastic or heteroskedastic, with either a specified constant variance or a $1/\sigma^2$ prior. The desired observation was set to $[0.65,\ 0.077,\ 96]$ for each control input, which is known to be the lowest achievable value in each of the three outputs (and not jointly achievable). }
+%\label{table:obs_vvar_comp}
+%\end{table}
+%
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=.75\linewidth]{FIG_comp_obs_var}
+%\captionsetup{width=.65\linewidth}
+%\caption{MCMC results of volume fraction at various observation variance settings, on normalized scale. The heteroskedastic constant variance was chosen so that each of the three desired outputs is two standard deviations above zero; e.g., $\sigma^2_1 = \left(\frac12\cdot 0.65\right)^2\approx0.106$. The homoskedastic constant was set at 6 for each standardized output.}
+%\label{fig:comp_obs_var}
+%\end{figure}
 
 %% USE scatterhist function -- not sure if this is the right location for it
 
-\subsection{Which targets to set?}\label{which_data}
-
-A related question to the setting of the observation variance of the desired observation is the setting of the desired observations themselves. I described some general considerations in Section \ref{level_of_desired_data} above, the upshot of which is that it is generally preferable to set desired observations as close to achievable as possible while remaining confident that the observations are not in fact realistically achievable. 
-
-In the case of heteroskedastic observation variance with a (non-degenerate) prior, the specific choice of desired data is not crucial. But where observation variance is either set to a known value or constrained to be equal (up to pre-specified scalar multiple) across outputs, the choice of desired data will matter for the same reason that the constraints on observation variance matter. To see this, consider performing the wind turbine blade calibration with observation variances set equal to $\sigma^2=6$ for all model outputs, where the desired deflection, rotation, and cost are set to $\mathbf d=[0.65,\ 0.077,\ 96]$. These values are the lower bounds on what is known to be plausible ranges for each output. The MCMC results for volume fraction draws and the resulting posterior mean model output for these settings are shown in Figure \ref{fig:comp_obs_var} and Table \ref{table:obs_vvar_comp}. Consider now replacing $\mathbf d$ with $\mathbf d'=[0.65,\ 0.077,\ -500]$. The effect of this would be equivalent to keeping $\mathbf d$ and reducing the observation variance for cost from 6 to a much lower value, insofar as each of these two changes amounts to increasing the Mahalanobis distance of each draw from the desired observation along the axis of cost. This, in turn, would have the effect in the calibration procedure of prioritizing cost at the expense of the performance metrics. Thus when one wishes to strike a balance of priorities in the calibration procedure, this will necessarily involve both constraints upon the observation variance and the choice of desired observations. A further illustration of the impact of this choice is in Table \ref{table:d_comp}, where two different levels of desired observations are compared under a pre-specified constant observation variance.
-
-Figure \ref{fig:des_data} illustrates the sort of difficulty that can arise if one fails to make one's desired observations sufficiently ambitious. Here, a separate $1/\sigma^2_i$ prior was placed on each of the three types of observation variance. The top set of plots show the MCMC results for an appropriately ambitious (i.e. not realistically achievable) desired observations (here rotation has been removed from the model for simplicity). The desired observations yield good mixing in the MCMC routine. In the bottom plots, the desired observation of deflection is still lower than what is realistically achievable, whereas the cost is low but achievable. The model can yield this desired cost, and so draws of the observation variance for cost quickly drift to extremely low values. As a result, the MCMC samples only from the very small region of the parameter space corresponding to cost very near \$163. The extremely strong correlation of VF and thickness within this region can be seen in the bottom right plot of Figure \ref{fig:des_data}. The small size of this region makes it difficult to sample from. But more importantly, samples from this region are not of particular interest, since it is possible to outperform this region in cost without sacrificing other desiderata. If one were antecedently unaware that this region can be outperformed, that fact would be suggested by the ability of the MCMC to find a region that meets the cost target (nearly) exactly without much variation in meeting the other desiderata. Indeed, this outcome of extremely low observation variance -- when observation variance is sampled under a prior -- serves as a way to detect that one's desired observation is in fact realistically achievable.
-
-When one \emph{knowingly} sets a realistically achievable outcome as a desired observation, it is preferable to specify a constant observation variance, or at least a lower bound on observation variance. In this way, one avoids the convergence difficulties of the lower plots in Figure \ref{fig:des_data}. In essence, setting a lower bound on the observation variance of cost would ``fatten'' the thin line of accepted draws represented in the rightmost plot, enhancing the ease with which the MCMC routine can explore the parameter space, and improving the acceptance ratio. However, where an analysis calls for strict adherence to a given target observation (so that such ``fattening'' is unpalatable), tools of low probability estimation can be brought to bear. Sequential Monte Carlo \citep{Doucet2001,Liu2001a} or subset simulation \citep{Au2001a,Au2003,Zuev2012a} can be used to sample from the low-probability space associated with a tight bound on a desired observation.
-%\subsubsection{Differing results}
-% for different desired data values
-\begin{table}[h]
-\centering
-\begin{tabular}{| c | c  | c  |  c | c  | c | c | c |}
-\hline
-Desired data $\mathbf d$ & $\sigma^2_{defl}$ & $\sigma^2_{rot}$ & $\sigma^2_{cost}$ & $\mu_{v|\mathbf d}$ &
-                            $\mu_{h|\mathbf d}$ & $\sigma^2_{v|\mathbf d}$ & $\sigma^2_{h|\mathbf d}$\\
-\hline
-$(0, 0, 0)$ & 375.45 & 277.69 & 2.62 & 0.215 & $4.01 \cdot 10^{-2}$&
-	$4.41\cdot 10^{-2}$ & $1.92 \cdot 10^{-3}$\\
-$(0.65, 0.077, 96)$ & 16.74 & 15.25 & $4.62 \cdot 10^{-7}$ &
-	$1.09 \cdot 10^{-3}$ & $3.36 \cdot10^{-4}$ &
-	$1.02 \cdot 10^{-5}$ & $9.97 \cdot 10^{-6}$\\
-\hline
-\end{tabular}
-\captionsetup{width=.95\linewidth}
-\caption{Comparison of results for two different (low) values of $\mathbf d$. Values listed are, respectively, the posterior means for the observation variance of each model output, posterior means for volume fraction ($v$) and thickness ($h$), and posterior variance of volume fraction and thickness. The differing results reflect different prioritizations of cost over performance metrics, since volume fraction correlates positively with cost and negatively with deflection and rotation.}
-\label{table:d_comp}
-\end{table}
-
-\begin{figure}
-\centering
-\includegraphics[width=.9\linewidth]{FIG1_posterior_samps_at_spec_cost}
-\includegraphics[width=.9\linewidth]{FIG2_posterior_samps_at_spec_cost}
-\captionsetup{width=.9\linewidth}
-\caption{MCMC results for low deflection and cost (top row) and low deflection with easily achievable cost (bottom row).}
-% NOTE: THESE PLOT TITLES ARE WRONG! GOTTA DO THE PLOTS OVER! LOL! but wait are they still
-\label{fig:des_data}
-\end{figure}
+%\subsection{Which targets to set?}\label{which_data}
+%
+%A related question to the setting of the observation variance of the desired observation is the setting of the desired observations themselves. I described some general considerations in Section \ref{level_of_desired_data} above, the upshot of which is that it is generally preferable to set desired observations as close to achievable as possible while remaining confident that the observations are not in fact realistically achievable. 
+%
+%In the case of heteroskedastic observation variance with a (non-degenerate) prior, the specific choice of desired data is not crucial. But where observation variance is either set to a known value or constrained to be equal (up to pre-specified scalar multiple) across outputs, the choice of desired data will matter for the same reason that the constraints on observation variance matter. To see this, consider performing the wind turbine blade calibration with observation variances set equal to $\sigma^2=6$ for all model outputs, where the desired deflection, rotation, and cost are set to $\mathbf d=[0.65,\ 0.077,\ 96]$. These values are the lower bounds on what is known to be plausible ranges for each output. The MCMC results for volume fraction draws and the resulting posterior mean model output for these settings are shown in Figure \ref{fig:comp_obs_var} and Table \ref{table:obs_vvar_comp}. Consider now replacing $\mathbf d$ with $\mathbf d'=[0.65,\ 0.077,\ -500]$. The effect of this would be equivalent to keeping $\mathbf d$ and reducing the observation variance for cost from 6 to a much lower value, insofar as each of these two changes amounts to increasing the Mahalanobis distance of each draw from the desired observation along the axis of cost. This, in turn, would have the effect in the calibration procedure of prioritizing cost at the expense of the performance metrics. Thus when one wishes to strike a balance of priorities in the calibration procedure, this will necessarily involve both constraints upon the observation variance and the choice of desired observations. A further illustration of the impact of this choice is in Table \ref{table:d_comp}, where two different levels of desired observations are compared under a pre-specified constant observation variance.
+%
+%Figure \ref{fig:des_data} illustrates the sort of difficulty that can arise if one fails to make one's desired observations sufficiently ambitious. Here, a separate $1/\sigma^2_i$ prior was placed on each of the three types of observation variance. The top set of plots show the MCMC results for an appropriately ambitious (i.e. not realistically achievable) desired observations (here rotation has been removed from the model for simplicity). The desired observations yield good mixing in the MCMC routine. In the bottom plots, the desired observation of deflection is still lower than what is realistically achievable, whereas the cost is low but achievable. The model can yield this desired cost, and so draws of the observation variance for cost quickly drift to extremely low values. As a result, the MCMC samples only from the very small region of the parameter space corresponding to cost very near \$163. The extremely strong correlation of VF and thickness within this region can be seen in the bottom right plot of Figure \ref{fig:des_data}. The small size of this region makes it difficult to sample from. But more importantly, samples from this region are not of particular interest, since it is possible to outperform this region in cost without sacrificing other desiderata. If one were antecedently unaware that this region can be outperformed, that fact would be suggested by the ability of the MCMC to find a region that meets the cost target (nearly) exactly without much variation in meeting the other desiderata. Indeed, this outcome of extremely low observation variance -- when observation variance is sampled under a prior -- serves as a way to detect that one's desired observation is in fact realistically achievable.
+%
+%When one \emph{knowingly} sets a realistically achievable outcome as a desired observation, it is preferable to specify a constant observation variance, or at least a lower bound on observation variance. In this way, one avoids the convergence difficulties of the lower plots in Figure \ref{fig:des_data}. In essence, setting a lower bound on the observation variance of cost would ``fatten'' the thin line of accepted draws represented in the rightmost plot, enhancing the ease with which the MCMC routine can explore the parameter space, and improving the acceptance ratio. However, where an analysis calls for strict adherence to a given target observation (so that such ``fattening'' is unpalatable), tools of low probability estimation can be brought to bear. Sequential Monte Carlo \citep{Doucet2001,Liu2001a} or subset simulation \citep{Au2001a,Au2003,Zuev2012a} can be used to sample from the low-probability space associated with a tight bound on a desired observation.
+%%\subsubsection{Differing results}
+%% for different desired data values
+%\begin{table}[h]
+%\centering
+%\begin{tabular}{| c | c  | c  |  c | c  | c | c | c |}
+%\hline
+%Desired data $\mathbf d$ & $\sigma^2_{defl}$ & $\sigma^2_{rot}$ & $\sigma^2_{cost}$ & $\mu_{v|\mathbf d}$ &
+%                            $\mu_{h|\mathbf d}$ & $\sigma^2_{v|\mathbf d}$ & $\sigma^2_{h|\mathbf d}$\\
+%\hline
+%$(0, 0, 0)$ & 375.45 & 277.69 & 2.62 & 0.215 & $4.01 \cdot 10^{-2}$&
+%	$4.41\cdot 10^{-2}$ & $1.92 \cdot 10^{-3}$\\
+%$(0.65, 0.077, 96)$ & 16.74 & 15.25 & $4.62 \cdot 10^{-7}$ &
+%	$1.09 \cdot 10^{-3}$ & $3.36 \cdot10^{-4}$ &
+%	$1.02 \cdot 10^{-5}$ & $9.97 \cdot 10^{-6}$\\
+%\hline
+%\end{tabular}
+%\captionsetup{width=.95\linewidth}
+%\caption{Comparison of results for two different (low) values of $\mathbf d$. Values listed are, respectively, the posterior means for the observation variance of each model output, posterior means for volume fraction ($v$) and thickness ($h$), and posterior variance of volume fraction and thickness. The differing results reflect different prioritizations of cost over performance metrics, since volume fraction correlates positively with cost and negatively with deflection and rotation.}
+%\label{table:d_comp}
+%\end{table}
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=.9\linewidth]{FIG1_posterior_samps_at_spec_cost}
+%\includegraphics[width=.9\linewidth]{FIG2_posterior_samps_at_spec_cost}
+%\captionsetup{width=.9\linewidth}
+%\caption{MCMC results for low deflection and cost (top row) and low deflection with easily achievable cost (bottom row).}
+%% NOTE: THESE PLOT TITLES ARE WRONG! GOTTA DO THE PLOTS OVER! LOL! but wait are they still
+%\label{fig:des_data}
+%\end{figure}
 
 \subsection{Removing calibration parameters}\label{removing_cal_pars}
 
@@ -700,190 +748,191 @@ The same sort of uncertainty analysis described in Section \ref{non-uniform_prio
 %Blah
 
 
-\section{Future work}
-
-
-%\subsection{Alternative means of handling cost}
-%Blah
-
-%\subsubsection{Removing cost from the model}
-%Blah
-
-%\subsubsection{Alternative priors for controlling cost}
-%Blah
-
-%\subsection{Building a desired data response surface}
-%Blah
-
-\subsection{Hamiltonian Monte Carlo}
-
-Recall from Figure \ref{ACFs} that the autocorrelation in the MCMC routine, while much reduced by using the Metropolis-Hastings algorithm after applying a logit transformation to remove boundary conditions, is nonetheless still appreciable. In the application considered there, in order to achieve uncorrelated draws, one would save at most every $30^{\text{th} }$ draw. The efficiency of the algorithm can be improved by instead using the Hamiltonian Monte Carlo technique (HMC), also known as hybrid Monte Carlo \citep{Duane1987}. 
-
-Initially applied to lattice field theory simulations of quantum chromodynamics, HMC was popularized within the statistical community by \cite{Neal2011}. Neal describes the intuition supporting HMC roughly as follows. Consider the Metropolis-Hastings algorithm, in which a proposed new draw is drawn from a proposal distribution which is typically centered on the previous draw. Thus the position of the previous draw informs the next proposed draw. Rather than rely merely on the position of the previous draw, HMC relies both on its position and on its \emph{momentum}. The momentum of a variable moving in $p-$dimensional space can be understood on analogy to a puck moving on a horizontal two-dimensional surface curved in the third dimension to have areas of varying height. Negative likelihood for the variable is the analog for height. As the variable moves from an area of low likelihood to higher likelihood, it gains momentum, increasing the proposal density in the direction of that momentum. Likewise, as the variable moves from an area of high likelihood to low likelihood, its momentum can help carry it further into that space; but moving into the low likelihood space also reduces the variable's momentum, eventually causing the momentum to change direction.
-The result of these Hamiltonian dynamics in the sampling routine is to improve the efficiency of the exploration of the parameter space. Thus HMC works to reduce autocorellation beyond what is typically possible in Metropolis-Hastings. Therefore its use in the area of CDO can help to improve the efficiency of the sampling routine beyond what is seen in the righthand panel of Figure \ref{ACFs}.
-
-%\subsubsection{Hamiltonian Monte Carlo}
-% Background
-%Blah
-
-%\subsubsection{Benefits}
-%Blah
-
-\subsection{Model discrepancy}
-
-Recall from Section  \ref{model_shortcoming} that we may incorporate model shortcoming in two ways: as a form of observation variance, or as a form of model discrepancy. In Section \ref{MCMC}, observation variance serves as the basis for handling model shortcoming. This approach is attractive for its simplicity and for its flexibility in facilitating different calibration goals through modulation of the observation variances and their prior distributions. 
-However, as described in Section \ref{mod_disc}, there are advantages to using a model discrepancy $\delta(\cdot)$ instead of observation variance to incorporate model shortcoming. Most importantly, one's desired observation will tend to be systematically biased from the true system mean, and a model that incorporates shortcoming by way of Gaussian white noise, in an observation variance term, fails to capture this systematic bias. For this reason, future work in this area will include replacing observation variance with a prior mean-zero GP discrepancy function in the calibration procedure.
-
-Similarly, the technique of CDO as described in the present work assumes access to a computer model which is known to be accurate throughout the domain $\mathcal T$ over which the calibration occurs. Of course, in many applications, this assumption will not hold. Future extensions of the present work will include investigation of combining CDO with traditional calibration. This would be of interest in those situations where one has access to field observations and wishes to employ CDO. If computational expense makes simulation observations scarce, it will be particularly attractive to combine the two calibrations, using the same set of simulations for both calibrations simultaneously.
-
-I intend to pursue two avenues in this area. Firstly, one might capture model inadequacy with a traditional model discrepancy function, while simultaneously capturing model shortcoming via observation variance. In a full Bayesian analysis that treats desired observations as extra field observations, this would certainly lead to a lack of identifiability between the observation variance and the discrepancy function. However, the method of ``modularization'' \citep{Liu2009,Bayarri2007,Bayarri}, described above in Section \ref{computer_model_calibration}, can mitigate these difficulties, by partitioning the analysis so that desired observations do not bias the discrepancy function, and field observations do not bias the estimate of the observation variance of the desired observations.
-
-Secondly, one may attempt to capture model inadequacy and model shortcoming each in a separate discrepancy function. This will face the same difficulty as the first approach, and will likewise require modularization in order to retain the identifiability of the two discrepancy functions.
-
-\subsection{Comparison with optimization techniques}
-
-CDO is a form of optimization, and thus future work will include a thorough comparison of that approach to alternative forms of optimization. As well as comparing results, computational economy should be considered as a desideratum. Furthermore, CDO is a form of optimization under uncertainty, which can easily incorporate uncertainty in the model inputs, and which delivers a result which includes quantification of uncertainty on the posterior model outputs. Therefore, of particular interest are alternative means of optimization that accommodate and quantify uncertainty. \cite{Sahinidis2004} provides a useful overview of existing techniques for optimization under uncertainty; such techniques are the primary alternatives against which CDO should be considered.
-
-\section{Conclusion}
-% Discussion of the role of computer model validation as a potential methodology for design
-
-In this work I have described the theoretical background for the use of Gaussian processes to emulate computationally expensive computer model code, and the use of such emulators for computer model calibration under the framework established principally by \cite{Kennedy2001}, \cite{Williams2006} and \cite{Bayarri2007}. I have also described a modification of that framework which calibrates a computer model, not to field observations, but rather to desired observations, i.e., performance targets for the system. I described the implementation of this approach in an MCMC routine along with considerations to accommodate computational instability. I have also indicated future directions for research in the area of CDO.
-
-The use of this methodology is illustrated in the case of material design for a wind turbine blade. I have shown thereby a variety of ways in which CDO can be used to produce a guide that decision-makers can consult in the design process. By expropriating established tools of model calibration, CDO offers a method of optimization which is sensitive to all sources of uncertainty, and which results in an estimate that includes uncertainty quantification.
-
-\begin{appendices}
-
-\section{Full conditional distributions}
-Using a model that does not employ a discrepancy term, uses maximum likelihood estimation of $\boldsymbol \beta^\eta$ and $\lambda_\eta$, and sets the mean $c$ of the emulator to be 0, we have from \eqref{eq:full_dist} above that the joint posterior distribution is
-\begin{equation}
-\begin{aligned}
-\pi(\boldsymbol\theta,\mathbf C_{\mathbf y} | \mathcal D) &\propto
-\pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\boldsymbol\theta) \times \pi(\mathbf C_{\mathbf y})\\
-&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \pi(\boldsymbol \theta) \times \pi(\mathbf C_{\mathbf y})
-\end{aligned}
-\end{equation}
-where $\mathbf C_{\mathcal D}$, given in \eqref{eq:C_D}, depends on both $\boldsymbol\theta$ and on $\mathbf C_{\mathbf y}$.
-Different priors on $\boldsymbol\theta$ and $\mathbf C_{\mathbf y}$ are used in the present work to flesh out this distribution. 
-For example, columns one and two of Table \ref{table:obs_vvar_comp} correspond to setting a uniform prior on $\boldsymbol\theta$ and specifying a set value for $\mathbf C_y$ (essentially thereby using a degenerate prior). 
-Thus over the support of $\boldsymbol \theta$ at the specified value of $\mathbf C_{\mathbf y}$, the joint posterior distribution is
-\begin{equation}\label{eq:fdupup}
-\begin{aligned}
-\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \pi(\boldsymbol \theta) \times \pi(\mathbf C_{\mathbf y}) &=\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D)
-\end{aligned}
-\end{equation}
-and since $\mathbf C_{\mathbf y}$ is specified in advance, this distribution is also the marginal posterior distribution of $\boldsymbol\theta$. 
-By contrast, columns three and four of Table \ref{table:obs_vvar_comp} place a reference prior on the observation variance of each model output. Recall that where $\sigma^2_i$ gives the observation variance for the $i^{th}$ model output, $\mathbf C_{\mathbf y}$ is a diagonal matrix with $i,i$ entry $\sigma^2_i$. 
-Column three of the table corresponds to a model in which each of the three outputs has its own observation variance, so that the prior $\pi(\mathbf C_{\mathbf y})=\prod_{i=1}^3 \sigma^{-2}_i$. 
-Column four uses a single observation variance for all three outputs, so that the prior is $\pi(\mathbf C_{\mathbf y})=\sigma^{-2}$. 
-Letting $K=3$ for column three and $K=1$ for column four, then, the joint posterior distribution is
-\begin{equation}\label{eq:fduprp}
-\begin{aligned}
-\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \pi(\boldsymbol \theta) \times \pi(\mathbf C_{\mathbf y}) 
-&\propto\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \prod_{i=1}^K \sigma^{-2}_i
-\end{aligned}
-\end{equation}
-where $\pi(\boldsymbol\theta)$ is again set to be uniform.
-Thus the posterior conditional distributions are
-\begin{equation}\label{eq:cduprp}
-\begin{aligned}
-\pi(\boldsymbol\theta|\mathbf C_{\mathbf y},\mathcal D) &\propto
-\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \\
-\pi(\mathbf C_{\mathbf y}| \boldsymbol \theta ,\mathcal D) &\propto
-\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \prod_{i=1}^K \sigma^{-2}_i.
-\end{aligned}
-\end{equation}
-
-Section \ref{removing_cal_pars} employs a model which places an informative prior on $\boldsymbol \theta$. A reference prior is also placed on the observation variance of each model output. The resulting posterior distribution is thus
-\begin{equation}\label{eq:fdifrp}
-\begin{aligned}
-\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \pi(\boldsymbol \theta) \times \pi(\mathbf C_{\mathbf y}) 
-&\propto\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times 
-\exp(-\lambda_{cost} \lVert \boldsymbol\theta\rVert^2) \times
-\prod_{i=1}^3 \sigma^{-2}_i
-\end{aligned}
-\end{equation}
-and the posterior conditional distributions are given by
-\begin{equation}\label{eq:cdifrp}
-\begin{aligned}
-\pi(\boldsymbol\theta|\mathbf C_{\mathbf y},\mathcal D) 
-&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times 
-\exp(-\lambda_{cost} \lVert \boldsymbol\theta\rVert^2)\\
-\pi(\mathbf C_{\mathbf y}| \boldsymbol \theta ,\mathcal D) &\propto
-\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times 
-\prod_{i=1}^3 \sigma^{-2}_i.
-\end{aligned}
-\end{equation}
-%Notice that this model includes the model of \eqref{eq:fduprp} and \eqref{eq:cduprp} as a special case, by setting $\lambda_{cost}=0$.
-
-\section{Algorithm for MCMC}
-
-The following algorithm describes how to sample from the model given in \eqref{eq:fdifrp} and \eqref{eq:cdifrp}, which includes the model of \eqref{eq:fduprp} and \eqref{eq:cduprp} as a special case, by setting $\lambda_{cost}=0$. 
-Minor and straightforward modifications are required to sample from the model of \eqref{eq:fdupup}. In the algorithm, single-variable functions applied to multivariate input are applied componentwise; e.g., $\exp\left(\mathrm MVN([0, 0]^T,I_2)\right)$ denotes $[\exp(r_1), \exp(r_2)]$ where $[r_1, r_2]^T\sim\mathrm{MVN}([0, 0]^T,I_2)$.
-
-\begin{algorithm}
-%    \SetKwInOut{Input}{Input}
-%    \SetKwInOut{Output}{Output}
+%\section{Future work}
 %
-%    \underline{function Euclid} $(a,b)$\;
-%    \Input{Two nonnegative integers $a$ and $b$}
-%    \Output{$\gcd(a,b)$}
-%    \eIf{$b=0$}
-%      {
-%        return $a$\;
-%      }
-%      {
-%        return Euclid$(b,a\mod b)$\;
-%      }
-\textbf{Step 1:} Draw $\boldsymbol \theta^{(0)}\sim \mathrm {Unif}([0,1]^2)$, $(\sigma^2_j)^{(0)} \sim \mathrm {Gamma}(2,2)$ for $j=1,2,\ldots,K$. 
-Set $\mathbf C_{\mathbf y}$ using $(\sigma^2_j)^{(0)},\ j=1,2,\ldots,K$.
-Set $\mathbf C_{\mathcal D}$ using $\boldsymbol\theta^{(0)}$ and $\mathbf C_{\mathbf y}$.
-Specify $s^2=1$. 
-Specify $\lambda_{cost}\geq0$. Specify total number of iterations $M$ and burn-in $b$.
-Set $\mathrm{mult}=2$.
-Set $\Sigma=I_2$.
-Set $A=0$ and $A_\sigma=0$.
-Set $i=0$.
-
-\textbf{Step 2:} Repeat $M$ times.
-\begin{itemize}
-\item Update $i = i+1$.
-\item Draw $\boldsymbol \theta ^* \sim \mathrm{logit}^{-1}\left( \mathrm{MVN}(\mathrm{logit}(\boldsymbol \theta^{(i-1)}),\Sigma)\right)$.
-\item Set $\mathbf C_{\mathcal D}^*$ using $\boldsymbol\theta^*$ and $\mathbf C_{\mathbf y}$.
-\item Find 
-\begin{align*}
-\log \alpha = &
-\log \left( \lvert \mathbf C^*_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf {C_{\mathcal D}^*}^{-1}\mathcal D) \right) - 
-\lambda_{cost} \cdot \lVert \boldsymbol\theta^*\rVert^2 - 
-\log \left( \lvert \mathbf C_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \right)  \\&+
-\lambda_{cost} \cdot \lVert \boldsymbol\theta^{(i-1)}\rVert^2 +
-\log \left ( \prod_{j=1}^2 \left( \theta^*_j(1-\theta_j^*) \right) \right ) - 
-\log \left (  \prod_{j=1}^2 \left( \theta^{(i-1)}_j(1-\theta_j^{(i-1)}) \right) \right )
-\end{align*}
-\item Draw $a\sim \mathrm{Unif}(0,1)$. If $a<\alpha$, set $\boldsymbol\theta^{(i)}=\boldsymbol\theta^*$, $\mathbf C_{\mathcal D} = \mathbf C_{\mathcal D}^*$, and increment $A=A+1$; otherwise, set $\boldsymbol\theta^{(i)} = \boldsymbol\theta^{(i-1)}$.
-\item Draw $[{\sigma_1^2}^*, {\sigma_2^2}^*, {\sigma_3^2}^*]^T \sim \exp \left ( \mathrm {MVN}\left( \log\left[{\sigma_1^2}^{(i-1)}, {\sigma_2^2}^{(i-1)}, {\sigma_3^2}^{(i-1)} \right]^T, s^2I_3 \right) \right)$.
-%\item Find $\log \alpha = \log \left( \lvert \mathbf C^*_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf {C_{\mathcal D}^*}^{-1}\mathcal D) \right) - \log\left(\prod_{j=1}^K {\sigma^2_k}^* \right)
-%- \log \left( \lvert \mathbf C_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \right) + \log\left(\prod_{j=1}^K {\sigma^2_k}^{(i-1)} \right)
-%+ \log \left ( \prod_{j=1}^2 \left( \theta^*_j(1-\theta_j^*) \right) \right ) - \log \left (  \prod_{j=1}^2 \left( \theta^{(i-1)}_j(1-\theta_j^{(i-1)}) \right) \right )$.
-%\item Draw $\left[{\sigma^2_1}^*,{\sigma^2_2}^*,{\sigma^2_3}^*\right]^T\sim\exp\left ( \mathrm {MVN} \left ( \log \left[{\sigma^2_1}^{(i-1)},{\sigma^2_2}^{(i-1)},{\sigma^2_3}^{(i-1)}\right]^T,s^2I_3\right)\right) $
-\item Set $\mathbf C_{\mathbf y}^*$ using $\left[{\sigma^2_1}^*,{\sigma^2_2}^*,{\sigma^2_3}^*\right]^T$. Set $\mathbf C_{\mathcal D}^*$ using $\boldsymbol \theta^{(i)}$ and $\mathbf C_{\mathbf y}^*$.
-\item Find $\log \alpha = \log \left( \lvert \mathbf C^*_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf {C_{\mathcal D}^*}^{-1}\mathcal D) \right) - \log \left( \lvert \mathbf C_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \right)$. 
-(Notice that the log ratio of priors $\log \left( \frac{\pi({\sigma^2_i}')}{\pi(\sigma^2_i)}\right)=\log \frac{{\sigma^2_i}}{{\sigma^2_i}'} = \log{\sigma^2_i}-\log{\sigma^2_i}'$ is cancelled out by the log Metropolis-Hastings correction for the asymetrical proposal density: $\log \left ( \frac{q(\sigma^2_i|{\sigma^2_i}')}{q({\sigma^2_i}'|\sigma^2_i)} \right)= \log\left( \frac{{\sigma^2_i}'}{\sigma^2_i} \right)= \log {\sigma^2_i}'- \log \sigma^2_i $.)
-\item Draw $a\sim \mathrm{Unif}(0,1)$. If $a<\alpha$, set $\left[{\sigma_1^2}^{(i)}, {\sigma_2^2}^{(i)}, {\sigma_3^2}^{(i)} \right]^T = \left[{\sigma_1^2}^{*}, {\sigma_2^2}^{*}, {\sigma_3^2}^{*} \right]^T$, $\mathbf C_{\mathbf y} = \mathbf C_{\mathbf y}^*$, $\mathbf C_{\mathcal D} = \mathbf C_{\mathcal D}^*$, and increment $A_\sigma = A_\sigma + 1$; otherwise, set $\left[{\sigma_1^2}^{(i)}, {\sigma_2^2}^{(i)}, {\sigma_3^2}^{(i)} \right]^T = \left[{\sigma_1^2}^{(i-1)}, {\sigma_2^2}^{(i-1)}, {\sigma_3^2}^{(i-1)} \right]^T$.
-\item If $i\leq b$ and $i\pmod {100} = 0$:
-\renewcommand{\labelitemii}{$\circ$}
-\begin{itemize}
-\item Update $\mathrm {mult} = 1.5 \cdot \mathrm{mult} \cdot \mathbf 1_{A>30} + 0.75 \cdot \mathrm {mult} \cdot \mathbf 1_{A<20}$. Set $A=0$.
-\item Update $\Sigma= \mathrm{mult} \cdot \mathrm {Cov}\left(\Theta\right)$, where $\Theta=\left[ {\boldsymbol\theta^{(1)}}, {\boldsymbol\theta^{(2)}}, \ldots, {\boldsymbol\theta^{(i)}} \right]^T$.
-\item Update $s^2 = 1.5 \cdot s^2 \cdot \mathbf 1_{A_\sigma>30} + 0.75 \cdot s^2 \cdot \mathbf 1_{A_\sigma<20}$. Set $A_\sigma=0$.
-\end{itemize}
-\end{itemize}
-    \caption{}
-\end{algorithm}
-
-
-
-
-\end{appendices}
+%
+%%\subsection{Alternative means of handling cost}
+%%Blah
+%
+%%\subsubsection{Removing cost from the model}
+%%Blah
+%
+%%\subsubsection{Alternative priors for controlling cost}
+%%Blah
+%
+%%\subsection{Building a desired data response surface}
+%%Blah
+%
+%\subsection{Hamiltonian Monte Carlo}
+%
+%Recall from Figure \ref{ACFs} that the autocorrelation in the MCMC routine, while much reduced by using the Metropolis-Hastings algorithm after applying a logit transformation to remove boundary conditions, is nonetheless still appreciable. In the application considered there, in order to achieve uncorrelated draws, one would save at most every $30^{\text{th} }$ draw. The efficiency of the algorithm can be improved by instead using the Hamiltonian Monte Carlo technique (HMC), also known as hybrid Monte Carlo \citep{Duane1987}. 
+%
+%Initially applied to lattice field theory simulations of quantum chromodynamics, HMC was popularized within the statistical community by \cite{Neal2011}. Neal describes the intuition supporting HMC roughly as follows. Consider the Metropolis-Hastings algorithm, in which a proposed new draw is drawn from a proposal distribution which is typically centered on the previous draw. Thus the position of the previous draw informs the next proposed draw. Rather than rely merely on the position of the previous draw, HMC relies both on its position and on its \emph{momentum}. The momentum of a variable moving in $p-$dimensional space can be understood on analogy to a puck moving on a horizontal two-dimensional surface curved in the third dimension to have areas of varying height. Negative likelihood for the variable is the analog for height. As the variable moves from an area of low likelihood to higher likelihood, it gains momentum, increasing the proposal density in the direction of that momentum. Likewise, as the variable moves from an area of high likelihood to low likelihood, its momentum can help carry it further into that space; but moving into the low likelihood space also reduces the variable's momentum, eventually causing the momentum to change direction.
+%The result of these Hamiltonian dynamics in the sampling routine is to improve the efficiency of the exploration of the parameter space. Thus HMC works to reduce autocorellation beyond what is typically possible in Metropolis-Hastings. Therefore its use in the area of CDO can help to improve the efficiency of the sampling routine beyond what is seen in the righthand panel of Figure \ref{ACFs}.
+%
+%%\subsubsection{Hamiltonian Monte Carlo}
+%% Background
+%%Blah
+%
+%%\subsubsection{Benefits}
+%%Blah
+%
+%\subsection{Model discrepancy}
+%
+%Recall from Section  \ref{model_shortcoming} that we may incorporate model shortcoming in two ways: as a form of observation variance, or as a form of model discrepancy. In Section \ref{MCMC}, observation variance serves as the basis for handling model shortcoming. This approach is attractive for its simplicity and for its flexibility in facilitating different calibration goals through modulation of the observation variances and their prior distributions. 
+%However, as described in Section \ref{mod_disc}, there are advantages to using a model discrepancy $\delta(\cdot)$ instead of observation variance to incorporate model shortcoming. Most importantly, one's desired observation will tend to be systematically biased from the true system mean, and a model that incorporates shortcoming by way of Gaussian white noise, in an observation variance term, fails to capture this systematic bias. For this reason, future work in this area will include replacing observation variance with a prior mean-zero GP discrepancy function in the calibration procedure.
+%
+%Similarly, the technique of CDO as described in the present work assumes access to a computer model which is known to be accurate throughout the domain $\mathcal T$ over which the calibration occurs. Of course, in many applications, this assumption will not hold. Future extensions of the present work will include investigation of combining CDO with traditional calibration. This would be of interest in those situations where one has access to field observations and wishes to employ CDO. If computational expense makes simulation observations scarce, it will be particularly attractive to combine the two calibrations, using the same set of simulations for both calibrations simultaneously.
+%
+%I intend to pursue two avenues in this area. Firstly, one might capture model inadequacy with a traditional model discrepancy function, while simultaneously capturing model shortcoming via observation variance. In a full Bayesian analysis that treats desired observations as extra field observations, this would certainly lead to a lack of identifiability between the observation variance and the discrepancy function. However, the method of ``modularization'' \citep{Liu2009,Bayarri2007,Bayarri}, described above in Section \ref{computer_model_calibration}, can mitigate these difficulties, by partitioning the analysis so that desired observations do not bias the discrepancy function, and field observations do not bias the estimate of the observation variance of the desired observations.
+%
+%Secondly, one may attempt to capture model inadequacy and model shortcoming each in a separate discrepancy function. This will face the same difficulty as the first approach, and will likewise require modularization in order to retain the identifiability of the two discrepancy functions.
+%
+%\subsection{Comparison with optimization techniques}
+%
+%CDO is a form of optimization, and thus future work will include a thorough comparison of that approach to alternative forms of optimization. As well as comparing results, computational economy should be considered as a desideratum. Furthermore, CDO is a form of optimization under uncertainty, which can easily incorporate uncertainty in the model inputs, and which delivers a result which includes quantification of uncertainty on the posterior model outputs. Therefore, of particular interest are alternative means of optimization that accommodate and quantify uncertainty. \cite{Sahinidis2004} provides a useful overview of existing techniques for optimization under uncertainty; such techniques are the primary alternatives against which CDO should be considered.
+%
+%\section{Conclusion}
+%% Discussion of the role of computer model validation as a potential methodology for design
+%
+%In this work I have described the theoretical background for the use of Gaussian processes to emulate computationally expensive computer model code, and the use of such emulators for computer model calibration under the framework established principally by \cite{Kennedy2001}, \cite{Williams2006} and \cite{Bayarri2007}. I have also described a modification of that framework which calibrates a computer model, not to field observations, but rather to desired observations, i.e., performance targets for the system. I described the implementation of this approach in an MCMC routine along with considerations to accommodate computational instability. I have also indicated future directions for research in the area of CDO.
+%
+%The use of this methodology is illustrated in the case of material design for a wind turbine blade. I have shown thereby a variety of ways in which CDO can be used to produce a guide that decision-makers can consult in the design process. By expropriating established tools of model calibration, CDO offers a method of optimization which is sensitive to all sources of uncertainty, and which results in an estimate that includes uncertainty quantification.
+%
+%
+%\begin{appendices}
+%
+%\section{Full conditional distributions}
+%Using a model that does not employ a discrepancy term, uses maximum likelihood estimation of $\boldsymbol \beta^\eta$ and $\lambda_\eta$, and sets the mean $c$ of the emulator to be 0, we have from \eqref{eq:full_dist} above that the joint posterior distribution is
+%\begin{equation}
+%\begin{aligned}
+%\pi(\boldsymbol\theta,\mathbf C_{\mathbf y} | \mathcal D) &\propto
+%\pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\boldsymbol\theta) \times \pi(\mathbf C_{\mathbf y})\\
+%&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \pi(\boldsymbol \theta) \times \pi(\mathbf C_{\mathbf y})
+%\end{aligned}
+%\end{equation}
+%where $\mathbf C_{\mathcal D}$, given in \eqref{eq:C_D}, depends on both $\boldsymbol\theta$ and on $\mathbf C_{\mathbf y}$.
+%Different priors on $\boldsymbol\theta$ and $\mathbf C_{\mathbf y}$ are used in the present work to flesh out this distribution. 
+%For example, columns one and two of Table \ref{table:obs_vvar_comp} correspond to setting a uniform prior on $\boldsymbol\theta$ and specifying a set value for $\mathbf C_y$ (essentially thereby using a degenerate prior). 
+%Thus over the support of $\boldsymbol \theta$ at the specified value of $\mathbf C_{\mathbf y}$, the joint posterior distribution is
+%\begin{equation}\label{eq:fdupup}
+%\begin{aligned}
+%\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \pi(\boldsymbol \theta) \times \pi(\mathbf C_{\mathbf y}) &=\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D)
+%\end{aligned}
+%\end{equation}
+%and since $\mathbf C_{\mathbf y}$ is specified in advance, this distribution is also the marginal posterior distribution of $\boldsymbol\theta$. 
+%By contrast, columns three and four of Table \ref{table:obs_vvar_comp} place a reference prior on the observation variance of each model output. Recall that where $\sigma^2_i$ gives the observation variance for the $i^{th}$ model output, $\mathbf C_{\mathbf y}$ is a diagonal matrix with $i,i$ entry $\sigma^2_i$. 
+%Column three of the table corresponds to a model in which each of the three outputs has its own observation variance, so that the prior $\pi(\mathbf C_{\mathbf y})=\prod_{i=1}^3 \sigma^{-2}_i$. 
+%Column four uses a single observation variance for all three outputs, so that the prior is $\pi(\mathbf C_{\mathbf y})=\sigma^{-2}$. 
+%Letting $K=3$ for column three and $K=1$ for column four, then, the joint posterior distribution is
+%\begin{equation}\label{eq:fduprp}
+%\begin{aligned}
+%\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \pi(\boldsymbol \theta) \times \pi(\mathbf C_{\mathbf y}) 
+%&\propto\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \prod_{i=1}^K \sigma^{-2}_i
+%\end{aligned}
+%\end{equation}
+%where $\pi(\boldsymbol\theta)$ is again set to be uniform.
+%Thus the posterior conditional distributions are
+%\begin{equation}\label{eq:cduprp}
+%\begin{aligned}
+%\pi(\boldsymbol\theta|\mathbf C_{\mathbf y},\mathcal D) &\propto
+%\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \\
+%\pi(\mathbf C_{\mathbf y}| \boldsymbol \theta ,\mathcal D) &\propto
+%\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \prod_{i=1}^K \sigma^{-2}_i.
+%\end{aligned}
+%\end{equation}
+%
+%Section \ref{removing_cal_pars} employs a model which places an informative prior on $\boldsymbol \theta$. A reference prior is also placed on the observation variance of each model output. The resulting posterior distribution is thus
+%\begin{equation}\label{eq:fdifrp}
+%\begin{aligned}
+%\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times \pi(\boldsymbol \theta) \times \pi(\mathbf C_{\mathbf y}) 
+%&\propto\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times 
+%\exp(-\lambda_{cost} \lVert \boldsymbol\theta\rVert^2) \times
+%\prod_{i=1}^3 \sigma^{-2}_i
+%\end{aligned}
+%\end{equation}
+%and the posterior conditional distributions are given by
+%\begin{equation}\label{eq:cdifrp}
+%\begin{aligned}
+%\pi(\boldsymbol\theta|\mathbf C_{\mathbf y},\mathcal D) 
+%&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times 
+%\exp(-\lambda_{cost} \lVert \boldsymbol\theta\rVert^2)\\
+%\pi(\mathbf C_{\mathbf y}| \boldsymbol \theta ,\mathcal D) &\propto
+%\lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \exp (\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \times 
+%\prod_{i=1}^3 \sigma^{-2}_i.
+%\end{aligned}
+%\end{equation}
+%%Notice that this model includes the model of \eqref{eq:fduprp} and \eqref{eq:cduprp} as a special case, by setting $\lambda_{cost}=0$.
+%
+%\section{Algorithm for MCMC}
+%
+%The following algorithm describes how to sample from the model given in \eqref{eq:fdifrp} and \eqref{eq:cdifrp}, which includes the model of \eqref{eq:fduprp} and \eqref{eq:cduprp} as a special case, by setting $\lambda_{cost}=0$. 
+%Minor and straightforward modifications are required to sample from the model of \eqref{eq:fdupup}. In the algorithm, single-variable functions applied to multivariate input are applied componentwise; e.g., $\exp\left(\mathrm MVN([0, 0]^T,I_2)\right)$ denotes $[\exp(r_1), \exp(r_2)]$ where $[r_1, r_2]^T\sim\mathrm{MVN}([0, 0]^T,I_2)$.
+%
+%\begin{algorithm}
+%%    \SetKwInOut{Input}{Input}
+%%    \SetKwInOut{Output}{Output}
+%%
+%%    \underline{function Euclid} $(a,b)$\;
+%%    \Input{Two nonnegative integers $a$ and $b$}
+%%    \Output{$\gcd(a,b)$}
+%%    \eIf{$b=0$}
+%%      {
+%%        return $a$\;
+%%      }
+%%      {
+%%        return Euclid$(b,a\mod b)$\;
+%%      }
+%\textbf{Step 1:} Draw $\boldsymbol \theta^{(0)}\sim \mathrm {Unif}([0,1]^2)$, $(\sigma^2_j)^{(0)} \sim \mathrm {Gamma}(2,2)$ for $j=1,2,\ldots,K$. 
+%Set $\mathbf C_{\mathbf y}$ using $(\sigma^2_j)^{(0)},\ j=1,2,\ldots,K$.
+%Set $\mathbf C_{\mathcal D}$ using $\boldsymbol\theta^{(0)}$ and $\mathbf C_{\mathbf y}$.
+%Specify $s^2=1$. 
+%Specify $\lambda_{cost}\geq0$. Specify total number of iterations $M$ and burn-in $b$.
+%Set $\mathrm{mult}=2$.
+%Set $\Sigma=I_2$.
+%Set $A=0$ and $A_\sigma=0$.
+%Set $i=0$.
+%
+%\textbf{Step 2:} Repeat $M$ times.
+%\begin{itemize}
+%\item Update $i = i+1$.
+%\item Draw $\boldsymbol \theta ^* \sim \mathrm{logit}^{-1}\left( \mathrm{MVN}(\mathrm{logit}(\boldsymbol \theta^{(i-1)}),\Sigma)\right)$.
+%\item Set $\mathbf C_{\mathcal D}^*$ using $\boldsymbol\theta^*$ and $\mathbf C_{\mathbf y}$.
+%\item Find 
+%\begin{align*}
+%\log \alpha = &
+%\log \left( \lvert \mathbf C^*_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf {C_{\mathcal D}^*}^{-1}\mathcal D) \right) - 
+%\lambda_{cost} \cdot \lVert \boldsymbol\theta^*\rVert^2 - 
+%\log \left( \lvert \mathbf C_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \right)  \\&+
+%\lambda_{cost} \cdot \lVert \boldsymbol\theta^{(i-1)}\rVert^2 +
+%\log \left ( \prod_{j=1}^2 \left( \theta^*_j(1-\theta_j^*) \right) \right ) - 
+%\log \left (  \prod_{j=1}^2 \left( \theta^{(i-1)}_j(1-\theta_j^{(i-1)}) \right) \right )
+%\end{align*}
+%\item Draw $a\sim \mathrm{Unif}(0,1)$. If $a<\alpha$, set $\boldsymbol\theta^{(i)}=\boldsymbol\theta^*$, $\mathbf C_{\mathcal D} = \mathbf C_{\mathcal D}^*$, and increment $A=A+1$; otherwise, set $\boldsymbol\theta^{(i)} = \boldsymbol\theta^{(i-1)}$.
+%\item Draw $[{\sigma_1^2}^*, {\sigma_2^2}^*, {\sigma_3^2}^*]^T \sim \exp \left ( \mathrm {MVN}\left( \log\left[{\sigma_1^2}^{(i-1)}, {\sigma_2^2}^{(i-1)}, {\sigma_3^2}^{(i-1)} \right]^T, s^2I_3 \right) \right)$.
+%%\item Find $\log \alpha = \log \left( \lvert \mathbf C^*_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf {C_{\mathcal D}^*}^{-1}\mathcal D) \right) - \log\left(\prod_{j=1}^K {\sigma^2_k}^* \right)
+%%- \log \left( \lvert \mathbf C_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \right) + \log\left(\prod_{j=1}^K {\sigma^2_k}^{(i-1)} \right)
+%%+ \log \left ( \prod_{j=1}^2 \left( \theta^*_j(1-\theta_j^*) \right) \right ) - \log \left (  \prod_{j=1}^2 \left( \theta^{(i-1)}_j(1-\theta_j^{(i-1)}) \right) \right )$.
+%%\item Draw $\left[{\sigma^2_1}^*,{\sigma^2_2}^*,{\sigma^2_3}^*\right]^T\sim\exp\left ( \mathrm {MVN} \left ( \log \left[{\sigma^2_1}^{(i-1)},{\sigma^2_2}^{(i-1)},{\sigma^2_3}^{(i-1)}\right]^T,s^2I_3\right)\right) $
+%\item Set $\mathbf C_{\mathbf y}^*$ using $\left[{\sigma^2_1}^*,{\sigma^2_2}^*,{\sigma^2_3}^*\right]^T$. Set $\mathbf C_{\mathcal D}^*$ using $\boldsymbol \theta^{(i)}$ and $\mathbf C_{\mathbf y}^*$.
+%\item Find $\log \alpha = \log \left( \lvert \mathbf C^*_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf {C_{\mathcal D}^*}^{-1}\mathcal D) \right) - \log \left( \lvert \mathbf C_{\mathcal D}\rvert^{-1/2} \exp(\mathcal D^T \mathbf C_{\mathcal D}^{-1}\mathcal D) \right)$. 
+%(Notice that the log ratio of priors $\log \left( \frac{\pi({\sigma^2_i}')}{\pi(\sigma^2_i)}\right)=\log \frac{{\sigma^2_i}}{{\sigma^2_i}'} = \log{\sigma^2_i}-\log{\sigma^2_i}'$ is cancelled out by the log Metropolis-Hastings correction for the asymetrical proposal density: $\log \left ( \frac{q(\sigma^2_i|{\sigma^2_i}')}{q({\sigma^2_i}'|\sigma^2_i)} \right)= \log\left( \frac{{\sigma^2_i}'}{\sigma^2_i} \right)= \log {\sigma^2_i}'- \log \sigma^2_i $.)
+%\item Draw $a\sim \mathrm{Unif}(0,1)$. If $a<\alpha$, set $\left[{\sigma_1^2}^{(i)}, {\sigma_2^2}^{(i)}, {\sigma_3^2}^{(i)} \right]^T = \left[{\sigma_1^2}^{*}, {\sigma_2^2}^{*}, {\sigma_3^2}^{*} \right]^T$, $\mathbf C_{\mathbf y} = \mathbf C_{\mathbf y}^*$, $\mathbf C_{\mathcal D} = \mathbf C_{\mathcal D}^*$, and increment $A_\sigma = A_\sigma + 1$; otherwise, set $\left[{\sigma_1^2}^{(i)}, {\sigma_2^2}^{(i)}, {\sigma_3^2}^{(i)} \right]^T = \left[{\sigma_1^2}^{(i-1)}, {\sigma_2^2}^{(i-1)}, {\sigma_3^2}^{(i-1)} \right]^T$.
+%\item If $i\leq b$ and $i\pmod {100} = 0$:
+%\renewcommand{\labelitemii}{$\circ$}
+%\begin{itemize}
+%\item Update $\mathrm {mult} = 1.5 \cdot \mathrm{mult} \cdot \mathbf 1_{A>30} + 0.75 \cdot \mathrm {mult} \cdot \mathbf 1_{A<20}$. Set $A=0$.
+%\item Update $\Sigma= \mathrm{mult} \cdot \mathrm {Cov}\left(\Theta\right)$, where $\Theta=\left[ {\boldsymbol\theta^{(1)}}, {\boldsymbol\theta^{(2)}}, \ldots, {\boldsymbol\theta^{(i)}} \right]^T$.
+%\item Update $s^2 = 1.5 \cdot s^2 \cdot \mathbf 1_{A_\sigma>30} + 0.75 \cdot s^2 \cdot \mathbf 1_{A_\sigma<20}$. Set $A_\sigma=0$.
+%\end{itemize}
+%\end{itemize}
+%    \caption{}
+%\end{algorithm}
+%
+%
+%
+%
+%\end{appendices}
 
 
 \bibliographystyle{apalike}
