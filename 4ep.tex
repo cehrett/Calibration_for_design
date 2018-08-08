@@ -8,12 +8,17 @@
 \usepackage[title]{appendix}
 \usepackage[ruled]{algorithm2e}
 
-\author{Carl Ehrett}
-\title{Fourth Exam: Computer model calibration as a method of design}
+\author{Carl Ehrett, Sez Atamturktur, Andrew Brown,\\Evan Chodora, Mingzhe Jiang, Christopher Kitchens}
+%\date{}
+\title{Computer model calibration as a method of design}
 
 \begin{document}
 
 \maketitle
+
+\begin{abstract}
+A well-established framework for the calibration of computer models is provided by \cite{Kennedy2001} and the myriad works that build upon it. Common to those approaches is the assumption that calibration is a matter of estimating unknown and/or uncontrolled parameters by attuning the model to data obtained through physical experimentation. In this work we reconceptualize the framework for model calibration as a method for optimization. That is: rather than calibrating a model to find a posterior distribution on unknown parameters in order to bring the model into agreement with reality, we instead calibrate to find a posterior distribution on controllable model inputs in order to bring the model into agreement with pre-determined performance targets. In essence, we treat performance targets as ``desired observations'' which are deployed in calibration where in traditional calibration one would deploy observations obtained through physical experimentation. The methodology is distinguished from other forms of optimization by its incorporation of uncertainty quantification. We demonstrate the methodology in both an artificial case (without a code surrogate) and in the case of a finite element model of wind turbine blade performance and cost (using a Gaussian process code surrogate). In the latter case, we demonstate how to estimate the Pareto front with uncertainty bands.
+\end{abstract}
 
 \section{Introduction} \label{introduction}
 % Discussion of computer experiments and computer model calibration. Lit review. Overview of project goals.
@@ -36,7 +41,7 @@ Thus, computer models provide a means to collect data which might otherwise be l
 Suppose that we wish to use the SIMULEX model to compare two different proposed building codes to be enforced in a given area. We may use average body dimensions and average interpersonal distance as input parameters for this model, both to settle the initial physical distribution of people throughout the building and to influence their behavior during evacuation. It is well-established that average body dimensions \citep{Subramanian2011,Cavelaars2000} %\citep{Bornstein1976} 
 and interpersonal distance \citep{Sorokowska2017} vary across locales. These values may be unknown for the case of a particular region. Thus we may wish to find the true values for average body dimensions and interpersonal distance in that region. We may wish, in other words, to \textit{calibrate} these parameters in the model.
 
-Broadly, in model calibration, we may consider a model to be of the form $\eta(\mathbf x,\boldsymbol \theta)$, where $(\mathbf x,\boldsymbol \theta)$ comprise all inputs to the model. Input vector $\mathbf x$ is the collection of inputs that are known and/or under the control of the researcher (in the evacuation example, this would include the building layout).  The vector of calibration inputs $\boldsymbol \theta$ is the collection of parameters the values of which are unknown. These must be estimated for successful simulation. Thus where $f$ describes the true system and $\mathbf y$ our observations of that system, consider the model to be 
+Broadly, in model calibration, one may consider a model to be of the form $\eta(\mathbf x,\boldsymbol \theta)$, where $(\mathbf x,\boldsymbol \theta)$ comprise all inputs to the model. Input vector $\mathbf x$ is the collection of inputs that are known and/or under the control of the researcher (in the evacuation example, this would include the building layout).  The vector of calibration inputs $\boldsymbol \theta$ is the collection of parameters the values of which are unknown. These must be estimated for successful simulation. Thus where $f$ describes the true system and $\mathbf y$ our observations of that system, consider the model to be 
 \begin{equation} \label{eq:model_gen}
 y(\mathbf x)=f(\mathbf x)+\epsilon(\mathbf x)=\eta(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x)+\epsilon(\mathbf x)
 \end{equation} 
@@ -65,7 +70,7 @@ This area is furthered by \cite{Higdon2004}, who develop an approach that undert
 
 In principle, model calibration
 %\footnote{In this work, ``calibration'' will usually be used broadly to include model tuning; where it is used in such a way as to exclude tuning, this will be made clear in context.}
-need not rely on a GP emulator, or any other sort of emulator; one could (e.g.) complete a full Bayesian analysis via an MCMC chain that involves running the relevant computer model at each iteration of the chain. However, computer models are frequently too computationally expensive to allow for such profligacy. Instead, a computationally tractable emulator can be constructed using a sample of observations from the computer model. GPs are popular prior distributions on computer model output for three reasons. Firstly, because their use does not require detailed foreknowledge of the model function's parametric form. Secondly, GPs easily interpolate the computer model output, which is attractive when the computer model is deterministic. This is usually the case, although some attention in model calibration has focused specifically on stochastic computer models; see e.g.\ \cite{Pratola2018}. Thirdly, GPs facilitate uncertainty quantification through the variance of the posterior GP. In this section, I provide brief background on Gaussian processes and their use in regression broadly and in computer model calibration specifically.
+need not rely on a GP emulator, or any other sort of emulator; one could (e.g.) complete a full Bayesian analysis via an MCMC chain that involves running the relevant computer model at each iteration of the chain. However, computer models are frequently too computationally expensive to allow for such profligacy. Instead, a computationally tractable emulator can be constructed using a sample of observations from the computer model. GPs are popular prior distributions on computer model output for three reasons. Firstly, because their use does not require detailed foreknowledge of the model function's parametric form. Secondly, GPs easily interpolate the computer model output, which is attractive when the computer model is deterministic. This is usually the case, although some attention in model calibration has focused specifically on stochastic computer models; see e.g.\ \cite{Pratola2018}. Thirdly, GPs facilitate uncertainty quantification through the variance of the posterior GP. This section provides brief background on Gaussian processes and their use in regression broadly and in computer model calibration specifically.
 
 %\paragraph{Background}
 
@@ -130,7 +135,7 @@ c&\sim N(0,v)\\
 \rho_k^\eta &\sim \mathrm{Beta}(1,0.1),\quad k=1,\cdots,p+q
 \end{aligned}
 \end{equation}
-where $\rho_k^\eta=\exp(-\beta_k^\eta/4)$ for $k=1,\cdots,p+q$. The parameters of the Gamma and Beta distributions are chosen to encourage $\lambda_\eta$ to be close to one, and $\beta_k$ to be low for all $k$ (encouraging strong dependence; i.e., we antecedently expect each of the inputs to be influential). Furthermore, the authors let $v\to0$, i.e., the GP is assumed to have constant mean $c=0$.
+where $\rho_k^\eta=\exp(-\beta_k^\eta/4)$ for $k=1,\cdots,p+q$. They set $\alpha_\eta=2$, which corresponds to the assumption of an infinitely differentiable correlation function. The parameters of the Gamma and Beta distributions are chosen to encourage $\lambda_\eta$ to be close to one, and $\beta_k$ to be low for all $k$ (encouraging strong dependence; i.e., we antecedently expect each of the inputs to be influential). Furthermore, the authors let $v\to0$, i.e., the GP is assumed to have constant mean $c=0$.
 
 The authors similarly model the discrepancy term as a GP, also with mean zero, and covariance function
 \begin{equation}
@@ -144,7 +149,7 @@ with priors
 \rho^\delta_k &\sim \mathrm{Beta}(1,0.3).
 \end{aligned}
 \end{equation}
-where $\rho_k^\delta=\exp(-\beta_k^\delta/4)$ for $k=1,\ldots,p$.
+where $\rho_k^\delta=\exp(-\beta_k^\delta/4)$ for $k=1,\ldots,p$ and $\alpha_\delta=2$.
 
 Where $\boldsymbol \eta = (\eta(\mathbf x_1,\mathbf t_1),\cdots,\eta(\mathbf x_n,\mathbf t_n))^T$ are the simulation observations, $\mathbf y = (y(\mathbf x_{n+1}),\cdots,y(\mathbf x_{n+m}))^T\equiv (y(\mathbf x_{n+1},\boldsymbol\theta),\cdots,y(\mathbf x_{n+m},\boldsymbol\theta))^T$ are the field observations, $\mathcal D = (\boldsymbol \eta^T,\mathbf y^T)^T$, $\boldsymbol \beta^\eta = (\beta^\eta_1,\cdots,\beta_{p+q}^\eta)^T$, and $\boldsymbol \beta^\delta = (\beta^\delta_1,\cdots,\beta_{p+q}^\delta)^T$, we then have the distribution of $\mathcal D$ as 
 \begin{equation}
@@ -202,7 +207,7 @@ $\pi(\mathcal D | \boldsymbol \theta,c,\lambda_\eta, \boldsymbol \beta^\eta,\lam
 %Blah
 
 \subsubsection{Computational difficulties}
-Consider a GP with constant mean function $\mu(\mathbf x)=0$ for all $\mathbf x$. Notice that we may use the covariance function $C$ to define an $n\times n$ matrix $\mathbf C_{\mathbf X,\mathbf X}$ such that the $i,j$ entry of $\mathbf C_{\mathbf X,\mathbf X}$ is equal to $C(\mathbf x_i,\mathbf x_j)$. 
+Consider a GP with constant mean function $\mu(\mathbf x)=0$ for all $\mathbf x$. Notice that one may use the covariance function $C$ to define an $n\times n$ matrix $\mathbf C_{\mathbf X,\mathbf X}$ such that the $i,j$ entry of $\mathbf C_{\mathbf X,\mathbf X}$ is equal to $C(\mathbf x_i,\mathbf x_j)$. 
 Training the GP on the $n$ observations $\boldsymbol \eta$ at $\mathbf X\in \mathbb R^{n\times p}$, an updated mean and covariance matrix for the points $\mathbf X'=(\mathbf x_1',\ldots,\mathbf x_m')^T$ is 
 %. Recall that the GP at the points $\mathbf X'$ is a multivariate normal random variable of length $m$, which is fully characterized by its mean vector $\mu^*_{\mathbf X'}$ and covariance matrix $\mathbf C^*_{\mathbf X',\mathbf X'}$. We can find these as:
 \begin{equation}\label{eq:post_gp}\begin{split}
@@ -237,12 +242,16 @@ Suppose that a researcher has a fairly reliable computer model of a given system
 We may approach such problems as a matter of calibration. In traditional calibration as described in Section \ref{introduction}, a computer model is calibrated to observations of reality. This is done in order to find settings for the computer model that induce its output to match reality. Similarly, one may seek to ``calibrate'' a computer model to a set of performance targets, in order to find settings that induce the model's output to match, or approximate, those targets. Hereafter, call performance targets treated as observations for the purpose of calibration ``desired observations''. Call the calibration procedure proposed here, which uses the model calibration framework of \cite{Kennedy2001} with desired observations, ``calibration to desired observations" (CDO). 
 
 Of course, computer models are more malleable than reality, and it is trivial to modify a computer model so that its output matches any given target. It is both easy and pointless to create a model which is a computational ``yes man''. But in many cases one is fortunate to have (perhaps after undertaking traditional model calibration, validation and verification) a computer model such that one is independently confident that the model is uniformly valid over a given set $\mathcal T$ of controllable parameters $t$, i.e., the model is known to be faithful to reality over $\mathcal T$. In such a circumstance, in calibrating $t\in\mathcal T$ to one's desires, one does not risk calibrating the model \emph{away} from agreement with reality. 
-Instead, one finds the settings that achieve the best realistic approximation to the desired targets.
+Instead, one find a distribution on the settings that achieve the best realistic approximation to the desired targets.
 
 The tools of model calibration founded in the work of \cite{Kennedy2001} retain their advantages in this new domain.
+%
 Most centrally, such calibration to desired observations $y$ produces not merely a static optimum $t\in\mathcal T$, but rather a posterior distribution of $t|y$ reflective of remaining uncertainty about the appropriate value of $t$. 
+%
 Such uncertainty may have its source in parameter uncertainty (uncertainty about the values of certain model inputs), code uncertainty (uncertainty about how closely the code approximates reality), and especially saliently in this case, that which in traditional calibration would be considered either observation error or model inadequacy. 
-Of course, our targets are not actually observations, and the concept of observation error does not cleanly transfer here. 
+%
+Of course,  targets are not actually observations, and the concept of observation error does not cleanly transfer here. 
+%
 But a relevantly similar uncertainty would be uncertainty over how close reality \emph{can} come to our desired observations. 
 % DISCUSS AB says explain this more. We have already discussed this a bit
 %But just as the target can be treated as an observation in the calibration process, as it were \emph{aspirationally}, so too an observation error variance can be specified aspirationally, rather than as reflective of reality.
@@ -256,11 +265,33 @@ The model calibration framework of \cite{Kennedy2001} allows for the quantificat
 
 \subsubsection{Level of target data}\label{level_of_desired_data}
 % Arbitrariness recommending prior on observation variance
-Unlike in the case of field observations, when calibrating to target observations, the question arises of determining what exactly one's desired targets are. In many cases, no objectively natural target manifests itself. Consider again the case of building evacuation. In the case of a multi-story building, one might plausibly expect to achieve evacuation times of no less than fifteen minutes. But plausibility is no barrier to desire, and it would be a mistake to limit one's target observations to what is antecedently believed to be achievable, if only because to do so would foreclose on the possibility of exceeding those expectations. In the case of building evacuation, then, one might conclude that the appropriate target observation is in fact instantaneous evacuation -- \textit{per impossible}. But, having discarded realism, even this lower bound is not inevitable. Why not calibrate to a \emph{negative} evacuation time, while we're at it?
+Unlike in the case of field observations, when calibrating to target observations, the question arises of determining what exactly one's desired targets are. In many cases, no objectively natural target manifests itself. Consider again the case of building evacuation. 
+%
+In the case of a multi-story building, one might plausibly expect to achieve evacuation times of no less than fifteen minutes. 
+%
+But plausibility is no barrier to desire, and it would be a mistake to limit one's target observations to what is antecedently believed to be achievable, if only because to do so would foreclose on the possibility of exceeding those expectations. 
+%
+In the case of building evacuation, then, one might conclude that the appropriate target observation is in fact instantaneous evacuation -- \textit{per impossible}. 
+%
+But, having discarded realism, even this lower bound is not inevitable. Why not calibrate to a \emph{negative} evacuation time, while we're at it?
 
-Such a choice of target observation would indeed be consistent with the method of calibrating to desired observations, and in certain situations may even be appropriate. However, in general, target observations should aim only a little beyond what is realistically achievable, i.e., only as much as is necessary to ensure the targets are at least as ambitious as any true optimum in the system. I described above why it is preferable to go beyond what is achievable. There are two reasons why one should go only a little beyond that. (1) If target observations are set to be too farfetched, then (depending on the calibration settings used; see Section \ref{MCMC}) the calibration can become unnecessarily computationally unstable due  to underflow and round-off error, since any value of $\boldsymbol \theta$ within its support will have extremely low likelihood.
+Such a choice of target observation would indeed be consistent with the method of calibrating to desired observations, and in certain situations may even be appropriate. 
+%
+However, in general, target observations should aim only a little beyond what is realistically achievable, i.e., only as much as is necessary to ensure the targets are at least as ambitious as any true optimum in the system.
+%
+I described above why it is preferable to go beyond what is achievable. 
+%
+There are thee reasons why one should go only a little beyond that. 
+%
+(1) If target observations are set to be too farfetched, then (depending on the calibration settings used; see Section \ref{mvfmd}) the calibration can become unnecessarily computationally unstable due  to underflow and round-off error, since any value of $\boldsymbol \theta$ within its support will have extremely low likelihood.
 % DISCUSS Andrew and I had talked about how this isn't quite true since the observation variance will expand to be as big as it needs to be to make the likelihoods work. But (a) some versions of CtDO call for a cap on observation variance / discrepancy variance, and (b) even with the version that lets obs var get as high as it likes, still there is a prior on obs var which penalizes high values of it, so it seems to me the point stands.
-(2) The desired observations lose a measure of interpretability when they delve too far into the fantastical, such as with negative evacuation times. Identifying the appropriate range of outputs for desired observations, which exceed reality but slightly, will of course often require one to consult expert opinion. 
+%
+%
+(2) Increasing the distance of the desired observations from the Pareto front reduces the relative difference between the distance to the Pareto front and the distance to other regions of the model range, thereby decreasing the identifiability of the region to which one wishes to calibrate.
+%
+(3) The desired observations lose a measure of interpretability when they delve too far into the fantastical, such as with negative evacuation times. 
+%
+Identifying the appropriate range of outputs for desired observations, which exceed reality but slightly, will of course often require one to consult expert opinion. 
 
 %\subsubsection{Set target via desired observations, or prior distribution?}
 %% DISCUSS (terminology of desired observations) % MAke clear that it is a term of art
@@ -269,7 +300,15 @@ Such a choice of target observation would indeed be consistent with the method o
 %One approach is simply to include a desired observation of cost, and calibrate to that along with the other desired observation targets. 
 %An alternative approach is to remove cost from the model, and place a prior distribution on the remaining calibration parameters that places low probability over those regions of the calibration parameter space for which the cost is high. Of course, this requires prior knowledge of the behavior of cost over the calibration parameter space. Without such knowledge, this alternative would be unavailable.
 
-A third option is also explored in Section (\ref{application})'s treatment of the material design application. This option is not truly another means of achieving a calibration target, but rather is simply the decision to refrain from doing so. That is, rather than include a desired observation of (e.g.) cost in the above model or set a prior that induces low cost, one can simply specify a known cost and calibrate desired performance targets to a design having that cost. Since it is antecendently unknown which cost settings are optimal, under this third option I calibrate performance targets under each point of a grid of ``known'' costs. Thus I present a comprehensive picture of optimal parameter distributions and resulting performance under a range of costs, which could inform the process of setting a budget for material construction.
+A third option is also explored in Section \ref{application}'s treatment of the material design application. 
+%
+This option is not truly another means of achieving a calibration target, but rather is simply the decision to refrain from doing so. 
+%
+That is, rather than include a desired observation of (e.g.) cost in the above model or set a prior that induces low cost, one can simply specify a known cost and calibrate desired performance targets to a design having that cost. 
+%
+Since it is antecendently unknown which cost settings are optimal, under this third option we calibrate performance targets under each point of a grid of ``known'' costs. 
+%
+Thus we present a comprehensive picture of optimal parameter distributions and resulting performance under a range of costs, which could inform the process of setting a budget for material construction.
 
 \subsection{Model shortcoming}\label{model_shortcoming}
 % How do we account for the model's failure to achieve our desired data?
@@ -296,17 +335,19 @@ The other source of error is observation error, or $\epsilon(\cdot)$ in (\ref{eq
 This is usually taken so that $\epsilon(\mathbf x) \equiv \epsilon$ does not depend on $\mathbf x$. 
 Note that this source of error cannot be attributed to any failing on the part of the computer model. 
 Neither of these two sources of error, under their above-described traditional interpretations, succeeds in capturing the nature of the gap between desired observations and the posterior predictive mean. 
-These two sources of error can nonetheless serve as a basis for modeling this gap -- see (\ref{obs_error}) and (\ref{mod_disc}) below.
+These two sources of error can nonetheless serve as a basis for modeling this gap -- see Section \ref{mvfmd}.
+%
+
 Nor does it quite fit even to call this gap ``error'', or a form of model discrepancy. 
 Even under CDO, the model still describes \emph{reality}, not our desires. 
 Thus failure to interpolate our desires is not error. 
-Though for convenience and ease of exposition I will often slip back into referring to this gap as ``error'', we can more properly refer to it as ``model shortcoming''. 
+Though for convenience and ease of exposition we will refer to this gap as ``error'', we can more properly refer to it as ``model shortcoming''. 
 This is still somewhat infelicitous insofar as it still implies failure on the part of the model, whereas in fact this gap is due to the stubbornness of \emph{reality} in declining to behave according to our desires. 
 %\footnote{Though maybe a more enlightened viewpoint would take a conflict between reality and desire to be due to the latter's shortcomings.}.  
 The model underperforms with respect to our targets insofar as reality does so. 
 Still, the term is appropriate, since the ``error'' observed is a discrepancy between the desired observations and the model, not between the model and the true system.
 
-\subsection{Setting the marginal variance for model discrepancy}
+\subsection{Setting the marginal variance for model discrepancy}\label{mvfmd}
 
 Hereafter in this work, we will assume that model shortcoming will be captured via a discrepancy term $\delta(\cdot)$ modeled as a mean-zero, stationary GP. 
 %
@@ -362,7 +403,7 @@ In such a case one often wishes to locate an ``elbow'' which maximizes $\frac{d^
 %
 Depending on its location, selecting (e.g.) $[0,0]$ as a desired observation might not achieve calibration to this elbow, if some other part of the Pareto front is closer to the desired observation than the elbow is.
 %
-It is in such a situation that a rough estimate of the Pareto front (if not antecedently available) via a preliminary round of CDO with a vague prior on $\lambda_\delta$ can be used to select a desired observation to which the closest region of the Pareto front is the region to which one wishes to calibrate.
+It is in such a situation that a rough estimate of the Pareto front (if not antecedently available) via a preliminary round of CDO using a vague prior on $\lambda_\delta$ can be used to select a desired observation to which the closest region of the Pareto front is the region to which one wishes to calibrate.
 %
 Then for the second round of CDO one's desired observations and prior distribution on $\lambda_\delta$ can be chosen informatively, so that one will enjoy the above-described benefits both of calibrating to the desired region of the Pareto front and of improving the accuracy of one's posterior distribution on the discrepancy of the model from the desired observations.
 %
@@ -469,31 +510,6 @@ y_3 &= 15 + 2 \theta_1 + \frac{\theta_2^2}4.
 %
 Figure \ref{fig:toy_sim_outputs} shows the three model outputs on a common scale over the support of the calibration parameters, for $x=2$.
 %
-For CDO, a budget of 432 model observations was used. 
-%
-These were drawn as a full factorial design on a $3\times12\times12$ evenly-space grid over the supports of $x,\theta_1,\theta_2$. 
-%
-Using these model runs, the covariance function parameters $\lambda_\eta,\boldsymbol \beta^\eta$ in (\ref{eq:Hig_cov}) were set to their MLEs: $\lambda_\eta = 8.37\cdot10^{-4}$, $\boldsymbol\beta^\eta = [0.281, 0.999, 0.600, 0.720, 0.103]$.
-
-
-The desired observations were initially set to $[0,0,0]$, constant as a function of $x$. 
-%
-The Pareto front was then estimated via a preliminary round of CDO in order to estimate the distance (after standardizing the outputs to a common scale) of the desired observation from the Pareto front, in order to build an informative prior for $\lambda_\delta$.
-%
-The distance from the Pareto front to the desired observation was found to be large -- at 16 units on the standardized scale, roughly four times the diameter of the Pareto front itself. 
-%
-In order to improve identifiability of the region of the Pareto front closest to the desired observation, the latter was updated to lie closer to the Pareto front (along the same line connecting the Pareto front to the orginal desired observation).
-%
-A distance of one unit away (roughly one fourth of the diameter of the Pareto front) was chosen, approaching the (estimated) Pareto front as closely as possible while remaining confident that the new desired observation of $[0.71, 0.71, 17.92]$ still outperforms the true Pareto front.
-%
-The discrepancy marginal precision $\lambda_\delta$ was then set to 1 for subsequent CDO, corresponding to a degenerate informative prior at the estimated value from preliminary CDO.
-%
-Observation error $\epsilon(\cdot)$ from \eqref{eq:model_gen} was estimated to be $N(0,0.05)$ for all $x$.
-
-Figure \ref{fig:toy_sim_results} shows the results. The calibration successfully maps the contours of the optimal region, and peaks near the true optimum. 
-
-
-
 \begin{figure}
 \centering
 \includegraphics[width=.4\linewidth]{FIG_toy_sim_model_outputs}
@@ -501,7 +517,42 @@ Figure \ref{fig:toy_sim_results} shows the results. The calibration successfully
 \caption{Example model outputs shown on a common scale.}
 \label{fig:toy_sim_outputs}
 \end{figure}
+%
+For CDO, the true function was used (rather than a GP emulator). 
+%For CDO, a budget of 432 model observations was used. 
+%%
+%These were drawn as a full factorial design on a $3\times12\times12$ evenly-space grid over the supports of $x,\theta_1,\theta_2$. 
+%%
+%Using these model runs, the covariance function parameters $\lambda_\eta,\boldsymbol \beta^\eta$ in (\ref{eq:Hig_cov}) were set to their MLEs: $\lambda_\eta = 8.37\cdot10^{-4}$, $\boldsymbol\rho^\eta = [0.281, 0.999, 0.600, 0.720, 0.103]$ where $\rho^\eta_k = \exp(-\beta_k^\eta/4)$. 
+Thus we have 
+%
+\[
+\mathbf y_j = \mathbf f(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x) + \epsilon_j
+\]
+%
+for desired observation $\mathbf y_j$, where $\mathbf f$ is the model output, $\delta(\cdot)$ is the discrepancy function and $\epsilon_j$ is independent $N(0,0.05)$ for all $j$.
 
+We initially set the desired observations to $[0,0,0]$, constant as a function of $x$. 
+%
+We then estimated the Pareto front via a preliminary round of CDO in order to estimate the distance (after standardizing the outputs to a common scale) of the desired observation from the Pareto front.
+%
+The distance from the Pareto front to the desired observation was found to be large -- at 16 units on the standardized scale, roughly four times the diameter of the Pareto front itself. 
+%
+In order to improve identifiability of the region of the Pareto front closest to the desired observation, we updated the latter to lie closer to the Pareto front (along the same line connecting the Pareto front to the orginal desired observation).
+%
+We chose a distance of one unit away (roughly one fourth of the diameter of the Pareto front), approaching the (estimated) Pareto front as closely as possible while remaining confident that the new desired observation of $[0.71, 0.71, 17.92]$ still outperforms the true Pareto front.
+%
+We then set the discrepancy marginal precision $\lambda_\delta$ to 1 for subsequent CDO, corresponding to a degenerate informative prior at the estimated value from preliminary CDO.
+%
+Observation error $\epsilon(\cdot)$ from \eqref{eq:model_gen} was specified as $N(0,0.05)$ for all $x$.
+%
+Figure \ref{fig:toy_sim_results} shows the results, including the marginal distributions of the calibration parameters. 
+%
+The sharply peaked marginals show substantial Bayesian learning compared to the uniform prior distributions on the calibration parameters. 
+%
+The calibration successfully maps the contours of the optimal region, and peaks near the true optimum. 
+%
+%Among the posterior predictive samples $\tilde {\mathbf y}$ associated with each draw of $\boldsymbol \theta$, $91.9\%$ lie within two standard deviations of the true optimum.
 
 \begin{figure}
 \centering
@@ -516,39 +567,66 @@ Figure \ref{fig:toy_sim_results} shows the results. The calibration successfully
 \section{Application}\label{application}
 %% HERE
 
-In this section I describe the use of CDO for the problem of designing a material for constructing a wind turbine blade of fixed geometry. In traditional engineering design, material selection is a matter of selecting a material with appropriate properties for the project at hand from a database of known materials, often as a matter of ad-hoc satisficing. Material design usually occurs separately, and without an eye to specific end-uses. It is desirable to wed these design processes, selecting a material design by modeling its performance outcomes in a particular engineering application. Therefore, here I offer an example of calibrating material design parameters to desired performance targets for a wind turbine blade. This calibration is mediated by a finite element model using \texttt{ANSYS} simulation software\footnote{
-The finite element code was authored by Evan Chodora.
-}
-, which is treated as an accurate representation of reality. In this section I describe the emulator, and in Section \ref{MCMC} I describe its use for the calibration procedure.
+In this section we describe the use of CDO for the problem of designing a material for constructing a wind turbine blade of fixed geometry. 
+%
+In traditional engineering design, material selection is a matter of choosing a material with appropriate properties for the project at hand from a database of known materials, often as a matter of ad-hoc satisficing. 
+%
+Material design usually occurs separately, and without an eye to specific end-uses. 
+%
+It is desirable to wed these design processes, selecting a material design by modeling its performance outcomes in a particular engineering application. 
+%
+Therefore, here we offer an example of calibrating material design parameters to desired performance targets for a wind turbine blade. 
+%
+This calibration is mediated by a finite element model using \texttt{ANSYS} simulation software, which is treated as an accurate representation of reality. %In this section I describe the emulator, and in Section \ref{MCMC} I describe its use for the calibration procedure.
 
 \subsection{Project background}
 
-Two primary performance targets for the design and construction of wind turbine blades is the distance (in meters) that the blade tip deflects under load from its starting position, and the angle (in radians) that the blade undergoes rotation when under load. 
+Two primary performance targets for the design and construction of wind turbine blades are the distance (in meters) that the blade tip deflects under load from its starting position, and the angle (in radians) that the blade undergoes rotation when under load. 
+%
 Each of these measures should ideally be as close to zero as possible.
-In selecting the composite material used to build the turbine blade, given a choice of matrix and filler materials, the properties of the material depend on the \textit{volume fraction} -- the volume ratio of filler material to matrix material used in the composite -- and the thickness of the material used to build the blade. 
+In selecting the composite material used to build the turbine blade, given a choice of matrix and filler materials, the properties of the material depend on the volume fraction (i.e. the volume ratio of filler material to matrix material used in the composite) and the thickness of the material used to build the blade. 
+%
 The resulting material properties impact the performance of the blade, as well as its cost per square meter. 
+%
 
 The finite element model takes as inputs a triplet $(h,v,k)$, where $h$ is the operating temperature of the wind turbine (in kelvin), $v$ is the volume fraction of the material, and $k$ is the thickness of the material (in mm). 
+%
 The outputs of the model are a triplet $(d,r,c)$, where $d$ is tip deflection (in meters), $r$ is rotation (in radians), and $c$ is cost per square meter (USD). 
-The wind turbine should be capable of operating over the range of temperatures 230K-330K. The goal of calibration is thus to find posterior distributions on $v$ and $k$ given outputs from the finite element simulator and desired observations.
+The wind turbine should be capable of operating over the range of temperatures 230K-330K. 
+%
+The goal of calibration is thus to find posterior distributions on $v$ and $k$ given outputs from the finite element simulator and desired observations.
 
 \subsection{Emulation of finite element simulator}\label{emulator}
 The finite element simulator is too computationally expensive to be suitable for direct use in (e.g.) an MCMC routine. 
-Thus I employ a GP emulator in the manner of \cite{Williams2006}. For this purpose, 504 observations were drawn from the finite element simulator. 
+%
+Thus we employ a GP emulator in the manner of \cite{Williams2006}. 
+%
+For this purpose, we drew 504 (trivariate) observations from the finite element simulator. 
+%
 These inputs follow a Latin hypercube sampling design \citep{McKay1979} based on plausible ranges for the three inputs, as identified by expert opinion.
+%
+We consider the finite element observations to follow a GP with mean 0 and covariance function $C$ as described by (\ref{eq:Hig_cov}) above, with $\alpha_\eta=2$. 
+%
+This is equivalent to assuming smooth, infinitely differentiable sample paths. 
+%
+%I do not include a discrepancy function, per the considerations of Section \ref{obs_error}.
 
-I consider the finite element observations to follow a GP with mean 0 and covariance function $C$ as described by (\ref{eq:Hig_cov}) above, with $\alpha_\eta=2$. 
-This is equivalent to assuming smooth, infinitely differentiable sample paths. I do not include a discrepancy function, per the considerations of Section \ref{obs_error}.
-
-The hyperparameters $\lambda_\eta,\boldsymbol \beta^\eta$ must be estimated. 
-I do not estimate these values as part of a full, integrated Bayesian analysis. 
-Instead, they are estimated prior to calibration to the desired observations, via maximum likelihood estimation, for the reasons discussed in Section \ref{hyperparameter_estimation}. 
-Initially, a grid optimization method was used: a grid of $\boldsymbol \beta^\eta$ values was used, finding at each point of the grid the likelihood of the simulation observations integrated over the support of $\lambda_\eta$. However, $\boldsymbol \beta^\eta$ is a five-dimensional vector, and a grid fine enough to be useful was too computationally burdensome to be feasible. Instead, a gradient descent method \citep{Cauchy1847} was used to maximize the log-likelihood of the simulation observations over the joint (6-dimensional) support of $\boldsymbol \beta^\eta,\lambda_\eta$.  The result is 
-\begin{equation}\label{eq:MLEs}
-\boldsymbol {\hat\rho}^\eta = (0.9358, 0.6509, 0.6736, 0.4797, 0.9673),\quad
-\hat\lambda_\eta = 0.0152
-\end{equation}
-where $\rho^\eta_k = \exp(-\beta_k^\eta/4)$. A slice of the resulting emulator mean (for thickness = 20mm) for the tip deflection output is shown in Figure \ref{fig:emulator_surface}.
+The hyperparameters $\lambda_\eta,\boldsymbol \beta^\eta$ must be estimated.
+% 
+For the reasons discussed in Section \ref{hyperparameter_estimation}, we estimated them prior to calibration to the desired observations, via maximum likelihood estimation.
+% 
+%Initially, a grid optimization method was used: a grid of $\boldsymbol \beta^\eta$ values was used, finding at each point of the grid the likelihood of the simulation observations integrated over the support of $\lambda_\eta$. 
+%
+%However, $\boldsymbol \beta^\eta$ is a five-dimensional vector, and a grid fine enough to be useful was too computationally burdensome to be feasible. Instead, a 
+We used a gradient descent method \citep{Cauchy1847} to maximize the log-likelihood of the simulation observations over the joint (6-dimensional) support of $\boldsymbol \beta^\eta,\lambda_\eta$.  
+%
+The result is $\hat\lambda_\eta = 0.0152$, $\boldsymbol {\hat\rho}^\eta = (0.9358, 0.6509, 0.6736, 0.4797, 0.9673)$
+%\begin{equation}\label{eq:MLEs}
+%\boldsymbol {\hat\rho}^\eta = (0.9358, 0.6509, 0.6736, 0.4797, 0.9673),\quad
+%\hat\lambda_\eta = 0.0152
+%\end{equation}
+where $\rho^\eta_k = \exp(-\beta_k^\eta/4)$. 
+%A slice of the resulting emulator mean (for thickness = 20mm) for the tip deflection output is shown in Figure \ref{fig:emulator_surface}.
 
 %\subsubsection{Wind turbine blade simulator}
 %% Here the finite element model will be described
@@ -586,20 +664,204 @@ where $\rho^\eta_k = \exp(-\beta_k^\eta/4)$. A slice of the resulting emulator m
 %\label{fig:emulator_surface}
 %\end{figure}
 
-\section{MCMC using the emulator}\label{MCMC}
-
 %\subsection{MCMC methods}
 %% Background on MCMC
 %Blah
 
-\subsection{The model}
+\subsection{The model}\label{the_model}
 % Choice of priors and resulting likelihood
 Following the framework laid out in Section \ref{gaussian_processes} and the hyperparameters estimated in Section \ref{emulator}, the model takes the trained emulator to be distributed as
+%
 \begin{equation}\label{posterior_GP}
 \mathcal {GP}\left(\mu^*(\mathbf b), C^*(\mathbf b,\mathbf b')\right)
 \end{equation}
-where $\mu^*(\mathbf b) = \mathbf C_{\mathbf b,\mathbf B} \cdot \mathbf C_{\mathbf B,\mathbf B}^{-1} \cdot \boldsymbol \eta$, $C^*(\mathbf b,\mathbf b') = \mathbf C_{(\mathbf b^T,\mathbf b'^T)^T,(\mathbf b^T,\mathbf b'^T)^T} - \mathbf C_{(\mathbf b^T,\mathbf b'^T)^T,\mathbf B}\cdot \mathbf C_{\mathbf B,\mathbf B}^{-1} \cdot \mathbf C_{\mathbf B,(\mathbf b^T,\mathbf b'^T)^T}$, $\mathbf C_{\Upsilon,\Gamma}$ is the matrix whose $i,j$ element is equal to the covariance between the observation at the $i^{\text{th}}$ row of $\Upsilon$ and at the $j^{\text{th}}$ row of $\Gamma$, $\mathbf b=(\mathbf x,\mathbf t)$ is a row vector of control and calibration inputs, $\mathbf B=(\mathbf b_1^T,\mathbf b_2^T,\cdots,\mathbf b_n^T)^T$ is the $1512\times5$ matrix of locations of the 1512 simulation observations, and $\boldsymbol\eta$ is a column vector of the 1512 simulation responses: $\eta_i=\eta(\mathbf b_i)$. All model inputs are normalized to [0,1] over their supports. All model outputs are standardized so that $\boldsymbol\eta$ has mean 0 and standard deviation 1.
-$C(\cdot,\cdot)$ is given by (\ref{eq:Hig_cov}), where I plug in the MLEs given in (\ref{eq:MLEs}). 
+%
+where $\mu^*(\mathbf b) = \mathbf C_{\mathbf b,\mathbf B} \cdot \mathbf C_{\mathbf B,\mathbf B}^{-1} \cdot \boldsymbol \eta$, $C^*(\mathbf b,\mathbf b') = \mathbf C_{(\mathbf b^T,\mathbf b'^T)^T,(\mathbf b^T,\mathbf b'^T)^T} - \mathbf C_{(\mathbf b^T,\mathbf b'^T)^T,\mathbf B}\cdot \mathbf C_{\mathbf B,\mathbf B}^{-1} \cdot \mathbf C_{\mathbf B,(\mathbf b^T,\mathbf b'^T)^T}$, $\mathbf C_{\Upsilon,\Gamma}$ is the matrix whose $i,j$ element is equal to the covariance between the observation at the $i^{\text{th}}$ row of $\Upsilon$ and at the $j^{\text{th}}$ row of $\Gamma$, $\mathbf b=(\mathbf x,\mathbf t)$ is a row vector of control and calibration inputs, $\mathbf B=(\mathbf b_1^T,\mathbf b_2^T,\cdots,\mathbf b_n^T)^T$ is the $1512\times5$ matrix of locations of the 1512 simulation observations, and $\boldsymbol\eta$ is a column vector of the 1512 simulation responses: $\eta_i=\eta(\mathbf b_i)$. 
+%
+All model inputs are normalized to [0,1] over their supports. All model outputs are standardized so that $\boldsymbol\eta$ has mean 0 and standard deviation 1.
+%
+$C(\cdot,\cdot)$ is given by (\ref{eq:Hig_cov}), where I plug in the MLEs given above. 
+%
+The full joint posterior density of the calibration parameters and discrepancy function hyperparameters, from \eqref{eq:full_dist}, is
+\begin{equation} \label{eq:wt_full_dist}
+\pi(\boldsymbol\theta,\lambda_\delta,\boldsymbol\rho^\delta|\mathcal D) 
+\propto 
+\pi(\mathcal D|\boldsymbol\theta,\lambda_\delta,\boldsymbol\rho^\delta)
+\times
+\pi(\lambda_\delta)
+\times
+\pi(\boldsymbol\rho^\delta).
+\end{equation}
+%
+
+The initial desired observations were set to $[0,0,0]$, constant as a function of temperature.
+%
+We carried out an initial round of CDO in order to update the desired observations to ones that lie an estimated distance of 1 (on a standardized scale) from the Pareto front.
+%
+A total of 20,000 samples were drawn via Metropolis-Hastings-within-Gibbs MCMC, of which 4,000 samples were thrown out as burn-in. 
+%
+During the burn-in period, the covariance of the proposal distributions for $\boldsymbol \theta$, $\lambda_\delta$, and $\boldsymbol\rho^\delta$ were all adjusted for optimal acceptance rates. 
+%
+The adjustment took place every 100 iterations of the MCMC, at which point the relevant covariance matrix was set to be equal to the sample covariance of the previous draws, times a scalar multiplier. 
+%
+The level of the scalar multiplier was adaptively adjusted to promote optimal acceptance rates of $\approx 30\%$ for $\boldsymbol\theta$ and $\boldsymbol\rho$, and $\approx 44\%$ for $\lambda_\delta$.
+%
+As expected for the preliminary round of CDO, the posterior distribution of $\boldsymbol\theta$ was quite diffuse.
+%
+We used the GP emulator to estimate the model output for each sample of $\boldsymbol \theta$ drawn.
+%
+We filtered the resulting posterior predictions to retain only the estimated Pareto front.
+%
+Examining the estimated Pareto front, one finds a distinct ``elbow''; see figure \ref{fig:elbow}.
+%
+\begin{figure}
+\centering
+\includegraphics[width=.7\linewidth]{FIG_est_PF_with_des_obs}
+\captionsetup{width=.7\linewidth}
+\caption{The green points show the estimated range of the model. The blue points show the estimated Pareto front. The red dot is the desired observation selected to calibrate to the ``elbow'' in the Pareto front.}
+\label{fig:elbow}
+\end{figure}
+%
+We selected this elbow as the target for calibration.
+%
+To do so, we set the point $[\mathrm{deflection}=0.75\mathrm m,\ 
+\mathrm{rotation}=0.09\ \mathrm{rad},\ 
+\mathrm{cost}=\$130.34]$
+ as the desired observation (constant as a function of temperature).
+%
+The elbow is the closest region of the Pareto front to this point.
+%
+Based on the estimated PF, the desired observation is approximately 0.2 units away on the standardized scale.
+%
+Therefore, we set $\lambda_\delta=1/0.2^2=25.$
+%
+
+In the resulting CDO, we employed the same MCMC approach as in the preliminary round, except that $\lambda_\delta$ was now treated as known.
+%
+The marginal posterior distributions are shown in Figure \ref{fig:wt_marg_post}, along with the (uniform) prior distributions. 
+%
+\begin{figure}
+\centering
+\includegraphics[width=.7\linewidth]{FIG_posterior_marginals_with_priors}
+\captionsetup{width=.7\linewidth}
+\caption{The histograms show the marginal posterior of each calibration parameter. The dotted lines show the priors.}
+\label{fig:wt_marg_post}
+\end{figure}
+%
+The mean model output under the prior is $[\text{deflection}=0.76\mathrm m,\ \text{rotation}=0.09\text{ rads},\ \text{cost}=\$207.90/\mathrm m^2]$, whereas under the posterior it is $[0.76\mathrm m,0.09\ \mathrm{rad},\$148.68]$.
+%
+Though the performance outcomes are approximately the same under the posterior distribution as under the prior, the cost per square meter has dropped dramatically.
+%
+If one desires to prioritize gains in performance over cost, this can be accomplished by selecting desired observations that reflect those priorities. 
+
+\subsection{Removing calibration parameters}\label{removing_cal_pars}
+
+%\subsubsection{Motivation}
+
+Where a model contains several outputs that one wishes to optimize, it can become complicated to juggle one's priorities in selecting targets for each of these outputs.
+%
+Again to speak from the wind turbine application: we know we want to keep cost, deflection, and rotation low, but we might not have a clear prior conception of exactly what sorts of trade-offs amongst those outcomes we would consider optimal, much less how to implement our priorities in the calibration procedure. 
+%
+Rather than wishing to optimize relative to some particular set of desired observations, one may prefer simply to learn as much as possible about the Pareto front as a whole.
+%
+In low-dimensional cases this may be achieved using CDO as follows.
+%
+Where the model output is $d-$dimensional, one may draw a grid over the range of $d-1$ of the model outputs and perform CDO to minimize the remaining output at each point of the grid.
+%
+The $d-1$ outputs, at each grid point, are treated as known up to observation error (meaning that the discrepancy function $\delta(\cdot)$ is set to 0 in the dimension of these outputs).
+%
+The resulting estimate is distinguished from other methods of estimating the Pareto front (including from the filtering method employed in preliminary CDO) by including uncertainty quantification.
+%
+
+This procedure is illustrated here using the wind turbine blade application.
+%
+For simplicity, rotation has been removed as a model output, leaving a 2-dimensional model output of deflection and cost. 
+%
+A 20-point grid was drawn over costs. 
+%
+Using the rough estimate of the Pareto front from preliminary CDO, we found that to cover the Pareto front, the cost grid should cover the range $[\$96,\$352]$.
+%
+For each point $c$ in the cost grid, we used the point $[0\mathrm m,\$c]$ as an initial desired observation (constant with respect to temperature).
+%
+We then updated this initial desired observation, using the rough estimate from preliminary CDO, to be a point which lies near the Pareto front, to improve identifiability.
+%
+Here as in Section \ref{the_model}, ``near'' was taken to be 0.2 units on the standardized scale of model outputs.
+%
+
+
+
+%\paragraph{Specifying known cost}\label{known_cost}
+%
+%The above strategy of performing the calibration across a grid and forming a response surface over that grid may be applied even more directly, to largely the same end as in the previous section. Namely: rather than replace one or more desired outputs with a prior on the calibration inputs and drawing a grid over the hyperparameter(s) of that prior, one can instead simply draw a grid over one or more of the desired outputs, treating those outputs as known up to slight deviations at each point of the grid. This strategy has the advantage that, unlike the above strategy, it does not require that we have prior knowledge of any relationship between the calibration parameters and the outputs. Furthermore, whereas the previous strategy requires removing a model output, the current strategy uses the same version of the model, relying solely on changes to the desired observations and observation variance to effect the strategy. In comparison with the previous section's strategy, the approach in the current section also enjoys better interpretability.
+%
+%For convenience, call an output that is specified as known up to slight deviations in the way suggested here ``d-known''. To specify an output as d-known, it suffices to (1) choose a desired observation of that output which is realistically achievable, and (2) set a constant, low observation variance for that output. The precise value of the observation variance for a d-known output can be tuned during the burn-in period of the MCMC routine. It ought to be as low as possible while still allowing for healthy mixing in the MCMC. If the variance is too small, then proposed draws of the calibration parameters will be likely to take the model output too far away from the d-known output, resulting in the draw being rejected, and hence low acceptance rates and poor mixing.
+%
+%The other desired observations -- those that are not d-known -- can be treated as usual, with their observation variances each drawn from a $1/\sigma^2_i$ prior, or whichever other treatment of observation variance from Section \ref{des_obs_var} one wishes to use. Thus at the calibration procedure which takes place at each point in the grid of d-known outputs, the d-known outputs have in essence been removed from the CDO, and are treated as known up to a slight variance for facilitating healthy MCMC. This ``removal'' requires little modification to the model, but still serves to simplify the choice of desired observations and observation variance. 
+%
+%The full model is given by
+%\begin{equation}\label{full_model_3}
+%\begin{aligned}
+%\pi(\boldsymbol\theta,\mathbf C_{\mathbf y}|\mathcal D ) &\propto
+%\pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\boldsymbol\theta) \times \pi(\mathbf C_{\mathbf y})\\
+%&\propto  \pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\mathbf C_{\mathbf y})\\
+%&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \mathrm{exp}(\mathcal D^T \mathbf C_{\mathcal D}^{-1} \mathcal D) \times \prod_{i=1}^2 \frac1{\sigma^2_i}
+%\end{aligned}
+%\end{equation}
+%where $\mathbf C_{\mathbf y}$ is the diagonal matrix where the $j,j$ entry $c_j$ is equal to $\sigma^2_1$ if $y_j$ is an observation of deflection, $c_j=\sigma^2_2$ if $y_j$ is an observation of rotation, and $c_j = s$ if $y_j$ is an observation of cost, for some small pre-selected value of $s$. In this application, I set $s=0.05$, so that the observation variance on standardized cost values at each point of the grid was 0.05. 
+
+The result of this strategy is similar to that one can derive a response surface over the $d-1$-dimensional grid of outputs, where that response describes the optimal results across the grid. 
+%
+If the grid covers the Pareto front in $d-1$ dimensions, then the result of the strategy is to provide a response surface with included uncertainty quantification describing, for each point in the grid, the optimal achievable outcome for the output not included in the grid.
+%
+Thus a decisionmaker can visualize the space of desirable possibilities with associated uncertainty metrics. 
+%
+They can do so without the need for antecedently rigorously determining their exact priorities for weighing gains in each of the outputs against one another, nor (much worse) working out how to translate those priorities into specific choices of desired observations and observation variance schemes. 
+%This is similar to the strategy of the previous section, but in addition to other benefits, this result has better interpretability in that the grid is over one of the model outputs, rather than over a hyperparameter whose interpretation is somewhat dubious. For example, a decision-maker is likely to feel quite comfortable choosing a budget based on expected outcomes at each cost; they may be less comfortable selecting a value of $\lambda_{cost}$.
+
+%The same sort of uncertainty analysis described in Section \ref{non-uniform_prior} is available here, since posterior parameter uncertainty and code uncertainty are easily recovered from the results of the MCMC routine. 
+%
+The result of applying this strategy to the wind turbine blade application is shown in Figure \ref{fig:known_cost}. 
+%
+The rightmost plot is included to verify that the posterior model output respected the d-known cost values used in the calibrations.
+
+\begin{figure}
+\centering
+\includegraphics[width=.8\linewidth]{FIG_cost_grid_pareto_bands}
+\captionsetup{width=.8\linewidth}
+\caption{``Pareto bands'' of wind turbine blade posterior cost and tip deflection across a range of target costs. The gray region gives a 90\% credible interval only considering parameter uncertainty; the blue region extends this to include code uncertainty.}
+\label{fig:known_cost}
+\end{figure}
+
+\section{Conclusion}
+% Discussion of the role of computer model validation as a potential methodology for design
+
+In this work we have described the theoretical background for the use of Gaussian processes to emulate computationally expensive computer model code, and the use of such emulators for computer model calibration under the framework established principally by \cite{Kennedy2001}, \cite{Williams2006} and \cite{Bayarri2007}. 
+%
+CDO is a modification of that framework which calibrates a computer model, not to field observations, but rather to desired observations, i.e., performance targets for the system. 
+%
+Unlike other methods of Bayesian optimization (for an overview of which see \citealt{Shahriari2016}), CDO does not require the ability to carry out computer model observations adaptively.
+%
+Instead, it can operate using a batch of observations gathered prior to (and independently of) the calibration procedure.
+%
+We described the implementation of this approach in an MCMC routine along with considerations to accommodate computational instability.
+
+The use of this methodology is illustrated in the case of material design for a wind turbine blade. 
+%
+We have shown thereby a variety of ways in which CDO can be used to produce a guide that decision-makers can consult in the design process. 
+%
+By expropriating established tools of model calibration, CDO offers a method of optimization which is sensitive to all sources of uncertainty, and which results in an estimate that includes uncertainty quantification.
+
+
+
+\bibliographystyle{apalike}
+
+\pagebreak
+
+\bibliography{lit_review}
+
+
+\end{document}
+
 
 %Generalizing from \cite{Kennedy2006}, I expand the Bayesian analysis to include the diagonal observation variance matrix $\mathbf C_{\mathbf y}$, rather than requiring this value to be specified as known, and I allow for a non-uniform prior $\pi(\boldsymbol \theta)$ on the calibration parameters. By (\ref{eq:full_dist}) on page \pageref{eq:full_dist}, 
 %since I estimate $\boldsymbol \rho^\eta,\lambda_\eta$ by maximum likelihood, set $c=0$, and do not include a discrepancy function, we have for desired observations $\mathbf y=(y (b_{n+1}),\cdots,y(b_{n+m}))^T$ and $\mathcal D=(\mathbf y^T, \boldsymbol\eta^T)^T$:
@@ -804,82 +1066,45 @@ $C(\cdot,\cdot)$ is given by (\ref{eq:Hig_cov}), where I plug in the MLEs given 
 %\label{fig:des_data}
 %\end{figure}
 
-\subsection{Removing calibration parameters}\label{removing_cal_pars}
-
-%\subsubsection{Motivation}
-
-Where a model contains several outputs that one wishes to control, it can become complicated to juggle one's priorities in achieving targets for each of these outputs. Again to speak from the wind turbine application: we know we want to keep cost, deflection, and rotation low, but we might not have a clear prior conception of exactly what sorts of trade-offs amongst those outcomes we would consider optimal, much less how to implement our priorities in the calibration procedure. In this sort of situation, the best strategy is to remove one or more outputs. Two strategies for doing so are explored in this section.
-
-\paragraph{Non-uniform prior on $\boldsymbol \theta$:}\label{non-uniform_prior}
-
-%\subsubsection{Implementation}
-
-The first option is attractive in those scenarios where one has rough knowledge of the correlation between the calibration parameters and a given model output. The strategy is to exploit this correlation to remove one of the desired observation outputs, where a prior is placed on the calibration parameters that is designed to control the removed model output.
-
-The wind turbine application serves as an example here. It is known that cost correlates strongly with each of the two calibration parameters (volume fraction $v$ and thickness $k$). Thus, I replace the uniform $\pi(\boldsymbol \theta)$ of (\ref{eq:the_model}) with a prior that penalizes high values of $v$ and $k$, thereby penalizing high cost output:
-\begin{equation}\label{eq:theta_prior}
-\pi(\boldsymbol \theta)=\pi(v,k)\propto \exp(-\lambda_{cost}\lVert (v,k)\rVert ^2)
-\end{equation}
-where $\lambda_{cost}$ can be set to any nonnegative value, with higher values resulting in stricter cost control. Pairing this with the $1/\sigma^2_i$ prior on observation variances, the full model becomes:
-\begin{equation}\label{full_model_3}
-\begin{aligned}
-\pi(\boldsymbol\theta,\mathbf C_{\mathbf y}|\mathcal D ) &\propto
-\pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\boldsymbol\theta) \times \pi(\mathbf C_{\mathbf y})\\
-&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \mathrm{exp}(\mathcal D^T \mathbf C_{\mathcal D}^{-1} \mathcal D) \times \mathrm{exp}(-\lambda_{cost}\lVert(v,k)\rVert^2)\times\prod_{i=1}^3 \frac1{\sigma^2_i}
-\end{aligned}
-\end{equation}
-
-This may seem to make little progress in resolving the complication of a model that includes cost, since now instead of specifying a desired cost we must specify a value for $\lambda_{cost}$. However, rather than specify a value for this hyperparameter, we can gain a more comprehensive picture of our options by observing the calibration results over a grid of values of $\lambda_{cost}$. Thus, rather than specifying beforehand what is our desired ``balance'' amongst cost, deflection and rotation, we are able to see a curve describing our options for this trade-off, and to then make an informed choice as to where on that curve we wish to be. 
-
-The decision-making value of such an analysis is further improved by including uncertainty quantification, which comes easily due to the nature of the Bayesian approach and GP emulator here. The draws of calibration parameters in the MCMC routine each correspond to a GP with posterior mean serving as an estimate of the true model output for those calibration settings. This captures the parameter uncertainty -- i.e., uncertainty remaining in the posterior distribution of the calibration parameters, which is uncertainty about which calibration parameter settings best achieve the desired observations. Furthermore, the GPs themselves are uncertain representations of the true model. For each draw of the calibration parameters in the MCMC routine, (\ref{posterior_GP}) gives us the mean and variance of the output at each control input. Thus we can use the posterior covariance of the GP to estimate the code uncertainty -- the uncertainty due to the variation of the GP around the true system mean. Thus a sort of ``Pareto band'' of model performance can guide decision-making in selecting a level for our calibration parameters. Decision-makers can observe surfaces describing the achievable system responses, with included uncertainty measures around those surfaces, and select a target outcome from this comprehensive picture of what is achievable. Figure \ref{fig:non-uniform_prior} gives an example of this for the wind turbine application. Figure \ref{fig:post_dists_lambda_cost} shows the posterior distributions of volume fraction and thickness for various values of $\lambda_{cost}$. 
-
-\begin{figure}
-\centering
-\captionsetup{width=.9\linewidth}
-\includegraphics[width=\linewidth]{FIG_cost_lambda_code_uncert_upd}
-\caption{Resulting cost vs. $\lambda_{cost}$, and ``Pareto bands'' of wind turbine blade performance metric over a range of values of cost. Here, cost has been removed from the model and the prior $\exp(-\lambda_{cost}\lVert \theta \rVert^2)$ placed on the calibration parameters $\boldsymbol \theta$, with desired data 0 deflection and 0 rotation. The gray region gives a 90\% credible interval only considering parameter uncertainty. The blue region extends this to include code uncertainty, using the covariance of the posterior GPs corresponding to each draw of $\boldsymbol \theta$.}
-\label{fig:non-uniform_prior}
-\end{figure}
-
-
-\begin{figure}
-\centering
-\captionsetup{width=.7\linewidth}
-\includegraphics[width=.65\linewidth]{FIG_post_dist_across_cost_lambda-3d}
-\caption{Posterior distributions of volume fraction and thickness for various values of $\lambda_{cost}.$ Notice that higher values of $\lambda_{cost}$ push the distribution away from the (high-cost) upper region of the supports of the two variables.}
-\label{fig:post_dists_lambda_cost}
-\end{figure}
-
-
-\paragraph{Specifying known cost}\label{known_cost}
-
-The above strategy of performing the calibration across a grid and forming a response surface over that grid may be applied even more directly, to largely the same end as in the previous section. Namely: rather than replace one or more desired outputs with a prior on the calibration inputs and drawing a grid over the hyperparameter(s) of that prior, one can instead simply draw a grid over one or more of the desired outputs, treating those outputs as known up to slight deviations at each point of the grid. This strategy has the advantage that, unlike the above strategy, it does not require that we have prior knowledge of any relationship between the calibration parameters and the outputs. Furthermore, whereas the previous strategy requires removing a model output, the current strategy uses the same version of the model, relying solely on changes to the desired observations and observation variance to effect the strategy. In comparison with the previous section's strategy, the approach in the current section also enjoys better interpretability.
-
-For convenience, call an output that is specified as known up to slight deviations in the way suggested here ``d-known''. To specify an output as d-known, it suffices to (1) choose a desired observation of that output which is realistically achievable, and (2) set a constant, low observation variance for that output. The precise value of the observation variance for a d-known output can be tuned during the burn-in period of the MCMC routine. It ought to be as low as possible while still allowing for healthy mixing in the MCMC. If the variance is too small, then proposed draws of the calibration parameters will be likely to take the model output too far away from the d-known output, resulting in the draw being rejected, and hence low acceptance rates and poor mixing.
-
-The other desired observations -- those that are not d-known -- can be treated as usual, with their observation variances each drawn from a $1/\sigma^2_i$ prior, or whichever other treatment of observation variance from Section \ref{des_obs_var} one wishes to use. Thus at the calibration procedure which takes place at each point in the grid of d-known outputs, the d-known outputs have in essence been removed from the CDO, and are treated as known up to a slight variance for facilitating healthy MCMC. This ``removal'' requires little modification to the model, but still serves to simplify the choice of desired observations and observation variance. The full model is given by
-\begin{equation}\label{full_model_3}
-\begin{aligned}
-\pi(\boldsymbol\theta,\mathbf C_{\mathbf y}|\mathcal D ) &\propto
-\pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\boldsymbol\theta) \times \pi(\mathbf C_{\mathbf y})\\
-&\propto  \pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\mathbf C_{\mathbf y})\\
-&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \mathrm{exp}(\mathcal D^T \mathbf C_{\mathcal D}^{-1} \mathcal D) \times \prod_{i=1}^2 \frac1{\sigma^2_i}
-\end{aligned}
-\end{equation}
-where $\mathbf C_{\mathbf y}$ is the diagonal matrix where the $j,j$ entry $c_j$ is equal to $\sigma^2_1$ if $y_j$ is an observation of deflection, $c_j=\sigma^2_2$ if $y_j$ is an observation of rotation, and $c_j = s$ if $y_j$ is an observation of cost, for some small pre-selected value of $s$. In this application, I set $s=0.05$, so that the observation variance on standardized cost values at each point of the grid was 0.05. 
-
-The result of this strategy is similar to that in the previous section: one can derive a response surface over the grid on d-known outputs, where that response describes the achievable results closest to the desired observations (not including the d-known observations) at each point in the space of d-known outputs. Thus a decisionmaker can visualize the space of desirable possibilities with associated uncertainty metrics. They can do so without the need for antecedently rigorously determining their exact priorities for weighing gains in each of the outputs against one another, nor (much worse) working out how to translate those priorities into specific choices of desired observations and observation variance schemes. 
-%This is similar to the strategy of the previous section, but in addition to other benefits, this result has better interpretability in that the grid is over one of the model outputs, rather than over a hyperparameter whose interpretation is somewhat dubious. For example, a decision-maker is likely to feel quite comfortable choosing a budget based on expected outcomes at each cost; they may be less comfortable selecting a value of $\lambda_{cost}$.
-
-The same sort of uncertainty analysis described in Section \ref{non-uniform_prior} is available here, since posterior parameter uncertainty and code uncertainty are easily recovered from the results of the MCMC routine. An example of the result of this strategy is shown in Figure \ref{fig:known_cost}, where the strategy was applied to the wind turbine application, treating cost as d-known. The rightmost plot is included to verify that the posterior model output respected the d-known cost values used in the calibrations.
-
-\begin{figure}
-\centering
-\includegraphics[width=.9\linewidth]{FIG_costs_code_uncert}
-\captionsetup{width=.9\linewidth}
-\caption{``Pareto bands'' of wind turbine blade model outputs over a range of values of cost, where cost is treated as known up to slight deviations, with desired data 0 deflection and 0 rotation. The gray region gives a 90\% credible interval only considering parameter uncertainty; the blue region extends this to include code uncertainty.}
-\label{fig:known_cost}
-\end{figure}
+%\paragraph{Non-uniform prior on $\boldsymbol \theta$:}\label{non-uniform_prior}
+%
+%%\subsubsection{Implementation}
+%
+%The first option is attractive in those scenarios where one has rough knowledge of the correlation between the calibration parameters and a given model output. The strategy is to exploit this correlation to remove one of the desired observation outputs, where a prior is placed on the calibration parameters that is designed to control the removed model output.
+%
+%The wind turbine application serves as an example here. It is known that cost correlates strongly with each of the two calibration parameters (volume fraction $v$ and thickness $k$). Thus, I replace the uniform $\pi(\boldsymbol \theta)$ of (\ref{eq:the_model}) with a prior that penalizes high values of $v$ and $k$, thereby penalizing high cost output:
+%\begin{equation}\label{eq:theta_prior}
+%\pi(\boldsymbol \theta)=\pi(v,k)\propto \exp(-\lambda_{cost}\lVert (v,k)\rVert ^2)
+%\end{equation}
+%where $\lambda_{cost}$ can be set to any nonnegative value, with higher values resulting in stricter cost control. Pairing this with the $1/\sigma^2_i$ prior on observation variances, the full model becomes:
+%\begin{equation}\label{full_model_3}
+%\begin{aligned}
+%\pi(\boldsymbol\theta,\mathbf C_{\mathbf y}|\mathcal D ) &\propto
+%\pi(\mathcal D|\boldsymbol\theta,\mathbf C_{\mathbf y}) \times \pi(\boldsymbol\theta) \times \pi(\mathbf C_{\mathbf y})\\
+%&\propto \lvert \mathbf C_{\mathcal D} \rvert ^{-1/2} \mathrm{exp}(\mathcal D^T \mathbf C_{\mathcal D}^{-1} \mathcal D) \times \mathrm{exp}(-\lambda_{cost}\lVert(v,k)\rVert^2)\times\prod_{i=1}^3 \frac1{\sigma^2_i}
+%\end{aligned}
+%\end{equation}
+%
+%This may seem to make little progress in resolving the complication of a model that includes cost, since now instead of specifying a desired cost we must specify a value for $\lambda_{cost}$. However, rather than specify a value for this hyperparameter, we can gain a more comprehensive picture of our options by observing the calibration results over a grid of values of $\lambda_{cost}$. Thus, rather than specifying beforehand what is our desired ``balance'' amongst cost, deflection and rotation, we are able to see a curve describing our options for this trade-off, and to then make an informed choice as to where on that curve we wish to be. 
+%
+%The decision-making value of such an analysis is further improved by including uncertainty quantification, which comes easily due to the nature of the Bayesian approach and GP emulator here. The draws of calibration parameters in the MCMC routine each correspond to a GP with posterior mean serving as an estimate of the true model output for those calibration settings. This captures the parameter uncertainty -- i.e., uncertainty remaining in the posterior distribution of the calibration parameters, which is uncertainty about which calibration parameter settings best achieve the desired observations. Furthermore, the GPs themselves are uncertain representations of the true model. For each draw of the calibration parameters in the MCMC routine, (\ref{posterior_GP}) gives us the mean and variance of the output at each control input. Thus we can use the posterior covariance of the GP to estimate the code uncertainty -- the uncertainty due to the variation of the GP around the true system mean. Thus a sort of ``Pareto band'' of model performance can guide decision-making in selecting a level for our calibration parameters. Decision-makers can observe surfaces describing the achievable system responses, with included uncertainty measures around those surfaces, and select a target outcome from this comprehensive picture of what is achievable. Figure \ref{fig:non-uniform_prior} gives an example of this for the wind turbine application. Figure \ref{fig:post_dists_lambda_cost} shows the posterior distributions of volume fraction and thickness for various values of $\lambda_{cost}$. 
+%
+%\begin{figure}
+%\centering
+%\captionsetup{width=.9\linewidth}
+%\includegraphics[width=\linewidth]{FIG_cost_lambda_code_uncert_upd}
+%\caption{Resulting cost vs. $\lambda_{cost}$, and ``Pareto bands'' of wind turbine blade performance metric over a range of values of cost. Here, cost has been removed from the model and the prior $\exp(-\lambda_{cost}\lVert \theta \rVert^2)$ placed on the calibration parameters $\boldsymbol \theta$, with desired data 0 deflection and 0 rotation. The gray region gives a 90\% credible interval only considering parameter uncertainty. The blue region extends this to include code uncertainty, using the covariance of the posterior GPs corresponding to each draw of $\boldsymbol \theta$.}
+%\label{fig:non-uniform_prior}
+%\end{figure}
+%
+%
+%\begin{figure}
+%\centering
+%\captionsetup{width=.7\linewidth}
+%\includegraphics[width=.65\linewidth]{FIG_post_dist_across_cost_lambda-3d}
+%\caption{Posterior distributions of volume fraction and thickness for various values of $\lambda_{cost}.$ Notice that higher values of $\lambda_{cost}$ push the distribution away from the (high-cost) upper region of the supports of the two variables.}
+%\label{fig:post_dists_lambda_cost}
+%\end{figure}
 
 %\subsection{Exponentially distributed desired data}
 %Blah
@@ -1077,12 +1302,3 @@ The same sort of uncertainty analysis described in Section \ref{non-uniform_prio
 %
 %\end{appendices}
 
-
-\bibliographystyle{apalike}
-
-\pagebreak
-
-\bibliography{lit_review}
-
-
-\end{document}
