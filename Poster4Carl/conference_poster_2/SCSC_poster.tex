@@ -105,20 +105,13 @@
 %	OBJECTIVES
 %----------------------------------------------------------------------------------------
 
-
-
-\begin{alertblock}{Computer experiments}
-
-Researchers increasingly look to computer experiments to investigate phenomena where physical experimentation is difficult or impossible\cite{Sacks1989,Santner2003a}.
-
-\end{alertblock}
-
 %----------------------------------------------------------------------------------------
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
 
 \begin{alertblock}{Computer model calibration}
 \begin{itemize}
+\item Researchers increasingly look to computer experiments to investigate phenomena where physical experimentation is difficult or impossible\cite{Sacks1989,Santner2003a}.
 \item Computer models may include unknown inputs (calibration inputs) that must be estimated\cite{Kennedy2001}. 
 
 %\item E.g.: a model's output depends upon a physical constant which is unknown. 
@@ -133,6 +126,19 @@ Researchers increasingly look to computer experiments to investigate phenomena w
 \end{alertblock}
 
 %------------------------------------------------
+
+\begin{alertblock}{Full model}
+
+Where $\boldsymbol \theta$ is the vector of true (optimal) values of the calibration parameter, $\mathbf w$ is a vector of control parameter settings, and $\boldsymbol \epsilon\sim N_3(0,\mathrm{diag}(\sigma^2_d,\sigma^2_r,\sigma^2_c))$, we may describe the model for the desired data as
+\[
+f(\mathbf w,\boldsymbol \theta) = f(\mathbf w) = \eta(\mathbf w,\boldsymbol \theta) + \boldsymbol \epsilon
+\]
+Note that we are here assuming that the original simulator $\eta(\cdot,\boldsymbol\theta)$ is unbiased with respect to $f$ when the true values of $\boldsymbol\theta$ are used as inputs.
+
+\end{alertblock} 
+
+%---------------------------------------------------
+
 
 \begin{alertblock}{Finite element smulator}
 We rely on a finite element simulator of the blade cost and performance.
@@ -158,16 +164,7 @@ We rely on a finite element simulator of the blade cost and performance.
 \end{itemize}
 \end{alertblock}
 
-\begin{alertblock}{References}
-{
-\tiny
 
-\bibliographystyle{abbrv}
-
-\bibliography{poster}
-}
-
-\end{alertblock}
 
 
 %------------------------------------------------
@@ -285,15 +282,7 @@ We calibrate the model to ``desired data'' which reflect extremely low tip defle
 \setbeamercolor{block alerted title}{fg=Gray!15,bg=MidnightBlue!95} % Change the alert block title colors
 \setbeamercolor{block alerted body}{fg=black,bg=MidnightBlue!10} % Change the alert block body colors
 
-\begin{alertblock}{Full model}
 
-Where $\boldsymbol \theta$ is the vector of true (optimal) values of the calibration parameter, $\mathbf w$ is a vector of control parameter settings, and $\boldsymbol \epsilon\sim N_3(0,\mathrm{diag}(\sigma^2_d,\sigma^2_r,\sigma^2_c))$, we may describe the model for the desired data as
-\[
-f(\mathbf w,\boldsymbol \theta) = f(\mathbf w) = \eta(\mathbf w,\boldsymbol \theta) + \boldsymbol \epsilon
-\]
-Note that we are here assuming that the original simulator $\eta(\cdot,\boldsymbol\theta)$ is unbiased with respect to $f$ when the true values of $\boldsymbol\theta$ are used as inputs.
-
-\end{alertblock} 
 
 \setbeamercolor{block alerted title}{fg=Gray!15,bg=BrickRed!95} % Change the alert block title colors
 \setbeamercolor{block alerted body}{fg=black,bg=BrickRed!05} % Change the alert block body colors
@@ -302,40 +291,6 @@ Note that we are here assuming that the original simulator $\eta(\cdot,\boldsymb
 %----------------------------------------------------------------------------------------
 
 \begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column again
-
-\begin{column}{\onecolwid} % The first column within column 2 (column 2.1)
-
-%----------------------------------------------------------------------------------------
-%	MATHEMATICAL SECTION
-%----------------------------------------------------------------------------------------
-
-%\begin{alertblock}{Mathematical Section}
-%
-%Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-%  
-%\begin{equation}
-%E = mc^{2}
-%\label{eqn:Einstein}
-%\end{equation}
-%
-%Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-%
-%\begin{equation}
-%\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
-%\label{eq:refname}
-%\end{equation}
-%
-%Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-%
-%\begin{equation}
-%\kappa =\frac{\xi}{E_{\mathrm{max}}} %\mathbb{ZNR}
-%\end{equation}
-%
-%\end{alertblock}
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.1
 
 \begin{column}{\onecolwid} % The second column within column 2 (column 2.2)
 
@@ -431,7 +386,7 @@ algorithm\cite{Hastings1970}; we set normal proposals on $z_i^{(n)}|z_i^{(n-1)}$
 
 
 \begin{figure}[h!]
-\includegraphics[width=\linewidth]{FIG1}
+%\includegraphics[width=\linewidth]{FIG1}
 %\caption{}
 \label{res}
 \end{figure}
@@ -444,7 +399,7 @@ algorithm\cite{Hastings1970}; we set normal proposals on $z_i^{(n)}|z_i^{(n-1)}$
 
 \vspace{-4mm}
 \begin{figure}[h!]
-\includegraphics[width=\linewidth]{FIG2}
+%\includegraphics[width=\linewidth]{FIG2}
 %\caption{}
 \label{unident}
 \end{figure}
@@ -475,6 +430,17 @@ algorithm\cite{Hastings1970}; we set normal proposals on $z_i^{(n)}|z_i^{(n-1)}$
 %\small{\rmfamily{Nam mollis tristique neque eu luctus. Suspendisse rutrum congue nisi sed convallis. Aenean id neque dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.}} \\
 %
 %\end{alertblock}
+
+\begin{alertblock}{References}
+{
+\tiny
+
+\bibliographystyle{ieeetr}
+
+\bibliography{poster}
+}
+
+\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 %	CONTACT INFORMATION
