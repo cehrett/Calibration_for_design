@@ -93,7 +93,7 @@
 
 \begin{frame}[t] % The whole poster is enclosed in one beamer frame
 
-\vspace{-20mm}
+\vspace{-15mm}
 
 \begin{columns}[t] % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
 
@@ -129,39 +129,44 @@
 
 \begin{alertblock}{Full model}
 
-Where $\boldsymbol \theta$ is the vector of true (optimal) values of the calibration parameter, $\mathbf w$ is a vector of control parameter settings, and $\boldsymbol \epsilon\sim N_3(0,\mathrm{diag}(\sigma^2_d,\sigma^2_r,\sigma^2_c))$, we may describe the model for the desired data as
+\begin{itemize}
+
+\item Where $f$ is the true system, $\eta$ the computer model of that system, $\delta$ is the discrepancy between $f$ and $\eta$, $\boldsymbol \theta$ the vector of true (optimal) values of the calibration parameter, $\mathbf w$ a vector of control parameter settings, and $\boldsymbol \epsilon$ is mean-zero Gaussian error, we have
 \[
-f(\mathbf w,\boldsymbol \theta) = f(\mathbf w) = \eta(\mathbf w,\boldsymbol \theta) + \boldsymbol \epsilon
+f(\mathbf w,\boldsymbol \theta) \equiv f(\mathbf w) = \eta(\mathbf w,\boldsymbol \theta) + \delta(\mathbf w) + \boldsymbol \epsilon
 \]
-Note that we are here assuming that the original simulator $\eta(\cdot,\boldsymbol\theta)$ is unbiased with respect to $f$ when the true values of $\boldsymbol\theta$ are used as inputs.
+
+\item When $\eta$ is computationally expensive, we use a code surrogate. In the wind turbine application here, we use a Gaussian process emulator as a surrogate for the finite elment model.
+
+\item Whether or not a code surrogate is used for $\eta$, $\delta$ is modeled using a mean-zero Gaussian process with power product exponential covariance.
+
+\end{itemize}
 
 \end{alertblock} 
 
 %---------------------------------------------------
 
 
-\begin{alertblock}{Finite element smulator}
-We rely on a finite element simulator of the blade cost and performance.
+\begin{alertblock}{Choosing target observations}
+
+\begin{itemize}
+\item In order to optimize the system, we want to choose performance targets that exceed achievable results, i.e., sit outside the model range. In order to improve identifiability of the optimal region, we want the performance targets close to the model range.
+
+\item To satisfy both of these constraints, we require a rough estimate of the Pareto front.
+
+\item We achieve this by a preliminary round of calibration, with weak priors on the discrepancy $\delta$. This exploits known problems of identifiability in the Kennedy-O'Hagan calibration framework to explore the Pareto front.
+
+\item Using the results of preliminary calibration, we select a performance target near the model range.
+
+\end{itemize}
 
 \begin{figure}[h!]
-\includegraphics[width=0.6\linewidth]{blade3}
+\includegraphics[width=0.7\linewidth]{FIG_est_PF_with_des_obs}
 %\caption{Wind turbine blade}
 \label{blade}
 \end{figure}
 
-\vspace{-18mm}
-\begin{itemize}
-\item Calibration inputs: volume fraction, thickness of blade material. Control input: temperature.
 
-%\item Control input is temperature.
-
-\item Outputs are tip deflection, rotation, and cost; the design goal is to minimize these.
-
-\item Model utilizes \texttt{ANSYS} simulation software; computation cost is too high for use in MCMC.
-
-%\item \texttt{ANSYS} model cost too high for use in MCMC.
-
-\end{itemize}
 \end{alertblock}
 
 
@@ -210,6 +215,31 @@ Previous explorations of computer model calibration have approached calibration 
 %----------------------------------------------------------------------------------------
 %	MATERIALS
 %----------------------------------------------------------------------------------------
+
+\begin{alertblock}{Finite element smulator}
+We rely on a finite element simulator of the blade cost and performance.
+
+\begin{figure}[h!]
+\includegraphics[width=0.6\linewidth]{blade3}
+%\caption{Wind turbine blade}
+\label{blade}
+\end{figure}
+
+\vspace{-18mm}
+\begin{itemize}
+\item Calibration inputs: volume fraction, thickness of blade material. Control input: temperature.
+
+%\item Control input is temperature.
+
+\item Outputs are tip deflection, rotation, and cost; the design goal is to minimize these.
+
+\item Model utilizes \texttt{ANSYS} simulation software; computation cost is too high for use in MCMC.
+
+%\item \texttt{ANSYS} model cost too high for use in MCMC.
+
+\end{itemize}
+\end{alertblock}
+
 
 \begin{alertblock}{Gaussian process emulator}
 
