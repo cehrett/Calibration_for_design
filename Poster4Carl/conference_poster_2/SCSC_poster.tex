@@ -111,12 +111,10 @@
 
 \begin{alertblock}{Computer model calibration}
 \begin{itemize}
-\item Researchers increasingly look to computer experiments to investigate phenomena where physical experimentation is difficult or impossible\cite{Sacks1989,Santner2003a}.
-\item Computer models may include unknown inputs (calibration inputs) that must be estimated\cite{Kennedy2001}. 
+\item Computer models may include unknown inputs that must be estimated\cite{Kennedy2001}. 
+These inputs are often estimated by combining simulator output with field data. 
 
 %\item E.g.: a model's output depends upon a physical constant which is unknown. 
-
-\item Calibration input is often estimated by combining simulator output with field data. 
 
 \item Calibration is ordinarily thought of as bringing a computer model into agreement with reality.
 %\item Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality.
@@ -131,14 +129,41 @@
 
 \begin{itemize}
 
-\item Where $f$ is the true system, $\eta$ the computer model of that system, $\delta$ is the discrepancy between $f$ and $\eta$, $\boldsymbol \theta$ the vector of true (optimal) values of the calibration parameter, $\mathbf w$ a vector of control parameter settings, and $\boldsymbol \epsilon$ is mean-zero Gaussian error, we have
+\item Where $f$ is the true system, $\eta$ the computer model of $f$, $\delta$ the discrepancy $f-\eta$, $\boldsymbol \theta$ the true values of the calibration parameters, $\mathbf x$ the control inputs, and $\boldsymbol \epsilon$ error, we have $f(\mathbf x,\boldsymbol \theta) \equiv f(\mathbf x) = \eta(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x) + \boldsymbol \epsilon$.
+%\vspace{-3mm}
+%\[
+%f(\mathbf x,\boldsymbol \theta) \equiv f(\mathbf x) = \eta(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x) + \boldsymbol \epsilon
+%\]
+%
+%\vspace{-19mm}
+\item When $\eta$ is computationally expensive, we use a mean-zero Gaussian process (GP) emulator as a code surrogate.
+%
+% code surrogate. In the wind turbine application here, we use a mean-zero Gaussian process emulator for this.
+%
+$\delta$ is also modeled using a mean-zero GP. Both GPs use a power product exponential covariance function: respectively (where $\mathbf x\in\mathbb R^p$, $\boldsymbol\theta\in\mathbb R^q$),
+\vspace{-3mm}
 \[
-f(\mathbf w,\boldsymbol \theta) \equiv f(\mathbf w) = \eta(\mathbf w,\boldsymbol \theta) + \delta(\mathbf w) + \boldsymbol \epsilon
+C_\eta(\!(\mathbf x,\!\boldsymbol\theta),\!(\mathbf x'\!,\!\boldsymbol\theta')\!)\! = \frac1\lambda_\eta \prod_{k=1}^{p}\left(\rho^\eta_k\right)^{\left(x_k -x_k'\right)^2}
+\times
+\prod_{j=1}^{q}\left( \rho^\eta_{p+j}\right)^{\left(\theta_j-\theta_j'\right)^2},
+\]
+\vspace{-5mm}
+\[
+C_\delta(\mathbf x,\mathbf x') = \frac1\lambda_\delta \prod_{k=1}^{p}\left(\rho^\delta_k\right)^{\left(x_k -x_k'\right)^2}
 \]
 
-\item When $\eta$ is computationally expensive, we use a code surrogate. In the wind turbine application here, we use a Gaussian process emulator as a surrogate for the finite elment model.
+\vspace{-8mm}
+We use the MLEs of $\lambda_\eta,\boldsymbol\rho^\eta$, set $\rho_i^\delta\sim\mathrm{Beta}(1,0.3)$ for all $i$, and set an informative Gamma prior on $\lambda_\delta$ based on what is known \textit{a priori} about the system optimum.
 
-\item Whether or not a code surrogate is used for $\eta$, $\delta$ is modeled using a mean-zero Gaussian process with power product exponential covariance.
+\item Let $\boldsymbol\eta$ be a vector of univariate observations of the computer model at points $\{(\mathbf x_i,\boldsymbol\theta_i)\}_{i=1}^m$ and $\mathbf y$ be a set of ``desired observations'' at points $\{(\mathbf x_i,\boldsymbol\theta_i)\}_{i=m+1}^{m+n}$. Where $\mathcal D=[\boldsymbol\eta^T,\mathbf y^T]^T$, we have $\mathcal D|\boldsymbol \theta,\lambda_\delta,\boldsymbol\rho^\delta\sim\mathrm N(0,\mathbf C_{\mathcal D})$, and 
+\[
+\pi(\boldsymbol\theta,\lambda_\delta,\boldsymbol\rho^\delta|\mathcal D) \propto
+\pi(\mathcal D|\boldsymbol\theta,\lambda_\delta,\boldsymbol\rho^\delta)\times
+\pi(\boldsymbol\theta) \times
+\pi(\lambda_\delta) \times
+\pi(\boldsymbol\rho^\delta).
+\]
+where $\mathbf C_{\mathcal D}$ is given by $C_\eta$, plus $C_\delta$ in the submatrix corresponding to $\mathbf y$. We explore this via MCMC.
 
 \end{itemize}
 
@@ -150,20 +175,18 @@ f(\mathbf w,\boldsymbol \theta) \equiv f(\mathbf w) = \eta(\mathbf w,\boldsymbol
 \begin{alertblock}{Choosing target observations}
 
 \begin{itemize}
-\item In order to optimize the system, we want to choose performance targets that exceed achievable results, i.e., sit outside the model range. In order to improve identifiability of the optimal region, we want the performance targets close to the model range.
+\item To optimize, we need targets exceeding achievable results. But for identifiability, targets should be near the model range. To satisfy these constraints,\! we need a rough estimate of the Pareto front.
 
-\item To satisfy both of these constraints, we require a rough estimate of the Pareto front.
-
-\item We achieve this by a preliminary round of calibration, with weak priors on the discrepancy $\delta$. This exploits known problems of identifiability in the Kennedy-O'Hagan calibration framework to explore the Pareto front.
+\item We achieve this by a preliminary round of calibration, with a weak prior on $\lambda_\delta$. This exploits problems of identifiability in the Kennedy-O'Hagan calibration framework\cite{Kennedy2001} to explore the Pareto front.
 
 \item Using the results of preliminary calibration, we select a performance target near the model range.
 
 \end{itemize}
 
 \begin{figure}[h!]
-\includegraphics[width=0.7\linewidth]{FIG_est_PF_with_des_obs}
+\includegraphics[width=.85\linewidth]{FIG_est_PF_with_des_obs}
 %\caption{Wind turbine blade}
-\label{blade}
+\label{est_PF}
 \end{figure}
 
 
@@ -201,7 +224,7 @@ f(\mathbf w,\boldsymbol \theta) \equiv f(\mathbf w) = \eta(\mathbf w,\boldsymbol
 
 \begin{alertblock}{Central idea}
 
-Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality\cite{Bayarri2007,Kennedy2001,Higdon2004,Williams2006}. \textbf{In the present work, we consider computer model calibration as a method for design.} Under this framework, we calibrate a computer model not using physical experimental data, but rather using ``desired data'' which describes the performance one hopes to achieve in the simulated system. 
+Researchers look to computer experiments where physical experimentation is difficult or impossible\cite{Sacks1989,Santner2003a}. Previous explorations of computer model calibration have approached calibration as a matter of bringing a computer model into agreement with physical reality\cite{Bayarri2007,Kennedy2001,Higdon2004,Williams2006}. \textbf{In the present work, we consider computer model calibration as a method for design.} Under this framework, we calibrate a computer model not using physical experimental data, but rather using ``desired observations'' which describe the performance one hopes to achieve in the simulated system. 
 
 \end{alertblock} 
 
@@ -216,26 +239,26 @@ Previous explorations of computer model calibration have approached calibration 
 %	MATERIALS
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{Finite element smulator}
-We rely on a finite element simulator of the blade cost and performance.
+\begin{alertblock}{Artificial system example}
+
 
 \begin{figure}[h!]
-\includegraphics[width=0.6\linewidth]{blade3}
+\includegraphics[width=0.6\linewidth]{FIG_toy_sim_model_outputs}
 %\caption{Wind turbine blade}
 \label{blade}
 \end{figure}
 
-\vspace{-18mm}
+\vspace{-10mm}
 \begin{itemize}
-\item Calibration inputs: volume fraction, thickness of blade material. Control input: temperature.
 
-%\item Control input is temperature.
+\item Consider $f:[1.95,2.05]\times[0,3]\times[0,6]\to \mathbb R^3$ where the latter two inputs are treated as calibration parameters. We seek to minimize the three model outputs:
+\begin{align*}
+f_1(x,\theta_1,\theta_2) &= \left( \theta_1 \exp \left ( - \left( \theta_1 + \lvert \theta_2 - \frac{\pi x}2\rvert \right) \right) + 1 \right)^{-1}\\
+f_2(x,\theta_1,\theta_2) &= \left(\theta_2^{x-1} \exp\left(-0.75\theta_2\right)+1\right)^{-1}\\
+f_3(x,\theta_1,\theta_2)&=15+2\theta_1+\frac{\theta_2^2}4
+\end{align*}
 
-\item Outputs are tip deflection, rotation, and cost; the design goal is to minimize these.
-
-\item Model utilizes \texttt{ANSYS} simulation software; computation cost is too high for use in MCMC.
-
-%\item \texttt{ANSYS} model cost too high for use in MCMC.
+\item Initially, the performance target of $[0,0,0]$ was chosen. To improve the identifiability of the optimal region, we used a preliminary round of calibration to update this to a target of $[0.71,0.71,17.92]$, constant w.r.t.\ $x$.
 
 \end{itemize}
 \end{alertblock}
@@ -246,8 +269,8 @@ We rely on a finite element simulator of the blade cost and performance.
 Gaussian processes (GPs) can be thought of as random functions which are generalizations of multivariate normal random variables\cite{OHagan1978}. A GP is fully characterized by its mean function $\mu:D\to R$ and covariance function $V:D\times D\to R$, where $D$ is the domain of the process.
 
 \begin{figure}[h!]
-\includegraphics[width=0.95\linewidth]{../../gp_example}
-\caption{Example of a univariate Gaussian process}
+\includegraphics[width=0.95\linewidth]{FIG_toy_sim_model_results}
+%\caption{Example of a univariate Gaussian process}
 \label{gp_ex}
 \end{figure}
 
@@ -275,6 +298,30 @@ GPs are advantageous for emulating computationally expensive deterministic compu
 %----------------------------------------------------------------------------------------
 %	METHODS
 %----------------------------------------------------------------------------------------
+
+\begin{alertblock}{Finite element smulator}
+We rely on a finite element simulator of the blade cost and performance.
+
+\begin{figure}[h!]
+\fbox{\includegraphics[width=0.6\linewidth]{blade3}}
+%\caption{Wind turbine blade}
+\label{blade}
+\end{figure}
+
+\vspace{-10mm}
+\begin{itemize}
+\item Calibration inputs: volume fraction, thickness of blade material. Control input: temperature.
+
+%\item Control input is temperature.
+
+\item Outputs are tip deflection, rotation, and cost; the design goal is to minimize these.
+
+\item Model utilizes \texttt{ANSYS} simulation software; computation cost is too high for use in MCMC.
+
+%\item \texttt{ANSYS} model cost too high for use in MCMC.
+
+\end{itemize}
+\end{alertblock}
 
 \begin{alertblock}{Emulator implementation}
 
