@@ -73,10 +73,10 @@
 
 \title{\huge Computer model calibration for design, with an application to wind turbine blades} % Poster title
 
-\author{Carl Ehrett\textsuperscript{1,2}, Andrew Brown\textsuperscript{1,2}, Sez Atamturktur\textsuperscript{1,3}, Christopher Kitchens\textsuperscript{1,4}, Mingzhe Jiang\textsuperscript{1,4}, Caleb Arp\textsuperscript{1,4}, Evan Chodora\textsuperscript{1,3}} % Author(s)
+\author{Carl Ehrett\textsuperscript{1,4}, Sez Atamturktur\textsuperscript{2,5}, Andrew Brown\textsuperscript{1,4}, Christopher Kitchens\textsuperscript{1,7}, Mingzhe Jiang\textsuperscript{x,x}, Caleb Arp\textsuperscript{1,7}, Evan Chodora\textsuperscript{1,6}} % Author(s)
 
-\institute{\textsuperscript{1}Clemson University, \textsuperscript{2}Department of Mathematical Sciences, \textsuperscript{3}Glenn Department of Civil Engineering, 
-\textsuperscript{4}Chemical and Biomolecular Engineering} % Institution(s)
+\institute{\textsuperscript{1}Clemson University, \textsuperscript{2}Pennsylvania State University,\textsuperscript{3}[Ming's Affiliation],\textsuperscript{4}Dept.\ of Math.\ Sciences, \textsuperscript{5}Dept.\ of Architectural Eng.,\textsuperscript{6}Dept.\ of Civil Eng., 
+\textsuperscript{7}Chemical and Biomolecular Eng.} % Institution(s)
 
 %----------------------------------------------------------------------------------------
 
@@ -142,20 +142,27 @@ These inputs are often estimated by combining simulator output with field data.
 %
 $\delta$ is also modeled using a mean-zero GP. Both GPs use a power product exponential covariance function: respectively (where $\mathbf x\in\mathbb R^p$, $\boldsymbol\theta\in\mathbb R^q$),
 \vspace{-3mm}
-\[
-C_\eta(\!(\mathbf x,\!\boldsymbol\theta),\!(\mathbf x'\!,\!\boldsymbol\theta')\!)\! = \frac1\lambda_\eta \prod_{k=1}^{p}\left(\rho^\eta_k\right)^{\left(x_k -x_k'\right)^2}
+%\[
+%C_\eta(\!(\mathbf x,\!\boldsymbol\theta),\!(\mathbf x'\!,\!\boldsymbol\theta')\!)\! = \frac1\lambda_\eta \prod_{k=1}^{p}\left(\rho^\eta_k\right)^{\left(x_k -x_k'\right)^2}
+%\times
+%\prod_{j=1}^{q}\left( \rho^\eta_{p+j}\right)^{\left(\theta_j-\theta_j'\right)^2},
+%\]
+%\vspace{-5mm}
+%\[
+%C_\delta(\mathbf x,\mathbf x') = \frac1\lambda_\delta \prod_{k=1}^{p}\left(\rho^\delta_k\right)^{\left(x_k -x_k'\right)^2}
+%\]
+\begin{align*}
+C_\eta(\!(\mathbf x,\!\boldsymbol\theta),\!(\mathbf x'\!,\!\boldsymbol\theta')\!)\! &= \frac1\lambda_\eta \prod_{k=1}^{p}\left(\rho^\eta_k\right)^{\left(x_k -x_k'\right)^2}
 \times
 \prod_{j=1}^{q}\left( \rho^\eta_{p+j}\right)^{\left(\theta_j-\theta_j'\right)^2},
-\]
-\vspace{-5mm}
-\[
-C_\delta(\mathbf x,\mathbf x') = \frac1\lambda_\delta \prod_{k=1}^{p}\left(\rho^\delta_k\right)^{\left(x_k -x_k'\right)^2}
-\]
+\\
+C_\delta(\mathbf x,\mathbf x') &= \frac1\lambda_\delta \prod_{k=1}^{p}\left(\rho^\delta_k\right)^{\left(x_k -x_k'\right)^2}
+\end{align*}
 
-\vspace{-8mm}
-We use the MLEs of $\lambda_\eta,\boldsymbol\rho^\eta$, set $\rho_i^\delta\sim\mathrm{Beta}(1,0.3)$ for all $i$, and set an informative Gamma prior on $\lambda_\delta$ based on what is known \textit{a priori} about the system optimum.
+%\vspace{-8mm}
+We use the MLEs of $\lambda_\eta$ and $\boldsymbol\rho^\eta$, set $\rho_i^\delta\sim\mathrm{Beta}(1,0.3)$ for all $i$, and set an informative Gamma prior on $\lambda_\delta$ based on what is known \textit{a priori} about the system optimum.
 
-\item Let $\boldsymbol\eta$ be a vector of univariate observations of the computer model at points $\{(\mathbf x_i,\boldsymbol\theta_i)\}_{i=1}^m$ and $\mathbf y$ be a set of ``desired observations'' at points $\{(\mathbf x_i,\boldsymbol\theta_i)\}_{i=m+1}^{m+n}$. Where $\mathcal D=[\boldsymbol\eta^T,\mathbf y^T]^T$, we have $\mathcal D|\boldsymbol \theta,\lambda_\delta,\boldsymbol\rho^\delta\sim\mathrm N(0,\mathbf C_{\mathcal D})$, and 
+\item Let $\boldsymbol\eta$ be a vector of univariate observations of the computer model at points $\{(\mathbf x_i,\boldsymbol\theta_i)\}_{i=1}^m$ and $\mathbf y$ be a set of ``desired observations'' at points $\{(\mathbf x_i,\boldsymbol\theta_i)\}_{i=m+1}^{m+n}$. Where $\mathcal D=[\boldsymbol\eta^T,\mathbf y^T]^T$, we have $\mathcal D|\boldsymbol \theta,\lambda_\delta,\boldsymbol\rho^\delta\sim\mathrm N(\mathbf0,\mathbf C_{\mathcal D})$, and 
 \[
 \pi(\boldsymbol\theta,\lambda_\delta,\boldsymbol\rho^\delta|\mathcal D) \propto
 \pi(\mathcal D|\boldsymbol\theta,\lambda_\delta,\boldsymbol\rho^\delta)\times
@@ -184,7 +191,7 @@ where $\mathbf C_{\mathcal D}$ is given by $C_\eta$, plus $C_\delta$ in the subm
 \end{itemize}
 
 \begin{figure}[h!]
-\includegraphics[width=.85\linewidth]{FIG_est_PF_with_des_obs}
+\includegraphics[width=.875\linewidth]{FIG_est_PF_with_des_obs}
 %\caption{Wind turbine blade}
 \label{est_PF}
 \end{figure}
@@ -264,24 +271,20 @@ f_3(x,\theta_1,\theta_2)&=15+2\theta_1+\frac{\theta_2^2}4
 \end{alertblock}
 
 
-\begin{alertblock}{Gaussian process emulator}
+\begin{alertblock}{Artificial example results}
 
-Gaussian processes (GPs) can be thought of as random functions which are generalizations of multivariate normal random variables\cite{OHagan1978}. A GP is fully characterized by its mean function $\mu:D\to R$ and covariance function $V:D\times D\to R$, where $D$ is the domain of the process.
 
 \begin{figure}[h!]
-\includegraphics[width=0.95\linewidth]{FIG_toy_sim_model_results}
+\includegraphics[width=0.95\linewidth]{FIG_post_theta_heatmap_desobs0_lambdadelta1}
 %\caption{Example of a univariate Gaussian process}
 \label{gp_ex}
 \end{figure}
 
-
-
-GPs are advantageous for emulating computationally expensive deterministic computer code\cite{Sacks1989,Santner2003a} because 
-%\vspace{-8mm}
 \begin{itemize}
-\item Use of a GP does not require detailed foreknowledge of the approximate parametric form of the model; we often lack such knowledge
-\item GPs easily interpolate the observed data; since the simulation code is deterministic and free of observation error, this is desirable
-\item The variance of GPs provides a natural form of uncertainty quantification (see Figure \ref{gp_ex})
+\item 
+The heatmap gives the Euclidean distance (on the standardized scale), at each point of the support of $\boldsymbol \theta$, of the model output at that point from the desired output $[0.71, 0.71, 17.92]$. 
+
+\item The true optimum is shown as a purple dot. The green points are samples drawn via MCMC from the posterior distribution of $\boldsymbol\theta$, with marginal histograms also shown.
 \end{itemize}
 
 
@@ -299,18 +302,18 @@ GPs are advantageous for emulating computationally expensive deterministic compu
 %	METHODS
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{Finite element smulator}
-We rely on a finite element simulator of the blade cost and performance.
+\begin{alertblock}{Wind turbine blade application}
+We calibrate to find parameters for optimal performance and cost of a wind turbine blade of fixed geometry. We rely on a finite element simulator of the blade cost and performance.
 
 \begin{figure}[h!]
-\fbox{\includegraphics[width=0.6\linewidth]{blade3}}
+\fbox{\includegraphics[width=0.65\linewidth]{blade3}}
 %\caption{Wind turbine blade}
 \label{blade}
 \end{figure}
 
 \vspace{-10mm}
 \begin{itemize}
-\item Calibration inputs: volume fraction, thickness of blade material. Control input: temperature.
+\item Calibration inputs: volume fraction, thickness of blade material (in mm). Control input: temperature (in Kelvin). Support of the calibration inputs is known to be $[0.2,0.6]\times[10,25]$.
 
 %\item Control input is temperature.
 
@@ -323,30 +326,37 @@ We rely on a finite element simulator of the blade cost and performance.
 \end{itemize}
 \end{alertblock}
 
-\begin{alertblock}{Emulator implementation}
+\begin{alertblock}{Wind turbine blade results}
 
-Model inputs are a dummy input $x_1$ (to convert trivariate output into univariate), temperature $x_2$, volume fraction $x_3$ and thickness $x_4$. For our GP emulator prior we use the covariance function
-\[
-V(\mathbf x,\mathbf x' ) = \frac1\lambda \exp\{-\sum_{i=1}^4 \beta_i(x_i-x_i')^2 \}
-\]
-where $\lambda,\boldsymbol \beta$ were estimated using gradient methods to find their MLEs. 
-% Ref, + more expl?
-A prior mean $\mu(\mathbf x) = 0$ was also used. Observations $\eta(\mathbf x_i)$, $i=1,\cdots,504$ were collected from the simulation model using a LHC design. %ref?
-The updated (posterior) GP emulator has mean given by
-\[\mu^*(\mathbf x) = v(\mathbf x)^T \Sigma^{-1} \boldsymbol \eta \]
-where $v(\mathbf x) = (V(\mathbf x, \mathbf x_1),\cdots,V(\mathbf x,\mathbf x_{504}))^T$, $\Sigma$ is a matrix with $\Sigma_{i,j} = V(\mathbf x_i,\mathbf x_j)$, and $\boldsymbol \eta = (\eta(\mathbf x_1),\cdots,\eta(\mathbf x_{504}))^T$. The updated covariance:
-\[
-V^* (\mathbf x, \mathbf x') = V(\mathbf x, \mathbf x') - v(\mathbf x)^T \Sigma^{-1} v(\mathbf x')
-\]
+\begin{itemize}
+\item The below figure gives the posterior distribution of the calibration inputs. The (uniform) prior distributions are given by the red dashed line.
+\end{itemize}
+
+\vspace{-5mm}
+\begin{figure}[h!]
+\includegraphics[width=.975\linewidth]{FIG_posterior_marginals_with_priors}
+%\caption{Wind turbine blade}
+\label{blade}
+\end{figure}
+
+\vspace{-8mm}
+\begin{itemize}
+\item The below figure gives the prior and posterior predictive distributions for the model. The dashed black lines show the desired observation.
+\item Note that it is to be expected that, as seen here, the posterior predictive distribution does not peak at the desired observation, since the desired observation was intentionally selected to lie outside of the model range.
+\end{itemize}
+
+\begin{figure}[h!]
+\includegraphics[width=.95\linewidth]{FIG_prior_vs_posterior_dist}
+%\caption{Wind turbine blade}
+\label{blade}
+\end{figure}
+
+%\vspace{-20mm}
+%\end{itemize}
+
 \end{alertblock}
 
 %----------------------------------------------------------------------------------------
-
-\begin{alertblock}{Desired data}
-
-We calibrate the model to ``desired data'' which reflect extremely low tip deflection, rotation, and cost. Because we are antecedently ignorant of how close the model can come to our desired data, we place an improper $1/\sigma^2$ prior on the observation variance of each model output. We considered a range of desired outcomes.
-
-\end{alertblock}
 
 \end{column} % End of column 2.2
 
@@ -416,38 +426,31 @@ We calibrate the model to ``desired data'' which reflect extremely low tip defle
 %	CONCLUSION
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{MCMC implementation}
+\begin{alertblock}{Pareto bands}
 
 \begin{itemize}
 
-\item Calibrate volume fraction and thickness to the desired data. Set a uniform prior over each.
+\item Rather than calibrating to a single set of desired observations, calibration can be performed at each point of a grid over $q-1$ of the $q$ model outputs.
 
-\item Each iteration of the MCMC, draw new values for $x_3,x_4$, and the observation variances.% for each of tip deflection, rotation, and cost $(\sigma^2_{d},\sigma^2_{r},\sigma^2_{c}$). 
+\item This permits one to use the calibration procedure to get a comprehensive picture of the Pareto front of the model, complete with uncertainty bands.
 
-\item Where $\mathbf y$ is the desired data, $\mathcal D = (\mathbf y,\boldsymbol \eta)^T$ and $\Sigma_{\mathcal D} = \mathrm {Var}(\mathcal D)$, the likelihood of $\mathcal D$ is
-\[%\begin{multline*}
-L(\mathcal D| x_3,\!x_4,\!\lambda,\!\boldsymbol \beta,\!\Sigma_{\mathcal D}) = 
-|\Sigma_{\mathcal D} | ^{-\frac 12} \exp \{\! -\frac 12 \mathcal D ^T \Sigma_{\mathcal D}^{-1} \mathcal D  \}
-\]%\end{multline*}
-hence\cite{Williams2006} the full posterior density is:
-\begin{flalign*}
-\pi(x_3,x_4,\sigma^2_d,\sigma^2_r,\sigma^2_c) \propto  & \frac{L(\mathcal D| x_3,\!x_4,\!\lambda,\!\boldsymbol \beta,\!\Sigma_{\mathcal D})}{\sigma^2_d\sigma^2_r\sigma^2_c}
-\end{flalign*}
-%
-%\vspace{-20mm}
-%\begin{eqnarray*}
-%%\phantom = &L(\mathcal D| x_3,\!x_4,\!\lambda,\!\boldsymbol \beta,\!\Sigma_{\mathcal D}) \times &
-%%\pi(x_3)\times \pi(x_4) \times \\&& \pi(\sigma^2_d) \times \pi (\sigma^2_r) \times \pi(\sigma^2_c)\\
-%=&L(\mathcal D| x_3,\!x_4,\!\lambda,\!\boldsymbol \beta,\!\Sigma_{\mathcal D}) \times& \frac1{\sigma^2_d\sigma^2_r\sigma^2_c}
-%\end{eqnarray*}
+\item This approach is illustrated here in the wind turbine application. For simplicity, rotation was removed from the model, so that only deflection and cost are considered. We drew a one-dimensional grid over the range of cost outputs from the model, and performed calibration at each point in the grid. 
 
+\item At each point, we treat cost as known up to measurement error, and attempt to minimize deflection.
 
-\item Eliminate boundary constraints: $z_i = \mathrm{logit}(x_i)$, $\tau_j = \log(\sigma^2_j)$ for $i=3,4$, $j=d,r,c$.
+\item The below right plot shows the resulting estimate of the Pareto front for the model, complete with uncertainty bands.
+\end{itemize}
 
-\item We use the Metropolis-Hastings %ref
-algorithm\cite{Hastings1970}; we set normal proposals on $z_i^{(n)}|z_i^{(n-1)}$ and $\tau_j^{(n)}|\tau_j^{(n-1)}$, $\forall i \forall j$.
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{FIG_cost_grid_pareto_bands}
+%\caption{Wind turbine blade}
+\label{blade}
+\end{figure}
 
-\item In burn-in, the proposal distribution adapts using the sample covariance of previous draws, achieving optimal acceptance ratios ($\sim40\%$).
+\vspace{-18mm}
+\begin{itemize}
+\item The left plot is included to verify that the ``known'' cost was achieved in each calibration; i.e., that the target cost in the right plot faithfully represents the true cost.
+
 
 \end{itemize}
 
@@ -459,30 +462,6 @@ algorithm\cite{Hastings1970}; we set normal proposals on $z_i^{(n)}|z_i^{(n-1)}$
 %	ADDITIONAL INFORMATION
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{Results}
-
-
-\begin{figure}[h!]
-%\includegraphics[width=\linewidth]{FIG1}
-%\caption{}
-\label{res}
-\end{figure}
-
-\vspace{-24mm}
-\begin{itemize}
-\item Posterior means are sensitive to choice of desired data. Therefore it is advisable to consider a surface over a range of desired data.
-\item Where desired output is insufficiently ambitious, the MCMC output reflects this as a lack of identifiability in the calibration inputs.
-\end{itemize}
-
-\vspace{-4mm}
-\begin{figure}[h!]
-%\includegraphics[width=\linewidth]{FIG2}
-%\caption{}
-\label{unident}
-\end{figure}
-
-\vspace{-20mm}
-\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 %	REFERENCES
@@ -510,7 +489,10 @@ algorithm\cite{Hastings1970}; we set normal proposals on $z_i^{(n)}|z_i^{(n-1)}$
 
 \begin{alertblock}{References}
 {
-\tiny
+%\small
+\footnotesize
+%\scriptsize
+%\tiny
 
 \bibliographystyle{ieeetr}
 
