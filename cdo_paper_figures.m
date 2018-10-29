@@ -1,0 +1,664 @@
+% CDO paper figures
+
+%% Set path string and add paths
+clc; clear all; close all;
+
+direc = pwd; 
+if direc(1)=='C' 
+    dpath = 'C:\Users\carle\Documents\MATLAB\NSF DEMS\Phase 1\';
+else
+    dpath = 'E:\Carl\Documents\MATLAB\NSF-DEMS_calibration\';
+end
+clear direc;
+
+% Add paths
+addpath(dpath);
+addpath([dpath,'stored_data']);
+addpath([dpath,'Example']);
+addpath([dpath,'Example\Ex_results']);
+
+%% Toy sim Figure describing the problem
+clc ; clearvars -except dpath ; close all; 
+% Take a look at surfaces of example function output
+theta1=linspace(0,3);
+theta2=linspace(0,6);
+% We need to convert these to a two-col matrix of all possible combinations
+[ T1 , T2 ] = meshgrid(theta1,theta2); 
+ths = cat(2,T1',T2');
+Theta = reshape(ths,[],2);
+
+% Set other parameters
+c = repmat(2.5,size(Theta,1),1);
+
+% Now get output values
+opc = Ex_sim([c Theta]);
+
+% Normalize the outputs
+oscl_n = (opc(:,1)-min(opc(:,1))) / range(opc(:,1)) ;
+perf_n = (opc(:,2)-min(opc(:,2))) / range(opc(:,2)) ;
+cost_n = (opc(:,3)-min(opc(:,3))) / range(opc(:,3)) ;
+
+% Now take a look at the surfaces
+oscls = reshape(oscl_n,[],length(theta1));
+perfs = reshape(perf_n,[],length(theta1));
+costs = reshape(cost_n,[],length(theta1));
+
+
+e1 = [  0   0   0 ] ;  % output 1 color
+e2 = [.25 .25 .25 ] ;  % output 1 color
+e3 = [.75 .75 .75 ] ;  % output 1 color
+f1 = 'r'; f2='g'; f3='b'; % for color version
+ea = .85       ;  % edge alpha
+fa = .85       ;  % face alpha
+
+f=figure();
+surf(theta2,theta1,oscls,'FaceColor',e1,'EdgeColor',e1,...
+    'EdgeAlpha',ea,'FaceAlpha',fa);
+axis vis3d;
+
+hold on;
+surf(theta2,theta1,perfs,'FaceColor',e2,'EdgeColor',e2,...
+    'EdgeAlpha',ea,'FaceAlpha',fa); 
+axis vis3d;
+
+surf(theta2,theta1,costs,'FaceColor',e3,'EdgeColor',e3,...
+    'EdgeAlpha',ea,'FaceAlpha',fa); 
+axis vis3d;
+xlabel('\theta_2'); ylabel('\theta_1'); zlabel('Outcomes');
+
+h=gca;
+h.View = [13.1667 11.3333] ; % Sets the perspective
+set(h,'ztick',[]);
+
+title('Model outcomes on normalized scale');
+
+hh = legend('y_1','y_2','y_3','Orientation','horizontal',...
+    'Location','south');
+hh.Position = hh.Position + [ 0 -.115 0 0 ];
+
+% %%% Code to turn it into the version used on SCSC poster
+% hh.Orientation = 'vertical';
+% hh.Location = 'east';
+% f.Position = [360.3333  197.6667  452.0000  314.6667];
+% set(f,'Color',[251/255 244/255 245/255]);
+% set(h,'Color',[251/255 244/255 245/255]);
+% set(hh,'Color',[251/255 244/255 245/255]);
+
+%saveas(f,'FIG_toy_sim_model_outputs.png');
+set(f,'Color','w');
+export_fig FIG_toy_sim_model_outputs -eps -m3 -painters 
+
+%% Toy sim results using set discrep marginal precision for var vals
+%%% COLOR VERSION
+
+clc ; clearvars -except dpath ; close all ;
+
+% Set true optimum: this is for desired observation [0 0 0] and for desired
+% observations derived from that one
+optim = [ 0.924924924924925   3.141141141141141 ] ;
+
+% Now do the version with desired observation set to be one normalized unit
+% away from the pareto front, and marginal var set accordingly
+load([dpath,'Example\Ex_results\'...
+    '2018-07-11_discrepancy_true_fn_set_lambda_delta_1'],...
+    'results');
+
+samps = results.samples_os(results.settings.burn_in:end,:);
+des_obs = results.settings.desired_obs;
+h3=calib_heatmap(des_obs,samps,0.9,0.9,10);
+xlabel('\theta_1'); ylabel('\theta_2');
+hold on;
+p=plot(optim(1),optim(2),'ok','MarkerSize',7,'MarkerFaceColor','m',...
+    'LineWidth',2);
+title(['Posterior \theta samples: desired obs. '...
+    '[0.71 0.71 17.92], \lambda_\delta = 1']);
+
+% % Now record it all
+% saveas(h1,'FIG_post_theta_heatmap_desobs0_lambdadelta256i.png');
+% saveas(h2,'FIG_post_theta_heatmap_desobs0_lambdadelta64i.png');
+% saveas(h3,'FIG_post_theta_heatmap_desobs0_lambdadelta1.png');
+
+%%% Turn last one into version for SCSC poster:
+title(['Posterior \theta samples']);
+% h3.Children(1).Position = h3.Children(1).Position + [0 0.11 0 -0.08];
+% h3.Children(2).Position = h3.Children(2).Position + [0.14 0 -0.1 0];
+%set(h3,'Color','none');
+posc = h3.Children(4).Position;
+h3.Children(4).Position = posc + [-0.09 -0.07 0.09 0.07];
+%export_fig FIG_post_theta_heatmap_desobs0_lambdadelta1 -png -m3 -painters;
+
+%% Toy sim Results using set discrep marginal precision for var vals
+%%% GRAYSCALE VERSION
+
+clc ; clearvars -except dpath ; close all ;
+hh=figure();
+
+% Set desired observation
+%des_obs_os = [ 0 0 0];
+
+% Set true optimum: this is for desired observation [0 0 0] and for desired
+% observations derived from that one
+optim = [ 0.924924924924925   3.141141141141141 ] ;
+
+% Now do the version with desired observation set to be one normalized unit
+% away from the pareto front, and marginal var set accordingly
+load([dpath,'Example\Ex_results\'...
+    '2018-07-11_discrepancy_true_fn_set_lambda_delta_1'],...
+    'results');
+
+samps = results.samples_os(results.settings.burn_in:end,:);
+des_obs_os = results.settings.desired_obs;
+[theta1,theta2] = meshgrid(linspace(0,3,1000),linspace(0,6,1000));
+% Load true samples;
+load([dpath,'Example\Ex_results\'...
+    '2018-05-29_true_ctheta-output'],...
+    'ctheta_output');
+
+%%% Put the outputs and the desired observation on the standardized scale
+meanout = mean(results.settings.output_means');
+sdout   = mean(results.settings.output_sds'  );
+cost_std = (ctheta_output(:,6) - meanout(3))/...
+    sdout(3);
+defl_std = (ctheta_output(:,4) - meanout(1))/...
+    sdout(1);
+rotn_std = (ctheta_output(:,5) - meanout(2))/...
+    sdout(2);
+outputs_std = [defl_std rotn_std cost_std];
+des_obs = (des_obs_os-meanout)./...
+    sdout;
+
+% Now get Euclidean norms of each standardized output
+dists = sqrt ( sum ( (outputs_std-des_obs).^2 , 2 ) ) ;
+redists = reshape(dists,1000,1000);
+
+%%% Make scatterhist of posterior samples
+colormap autumn
+sc=scatterhist(samps(:,1),samps(:,2),'Marker','.','Color','b',...
+    'Markersize',1); 
+hold on;
+title(['Posterior \theta samples: desired obs. '...
+    '[0.71 0.71 17.92], \lambda_\delta = 1']);
+
+%%% Now add contour plot 
+[C,h]= contour(theta1,theta2,redists,[1 2 3 4 5 ],'LineWidth',3);
+clabel(C,h,'fontsize',12);
+xlabel('\theta_1'); ylabel('\theta_2');
+
+%%% Add true optimum
+p=plot(optim(1),optim(2),'ok','MarkerSize',7,'MarkerFaceColor','m',...
+    'LineWidth',2);
+
+
+% % Now record it all
+% saveas(h1,'FIG_post_theta_heatmap_desobs0_lambdadelta256i.png');
+% saveas(h2,'FIG_post_theta_heatmap_desobs0_lambdadelta64i.png');
+% saveas(h3,'FIG_post_theta_heatmap_desobs0_lambdadelta1.png');
+
+%%% Turn last one into version for SCSC poster:
+title(['Posterior \theta samples']);
+% h3.Children(1).Position = h3.Children(1).Position + [0 0.11 0 -0.08];
+% h3.Children(2).Position = h3.Children(2).Position + [0.14 0 -0.1 0];
+%set(h3,'Color','none');
+%posc = h3.Children(4).Position;
+%h3.Children(4).Position = posc + [-0.09 -0.07 0.09 0.07];
+set(hh,'Color','w');
+%export_fig FIG_post_theta_contour_desobs0_lambdadelta1 -png -m3 -painters;
+
+%% WTA estimate of pareto front, with resulting choice of des_obs
+
+clc ; clearvars -except dpath ; close all ;
+
+%%% Load the preliminary CDO
+load([dpath,'stored_data\'...
+    '2018-07-25_discrepancy_d0'],...
+    'results');
+n=700;
+burn_in = results.settings.burn_in;
+eouts = results.model_output.by_sample_est(burn_in:burn_in+n,:);
+
+%%% Estimate the PF
+[PF_os, PFidx] = nondominated(eouts) ; 
+eouts=setdiff(eouts,PF_os,'rows'); % Remove the Pareto front from eouts so 
+                   % they can be plotted with different marker
+PFidx = PFidx + results.settings.burn_in; % get idx in original full set
+
+%%% Put PF on standardized scale
+omeans = mean(results.settings.output_means');
+osds   = mean(results.settings.output_sds'  );
+PF     = (PF_os - omeans)./ osds             ;
+
+%%% Find closet point to des_obs
+%orig_des_obs = results.settings.desired_obs  ;
+orig_des_obs = [.74 .089 100 ] ; % This pt chosen to get at observed elbow
+des_obs = (orig_des_obs - omeans)./osds      ;
+[m,i] = min( sum( ( PF - des_obs ).^2, 2 ) ) ;
+PF_optim = PF(i,:)                           ;
+
+%%% Get new desired obs specified distance from PF in same dir as original
+spec_dist = .2                               ;
+dirvec_nonnormed = PF_optim - des_obs        ;
+dirvec = dirvec_nonnormed/norm(dirvec_nonnormed) ;
+des_obs_new = PF_optim - spec_dist * dirvec  ;
+des_obs_new_os = des_obs_new .* osds + omeans; 
+
+%%% Take a look
+h=figure();
+sc=scatter3(eouts(:,1),eouts(:,2),eouts(:,3),90,'g',...
+    'MarkerEdgeAlpha',.5,'MarkerFaceAlpha',1,...
+    'MarkerFaceColor','g','Marker','x','LineWidth',2);
+hold on;
+scatter3(PF_os(:,1),PF_os(:,2),PF_os(:,3),'b','MarkerFaceColor','b',...
+    'MarkerEdgeAlpha',1,'MarkerFaceAlpha',1)   ;
+% scatter3(orig_des_obs(1),orig_des_obs(2),orig_des_obs(3))          ;
+% line([orig_des_obs(1) PF_os(i,1)], [orig_des_obs(2) PF_os(i,2)], ...
+%     [orig_des_obs(3) PF_os(i,3)])                                  ;
+scatter3(des_obs_new_os(1),des_obs_new_os(2),des_obs_new_os(3),90,'r',...
+    'MarkerFaceColor','r','Marker','+','LineWidth',2);
+ylim([0.075 0.1])
+h.CurrentAxes.View = [55.8000    9.4666] ; %[-3.9333   10.5333] ; 
+% [-5.0000    5.2000];% [ 63 10] ;%[-8.4333 17.7333] ; 
+title('Estimated Pareto front with desired observation');
+xlabel('Deflection');ylabel('Rotation');zlabel('Cost');
+set(h,'Color','w');
+ %export_fig 'FIG_est_PF_with_des_obs' -png -m3
+% saveas(h,'FIG_est_PF_with_des_obs.png');
+
+%% WTA Pareto bands
+clc ; clearvars -except dpath ; close all ;
+
+%%% Load the results
+load([dpath,'stored_data\'...
+    '2018-07-27_discrepancy_d-elbow_d-p2'],...
+    'results');
+samps = results.samples_os(results.settings.burn_in+2:end,:) ;
+
+%%% Get the marginal plots
+h1 = figure('rend','painters','pos',[10 10 720 190]) ; 
+subplot(1,2,1);
+histogram(samps(:,1), 'Normalization','pdf','EdgeColor','none') ;
+xlim([0.2 0.6]);
+unifval = 1/.4;
+hold on;
+plot([0.2 0.6], [unifval unifval],'--k','LineWidth',2);
+title('Volume fraction');
+
+subplot(1,2,2);
+histogram(samps(:,2), 'Normalization','pdf','EdgeColor','none') ;
+xlim([10 25]);
+unifval = 1/15;
+hold on;
+plot([10 25], [unifval unifval],'--k','LineWidth',2);
+title('Thickness (mm)');
+
+%%% Save
+set(h1,'Color','white');
+%export_fig FIG_posterior_marginals_with_priors -png -m3;
+
+clc ; clearvars -except dpath ; close all ; 
+
+%%% Load the cost_grid results
+load([dpath,'stored_data\'...
+    '2018-08-03_cost_grid_discrepancy_results'],...
+    'results');
+
+% Collect Cost_lambdas, and posterior mean and sds for costs, defl, rot, as
+% well as upper and lower .05 quantiles
+m=size(results,1); % Store number of target cost_lambdas
+cost_lambda = zeros(m,1); % This will store cost_lambdas
+cred_level = 90; % Set desired level for credible bands (in %)
+alpha = (100-cred_level)/100; % Convert cred_level to alpha level
+pmo = zeros(m,3); % This will store posterior mean output of emulator
+pdo = zeros(m,3); % ``'' median output
+pso = zeros(m,3); % ``'' appropriate multiple of standard deviations
+plo = zeros(m,3); % ``'' lower (alpha/2) quantile
+puo = zeros(m,3); % ``'' upper (alpha/2) quantile
+for ii = 1:m % This loop populates the above arrays
+    pmo(ii,:) = results{ii}.post_mean_out;
+    pdo(ii,:) = quantile(results{ii}.model_output.by_sample_est,0.5);
+    pso(ii,:) = norminv(1-alpha/2) * ...
+        mean(results{ii}.model_output.by_sample_sds);
+    plo(ii,:) = quantile(results{ii}.model_output.by_sample_est,alpha/2);
+    puo(ii,:) = quantile(results{ii}.model_output.by_sample_est,1-alpha/2);
+    cost(ii) = results{ii}.desired_obs(3);
+end
+% Now we break the arrays up each into 3 vectors, one for each output
+post_cost_mean = pmo(:,3);
+post_defl_mean = pmo(:,1);
+post_rotn_mean = pmo(:,2);
+post_cost_median = pdo(:,3);
+post_defl_median = pdo(:,1);
+post_rotn_median = pdo(:,2);
+post_cost_sd = pso(:,3);
+post_defl_sd = pso(:,1);
+post_rotn_sd = pso(:,2);
+post_cost_lq = plo(:,3);
+post_cost_uq = puo(:,3);
+post_defl_lq = plo(:,1);
+post_defl_uq = puo(:,1);
+post_rotn_lq = plo(:,2);
+post_rotn_uq = puo(:,2);
+% Get quantiles plus code uncertainty
+post_cost_uq_cu = post_cost_uq + post_cost_sd;
+post_cost_lq_cu = post_cost_lq - post_cost_sd;
+post_defl_uq_cu = post_defl_uq + post_defl_sd;
+post_defl_lq_cu = post_defl_lq - post_defl_sd;
+post_rotn_uq_cu = post_rotn_uq + post_rotn_sd;
+post_rotn_lq_cu = post_rotn_lq - post_rotn_sd;
+% Get ylims for the two sets of plots
+ylimrat=1.01;
+ylim_cost = [min(post_cost_lq_cu)/ylimrat max(post_cost_uq_cu)*ylimrat];
+ylim_defl = [min(post_defl_lq_cu)/ylimrat max(post_defl_uq_cu)*ylimrat];
+ylim_rotn = [min(post_rotn_lq_cu)/ylimrat max(post_rotn_uq_cu)*ylimrat];
+
+%%% Begin figures
+% Set alphas for two types of uncertainty
+alpha_wcu = 0.5;  %with code uncertainty
+alpha_wocu= 0.25; %without
+h=figure('rend','painters','pos',[10 10 800 400]);
+x = 96:1:350; % x fills the cost domain
+
+% Now begin plot 2/2
+subplot(1,2,2)
+% Get main curve
+pdefl = pchip(cost,post_defl_mean,x);
+% Get upper and lower 0.05 quantiles curves
+pdefluq = pchip(cost,post_defl_uq,x);
+pdefllq = pchip(cost,post_defl_lq,x);
+f=fill([ x , fliplr(x) ], [pdefluq, fliplr(pdefllq)],'k');
+set(f,'facealpha',alpha_wocu,'EdgeAlpha',alpha_wocu);
+hold on;
+plot(x,pdefl,'-r','LineWidth',1.5); % Mean
+% plot(x,pdefluq,':k',...
+%      x,pdefllq,':k');
+xl2=xlabel('Target cost');
+ylabel('Deflection');
+xlim([96,350]);
+ylim(ylim_defl);
+
+
+% Here's plot 1/2
+subplot(1,2,1)
+% Get main curve
+pcost = pchip(cost,post_cost_mean,x);
+% Get upper and lower 0.05 quantiles curves
+pcostuq = pchip(cost,post_cost_uq,x);
+pcostlq = pchip(cost,post_cost_lq,x);
+go_fill_unc=fill([ x , fliplr(x) ], [pcostuq, fliplr(pcostlq)],'k');
+set(go_fill_unc,'facealpha',alpha_wocu,'edgealpha',alpha_wocu);
+hold on;
+go_plot_mean=plot(x,pcost,'-r','LineWidth',1.5);
+% plot(...%cost,post_cost_mean,'or',...%x,pcost,'-r',...
+%     x,pcostuq,':k',...
+%     x,pcostlq,':k');
+% Plot 2sd errbar
+% errorbar(cost_lambda,post_cost_mean,post_cost_sd,'ob'); 
+xl1=xlabel('Target cost');
+ylabel('Observed cost');
+xlim([96,350]);
+ylim(ylim_cost);
+%plot(x,x,'-k','LineWidth',2);
+
+% % Save the figure temporarily so we can mess with it later, because
+% % suptitle seems to mess things up somehow for making changes after calling
+% % it
+% savefig(h,'tempfig');
+% 
+% % Now add a main title and fix any infelicities
+% suptitle(['Deflection vs. (known) target cost,',...
+%     ' with ',num2str(cred_level),'% credible interval']); 
+% p = get(xl1,'position');
+% set(xl1,'position',p + [0 2.75 0]);
+% p = get(xl2,'position');
+% set(xl2,'position',p + [0 0.00125 0])
+% % p = get(xl3,'position');
+% % set(xl3,'position',p + [0 0.0002 0])
+figpos = get(h,'pos');
+
+% saveas(h,'FIG_cost_grid_pareto.png');
+
+% Now add in code uncertainty. That is, the above assumes that the GP
+% emulator nails the FE code precisely. But of course the GP emulator has
+% nonnegligible variance. That's the code uncertainty. So our confidence
+% bands should reflect it. So we add it in here, by dropping the
+% appropriate multiple of the sd from each lower quantile and adding it to
+% each upper quantile.
+% First, open the figure prior to calling suptitle.
+% h=openfig('tempfig');
+subplot(1,2,2);
+pdefluq_code_uncert = pchip(cost,post_defl_uq_cu,x);
+pdefllq_code_uncert = pchip(cost,post_defl_lq_cu,x);
+f=fill([ x , fliplr(x) ], [pdefluq_code_uncert,...
+    fliplr(pdefluq)],'k');
+ff=fill([ x , fliplr(x) ], [pdefllq_code_uncert,...
+    fliplr(pdefllq)],'k');
+set(f,'facealpha',alpha_wcu,'EdgeAlpha',alpha_wcu);
+set(ff,'facealpha',alpha_wcu,'EdgeAlpha',alpha_wcu);
+xl2=xlabel('Target cost');
+ylim(ylim_defl);
+
+subplot(1,2,1);
+pcostuq_code_uncert = pchip(cost ,post_cost_uq_cu,x);
+pcostlq_code_uncert = pchip(cost ,post_cost_lq_cu,x);
+go_fill_cunc_up=fill([ x , fliplr(x) ], [pcostuq_code_uncert,...
+    fliplr(pcostuq)],'k');
+go_fill_cunc_dn=fill([ x , fliplr(x) ], [pcostlq_code_uncert,...
+    fliplr(pcostlq)],'k');
+set(go_fill_cunc_up,'facealpha',alpha_wcu,'EdgeAlpha',alpha_wcu);
+set(go_fill_cunc_dn,'facealpha',alpha_wcu,'EdgeAlpha',alpha_wcu);
+xl1=xlabel('Target cost');
+ylim(ylim_cost);
+go_plot_diag=plot(ylim_cost,ylim_cost,'--b','LineWidth',2);
+
+% Now add a main title and fix any infelicities
+suptitle(['Posterior estimate vs. target cost,',...
+    ' with ',num2str(cred_level),'% credible interval ']); 
+set(h,'pos',figpos); % Just so we can reuse the positioning code from above
+p = get(xl1,'position');
+set(xl1,'position',p + [0 2.75 0]);
+p = get(xl2,'position');
+set(xl2,'position',p + [0 0.00125 0])
+% p = get(xl3,'position');
+% set(xl3,'position',p + [0 0.0002 0])
+
+% Now add a legend.
+leg_gos = [go_plot_mean go_fill_unc go_fill_cunc_up go_plot_diag];
+lg=legend(leg_gos,'Posterior predictive mean',...
+    'C.I. w/o code uncertainty',...
+    sprintf('Expanded C.I. w/ code uncertainty'),...
+    'Diagonal for reference',...
+    'Location','northwest');
+lg.Position(1:2)=[.612 .6875];
+
+    
+%%% Save
+set(h,'Color','white');
+export_fig FIG_cost_grid_pareto_bands -png -m3 -painters
+%saveas(h,'FIG_cost_grid_pareto_with_code_uncert.png');
+
+%% WTA prior predictive distribution vs posterior predictive distribution
+clc ; clearvars -except dpath ; close all ;
+
+%%% Load prior predictive results
+load([dpath,'stored_data\'...
+    '2018-09-03_prior_pred_distrib'],...
+    'prior_pred_dist');
+prsamps = prior_pred_dist.prior_pred_pts;
+clear prior_pred_dist;
+
+%%% Load calib results
+load([dpath,'stored_data\'...
+    '2018-07-27_discrepancy_d-elbow_d-p2'],...
+    'results');
+posamps = results.model_output.by_sample_est;
+des_obs = results.settings.desired_obs;
+clear results; 
+
+%%% Make figure using histograms
+f=figure('pos',[10 10  780.0000  300]);
+% Deflection
+subplot(1,3,1);
+[p,x]=ksdensity(posamps(:,1));
+plot(x,p,'LineWidth',2);
+%histogram(posamps(:,1),'Normalization','pdf','Edgecolor','none'); 
+hold on;
+[p,x]=ksdensity(prsamps(:,1));
+plot(x,p,'--','LineWidth',2);
+%histogram(prsamps(:,1),'Normalization','pdf','Edgecolor','none');
+text(0.05,.9,...
+    'Deflection','VerticalAlignment','bottom','Units','normalized');
+text(1.715,102,'Rotation','VerticalAlignment','bottom');
+xlim([0.6 0.85]);
+ylim([0 110]);
+line([des_obs(1) des_obs(1)],ylim,'Color','black','Linestyle',':',...
+    'linewidth',2);
+% Rotation
+subplot(1,3,2);
+[p,x]=ksdensity(posamps(:,2));
+plot(x,p,'LineWidth',2);
+%histogram(posamps(:,2),'Normalization','pdf','Edgecolor','none'); 
+hold on;
+[p,x]=ksdensity(prsamps(:,2));
+plot(x,p,'--','LineWidth',2);
+%histogram(prsamps(:,2),'Normalization','pdf','Edgecolor','none');
+text(0.05,.9,...
+    'Rotation','VerticalAlignment','bottom','Units','normalized');
+xlim([0.075,0.105])
+ylim([0 700]);
+line([des_obs(2) des_obs(2)],ylim,'Color','black','Linestyle',':',...
+    'linewidth',2);
+% Cost
+subplot(1,3,3);
+[p,x]=ksdensity(posamps(:,3));
+plot(x,p,'LineWidth',2);
+%histogram(posamps(:,3),'Normalization','pdf','Edgecolor','none'); 
+hold on;
+[p,x]=ksdensity(prsamps(:,3));
+plot(x,p,'--','LineWidth',2);
+%histogram(prsamps(:,3),'Normalization','pdf','Edgecolor','none');
+text(0.05,.9,...
+    'Cost','VerticalAlignment','bottom','Units','normalized');
+ylim([0 .0700]);
+line([des_obs(3) des_obs(3)],ylim,'Color','black','Linestyle',':',...
+    'linewidth',2);
+% Add suptitle
+st=suptitle('Prior and posterior predictive distributions');
+st.Position=[0.5 -.1 0];
+lg=legend('Posterior','Prior','Target','Location','northeast');
+pos=lg.Position; lg.Position = pos + [0.017 0.045 0 0];
+
+%%% Save
+set(f, 'Color','white');
+%export_fig FIG_prior_vs_posterior_dist -png -m3 -painters
+
+%% WTA Posterior scatterhist from calibration
+clc ; clearvars -except dpath ; close all ;
+
+%%% Load the calibration results
+load([dpath,'stored_data\'...
+    '2018-07-27_discrepancy_d-elbow_d-p2'],...
+    'results');
+samps = results.samples_os(results.settings.burn_in+2:end,:) ;
+
+h=figure('pos',[10 10 410 310]);
+sc=scatterhist(samps(:,1),samps(:,2),'Marker','.','MarkerSize',3);
+xlim([0.2 0.6]); ylim([10 25]);
+xlabel('Volume fraction');ylabel('Thickness');
+title('Posterior distribution on \theta');
+set(h,'Color','w');
+
+% saveas(h,'FIG_post_dist_scatterhist.png');
+export_fig 'FIG_post_dist_scatterhist' -png -m3;
+
+%% WTA Contour plot of highest density regions of posterior distribution 
+clc ; clearvars -except dpath ; close all ;
+
+%%% Load the calibration results
+load([dpath,'stored_data\'...
+    '2018-07-27_discrepancy_d-elbow_d-p2'],...
+    'results');
+samps = results.samples_os(results.settings.burn_in+2:end,:) ;
+
+ff=figure('pos',[10 10  320.0000  240]);
+
+% Get the density
+[f,x,bw]=ksdensity(samps);
+
+% Correct it by enforcing the boundary conditions:
+f(x(:,1)>0.6 | x(:,2)<10) = 0 ;
+
+% Reshape for the contour plot
+X = reshape(x(:,1),30,30); Y = reshape(x(:,2),30,30); Z = reshape(f,30,30);
+
+% Convert Z to quantiles in posterior dist
+[f,x,bw]=ksdensity(samps,samps);
+Z = reshape(sum(f<Z(:)')/size(f,1),30,30);
+
+% Get contour plot and labels
+colormap HSV
+[C9,h9] = contour(X,Y,Z, [ .9 .9 ]); hold on;
+%[C,h] = contour(X,Y,Z, [ .75 .75 ], 'k--');
+[C5,h5] = contour(X,Y,Z, [ .5 .5 ], '--');
+%[C,h] = contour(X,Y,Z, [ .25 .25 ], 'k-.');
+[C1,h1] = contour(X,Y,Z, [ .1 .1 ], '-.');
+[C01,h01] = contour(X,Y,Z, [ .01 .01 ], ':');
+w=1.25; h9.LineWidth=w; h5.LineWidth=w; h1.LineWidth=w; h01.LineWidth=w;
+xlim([0,0.6]);ylim([10,25]);
+
+lg=legend(...
+    '0.1 HDR','0.5 HDR', '0.9 HDR','0.99 HDR','Location','northwest');
+title('Posterior distribution of \theta');
+xlabel('Volume fraction'); ylabel('Thickness (mm)');
+
+% Save
+set(ff,'Color','w');
+%export_fig 'FIG_post_dist_contourplot' -png -m3;
+
+%% Toy case marginal posteriors with true optimum
+
+clc ; clearvars -except dpath ; close all ;
+
+% Load results
+load([dpath,'Example\Ex_results\'...
+    '2018-07-11_discrepancy_true_fn_set_lambda_delta_1'],...
+    'results');
+samps = results.samples_os(results.settings.burn_in+2:end,:);
+
+% Make figures
+h = figure('rend','painters','pos',[10 10 610 220]) ;
+
+% Load true optimum
+load([dpath,'Example\Ex_results\'...
+    '2018-09-11_true_optimum_wrt_0']);
+
+%%% Get the marginal plots
+subplot(1,2,1);
+histogram(samps(:,1), 'Normalization','pdf') ;
+xlim([0 3]);
+unifval = 1/3;
+hold on;
+%xlabel('\theta_1');
+ylims=[0 3.3];%ylim;
+plot([0 3], [unifval unifval],'--r','LineWidth',1);
+plot([optim(1) optim(1)], [ylims],':g','LineWidth',1.5);
+ylim(ylims);
+xlabel('\theta_1');
+
+
+subplot(1,2,2);
+histogram(samps(:,2), 'Normalization','pdf') ;
+xlim([0 6]);
+unifval = 1/6;
+hold on;
+%xlabel('\theta_2');
+ylims=[0 12];%ylim;
+plot([0 6], [unifval unifval],'--r','LineWidth',1);
+plot([optim(2) optim(2)], [ylims],':g','LineWidth',1.5);
+ylim(ylims);
+xlabel('\theta_2');
+
+suptitle('Marginal posterior distributions with priors and optima');
+
+%     %%% Save
+set(h,'Color','white');
+figstr = sprintf('FIG_iter_post_marginals');
+%export_fig(figstr,'-png','-m3','-painters',h);

@@ -17,41 +17,78 @@
 \maketitle
 
 \begin{abstract}
-A well-established framework for the calibration of computer models is provided by \cite{Kennedy2001} and the myriad works that build upon it. Common to those approaches is the assumption that calibration is a matter of estimating unknown and/or uncontrolled parameters by attuning the model to data obtained through physical experimentation. In this work we reconceptualize model calibration as a method for optimization. That is: rather than calibrating a model to find a posterior distribution on unknown parameters in order to bring the model into agreement with reality, we calibrate to find a posterior distribution on controllable model inputs in order to bring the model into agreement with pre-determined performance targets. In essence, we treat performance targets as ``desired observations'' which are deployed where in traditional calibration one would deploy observations obtained through physical experimentation. The methodology is distinguished from other forms of optimization by incorporating uncertainty quantification. We demonstrate the methodology in both an artificial case (without a code surrogate) and in the case of a finite element model of wind turbine blade performance and cost (using a Gaussian process code surrogate). In the latter case, we demonstrate how to estimate the Pareto front with uncertainty bands.
+A well-established framework for the calibration of computer models is provided by \cite{Kennedy2001} and the myriad works that build upon it. 
+%
+Common to those approaches is the assumption that calibration is a matter of estimating unknown and/or uncontrollable parameters by attuning the model to data obtained through physical experimentation. 
+%
+In this work we reconceptualize model calibration as a method for optimization. 
+%
+Rather than calibrating a model to find a posterior distribution of unknown parameters in order to bring the model as much into agreement with reality as possible, we calibrate to find a posterior distribution on controllable model inputs in order to bring the predicted system behavior into agreement with pre-determined performance targets. 
+%
+In essence, we treat performance targets as ``desired observations'' and use them as the data in the calibration problem. 
+%
+We demonstrate our proposed methodology in both an artificial case and in the case of a finite element model of wind turbine blade performance and cost. 
+%
+In the latter case, we demonstrate how to estimate the Pareto front with uncertainty bands.\\
+
+{{\bf Keywords:} Uncertainty quantification, Gaussian processes, optimization}
 \end{abstract}
 
 \section{Introduction} \label{introduction}
 % Discussion of computer experiments and computer model calibration. Lit review. Overview of project goals.
 
-\subsection{Computer experiments} \label{computer_experiments}
+%\subsection{Computer experiments} \label{computer_experiments}
 
-Suppose that one wishes to improve one's understanding of, say, the movement of people in a crowd escaping from a building in a crisis situation. This is an example of an area in which field data, i.e.\ real-world observations, are extremely difficult to acquire. Merely assembling a crowd of research subjects in one place is costly and difficult. Asking them to flee a building may result in behaviors which are unlike those in real crisis situations -- but which may nonetheless present unacceptable physical risk to the subjects. Inducing them to flee through the generation of a (real or apparent) crisis is similarly infeasible. Observational data are likewise scarce here, since panic-inducing crises are by their nature difficult to predict and chaotic in ways that hinder the orderly collection of data.
+%Suppose that one wishes to improve one's understanding of, say, the movement of people in a crowd escaping from a building in a crisis situation. This is an example of an area in which field data, i.e.\ real-world observations, are extremely difficult to acquire. Merely assembling a crowd of research subjects in one place is costly and difficult. Asking them to flee a building may result in behaviors which are unlike those in real crisis situations -- but which may nonetheless present unacceptable physical risk to the subjects. Inducing them to flee through the generation of a (real or apparent) crisis is similarly infeasible. Observational data are likewise scarce here, since panic-inducing crises are by their nature difficult to predict and chaotic in ways that hinder the orderly collection of data.
 
-In the face of these difficulties, computer models offer a third alternative to the choice between attempting field data collection and giving up on the hope of progress. Using existing theory concerning human psychology and movement, it is possible to construct a computer model simulating the behavior of people evacuating from a large building. For example, the SIMULEX model described by \cite{Thompson1995} allows one to observe simulated evacuation behaviors.
-The user provides as input floor plans for each floor of the building (via CAD-based .dxf files), the locations of staircases and exits, the locations of occupants, the dimensions of their bodies, routes to exits, and a distribution on the response time of each occupant. 
+%In the face of these difficulties, computer models offer a third alternative to the choice between attempting field data collection and giving up on the hope of progress. Using existing theory concerning human psychology and movement, it is possible to construct a computer model simulating the behavior of people evacuating from a large building. For example, the SIMULEX model described by \cite{Thompson1995} allows one to observe simulated evacuation behaviors.
+%The user provides as input floor plans for each floor of the building (via CAD-based .dxf files), the locations of staircases and exits, the locations of occupants, the dimensions of their bodies, routes to exits, and a distribution on the response time of each occupant. 
 % in any specified building layout, using any desired physical distribution of individuals, whose individual relevant characteristics (walking speed, initial body orientation, etc) may be controlled by the researcher. 
-The user can then observe how long it takes each occupant to exit the building.
-Thus, computer models provide a means to collect data which might otherwise be largely inaccessible. 
+%The user can then observe how long it takes each occupant to exit the building.
+%Thus, computer models provide a means to collect data which might otherwise be largely inaccessible. 
 
 %The study of computer models from a statistical perspective calls for specialized tools and techniques. Gaussian processes (GPs) are popular for modeling the output of computer code when the code is too computationally expensive to allow for repeated evaluation. The GP then provides a computationally inexpensive emulator for the computer code. There are three reasons the popularity of GPs as emulators: (1) The use of a GP does not require detailed foreknowledge of the approximate parametric form of the computer model. Researchers often lack such foreknowledge in the case of complex computer models. (2) GPs easily interpolate the observed data. This is an advantage when the observations come from deterministic computer code that is free of observation error. (3) The variance of a GP provides a natural form of uncertainty quantification. 
 %A Bayesian approach to the study of computer models is undertaken by \cite{Currin1991}; the authors approach GPs as prior distributions on the unknown form of the computer model. A frequentist application of GPs to computer models is provided by \cite{Sacks1989}, who use GPs not only for estimating uncertainty but also as the basis for their approach to experimental design in the area of deterministic computer models.  \cite{Santner2003a} offer a comprehensive discussion of the use of GPs for prediction, design, and sensitivity analysis with respect to computer experiments from both frequentist and Bayesian perspectives. It is against the background of these works that the past two decades of research into computer model calibration takes place.
+%
+%\subsection{Computer model calibration} \label{computer_model_calibration}
+%
+%Suppose that we wish to use the SIMULEX model to compare two different proposed building codes to be enforced in a given area. We may use average body dimensions and average interpersonal distance as input parameters for this model, both to settle the initial physical distribution of people throughout the building and to influence their behavior during evacuation. It is well-established that average body dimensions \citep{Subramanian2011,Cavelaars2000} %\citep{Bornstein1976} 
+%and interpersonal distance \citep{Sorokowska2017} vary across locales. These values may be unknown for the case of a particular region. Thus we may wish to find the true values for average body dimensions and interpersonal distance in that region. We may wish, in other words, to \textit{calibrate} these parameters in the model.
 
-\subsection{Computer model calibration} \label{computer_model_calibration}
-
-Suppose that we wish to use the SIMULEX model to compare two different proposed building codes to be enforced in a given area. We may use average body dimensions and average interpersonal distance as input parameters for this model, both to settle the initial physical distribution of people throughout the building and to influence their behavior during evacuation. It is well-established that average body dimensions \citep{Subramanian2011,Cavelaars2000} %\citep{Bornstein1976} 
-and interpersonal distance \citep{Sorokowska2017} vary across locales. These values may be unknown for the case of a particular region. Thus we may wish to find the true values for average body dimensions and interpersonal distance in that region. We may wish, in other words, to \textit{calibrate} these parameters in the model.
-
-Broadly, in model calibration, one may consider a model to be of the form $\eta(\mathbf x,\boldsymbol \theta)$, where $(\mathbf x,\boldsymbol \theta)$ comprise all inputs to the model. Input vector $\mathbf x$ is the collection of inputs that are known and/or under the control of the researcher (in the evacuation example, this would include the building layout).  The vector of calibration inputs $\boldsymbol \theta$ is the collection of parameters the values of which are unknown. These must be estimated for successful simulation. Thus where $f$ describes the true system and $\mathbf y$ our observations of that system, consider the model to be 
+Broadly, in model calibration, one may consider a model to be of the form $\eta(\mathbf x,\boldsymbol \theta)$, where $(\mathbf x,\boldsymbol \theta)$ comprise all inputs to the model. 
+%
+Input vector $\mathbf x$ is the collection of inputs that are known and/or under the control of the researcher.
+% (in the evacuation example, this would include the building layout).  
+%
+The vector of calibration inputs $\boldsymbol \theta$ is the collection of parameters the values of which are unknown. 
+%
+These must be estimated for successful simulation. 
+%
+Thus where $f$ describes the true system and $y$ an observation of that system, consider the model to be 
+%
 \begin{equation} \label{eq:model_gen}
 y(\mathbf x)=f(\mathbf x)+\epsilon(\mathbf x)=\eta(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x)+\epsilon(\mathbf x)
 \end{equation} 
-where $\delta(\cdot)$ describes the model discrepancy -- i.e., the bias of the model as an estimate of the real system -- and $\epsilon(\cdot)$ is a mean-zero observation error, often i.i.d.\ Gaussian. %Notice that we may write $f(x)=f(x,\theta)$ since $\theta$ does not vary in reality. 
+%
+where $\delta(\cdot)$ describes the model discrepancy -- i.e., the bias of the model as an estimate of the real system -- and $\epsilon(\cdot)$ is a mean-zero observation error, often i.i.d.\ Gaussian. 
+%
+%Notice that we may write $f(x)=f(x,\theta)$ since $\theta$ does not vary in reality. 
+%
 To undertake model calibration, one must have access to at least some observations of the real system.%; it is to these real observations that we calibrate the computer model.
 
-Much interest in the past two decades has centered on Bayesian methods for model calibration. The appeal of a Bayesian approach to model calibration lies in the fact that the calibration parameters are a source of uncertainty for the model. This uncertainty should be quantified so that its effect on the model can be made explicit. One can thus use Bayesian methods to arrive at a posterior distribution of the calibration parameters which both balances our prior knowledge about the calibration parameters with what can be learned from the available data and also allows for accurate uncertainty quantification on the model outputs. 
+Much interest in the past two decades has centered on Bayesian methods for model calibration. 
+%
+The appeal of a Bayesian approach to model calibration is that the calibration parameters are a source of uncertainty for the model. 
+%
+This uncertainty should be quantified so that its effect on the model can be made explicit. 
+%
+One can thus use Bayesian methods to construct a posterior distribution of the calibration parameters which balances our prior knowledge about the calibration parameters with what can be learned from the available data, and which also allows for accurate uncertainty quantification on the model outputs. 
 
-The work of \cite{Kennedy2001} offers a Bayesian approach to computer model calibration that allows for the uncertainty of the calibration parameters in the predictions of the resulting calibrated model. 
-This area is furthered by \cite{Higdon2004}, who develop an approach that undertakes model calibration with quantification of the related uncertainty, as well as explicitly incorporating uncertainty regarding the computer model output, the bias of the computer model, and uncertainty due to observation error (of field data). Other contributions in this area come from \cite{Williams2006}, \cite{Bayarri}, \cite{Liu2009}, \cite{Bayarri2007}, \cite{Brynjarsdottir2014}, and \cite{Brown2016}.
+The work of \cite{Kennedy2001} offers a Bayesian approach to computer model calibration that allows for the uncertainty of the calibration parameters in the predictions of the resulting calibrated model.
+% 
+This area is furthered by \cite{Higdon2004}, who develop an approach that undertakes model calibration with quantification of the related uncertainty, as well as explicitly incorporating uncertainty regarding the computer model output, the bias of the computer model, and uncertainty due to observation error (of field data). 
+%
+Other contributions in this area come from \cite{Williams2006}, \cite{Bayarri}, \cite{Liu2009}, \cite{Bayarri2007}, \cite{Brynjarsdottir2014}, and \cite{Brown2016}.
 %That approach is further refined and exemplified by \cite{Williams2006}.
 %\cite{Loeppky2006} offer an MLE-based alternative to the Bayesian approach promulgated by Kennedy and O'Hagan, intending thereby to improve the identifiability of the calibration parameters in the face of model discrepancy. 
 %\cite{Bayarri2007} extend the approach of Kennedy and O'Hagan, providing a framework that is intended to allow for simultaneous validation and calibration of a computer model (using the same training data). 
@@ -66,11 +103,41 @@ This area is furthered by \cite{Higdon2004}, who develop an approach that undert
 %
 %Another extension of the framework of \cite{Kennedy2001} and \cite{Bayarri2007} is \emph{state-aware} calibration \citep{Atamturktur2015,Stevens2018,Brown2016}. When one knows or suspects that the appropriate value of a calibration parameter $\boldsymbol \theta$ is dependent upon the other inputs $x$, state-aware calibration allows for the calibration procedure to estimate $\boldsymbol \theta$ as $\boldsymbol \theta(\mathbf x)$. This may obviate the need for a discrepancy function, either because the true value of the calibration parameter does indeed vary with the other inputs, or (in a tuning problem) because varying the tuning parameter can accomplish the work of a discrepancy function in aligning the computer model response with reality.
 
-\subsubsection{Gaussian processes} \label{gaussian_processes}
+Common to these approaches is the conception of calibration as a matter of aligning the computer model output to observations of the real system. 
+%
+In this paper, we explore the idea of calibrating a computer model to align with performance targets, in order to find system settings that optimize performance with respect to those targets.
+%
+In the remainder of Section \ref{introduction}, we describe the calibration framework which we go on in Section \ref{calib_for_design} to adapt as a method for optimization. 
+%
+In Sections \ref{example} and \ref{application} we apply the proposed methodology to an example involving simulated data, and to an application in which the goal is to find material design settings to optimize the performance of a wind turbine blade.
+% 
+Section \ref{conclusion} concludes with discussion of the results.
 
+\subsection{Calibration framework} \label{calib_framework}
+
+In describing the calibration framework we use in this work, we here assume the use of a Gaussian process (GP) emulator of the computer model.
+%
 In principle, model calibration
 %\footnote{In this work, ``calibration'' will usually be used broadly to include model tuning; where it is used in such a way as to exclude tuning, this will be made clear in context.}
-need not rely on a GP emulator, or any other sort of emulator; one could (e.g.) complete a full Bayesian analysis via an MCMC chain that involves running the relevant computer model at each iteration of the chain. However, computer models are frequently too computationally expensive to allow for such profligacy. Instead, a computationally tractable emulator can be constructed using a sample of observations from the computer model. GPs are popular prior distributions on computer model output for three reasons. Firstly, because their use does not require detailed foreknowledge of the model function's parametric form. Secondly, GPs easily interpolate the computer model output, which is attractive when the computer model is deterministic. This is usually the case, although some attention in model calibration has focused specifically on stochastic computer models; see e.g.\ \cite{Pratola2018}. Thirdly, GPs facilitate uncertainty quantification through the variance of the posterior GP. This section provides brief background on Gaussian processes and their use in regression broadly and in computer model calibration specifically.
+need not rely on a GP emulator, or any other sort of emulator; one could (e.g.) complete a full Bayesian analysis via an MCMC chain that involves running the relevant computer model at each iteration of the chain. 
+%
+Indeed, in Section \ref{example} we perform calibration on our example simulated data without an emulator.
+%
+However, computer models are frequently too computationally expensive to allow for such profligacy.
+%
+Instead, a computationally tractable emulator can be constructed using a sample of observations from the computer model. 
+%
+GPs are popular prior distributions on computer model output for three reasons.
+%
+Firstly, because their use does not require detailed foreknowledge of the model function's parametric form. 
+%
+Secondly, GPs easily interpolate the computer model output, which is attractive when the computer model is deterministic. 
+%
+This is usually the case, although some attention in model calibration has focused specifically on stochastic computer models; see e.g.\ \cite{Pratola2018}. 
+%
+Thirdly, GPs facilitate uncertainty quantification through the variance of the posterior GP. 
+%
+This section provides brief background on Gaussian processes and their use in regression broadly and in computer model calibration specifically.
 
 %\paragraph{Background}
 
@@ -82,9 +149,23 @@ need not rely on a GP emulator, or any other sort of emulator; one could (e.g.) 
 %%O'Hagan did not focus in that work on applications to computer models.
 %Though the approach of \cite{OHagan1978} was Bayesian, it did not provide for Bayesian means of selecting a covariance function $C$. \cite{Neal} extends the work of O'Hagan in this direction. \cite{Savitsky2011} describes a method for variable selection in GP regression via spike-and-slab mixture priors on the parameters of the covariance function. \cite{Shang2013} provide an umbrella generalization of existing methods of GP regression under a framework of what they call generalized GP models. \cite{Rasmussen2006} provide a comprehensive exploration of the use of GPs for regression and classification. All of these works treat GP regression generally, and do not focus specifically on the use of GPs to build emulators for computer models.
 
-The use of GPs to produce a computationally efficient predictor $\hat \eta (\mathbf x)$ of expensive computer code $\eta(\mathbf x)$ given observations of code output at $\mathbf X=(\mathbf x_1,\ldots,\mathbf x_n)^T$ is promulgated by \cite{Sacks1989} and explored at length by \cite{Santner2003a}. Since computer code is typically deterministic, these applications differ from the focus of \cite{OHagan1978} in that the updated GP is induced to interpolate the observations $\boldsymbol \eta = (\eta(\mathbf x_1),\cdots,\eta(\mathbf x_n))^T$. Much recent attention in the wake of these efforts by Santner et al.\ and Sacks et al.\  has focused specifically on the use of GPs for computer model emulation.
+The use of GPs to produce a computationally efficient predictor $\hat \eta (\mathbf x)$ of expensive computer code $\eta(\mathbf x)$ given observations of code output at $\mathbf X=(\mathbf x_1,\ldots,\mathbf x_n)^T$ is promulgated by \cite{Sacks1989} and explored at length by \cite{Santner2003a}.
+%
+Since computer code is typically deterministic, these applications differ from the focus of \cite{OHagan1978} in that the updated GP is induced to interpolate the observations $\boldsymbol \eta = (\eta(\mathbf x_1),\cdots,\eta(\mathbf x_n))^T$. 
+%
+%Much recent attention in the wake of these efforts by Santner et al.\ and Sacks et al.\  has focused specifically on the use of GPs for computer model emulation.
 %By contrast, much recent attention following the work of \cite{Santner2003a} and \cite{Sacks1989} has focused specifically on the use of GPs for computer model emulation. 
-\cite{Kennedy2001} develop an influential framework for Bayesian analysis using GPs specifically for computer model calibration. \cite{Kennedy2006} showcase this use of GP emulators for uncertainty and sensitivity analyses. \cite{Bastos2009} describe both numerical and graphical diagnostic techniques for assessing when a GP emulator of a computer model is successful, as well as discussion of likely causes of poor diagnostic results. While most work in the area of GP emulation uses stationary covariance functions (in which $\mu(\cdot)$ is constant and $C(\mathbf x,\mathbf x' )\equiv C(\mathbf x-\mathbf x' )$ depends only on the difference between $\mathbf x$ and $\mathbf x'$, rather than on their location in the input domain) and quantitative inputs, efforts have been made to branch away from these core uses. \cite{Gramacy2008} use treed partitioning to deal with a nonstationary computer model. \cite{Qian2008} explore methods for using GP emulators that include both quantitative and qualitative inputs.
+\cite{Kennedy2001} develop an influential framework for Bayesian analysis using GPs specifically for computer model calibration. 
+%
+\cite{Kennedy2006} showcase this use of GP emulators for uncertainty and sensitivity analyses. 
+%
+\cite{Bastos2009} describe both numerical and graphical diagnostic techniques for assessing when a GP emulator of a computer model is successful, as well as discussion of likely causes of poor diagnostic results. 
+%
+While most work in the area of GP emulation uses stationary covariance functions (in which $\mu(\cdot)$ is constant and $C(\mathbf x,\mathbf x' )\equiv C(\mathbf x-\mathbf x' )$ depends only on the difference between $\mathbf x$ and $\mathbf x'$, rather than on their location in the input domain) and quantitative inputs, efforts have been made to branch away from these core uses. 
+%
+\cite{Gramacy2008} use treed partitioning to deal with a nonstationary computer model. 
+%
+\cite{Qian2008} explore methods for using GP emulators that include both quantitative and qualitative inputs.
 
 %As in any instance of GP regression, ``training'' a GP as a computer model emulator involves finding an updated mean and covariance function given a set of observations. The updated mean allows for prediction of the computer model at points not observed, with uncertainty quantified by the updated covariance function.
 %Suppose, for example, that we begin with a prior GP with constant mean function $\mu(\mathbf x)=0$ for all $\mathbf x$. Notice that we may use the covariance function $C$ to define an $n\times n$ matrix $\mathbf C_{\mathbf X,\mathbf X}$ such that the $i,j$ entry of $\mathbf C_{\mathbf X,\mathbf X}$ is equal to $C(\mathbf x_i,\mathbf x_j)$. We may wish to train our GP on these $n$ observations, and then examine the resulting posterior GP given the points $\mathbf X'=(\mathbf x_1',\ldots,\mathbf x_m')^T$. Recall that the GP at the points $\mathbf X'$ is a multivariate normal random variable of length $m$, which is fully characterized by its mean vector $\mu^*_{\mathbf X'}$ and covariance matrix $\mathbf C^*_{\mathbf X',\mathbf X'}$. We can find these as:
@@ -105,29 +186,43 @@ The use of GPs to produce a computationally efficient predictor $\hat \eta (\mat
 
 %\paragraph{Gaussian processes in computer model calibration}
 
-Aside from \cite{Kennedy2001}, recent applications of GP emulation specifically to problems of calibration have focused largely on the works of \cite{Williams2006} and \cite{Bayarri2007}. It is helpful here to provide an illustrative summary of the approach taken by \cite{Williams2006}, both to exemplify the use of GPs for computer model calibration and because the approach utilized in the present work closely follows theirs.
+%Aside from \cite{Kennedy2001}, recent applications of GP emulation specifically to problems of calibration have focused largely on the works of \cite{Williams2006} and \cite{Bayarri2007}. 
+%%
+%It is helpful here to provide an illustrative summary of the approach taken by \cite{Williams2006}, both to exemplify the use of GPs for computer model calibration and because the approach utilized in the present work closely follows theirs.
 
 Suppose that we have inputs $\{\mathbf x_i\}_{i=1}^n\subseteq \mathbb R^p$ scaled to the unit hypercube, and observations 
+%
 \begin{equation}\label{eq:2}
 y(\mathbf x_i) = f(\mathbf x_i) + \epsilon(\mathbf x_i),\quad i=1,\cdots,n,
 \end{equation}
-where $f(\cdot)$ is the true system and $\epsilon(\cdot)$ is known measurement error. Then by \eqref{eq:model_gen} we have
+%
+where $f(\cdot)$ is the true system and $\epsilon(\cdot)$ is known measurement error. 
+%
+Then by \eqref{eq:model_gen} we have
+%
 \begin{equation}\label{eq:2}
 y(\mathbf x_i) = \eta(\mathbf x_i,\boldsymbol \theta) + \delta(\mathbf x_i) + \epsilon(\mathbf x_i),\quad i=1,\cdots,n
 \end{equation}
-where $\eta(\cdot,\cdot)$ is the computer model, $\boldsymbol \theta$ is the best\footnote{In the case of calibration, the ``best'' setting will be the true setting of that parameter; in a case of tuning rather than calibration, the ``best'' setting would instead be the optimal setting for minimizing model bias.}
+%
+where $\eta(\cdot,\cdot)$ is the computer model, $\boldsymbol \theta$ is the best%\footnote{In the case of calibration, the ``best'' setting will be the true setting of that parameter; in a case of tuning rather than calibration, the ``best'' setting would instead be the optimal setting for minimizing model bias.}
 setting of the vector of calibration parameters, and $\delta(\cdot)$ is the discrepancy function describing the bias of $\eta(\cdot,\cdot)$ as an estimate of $f(\cdot)$.
-
-\citeauthor*{Williams2006} define the GP prior for modeling $\eta(\cdot,\cdot)$ as follows. Let the mean function $\mu(\mathbf x,\mathbf t)=c$, $c$ a constant. Set the covariance function in terms of the marginal precision $\lambda_\eta$ and a product power exponential correlation function:
+\citeauthor*{Williams2006} define the GP prior for modeling $\eta(\cdot,\cdot)$ as follows. 
+%
+Let the mean function $\mu(\mathbf x,\mathbf t)=c$, $c$ a constant. 
+%
+Set the covariance function in terms of the marginal precision $\lambda_\eta$ and a product power exponential correlation function:
+%
 \begin{equation}\label{eq:Hig_cov}
 C((\mathbf x,\mathbf t),(\mathbf x',\mathbf t')) = \frac 1\lambda_\eta \prod_{k=1}^{p}
 \exp \left(-\beta^\eta_k|x_k-x_k'|^{\alpha_\eta}\right) \times
 \prod_{k=1}^{q}
 \exp \left(-\beta^\eta_{p+k}|t_k-t_k'|^{\alpha_\eta}\right)
 \end{equation}
+%
 where each $\beta_k$ describes the strength of the GP's dependence on one of the elements of the input vectors $\mathbf x,\mathbf t$, and $\alpha_\eta$ determines the smoothness of the GP. 
 
 The authors place the following priors on the hyperparameters:
+%
 \begin{equation}
 \begin{aligned}
 c&\sim N(0,v)\\
@@ -135,39 +230,58 @@ c&\sim N(0,v)\\
 \rho_k^\eta &\sim \mathrm{Beta}(1,0.1),\quad k=1,\cdots,p+q
 \end{aligned}
 \end{equation}
-where $\rho_k^\eta=\exp(-\beta_k^\eta/4)$ for $k=1,\cdots,p+q$. They set $\alpha_\eta=2$, which corresponds to the assumption of an infinitely differentiable correlation function. The parameters of the Gamma and Beta distributions are chosen to encourage $\lambda_\eta$ to be close to one, and $\beta_k$ to be low for all $k$ (encouraging strong dependence; i.e., we antecedently expect each of the inputs to be influential). Furthermore, the authors let $v\to0$, i.e., the GP is assumed to have constant mean $c=0$.
+%
+where $\rho_k^\eta=\exp(-\beta_k^\eta/4)$ for $k=1,\cdots,p+q$. 
+%
+They set $\alpha_\eta=2$, which corresponds to the assumption of an infinitely differentiable correlation function. 
+%
+The parameters of the Gamma and Beta distributions are chosen to encourage $\lambda_\eta$ to be close to one, and $\beta_k$ to be low for all $k$ (encouraging strong dependence; i.e., we antecedently expect each of the inputs to be influential). 
+%
+Furthermore, the authors let $v\to0$, i.e., the GP is assumed to have constant mean $c=0$.
 
 The authors similarly model the discrepancy term as a GP, also with mean zero, and covariance function
+%
 \begin{equation}
 C_\delta(\mathbf x,\mathbf x') = \frac 1{\lambda_\delta} \prod_{k=1}^p
 \exp\left( -\beta_k^\delta |x_k-x_k'|^{\alpha_\delta} \right),
 \end{equation}
+%
 with priors
+%
 \begin{equation}
 \begin{aligned}
 \lambda_\delta &\sim \mathrm{Gamma}(a_\delta,b_\delta)\\
 \rho^\delta_k &\sim \mathrm{Beta}(1,0.3).
 \end{aligned}
 \end{equation}
+%
 where $\rho_k^\delta=\exp(-\beta_k^\delta/4)$ for $k=1,\ldots,p$ and $\alpha_\delta=2$.
 
 Where $\boldsymbol \eta = (\eta(\mathbf x_1,\mathbf t_1),\cdots,\eta(\mathbf x_n,\mathbf t_n))^T$ are the simulation observations, $\mathbf y = (y(\mathbf x_{n+1}),\cdots,y(\mathbf x_{n+m}))^T\equiv (y(\mathbf x_{n+1},\boldsymbol\theta),\cdots,y(\mathbf x_{n+m},\boldsymbol\theta))^T$ are the field observations, $\mathcal D = (\boldsymbol \eta^T,\mathbf y^T)^T$, $\boldsymbol \beta^\eta = (\beta^\eta_1,\cdots,\beta_{p+q}^\eta)^T$, and $\boldsymbol \beta^\delta = (\beta^\delta_1,\cdots,\beta_{p+q}^\delta)^T$, we then have the distribution of $\mathcal D$ as 
+%
 \begin{equation}
 \mathcal D | \boldsymbol \theta,c,\lambda_\eta, \boldsymbol \beta^\eta,\lambda_\delta,\boldsymbol \beta^\delta,\mathbf C_{\mathbf y} \sim N(c \cdot \mathbf 1_{n+m}, \mathbf C_{\mathcal D})
 \end{equation}
+%
 where $\mathbf C_{\mathbf y}$ an $m\times m$ matrix in which the $i,j$ entry is the (known) observation variance $C_{obs}(\mathbf x_i,\mathbf x_j)$ for $n<i,j\leq n+m$, and $\mathbf C_{\mathcal D}$ is a matrix with its $i,j$ entry equal to
+%
 \begin{equation}\label{eq:C_D}
 C((\mathbf x_i,\mathbf t_i),(\mathbf x_j,\mathbf t_j)) + I(i,j>n)\cdot(C_{obs}(\mathbf x_i,\mathbf x_j) + C_\delta(\mathbf x_i,\mathbf x_j))
 \end{equation}
 
 Thus, the joint posterior density under the model is
+%
 \begin{equation} \label{eq:full_dist}
 \pi(\boldsymbol \theta,c,\lambda_\eta,\boldsymbol \rho^\eta,\lambda_\delta,\boldsymbol \rho^\delta,\mathbf C_{\mathbf y}|\mathcal D)
 \propto \pi(\mathcal D | \boldsymbol \theta,c,\lambda_\eta, \boldsymbol \beta^\eta,\lambda_\delta,\boldsymbol \beta^\delta,\mathbf C_{\mathbf y}) \times \pi(c) \times \pi(\lambda_\eta) \times 
 \pi(\boldsymbol \rho^\eta) \times \pi(\lambda_\delta) \times \pi(\boldsymbol \rho^\delta)
 \end{equation}
+%
 Note that where a discrepancy function is not included in the model and the mean $c$ is treated as a constant, (\ref{eq:full_dist}) simplifies greatly; where furthermore $\lambda_\eta$ and $\boldsymbol \rho^\eta$ are estimated via maximum likelihood (as in  \cite{Kennedy2001}),  (\ref{eq:full_dist}) simplifies down merely to 
-$\pi(\mathcal D | \boldsymbol \theta,c,\lambda_\eta, \boldsymbol \beta^\eta,\lambda_\delta,\boldsymbol \beta^\delta,\mathbf C_{\mathbf y})$. Markov chain Monte Carlo methods are useful for evaluating (\ref{eq:full_dist}).
+%
+$\pi(\mathcal D | \boldsymbol \theta,c,\lambda_\eta, \boldsymbol \beta^\eta,\lambda_\delta,\boldsymbol \beta^\delta,\mathbf C_{\mathbf y})$. 
+%
+Markov chain Monte Carlo methods are useful for evaluating (\ref{eq:full_dist}).
 %The next section takes up this topic.
 
 %\subsubsection{Markov chain Monte Carlo methods}\label{MCMC_methods}
@@ -207,23 +321,37 @@ $\pi(\mathcal D | \boldsymbol \theta,c,\lambda_\eta, \boldsymbol \beta^\eta,\lam
 %Blah
 
 \subsubsection{Computational difficulties}
-Consider a GP with constant mean function $\mu(\mathbf x)=0$ for all $\mathbf x$. Notice that one may use the covariance function $C$ to define an $n\times n$ matrix $\mathbf C_{\mathbf X,\mathbf X}$ such that the $i,j$ entry of $\mathbf C_{\mathbf X,\mathbf X}$ is equal to $C(\mathbf x_i,\mathbf x_j)$. 
+Consider a GP with constant mean function $\mu(\mathbf x)=0$ for all $\mathbf x$. 
+%
+We use the covariance function $C$ to define an $n\times n$ matrix $\mathbf C_{\mathbf X,\mathbf X}$ such that the $i,j$ entry of $\mathbf C_{\mathbf X,\mathbf X}$ is equal to $C(\mathbf x_i,\mathbf x_j)$. 
+%
 Training the GP on the $n$ observations $\boldsymbol \eta$ at $\mathbf X\in \mathbb R^{n\times p}$, an updated mean and covariance matrix for the points $\mathbf X'=(\mathbf x_1',\ldots,\mathbf x_m')^T$ is 
 %. Recall that the GP at the points $\mathbf X'$ is a multivariate normal random variable of length $m$, which is fully characterized by its mean vector $\mu^*_{\mathbf X'}$ and covariance matrix $\mathbf C^*_{\mathbf X',\mathbf X'}$. We can find these as:
+%
 \begin{equation}\label{eq:post_gp}\begin{split}
 \boldsymbol\mu^*_{\mathbf X'}&=\mathbf C_{\mathbf X',\mathbf X}\cdot \mathbf C_{\mathbf X,\mathbf X} ^{-1}\cdot \boldsymbol \eta
 \\
 \mathbf C^*_{\mathbf X'}&=\mathbf C_{\mathbf X',\mathbf X'}-\mathbf C_{\mathbf X',\mathbf X}\cdot \mathbf C_{\mathbf X,\mathbf X}^{-1}\cdot \mathbf C_{\mathbf X,\mathbf X'}
 \end{split}\end{equation}
+%
 %Note that the joint posterior density given in (\ref{eq:full_dist}) above includes $\mathbf C_{\mathcal D}$, which, depending on how many field and simulation observations one has, may be of prohibitively high dimension. This can lead to computational difficulties in calculating $\alpha$ in the course of the MCMC routine. Difficulties arise in two ways. Firstly, the likelihood given in (\ref{eq:full_dist}) evaluated at a given point can be so small as to be vulnerable to significant round-off error. 
+%
 Poor conditioning of $\mathbf C_{\mathbf X,\mathbf X}$ in (\ref{eq:post_gp}) can make it difficult to invert and find the determinant of this matrix, as must be done in the course of the MCMC to find the relevant likelihoods.
+%
 This problem can be alleviated by adding a small nugget to $\mathbf C_{\mathbf X,\mathbf X}$. 
+%
 That is, we can set $\mathbf C_{\mathbf X,\mathbf X}^\xi= \mathbf C_{\mathbf X,\mathbf X} + \xi \cdot \mathbf I_{\mathrm{dim}(\mathbf X)}$ for some very small value of $\xi$, e.g., $\xi=10^{-4}$. 
-Such a simple nugget works quite well in many applications, but for a more sophisticated approach to selecting the nugget size, see \cite{Ranjan2011}. 
+%
+Such a simple nugget works quite well in many applications. For a more sophisticated approach to selecting the nugget size, however, see \cite{Ranjan2011}. 
+%
 Note that adding a nugget here is equivalent to adding a small amount of observation variance for the simulator observations. 
+%
 That is, in adding this nugget, one no longer requires that the GP emulator precisely interpolate the simulation observations. 
+%
 However, for very small nuggets, this effect is so small as to be negligible, though the computational benefits remain. 
+%
 %Thus nothing is lost in continuing to think of the GP emulator as interpolating the simulation observations.
+%
 Furthermore, insofar as the effect is non-negligible, it is argued by \cite{Gramacy2012} to be beneficial for emulating the computer code (so that for some applications one might prefer a larger nugget).
 
 %The other problem -- round-off error due to small likelihoods -- can be alleviated through substituting the use of log-likelihoods in the MCMC routine. Thus, rather than finding $\alpha$ in \eqref{eq:mh_correction} directly, it is preferable to find 
@@ -237,25 +365,48 @@ Furthermore, insofar as the effect is non-negligible, it is argued by \cite{Gram
 
 % Intro: description of sort of situation in which you'd want this
 
-Suppose that a researcher has a fairly reliable computer model of a given system. Suppose furthermore that some of the parameters of that system can be controlled, and that the researcher hopes to select values for these controllable parameters that will facilitate certain target outcomes from the system. An example would be selecting a building layout conducive to efficient evacuation, as modeled using SIMULEX.
+Suppose that a researcher has a fairly reliable computer model of a given system. 
+%
+Suppose furthermore that some of the parameters of that system can be controlled, and that the researcher hopes to select values for these controllable parameters that will facilitate certain target outcomes from the system. 
+%
+%An example would be selecting a building layout conducive to efficient evacuation, as modeled using SIMULEX.
 
-We may approach such problems as a matter of calibration. In traditional calibration as described in Section \ref{introduction}, a computer model is calibrated to observations of reality. This is done in order to find settings for the computer model that induce its output to match reality. Similarly, one may seek to ``calibrate'' a computer model to a set of performance targets, in order to find settings that induce the model's output to match, or approximate, those targets. Hereafter, call performance targets treated as observations for the purpose of calibration ``desired observations''. Call the calibration procedure proposed here, which uses the model calibration framework of \cite{Kennedy2001} with desired observations, ``calibration to desired observations" (CDO). 
+%We may approach such problems as a matter of calibration. 
+%
+In traditional calibration as described in Section \ref{introduction}, a computer model is calibrated to physical observations. 
+%
+This is done in order to find settings for the computer model that induce its output to match reality as closely as possible. 
+%
+Similarly, one may seek to ``calibrate'' a computer model to a set of performance targets, in order to find settings that induce the model's output to match, or approximate, those targets. 
+%
+Hereafter, call performance targets treated as observations for the purpose of calibration ``desired observations''. 
+%
+Call the calibration procedure proposed here, which uses the model calibration framework of \cite{Kennedy2001} with desired observations, ``calibration to desired observations" (CDO). 
 
-Of course, computer models are more malleable than reality, and it is trivial to modify a computer model so that its output matches any given target. It is both easy and pointless to create a model which is a computational ``yes man''. But in many cases one is fortunate to have (perhaps after undertaking traditional model calibration, validation and verification) a computer model such that one is independently confident that the model is uniformly valid over a given set $\mathcal T$ of controllable parameters $t$, i.e., the model is known to be faithful to reality over $\mathcal T$. In such a circumstance, in calibrating $t\in\mathcal T$ to one's desires, one does not risk calibrating the model \emph{away} from agreement with reality. 
-Instead, one find a distribution on the settings that achieve the best realistic approximation to the desired targets.
+%Of course, computer models are more malleable than reality, and it is trivial to modify a computer model so that its output matches any given target. 
+Computer models are more malleable than reality, and one might worry that in calibrating a model to unobserved performance targets, the model's fidelity to reality might be mitigated.
+%
+%It is both easy and pointless to create a model which is a computational ``yes man''. 
+%
+In many cases, however, one is fortunate to have (perhaps after undertaking traditional model calibration, validation and verification) a computer model such that one is confident that the model is known to be faithful to reality over a given set $\mathcal T$ of user specified calibration parameters.
+%uniformly valid over a given set $\mathcal T$ of controllable parameters $t$, i.e., the model is known to be faithful to reality over $\mathcal T$. 
+%
+In such a circumstance, in calibrating $t\in\mathcal T$ to one's desires, one does not risk calibrating the model \emph{away} from agreement with reality, even if one's performance targets are not realistically achievable. 
+%
+Instead, one finds a distribution on the settings that achieve the best realistic approximation to the desired targets.
 
-The tools of model calibration founded in the work of \cite{Kennedy2001} retain their advantages in this new domain.
+The tools of model calibration founded in the work of \cite{Kennedy2001} retain their advantages under the proposed application.
 %
 Most centrally, such calibration to desired observations $y$ produces not merely a static optimum $t\in\mathcal T$, but rather a posterior distribution of $t|y$ reflective of remaining uncertainty about the appropriate value of $t$. 
 %
-Such uncertainty may have its source in parameter uncertainty (uncertainty about the values of certain model inputs), code uncertainty (uncertainty about how closely the code approximates reality), and especially saliently in this case, that which in traditional calibration would be considered either observation error or model inadequacy. 
+Such uncertainty may have its source in parameter uncertainty (uncertainty about the values of certain model inputs), code uncertainty (uncertainty about how closely the code approximates reality), and that which traditional calibration would consider observation error and model inadequacy. 
 %
-Of course,  targets are not actually observations, and the concept of observation error does not cleanly transfer here. 
+Of course,  targets are not actually observations, so the concept of observation error does not cleanly transfer. 
 %
-But a relevantly similar uncertainty would be uncertainty over how close reality \emph{can} come to our desired observations. 
+However, a similar uncertainty would be that due to how close reality \emph{can} come to our desired observations. 
 % DISCUSS AB says explain this more. We have already discussed this a bit
 %But just as the target can be treated as an observation in the calibration process, as it were \emph{aspirationally}, so too an observation error variance can be specified aspirationally, rather than as reflective of reality.
-The model calibration framework of \cite{Kennedy2001} allows for the quantification of all of these uncertainties. Furthermore, by the use of informative priors on the model discrepancy and observation error, the identifiability concerns of the Kennedy-O'Hagan approach (discussed by \cite{Bayarri2007}, \cite{Tuo2016} and others) are avoided.
+The model calibration framework of \cite{Kennedy2001} allows for the quantification of all of these uncertainties. Furthermore, by the use of informative priors on the model discrepancy and observation error, the identifiability concerns of the Kennedy-O'Hagan approach can be mitigated \citep{Bayarri2007,Tuo2016}.
 
 \subsection{Target observations}
 % This describes the basic idea.
@@ -265,33 +416,45 @@ The model calibration framework of \cite{Kennedy2001} allows for the quantificat
 
 \subsubsection{Level of target data}\label{level_of_desired_data}
 % Arbitrariness recommending prior on observation variance
-Unlike in the case of field observations, when calibrating to target observations, the question arises of determining what exactly one's desired targets are. In many cases, no objectively natural target manifests itself. Consider again the case of building evacuation. 
+Unlike in the case of field observations, when calibrating to performance targets treated as desired observations, the question arises of choosing what exactly those ``observations'' should be.
 %
-In the case of a multi-story building, one might plausibly expect to achieve evacuation times of no less than fifteen minutes. 
+In many cases, no objectively natural target manifests itself. 
 %
-But plausibility is no barrier to desire, and it would be a mistake to limit one's target observations to what is antecedently believed to be achievable, if only because to do so would foreclose on the possibility of exceeding those expectations. 
+Indeed, there is no barrier to the use even of impossible targets such as negative values for model outputs known to be nonnegative.
+%Consider, e.g., modeling the effect of building layouts on emergency evacuation time. 
+%%
+%In the case of a multi-story building, one might plausibly expect to achieve evacuation times of no less than fifteen minutes. 
+%%
+%But plausibility is no barrier to desire, and it would be a mistake to limit one's target observations to what is antecedently believed to be achievable, if only because to do so would foreclose on the possibility of exceeding those expectations. 
+%%
+%In the case of building evacuation, then, one might conclude that the appropriate target observation is in fact instantaneous evacuation -- \textit{per impossible}. 
+%%
+%But, having discarded realism, even this lower bound is not inevitable. Why not calibrate to a \emph{negative} evacuation time, while we're at it?
 %
-In the case of building evacuation, then, one might conclude that the appropriate target observation is in fact instantaneous evacuation -- \textit{per impossible}. 
+Such a target observation in certain situations may be appropriate. 
 %
-But, having discarded realism, even this lower bound is not inevitable. Why not calibrate to a \emph{negative} evacuation time, while we're at it?
-
-Such a choice of target observation would indeed be consistent with the method of calibrating to desired observations, and in certain situations may even be appropriate. 
+However, in general, target observations should aim only a little beyond what is realistically achievable; only as much as is necessary to ensure the targets are at least as ambitious as any true optimum in the system.
 %
-However, in general, target observations should aim only a little beyond what is realistically achievable, i.e., only as much as is necessary to ensure the targets are at least as ambitious as any true optimum in the system.
+Three reasons why one should go only a little beyond that are as follows. 
 %
-I described above why it is preferable to go beyond what is achievable. 
-%
-There are thee reasons why one should go only a little beyond that. 
-%
-(1) If target observations are set to be too farfetched, then (depending on the calibration settings used; see Section \ref{mvfmd}) the calibration can become unnecessarily computationally unstable due  to underflow and round-off error, since any value of $\boldsymbol \theta$ within its support will have extremely low likelihood.
+(1) If target observations are set to be too farfetched, then the calibration can become computationally unstable due  to underflow and round-off error, since any value of $\boldsymbol \theta$ within its support will have extremely low likelihood.
 % DISCUSS Andrew and I had talked about how this isn't quite true since the observation variance will expand to be as big as it needs to be to make the likelihoods work. But (a) some versions of CtDO call for a cap on observation variance / discrepancy variance, and (b) even with the version that lets obs var get as high as it likes, still there is a prior on obs var which penalizes high values of it, so it seems to me the point stands.
 %
 %
-(2) Increasing the distance of the desired observations from the Pareto front reduces the relative difference between the distance to the Pareto front and the distance to other regions of the model range, thereby decreasing the identifiability of the region to which one wishes to calibrate.
+(2) Increasing the distance of the desired observations from the optimal region reduces the identifiability of that region.
 %
-(3) The desired observations lose a measure of interpretability when they delve too far into the fantastical, such as with negative evacuation times. 
+The calibration finds the region of the parameter space with output closest to the target observations.
 %
-Identifying the appropriate range of outputs for desired observations, which exceed reality but slightly, will of course often require one to consult expert opinion. 
+If the entire model range is far from the target observations, then the optimal region will in relative terms be only a little closer than the rest of the model range. 
+% 
+As a result, the identifiability of the optimal region will suffer.
+%The nearness of the optimum to another point in the parameter space is relative to the estimated error at the optimum, and therefore if the entire model range is far from the target observations, then all points in the parameter space will be 
+%
+%relative difference between the distance to the Pareto front and the distance to other regions of the model range, thereby decreasing the identifiability of the region to which one wishes to calibrate.
+%
+(3) The desired observations lose a measure of interpretability when they delve too far into the fantastical, such as with impossibly negative values. 
+%
+Identifying the appropriate range of outputs for desired observations, which exceed reality only slightly, will often require one to consult a subject matter expert. 
 
 %\subsubsection{Set target via desired observations, or prior distribution?}
 %% DISCUSS (terminology of desired observations) % MAke clear that it is a term of art
@@ -304,9 +467,9 @@ A third option is also explored in Section \ref{application}'s treatment of the 
 %
 This option is not truly another means of achieving a calibration target, but rather is simply the decision to refrain from doing so. 
 %
-That is, rather than include a desired observation of (e.g.) cost in the above model or set a prior that induces low cost, one can simply specify a known cost and calibrate desired performance targets to a design having that cost. 
+That is, rather than include a desired observation of, say, cost in the model or set a prior that induces low cost, one can simply specify a known cost and calibrate desired performance targets to a design having that cost. 
 %
-Since it is antecendently unknown which cost settings are optimal, under this third option we calibrate performance targets under each point of a grid of ``known'' costs. 
+If it is antecendently unknown which cost settings are optimal, under this third option one may calibrate to performance targets under each point of a grid of ``known'' costs. 
 %
 Thus we present a comprehensive picture of optimal parameter distributions and resulting performance under a range of costs, which could inform the process of setting a budget for material construction.
 
@@ -316,7 +479,11 @@ Thus we present a comprehensive picture of optimal parameter distributions and r
 % Or through the discrepancy function.
 % The is a way of letting the errors be correlated, which may be nice
 
-It is not merely likely but often desirable that the desired observations have low likelihood with respect to the posterior predictive distribution of the calibration process. This is another way in which CDO is unlike traditional calibration. The reason for this is that if the posterior predictive distribution places substantial probability mass at regions of the parameter space that achieve the target desired observations, then this is a sign that the the desired observations may have been insufficiently ambitious. 
+It is not merely likely but often desirable that the performance targets have low probability with respect to the likelihood of the calibrated model. 
+%
+In this way, CDO (calibration to desired observations) is unlike traditional calibration. 
+%
+The reason for this is that if the posterior predictive distribution places substantial probability mass at regions of the parameter space that achieve the target desired observations, then the desired observations may have been insufficiently ambitious. 
 % DISCUSS AB says: "I'm not sure I'm following this argument. We want a design in which our desired performance is unlikely? Or do you mean while also explicitly accounting for discrepancy between the system behavior and the targets?  In the latter case, getting the discrepancy right seems critical to understanding what will happen."
 % Note that your observation variance will grow to make stuff sufficiently likely that you don't have to worry about the extreme low likelihoods
 %In some applications, this concern about setting insufficiently ambitious desired observations will not arise. 
@@ -325,39 +492,62 @@ In the wind turbine blade application considered in this work, the ideal materia
 In a different application, one might wish to design a material that deforms in a pre-specified (possible) way. 
 %In a different application than the one considered in this work (wind turbine blades), it might be ideal to have a material that deforms just so -- rather than a material which does not deform under load. 
 In such a case, it would be appropriate to set desired observations that one indeed does hope to find as the posterior predictive mode after calibration. 
-But in cases such as the wind turbine and building evacuation systems, finding the desired observations to be the posterior mode would be an indication that the desired observation could potentially be outperformed, or else that the model is itself unrealistic. In short, if the system can achieve the desired observations, then either the desired observations are realistically achievable (hence insufficiently ambitious) or else the desired observations are not realistically achievable (hence casting doubt on a model which presents them as achievable).
+%
+But in cases such as the wind turbine application, finding the desired observations to be the posterior mode would be an indication that the desired observation could potentially be outperformed, or else a warning (if the desired observation is known to be impossible, such as a material that undergoes zero deformation under load) that the model itself may be unrealistic. 
+%
+%In short, if the system can achieve the desired observations, then either the desired observations are realistically achievable (hence insufficiently ambitious) or else the desired observations are not realistically achievable (hence casting doubt on a model which presents them as achievable).
 
-Where the mean of the posterior GP from CDO fails to interpolate the desired observations, this can be understood in two distinct ways. 
+Where the mean of the posterior predictive distribution from CDO fails to interpolate the desired observations, this can be understood in two distinct ways. 
+%
 These correspond to the two distinct sources of error in traditional calibration to field observations. 
+%
 The first such source of error is model discrepancy, or $\delta(\cdot)$ in (\ref{eq:model_gen}). 
-This is defined to be the difference between the mean of the true system and the output of the computer model; it is thus the extent to which the computer model fails to capture reality. 
-The other source of error is observation error, or $\epsilon(\cdot)$ in (\ref{eq:model_gen}). 
-This is usually taken so that $\epsilon(\mathbf x) \equiv \epsilon$ does not depend on $\mathbf x$. 
-Note that this source of error cannot be attributed to any failing on the part of the computer model. 
-Neither of these two sources of error, under their above-described traditional interpretations, succeeds in capturing the nature of the gap between desired observations and the posterior predictive mean. 
-These two sources of error can nonetheless serve as a basis for modeling this gap -- see Section \ref{mvfmd}.
+%
+This is defined to be the difference between the mean of the true system and the output of the computer model.
+%
+It is thus the extent to which the computer model fails to capture reality. 
+%
+The other source of error is observation error, $\epsilon(\cdot)$ in (\ref{eq:model_gen}). 
+%
+%This is usually taken so that $\epsilon(\mathbf x) \equiv \epsilon$ does not depend on $\mathbf x$. 
+%
+This source of error cannot be attributed to any failing on the part of the computer model. 
+%
+Neither of these two sources of error, under their traditional interpretations, succeeds in capturing the nature of the gap between desired observations and the posterior predictive mean. 
+%
+These two sources of error can nonetheless serve as a basis for modeling this gap, as we discuss in the next subsection.
 %
 
-Nor does it quite fit even to call this gap ``error'', or a form of model discrepancy. 
-Even under CDO, the model still describes \emph{reality}, not our desires. 
-Thus failure to interpolate our desires is not error. 
-Though for convenience and ease of exposition we will refer to this gap as ``error'', we can more properly refer to it as ``model shortcoming''. 
-This is still somewhat infelicitous insofar as it still implies failure on the part of the model, whereas in fact this gap is due to the stubbornness of \emph{reality} in declining to behave according to our desires. 
+%Nor does it quite fit even to call this gap ``error'', or a form of model discrepancy. 
+%
+%Even under CDO, t
+The model  describes \emph{reality}, not our desires. 
+Thus failure to interpolate our desires is not necessarily model error. 
+%
+Though for convenience and ease of exposition we refer to this gap as ``error'', we can more properly refer to it as ``model shortcoming''. 
+%
+%This is still somewhat infelicitous insofar as it still implies failure on the part of the model, whereas in fact this gap is due to the stubbornness of \emph{reality} in declining to behave according to our desires. 
+This phrasing still (infelicitously) implies failure on the part of the model, whereas in fact the underlying discrepancy is between the performance targets and what is physically possible.
+%
 %\footnote{Though maybe a more enlightened viewpoint would take a conflict between reality and desire to be due to the latter's shortcomings.}.  
-The model underperforms with respect to our targets insofar as reality does so. 
-Still, the term is appropriate, since the ``error'' observed is a discrepancy between the desired observations and the model, not between the model and the true system.
+%
+%The model underperforms with respect to our targets insofar as reality does so. 
+%
+Still, the term is appropriate, since the ``error'' that is observed is a discrepancy between the desired observations and the model, not between the model and the true system.
 
 \subsection{Setting the marginal variance for model discrepancy}\label{mvfmd}
 
-Hereafter in this work, we will assume that model shortcoming will be captured via a discrepancy term $\delta(\cdot)$ modeled as a mean-zero, stationary GP. 
+Hereafter in this work, we will assume that model shortcoming will be captured via a discrepancy term $\delta(\cdot)$, modeled as a mean-zero, stationary GP. 
 %
 In order to successfully calibrate to the optimal region of the parameter space, it is necessary either to place an informative prior on the marginal precision $\lambda_\delta$ of the discrepancy, or else to specify that value outright. 
 %
-Otherwise, identifiability issues can cause the calibration to fail. This is a longstanding concern with the Kennedy-O'Hagan framework, raised in the discussion of \cite{Kennedy2001} as well as in \cite{Bayarri2007}, \cite{Tuo2015}, and \cite{Plumlee2017}.
+Otherwise, identifiability issues can cause the calibration to fail.
 %
-How informative one's informative prior on $\lambda_\delta$ will be depends upon how much one knows about the true Pareto front prior to undertaking CDO.
+This is a longstanding concern with the Kennedy-O'Hagan framework, raised in the discussion of \cite{Kennedy2001} as well as by \cite{Bayarri2007}, \cite{Tuo2015}, and \cite{Plumlee2017}.
 %
-E.g., if in a univariate case it is known with some confidence that the true optimum is nearly constant across control settings and occurs in the interval $[10,11]$, then a constant desired observation of $9$ could be used with an informative prior tailored to this prior knowledge -- say $\mathrm{Gamma}(20,\mathrm{rate}=20)$.
+How informative one's prior on $\lambda_\delta$ will be depends upon how much one knows about the true Pareto front prior to undertaking CDO.
+%
+For instance, if in a univariate case it is known with some confidence that the true optimum is nearly constant across control settings and that it occurs in the interval $[10,11]$, then a constant desired observation of $9$ could be used with an informative prior tailored to this prior knowledge of the approximate resulting discrepancy -- say $\mathrm{Gamma}(20,\mathrm{rate}=20)$.
 %
 
 When the true Pareto front cannot be estimated prior to undertaking CDO, %a vague prior can be used. But in order to avoid the identifiability problems of the Kennedy-O'Hagan framework, even a vague prior must be set so as to unde
@@ -365,17 +555,18 @@ the desired observations and the prior on the marginal precision of the discrepa
 %
 That is, where the prior on $\lambda_\delta$ cannot be chosen to be \emph{accurate} (due to insufficient prior knowledge) it should be chosen to \emph{overestimate} the precision.
 %
-Otherwise, the posterior distribution on $\lambda_\delta$ may shrink so that the posterior distribution on the calibration parameters $\boldsymbol \theta$ is not limited to the optimal region of the parameter space.
+Otherwise, underestimation of $\lambda_\delta$ may lead to poor identifiability of the optimal region of the parameter space.
+%Otherwise, the posterior distribution on $\lambda_\delta$ may shrink so that the posterior distribution on the calibration parameters $\boldsymbol \theta$ is not limited to the optimal region of the parameter space.
 %
-Again consider the example with the constant optimum in $[10,11]$, but suppose now that our prior knowledge is much more impoverished -- we can confidently hold only that the Pareto front takes positive values under $20$. 
+Again consider the example with the constant optimum in $[10,11]$, but suppose now that our prior knowledge is much more impoverished -- we can confidently hold only that the optimum takes positive values under $20$. 
 %
-Then a constant desired observation of $-1$ could be paired with a $\mathrm{Exp}(1)$ prior on $\lambda_\delta$.
+Then a constant desired observation of $-1$ could be paired with a $\mathrm{Exp}(1)$ prior on $\lambda_\delta$, to reflect our hope for a discrepancy of 1 while remaining open to a significantly larger discrepancy.
 %
 In such a case, by setting a prior that overestimates $\lambda_\delta$, the posterior distribution of $\lambda_\delta$ becomes less reliable than when the prior derives from substantive prior knowledge.
 %
-However, notice that even when $\lambda_\delta$ must be overestimated, the posterior distribution of $\boldsymbol \theta$ will still center on the optimal region of the parameter space.
+However,even when $\lambda_\delta$ must be overestimated, the posterior distribution of $\boldsymbol \theta$ will still peak at the optimal region of the parameter space, since the overestimation of $\lambda_\delta$ only increases the penalty of leaving that region.
 %
-And so while making do with vague knowledge of the Pareto front does interfere with one's ability to accurately locate the true discrepancy of the model from the desired observations, it does \emph{not} interfere with one's ability to locate the posterior mode of $\boldsymbol \theta$ and thereby the optimal settings for the model.
+And so while making do with vague knowledge of the optimum does interfere with one's ability to estimate the true discrepancy of the model from the desired observations, it does \emph{not} interfere with one's ability to locate the posterior mode of $\boldsymbol \theta$ and thereby the optimal settings for the model.
 %
 
 Furthermore, when the true Pareto front cannot be estimated prior to undertaking CDO, a preliminary round of CDO can be used to provide such an estimate.
@@ -459,7 +650,7 @@ Instead, given a distribution on body dimensions, we may seek to find the layout
 %
 By contrast, in traditional calibration, one ordinarily specifically calibrates those parameters over which we have no control, and whose true value we seek to discover. 
 %
-Thus, using field data from building evacuations, a researcher might use traditional calibration to try to calibrate SIMULEX to the appropriate distribution on body dimensions -- there treating building layout to be fixed (as the layout(s) of whichever buildings were evacuated in the field observations).
+%Thus, using field data from building evacuations, a researcher might use traditional calibration to try to calibrate SIMULEX to the appropriate distribution on body dimensions -- there treating building layout to be fixed (as the layout(s) of whichever buildings were evacuated in the field observations).
 
 %It may be tempting to undertake both calibrations simultaneously; however, this will typically not be possible. The reason is that these two sorts of calibration parameters tend not to overlap in the matter of which parameters are considered to be calibration parameters. The purpose of calibration to desired observations is to find optimal settings for parameters over which we have control; it's no use finding out that (e.g.) a building will be most efficiently evacuated when the occupants have average walking speed $s$, since we have no power to mandate the average walking speed of people fleeing a burning building. Instead, given a distribution on walking speeds, we may seek to find the layout that best contributes to efficient evacuation, since the building layout is under our control. By contrast, in traditional calibration, one ordinarily specifically calibrates those parameters over which we have no control, and whose true value we seek to discover. Thus, using field data from building evacuations, a researcher might use traditional calibration to try to calibrate SIMULEX to the appropriate distribution on walking speeds -- there treating building layout to be fixed (as the layout(s) of whichever buildings were evacuated in the field observations).
 
@@ -832,7 +1023,7 @@ The rightmost plot is included to verify that the posterior model output respect
 \label{fig:known_cost}
 \end{figure}
 
-\section{Conclusion}
+\section{Conclusion} \label{conclusion}
 % Discussion of the role of computer model validation as a potential methodology for design
 
 In this work we have described the theoretical background for the use of Gaussian processes to emulate computationally expensive computer model code, and the use of such emulators for computer model calibration under the framework established principally by \cite{Kennedy2001}, \cite{Williams2006} and \cite{Bayarri2007}. 
