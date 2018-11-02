@@ -110,7 +110,9 @@ In this paper, we explore the idea of calibrating a computer model to align with
 In the remainder of Section \ref{introduction}, we describe the calibration framework which we go on in Section \ref{calib_for_design} to adapt as a method for optimization. 
 %
 In Sections \ref{example} and \ref{application} we apply the proposed methodology to an example involving simulated data, and to an application in which the goal is to find material design settings to optimize the performance of a wind turbine blade.
-% 
+%
+Section \ref{application} we also apply the methodology to produce an estimate of the entire Pareto front of the (trivariate) system, where the Pareto front is the set of inputs such that making any of the system outputs better off would require making one or more of the outputs worse off. 
+%
 Section \ref{conclusion} concludes with discussion of the results.
 
 \subsection{Calibration framework} \label{calib_framework}
@@ -564,21 +566,31 @@ Then a constant desired observation of $-1$ could be paired with a $\mathrm{Exp}
 %
 In such a case, by setting a prior that overestimates $\lambda_\delta$, the posterior distribution of $\lambda_\delta$ becomes less reliable than when the prior derives from substantive prior knowledge.
 %
-However,even when $\lambda_\delta$ must be overestimated, the posterior distribution of $\boldsymbol \theta$ will still peak at the optimal region of the parameter space, since the overestimation of $\lambda_\delta$ only increases the penalty of leaving that region.
+Nonetheless, even when $\lambda_\delta$ must be overestimated, the posterior distribution of $\boldsymbol \theta$ will still peak at the optimal region(s) of the parameter space, since overestimation of $\lambda_\delta$ only increases the penalty of leaving that region.
 %
-And so while making do with vague knowledge of the optimum does interfere with one's ability to estimate the true discrepancy of the model from the desired observations, it does \emph{not} interfere with one's ability to locate the posterior mode of $\boldsymbol \theta$ and thereby the optimal settings for the model.
+And so while relying on vague knowledge of the optimum does interfere with one's ability to estimate the true discrepancy of the model from the desired observations, even in such circumstances one may still locate the posterior mode(s) of $\boldsymbol \theta$ and thereby the optimal settings for the model.
 %
+However, if $\lambda_\delta$ is too highly overestimated, then MCMC is at risk to become trapped in a local mode. 
+%
+In short, while the proposed methodology is forgiving of overestimation of $\lambda_\delta$, the identifiability of the optimal region(s) is best served by supplying as accurate and informative of a prior as possible. 
 
-Furthermore, when the true Pareto front cannot be estimated prior to undertaking CDO, a preliminary round of CDO can be used to provide such an estimate.
+When too little is known about the Pareto front of a system to select a performance target and an appropriate prior for $\lambda_\delta$, a preliminary round of CDO can be used to estimate the Pareto front.
 %
-E.g., consider again the case where we know only that the Pareto front is in the range $(0,20)$. 
+For example, consider again the univariate case where we know only that the optimum is in the range $(0,20)$. 
 %
-We can perform CDO with constant desired observation $-1$ and a prior on $\lambda_\delta$ that deliberately exploits the identifiability problems of the Kennedy-O'Hagan framework in order to explore large regions of the parameter space -- say $\mathrm{Exp}(\mathrm{rate}=0.1)$. 
+One can perform CDO with constant desired observation $-1$ and a prior on $\lambda_\delta$ that deliberately exploits the identifiability problems of the Kennedy-O'Hagan framework in order to explore large regions of the parameter space -- say $\mathrm{Exp}(\mathrm{rate}=0.1)$. 
 %
-The Pareto front of the resulting CDO sample draws can be used as an estimate of the true Pareto front in the vicinity of the desired observation.
+The Pareto front of the resulting predictive distribution can be used as an estimate of the true Pareto front in the vicinity of the desired observation.
 %
+This preliminary estimate (unlike the estimate achieved after full CDO) does not include uncertainty quantification, since it is achieved by filtering the predictive distribution samples to retain only the Pareto optimal points.
+%
+The preliminary estimate allows one to select a new (set of) desired observation(s) that are known to lie near the optimal region, along with an accurate and informative prior on $\lambda_\delta$ that reflects the estimated distance between the new desired observation(s) and the optimal region.
+%
+To continue the above example, preliminary CDO may show one that the true optimum across the domain of the control inputs is in the interval $[10,11]$, which puts one in a position to use the aforementioned combination of a constant desired observation of 9 and $\lambda_\delta\sim$Gamma(20, rate=20) prior.
 
-In the case of univariate output, the only reason to perform this preliminary step would be to improve the accuracy of the posterior discrepancy. 
+
+
+In the case of univariate output, the primary reason to perform this preliminary round of calibration would be to improve the accuracy of the posterior discrepancy. 
 %
 This is because in the case of univariate output, while there may be uncertainty about the magnitude of the difference between the Pareto front and a given set of desired observations, there is no uncertainty about the direction of this difference.
 %
@@ -586,17 +598,17 @@ But in the case of multivariate output, both the magnitude and the direction of 
 %
 In such a case, a poorly chosen set of desired observations may not result in calibration to the desired region of the Pareto front.
 %
-E.g., consider a case of bivariate positive output $(y_1,y_2)$ where within the Pareto front $y_2$ is continuous and strictly decreasing in $y_1$. 
+Consider a case of bivariate positive output $(y_1,y_2)$ where within the Pareto front $y_2$ is continuous and strictly decreasing in $y_1$. 
 %
-Then any value of $y_1$ corresponds to some point in the Pareto front.
+Then any value of $y_1$ corresponds to some point in the Pareto front, and so it may be antecedently unclear to what performance targets the system should be calibrated.
 %
-In such a case one often wishes to locate an ``elbow'' which maximizes $\frac{d^2 y_2}{dy_1^2}$.
+In such a case when selecting a target for optimization one often wishes to locate an ``elbow'' which maximizes $\frac{d^2 y_2}{dy_1^2}$.
 %
 Depending on its location, selecting (e.g.) $[0,0]$ as a desired observation might not achieve calibration to this elbow, if some other part of the Pareto front is closer to the desired observation than the elbow is.
 %
 It is in such a situation that a rough estimate of the Pareto front (if not antecedently available) via a preliminary round of CDO using a vague prior on $\lambda_\delta$ can be used to select a desired observation to which the closest region of the Pareto front is the region to which one wishes to calibrate.
 %
-Then for the second round of CDO one's desired observations and prior distribution on $\lambda_\delta$ can be chosen informatively, so that one will enjoy the above-described benefits both of calibrating to the desired region of the Pareto front and of improving the accuracy of one's posterior distribution on the discrepancy of the model from the desired observations.
+Then one may perform CDO using desired observations and a prior distribution on $\lambda_\delta$ that are chosen informatively, so that one will enjoy the above-described benefits both of calibrating to the desired region of the Pareto front and of improving the accuracy of one's posterior distribution on the discrepancy of the model from the desired observations.
 %
 Note that a preliminary round of CDO can use the same set of model observations as the subsequent CDO.
 %
@@ -631,58 +643,58 @@ So performing preliminary CDO to sharpen one's desired observation and $\lambda_
 %
 %Disadvantages are that, in contrast with the use of observation error, it is much less convenient to fine-tune the model discrepancy function to the details and priorities of a particular situation. For example, like \cite{Williams2006}, in the present work dummy variables are used to construct a univariate Gaussian emulator for our three model outputs. If we now wish to either specify different variances for the three outputs or to allow the data to discover different such variances (as suggested above for observation variances) via a model discrepancy function, we will not be able to use a stationary GP to model that discrepancy. That is, the covariance function for the discrepancy GP, $C_\delta(\mathbf x,\mathbf x')$, will depend not only on the distance between $\mathbf x$ and $\mathbf x'$, but on their location within the input space $\mathcal X$. This is an unattractive complication, but remains a live option.
 
-\subsection{Field observations and model discrepancy}
-% Here, discuss whether or how to include field observations.
-
-In the version of CDO presented thus far, the calibration has been entirely to desired observations. This invites the question of how to proceed when one wants to undertake both traditional calibration and calibration to desired observations. In other words: what happens when we have both desired observations \emph{and} field observations? 
-
-The question thus arises as to whether it is possible to undertake both calibrations simultaneously. 
+%\subsection{Field observations and model discrepancy}
+%% Here, discuss whether or how to include field observations.
 %
-This would seem to encounter the difficulty that one is allowing one's calibration parameters to be simultaneously ``pulled'' in two directions: toward the true values (by the field observations) and toward a target outcome (by the desired observations), with the result that neither calibration goal is achieved.
+%In the version of CDO presented thus far, the calibration has been entirely to desired observations. This invites the question of how to proceed when one wants to undertake both traditional calibration and calibration to desired observations. In other words: what happens when we have both desired observations \emph{and} field observations? 
 %
- But notice that these two sorts of calibration parameters tend not to overlap in the matter of which parameters are considered to be calibration parameters. 
-%
-The purpose of CDO is to find optimal settings for parameters over which we have control. 
-%
-It's no use finding out that (e.g.) a building will be most efficiently evacuated when the occupants have average body dimensions $\mathbf b$, since we have no power to mandate the body dimensions of people fleeing a burning building. 
-%
-Instead, given a distribution on body dimensions, we may seek to find the layout that best contributes to efficient evacuation, since the building layout is under our control. 
-%
-By contrast, in traditional calibration, one ordinarily specifically calibrates those parameters over which we have no control, and whose true value we seek to discover. 
+%The question thus arises as to whether it is possible to undertake both calibrations simultaneously. 
+%%
+%This would seem to encounter the difficulty that one is allowing one's calibration parameters to be simultaneously ``pulled'' in two directions: toward the true values (by the field observations) and toward a target outcome (by the desired observations), with the result that neither calibration goal is achieved.
+%%
+% But notice that these two sorts of calibration parameters tend not to overlap in the matter of which parameters are considered to be calibration parameters. 
+%%
+%The purpose of CDO is to find optimal settings for parameters over which we have control. 
+%%
+%It's no use finding out that (e.g.) a building will be most efficiently evacuated when the occupants have average body dimensions $\mathbf b$, since we have no power to mandate the body dimensions of people fleeing a burning building. 
+%%
+%Instead, given a distribution on body dimensions, we may seek to find the layout that best contributes to efficient evacuation, since the building layout is under our control. 
+%%
+%By contrast, in traditional calibration, one ordinarily specifically calibrates those parameters over which we have no control, and whose true value we seek to discover. 
 %
 %Thus, using field data from building evacuations, a researcher might use traditional calibration to try to calibrate SIMULEX to the appropriate distribution on body dimensions -- there treating building layout to be fixed (as the layout(s) of whichever buildings were evacuated in the field observations).
 
 %It may be tempting to undertake both calibrations simultaneously; however, this will typically not be possible. The reason is that these two sorts of calibration parameters tend not to overlap in the matter of which parameters are considered to be calibration parameters. The purpose of calibration to desired observations is to find optimal settings for parameters over which we have control; it's no use finding out that (e.g.) a building will be most efficiently evacuated when the occupants have average walking speed $s$, since we have no power to mandate the average walking speed of people fleeing a burning building. Instead, given a distribution on walking speeds, we may seek to find the layout that best contributes to efficient evacuation, since the building layout is under our control. By contrast, in traditional calibration, one ordinarily specifically calibrates those parameters over which we have no control, and whose true value we seek to discover. Thus, using field data from building evacuations, a researcher might use traditional calibration to try to calibrate SIMULEX to the appropriate distribution on walking speeds -- there treating building layout to be fixed (as the layout(s) of whichever buildings were evacuated in the field observations).
 
-This separation between what constitutes the calibration parameters of the two procedures opens the possibility of the two calibrations proceeding simultaneously, without undermining one another. This possibility will be pursued in future work on this subject. However, an alternative solution is to undertake traditional calibration prior to CDO, finding both a distribution on the (traditional) calibration parameters and an estimated model discrepancy function. Thus one arrives at CDO (assuming success in the former calibration) with a model that faithfully represents the true system.
+%This separation between what constitutes the calibration parameters of the two procedures opens the possibility of the two calibrations proceeding simultaneously, without undermining one another. This possibility will be pursued in future work on this subject. However, an alternative solution is to undertake traditional calibration prior to CDO, finding both a distribution on the (traditional) calibration parameters and an estimated model discrepancy function. Thus one arrives at CDO (assuming success in the former calibration) with a model that faithfully represents the true system.
 
 %As a first approximation, in the unlikely event that the calibration parameters coincide under the two sorts of calibration, it would be possible to undertake a single round of calibration to both field and desired observations. It would be necessary to take care with how to treat model shortcoming in this scenario. Attempting to capture it via the model discrepancy function would likely lead to confounding the true model discrepancy with the model shortcoming, undermining both calibration goals. A more hopeful route would be to use observation variance to incorporate the model shortcoming; this would allow one to specify a larger observation variance for desired observations than for field observations (and that only if these two sets of observations do not share locations in $\mathcal X$). Even this strategy would only mitigate the confounding of the two calibration goals, and should only be used if the budget for simulation observations is so small as to make it infeasible to perform two separate calibrations.
 
-\subsection{Hyperparameter estimation}\label{hyperparameter_estimation}
-% Basically, make the case for modularization here. So your desired data doesn't infect your hyperparameters. After all, you want these set to most closely emulate the computer model. You want these reflecting reality, not reflecting your targets.
-Consider the covariance function parameters $\lambda_\eta,\boldsymbol \beta^\eta$ in (\ref{eq:Hig_cov}). 
+%\subsection{Hyperparameter estimation}\label{hyperparameter_estimation}
+%% Basically, make the case for modularization here. So your desired data doesn't infect your hyperparameters. After all, you want these set to most closely emulate the computer model. You want these reflecting reality, not reflecting your targets.
+%Consider the covariance function parameters $\lambda_\eta,\boldsymbol \beta^\eta$ in (\ref{eq:Hig_cov}). 
+%%
+%In a full Bayesian analysis, these would be searched over in the MCMC along with the calibration parameters. 
+%%
+%However, \cite{Kennedy2001} instead find the MLEs of these hyperparameters prior to calibration. 
+%%
+%More generally, \cite{Bayarri2007} and \cite{Liu2009} advocate what they call ``modularization''. 
+%%
+%Modularization refers to separating sources of information, so that the model has distinct components or ``modules'', rather than allowing all information to combine into a single analysis under the umbrella of Bayes' theorem.
+%%
+%\cite{Liu2009} focus directly on the use of modularization, exploring its advantages and disadvantages; amongst other potential motivations, they show that modularization can improve the identifiability of calibration parameters. 
+%%
+%A key motivation of modularization is to protect good components of the model from ``suspect'' components of the model, and desired observations are, by their very nature, ``suspect''. 
+%%
+%In other words, the model most successfully represents reality when the settings for these hyperparameters are guided by accurate and precise information about the true system. 
+%%
+%Desired observations are deliberately not such information. 
+%%
+%Attempting a full Bayesian analysis that finds these hyperparameter settings as part of CDO would be violate the principle that CDO should be used to tune only those parameters which are within our control over a range $\mathcal T$ such that the model faithfully represents reality over all of $\mathcal T$. 
+%%
+%In the true system, the hyperparameters of the covariance function are not under our control.
 %
-In a full Bayesian analysis, these would be searched over in the MCMC along with the calibration parameters. 
-%
-However, \cite{Kennedy2001} instead find the MLEs of these hyperparameters prior to calibration. 
-%
-More generally, \cite{Bayarri2007} and \cite{Liu2009} advocate what they call ``modularization''. 
-%
-Modularization refers to separating sources of information, so that the model has distinct components or ``modules'', rather than allowing all information to combine into a single analysis under the umbrella of Bayes' theorem.
-%
-\cite{Liu2009} focus directly on the use of modularization, exploring its advantages and disadvantages; amongst other potential motivations, they show that modularization can improve the identifiability of calibration parameters. 
-%
-A key motivation of modularization is to protect good components of the model from ``suspect'' components of the model, and desired observations are, by their very nature, ``suspect''. 
-%
-In other words, the model most successfully represents reality when the settings for these hyperparameters are guided by accurate and precise information about the true system. 
-%
-Desired observations are deliberately not such information. 
-%
-Attempting a full Bayesian analysis that finds these hyperparameter settings as part of CDO would be violate the principle that CDO should be used to tune only those parameters which are within our control over a range $\mathcal T$ such that the model faithfully represents reality over all of $\mathcal T$. 
-%
-In the true system, the hyperparameters of the covariance function are not under our control.
-
-Therefore, care should be taken to prevent the desired observations from ``infecting'' the covariance hyperparameters, since we want the latter to reflect reality rather than our performance targets. The way that this is prevented in the application of Section \ref{application} is by using maximum likelihood estimation from the simulation observations alone to estimate these values. Field observations could be used here as well, either for the maximum likelihood estimation or for a modular Bayesian analysis \`a la \cite{Liu2009}.
+%Therefore, care should be taken to prevent the desired observations from ``infecting'' the covariance hyperparameters, since we want the latter to reflect reality rather than our performance targets. The way that this is prevented in the application of Section \ref{application} is by using maximum likelihood estimation from the simulation observations alone to estimate these values. Field observations could be used here as well, either for the maximum likelihood estimation or for a modular Bayesian analysis \`a la \cite{Liu2009}.
 
 \section{Example}\label{example}
 To illustrate CDO, consider the following artificial problem. 
@@ -693,13 +705,13 @@ We consider three outputs:
 %
 \begin{equation}\label{eq:toy_sim_outputs}
 \begin{aligned}
-y_1 &= \left(\theta_1 \exp\left(-\left(\theta_1 + \lvert \theta_2-\frac{\pi\cdot x}2\rvert \right)\right)+1\right)^{-1}\\
+y_1 &= \left(\theta_1 \exp\left(-\left(\theta_1 + \lvert \theta_2-\frac{\pi x}2\rvert \right)\right)+1\right)^{-1}\\
 y_2 &= \left(\theta_2^{x-1} \exp\left(-0.75 \theta_2\right) + 1 \right)^{-1} \\
 y_3 &= 15 + 2 \theta_1 + \frac{\theta_2^2}4.
 \end{aligned}
 \end{equation}
 %
-Figure \ref{fig:toy_sim_outputs} shows the three model outputs on a common scale over the support of the calibration parameters, for $x=2$.
+Figure \ref{fig:toy_sim_outputs} displays the $y_1, y_2$, and $y_3$ surfaces as functions of $\theta_1$ and $\theta_2$ at $x = 2$ on a common scale.
 %
 \begin{figure}
 \centering
@@ -709,33 +721,39 @@ Figure \ref{fig:toy_sim_outputs} shows the three model outputs on a common scale
 \label{fig:toy_sim_outputs}
 \end{figure}
 %
-For CDO, the true function was used (rather than a GP emulator). 
+%For CDO, the true function was used (rather than a GP emulator). 
 %For CDO, a budget of 432 model observations was used. 
 %%
 %These were drawn as a full factorial design on a $3\times12\times12$ evenly-space grid over the supports of $x,\theta_1,\theta_2$. 
 %%
 %Using these model runs, the covariance function parameters $\lambda_\eta,\boldsymbol \beta^\eta$ in (\ref{eq:Hig_cov}) were set to their MLEs: $\lambda_\eta = 8.37\cdot10^{-4}$, $\boldsymbol\rho^\eta = [0.281, 0.999, 0.600, 0.720, 0.103]$ where $\rho^\eta_k = \exp(-\beta_k^\eta/4)$. 
-Thus we have 
+%Thus we have 
+Assuming an easily evaluated model, we have
 %
 \[
-\mathbf y_j = \mathbf f(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x) + \epsilon_j
+\mathbf y(\mathbf x, \boldsymbol\theta) = \mathbf f(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x) + \epsilon
 \]
 %
-for desired observation $\mathbf y_j$, where $\mathbf f$ is the model output, $\delta(\cdot)$ is the discrepancy function and $\epsilon_j$ is independent $N(0,0.05)$ for all $j$.
+for desired observation $\mathbf y$, where $\mathbf f$ is the model output, $\delta(\cdot)$ is the discrepancy function and $\epsilon$ is $N(0,0.05)$.
 
 We initially set the desired observations to $[0,0,0]$, constant as a function of $x$. 
 %
-We then estimated the Pareto front via a preliminary round of CDO in order to estimate the distance (after standardizing the outputs to a common scale) of the desired observation from the Pareto front.
+We then estimated the Pareto front via a preliminary round of CDO in order to estimate the standardized distance of the desired observation from the Pareto front.
 %
-The distance from the Pareto front to the desired observation was found to be large -- at 16 units on the standardized scale, roughly four times the diameter of the Pareto front itself. 
+The distance from the estimated Pareto front to the desired observation was found to be large -- at 16 units on the standardized scale, roughly four times the diameter of the entire model range.
 %
-In order to improve identifiability of the region of the Pareto front closest to the desired observation, we updated the latter to lie closer to the Pareto front (along the same line connecting the Pareto front to the orginal desired observation).
+As a result, the use of $[0,0,0]$ as a desired observation would lead to poor identifiability of the optimal region. 
 %
-We chose a distance of one unit away (roughly one fourth of the diameter of the Pareto front), approaching the (estimated) Pareto front as closely as possible while remaining confident that the new desired observation of $[0.71, 0.71, 17.92]$ still outperforms the true Pareto front.
+This is because the desired observation is approximately the same distance from any point in the model range, relative to the distance from the desired observation to the optimal region.
 %
-We then set the discrepancy marginal precision $\lambda_\delta$ to 1 for subsequent CDO, corresponding to a degenerate informative prior at the estimated value from preliminary CDO.
+%Therefore in order to improve identifiability of the optimal region, we updated the desired observation to lie closer to the estimated Pareto front (along the same line connecting to the orginal desired observation).
+Therefore in order to improve identifiability of the optimal region, we updated the desired observation to lie along the same line connecting the original desired observation to the estimated Pareto front, but now closer to the latter.
 %
-Observation error $\epsilon(\cdot)$ from \eqref{eq:model_gen} was specified as $N(0,0.05)$ for all $x$.
+We chose a distance of one unit away (roughly one fourth of the diameter of the model range), approaching the estimated Pareto front as closely as possible while remaining confident that the new desired observation of $[0.71, 0.71, 17.92]$ still outperforms the true Pareto front (i.e., lies outside the model range and is such that if it were added to the model range, it would be a Pareto optimal point).
+%
+We then set the discrepancy marginal precision $\lambda_\delta$ to 1 for subsequent CDO, corresponding to a degenerate prior informed by the estimated distance of the new desired observatino from the Pareto front.
+%
+Observation error $\epsilon(\cdot)$ from \eqref{eq:model_gen} was taken to be distributed as $N(0,0.05)$ for all $x$.
 %
 Figure \ref{fig:toy_sim_results} shows the results, including the marginal distributions of the calibration parameters. 
 %
@@ -749,14 +767,13 @@ The calibration successfully maps the contours of the optimal region, and peaks 
 \centering
 \includegraphics[width=.75\linewidth]{FIG_toy_sim_model_results}
 \captionsetup{width=.75\linewidth}
-\caption{Posterior draws from CDO. The heatmap shows, for each point in the parameter space, the Euclidean distance of the model output at that point from the desired observation. The purple dot shows the true optimum.}
+\caption{Posterior draws from CDO in the simulated example. The heatmap shows, for each point in the parameter space, the Euclidean distance of the model output at that point from the desired observation (averaged across the control input range $[1.95,2.05]$). The purple dot shows the true optimum.}
 \label{fig:toy_sim_results}
 \end{figure}
 
 
 
 \section{Application}\label{application}
-%% HERE
 
 In this section we describe the use of CDO for the problem of designing a material for constructing a wind turbine blade of fixed geometry. 
 %
@@ -768,17 +785,25 @@ It is desirable to wed these design processes, selecting a material design by mo
 %
 Therefore, here we offer an example of calibrating material design parameters to desired performance targets for a wind turbine blade. 
 %
-This calibration is mediated by a finite element model using \texttt{ANSYS} simulation software, which is treated as an accurate representation of reality. %In this section I describe the emulator, and in Section \ref{MCMC} I describe its use for the calibration procedure.
+This calibration is mediated by a model using \texttt{ANSYS} finite element analysis software. 
+%
+The finite element model is treated as an accurate representation of reality. %In this section I describe the emulator, and in Section \ref{MCMC} I describe its use for the calibration procedure.
 
 \subsection{Project background}
 
-Two primary performance targets for the design and construction of wind turbine blades are the distance (in meters) that the blade tip deflects under load from its starting position, and the angle (in radians) that the blade undergoes rotation when under load. 
+Two primary performance targets for the design and construction of wind turbine blades are the distance (in meters) that the blade tip deflects under load from its starting position, and the angle of rotation the blade experiences under load.
 %
-Each of these measures should ideally be as close to zero as possible.
-In selecting the composite material used to build the turbine blade, given a choice of matrix and filler materials, the properties of the material depend on the volume fraction (i.e. the volume ratio of filler material to matrix material used in the composite) and the thickness of the material used to build the blade. 
+Within the set of materials studied here, it is desirable that each of these measures be as close to zero as possible.
+%
+The blade is to be a composite of two given materials, one serving as the \textit{matrix} and the other the \textit{filler}. 
+%
+In a composite, the matrix holds the filler together; an example would be concrete, in which a filler of loose stones is combined with a matrix of cement.
+%
+For the wind turbine blade, given a fixed choice of matrix and filler, the properties of the composite depend on the volume fraction (i.e. the volume ratio of filler material to matrix material used in the composite) and the thickness of the material used to build the blade. 
 %
 The resulting material properties impact the performance of the blade, as well as its cost per square meter. 
 %
+We used CDO to find a distribution on optimal settings for volume fraction and filler.
 
 The finite element model takes as inputs a triplet $(h,v,k)$, where $h$ is the operating temperature of the wind turbine (in kelvin), $v$ is the volume fraction of the material, and $k$ is the thickness of the material (in mm). 
 %
@@ -787,10 +812,10 @@ The wind turbine should be capable of operating over the range of temperatures 2
 %
 The goal of calibration is thus to find posterior distributions on $v$ and $k$ given outputs from the finite element simulator and desired observations.
 
-\subsection{Emulation of finite element simulator}\label{emulator}
+\subsection{Emulation of finite element model}\label{emulator}
 The finite element simulator is too computationally expensive to be suitable for direct use in (e.g.) an MCMC routine. 
 %
-Thus we employ a GP emulator in the manner of \cite{Williams2006}. 
+Thus we employed a GP emulator in the manner of \cite{Williams2006}. 
 %
 For this purpose, we drew 504 (trivariate) observations from the finite element simulator. 
 %
@@ -809,7 +834,8 @@ For the reasons discussed in Section \ref{hyperparameter_estimation}, we estimat
 %Initially, a grid optimization method was used: a grid of $\boldsymbol \beta^\eta$ values was used, finding at each point of the grid the likelihood of the simulation observations integrated over the support of $\lambda_\eta$. 
 %
 %However, $\boldsymbol \beta^\eta$ is a five-dimensional vector, and a grid fine enough to be useful was too computationally burdensome to be feasible. Instead, a 
-We used a gradient descent method \citep{Cauchy1847} to maximize the log-likelihood of the simulation observations over the joint (6-dimensional) support of $\boldsymbol \beta^\eta,\lambda_\eta$.  
+We used \texttt{fmincon()} in {\sc Matlab} %\citep{Cauchy1847} 
+to maximize the log-likelihood of the simulation observations  (Equation \eqref{eq:full_dist} with $\mathcal D=\boldsymbol\eta$) over the joint (6-dimensional) support of $\boldsymbol \beta^\eta,\lambda_\eta$.  
 %
 The result is $\hat\lambda_\eta = 0.0152$, $\boldsymbol {\hat\rho}^\eta = (0.9358, 0.6509, 0.6736, 0.4797, 0.9673)$
 %\begin{equation}\label{eq:MLEs}
@@ -871,7 +897,7 @@ where $\mu^*(\mathbf b) = \mathbf C_{\mathbf b,\mathbf B} \cdot \mathbf C_{\math
 %
 All model inputs are normalized to [0,1] over their supports. All model outputs are standardized so that $\boldsymbol\eta$ has mean 0 and standard deviation 1.
 %
-$C(\cdot,\cdot)$ is given by (\ref{eq:Hig_cov}), where I plug in the MLEs given above. 
+$C(\cdot,\cdot)$ is given by (\ref{eq:Hig_cov}), where we plug in the MLEs given above. 
 %
 The full joint posterior density of the calibration parameters and discrepancy function hyperparameters, from \eqref{eq:full_dist}, is
 \begin{equation} \label{eq:wt_full_dist}
@@ -885,17 +911,17 @@ The full joint posterior density of the calibration parameters and discrepancy f
 \end{equation}
 %
 
-The initial desired observations were set to $[0,0,0]$, constant as a function of temperature.
+The initial desired observations were set to $[0,0,0]$, constant as a function of temperature, on a grid of temperature values.
 %
 We carried out an initial round of CDO in order to update the desired observations to ones that lie an estimated distance of 1 (on a standardized scale) from the Pareto front.
 %
-A total of 20,000 samples were drawn via Metropolis-Hastings-within-Gibbs MCMC, of which 4,000 samples were thrown out as burn-in. 
+A total of 20,000 samples were drawn via Metropolis-Hastings-within-Gibbs MCMC, of which 4,000 samples were discarded as burn-in. 
 %
-During the burn-in period, the covariance of the proposal distributions for $\boldsymbol \theta$, $\lambda_\delta$, and $\boldsymbol\rho^\delta$ were all adjusted for optimal acceptance rates. 
+During the burn-in period, the covariance of the proposal distributions for $\boldsymbol \theta$, $\lambda_\delta$, and $\boldsymbol\rho^\delta$ were all periodically adjusted for optimal acceptance rates using the sample covariance of the preceding draws.
 %
-The adjustment took place every 100 iterations of the MCMC, at which point the relevant covariance matrix was set to be equal to the sample covariance of the previous draws, times a scalar multiplier. 
+%The adjustment took place every 100 iterations of the MCMC, at which point the relevant covariance matrix was set to be equal to the sample covariance of the previous draws, times a scalar multiplier. 
 %
-The level of the scalar multiplier was adaptively adjusted to promote optimal acceptance rates of $\approx 30\%$ for $\boldsymbol\theta$ and $\boldsymbol\rho$, and $\approx 44\%$ for $\lambda_\delta$.
+%The level of the scalar multiplier was adaptively adjusted to promote optimal acceptance rates of $\approx 30\%$ for $\boldsymbol\theta$ and $\boldsymbol\rho$, and $\approx 44\%$ for $\lambda_\delta$.
 %
 As expected for the preliminary round of CDO, the posterior distribution of $\boldsymbol\theta$ was quite diffuse.
 %
@@ -922,7 +948,7 @@ To do so, we set the point $[\mathrm{deflection}=0.75\mathrm m,\
 %
 The elbow is the closest region of the Pareto front to this point.
 %
-Based on the estimated PF, the desired observation is approximately 0.2 units away on the standardized scale.
+Based on the estimated Pareto front, the desired observation is approximately 0.2 units away on the standardized scale.
 %
 Therefore, we set $\lambda_\delta=1/0.2^2=25.$
 %
@@ -948,6 +974,8 @@ If one desires to prioritize gains in performance over cost, this can be accompl
 \subsection{Removing calibration parameters}\label{removing_cal_pars}
 
 %\subsubsection{Motivation}
+
+Often in the case of a system with multivariate output, one might not antecedently have a clear target outcome %HERE
 
 Where a model contains several outputs that one wishes to optimize, it can become complicated to juggle one's priorities in selecting targets for each of these outputs.
 %
