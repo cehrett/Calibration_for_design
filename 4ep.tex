@@ -8,7 +8,7 @@
 \usepackage[title]{appendix}
 \usepackage[ruled]{algorithm2e}
 
-\author{Carl Ehrett, Sez Atamturktur, Andrew Brown,\\Evan Chodora, Mingzhe Jiang, Christopher Kitchens}
+\author{Carl Ehrett, Andrew Brown, Evan Chodora, \\Mingzhe Jiang, Christopher Kitchens, Sez Atamturktur}
 %\date{}
 \title{Computer model calibration as a method of design}
 
@@ -31,7 +31,7 @@ We demonstrate our proposed methodology in both an artificial case and in the ca
 %
 In the latter case, we demonstrate how to estimate the Pareto front with uncertainty bands.\\
 
-{{\bf Keywords:} Uncertainty quantification, Gaussian processes, optimization}
+{{\bf Keywords:} Uncertainty quantification, Gaussian processes, optimization, Pareto optimality, wind turbines, material design}
 \end{abstract}
 
 \section{Introduction} \label{introduction}
@@ -971,21 +971,33 @@ Though the performance outcomes are approximately the same under the posterior d
 %
 If one desires to prioritize gains in performance over cost, this can be accomplished by selecting desired observations that reflect those priorities. 
 
-\subsection{Removing calibration parameters}\label{removing_cal_pars}
+\subsection{Pareto front estimation}\label{removing_cal_pars}
 
 %\subsubsection{Motivation}
 
-Often in the case of a system with multivariate output, one might not antecedently have a clear target outcome %HERE
-
-Where a model contains several outputs that one wishes to optimize, it can become complicated to juggle one's priorities in selecting targets for each of these outputs.
+Often in the case of a system with multivariate output, one might not antecedently have a clear target outcome.
 %
-Again to speak from the wind turbine application: we know we want to keep cost, deflection, and rotation low, but we might not have a clear prior conception of exactly what sorts of trade-offs amongst those outcomes we would consider optimal, much less how to implement our priorities in the calibration procedure. 
+When \textit{ceteris paribus} all outputs are to be minimized, any point in the Pareto front is optimal relative to some set of priorities.
 %
-Rather than wishing to optimize relative to some particular set of desired observations, one may prefer simply to learn as much as possible about the Pareto front as a whole.
+If those priorities have not been explicitly determined prior to calibration, then no particular outcome can be targeted.
 %
-In low-dimensional cases this may be achieved using CDO as follows.
+In determining one's priorities, it is helpful to know the Pareto front of the relevant system.
 %
-Where the model output is $d-$dimensional, one may draw a grid over the range of $d-1$ of the model outputs and perform CDO to minimize the remaining output at each point of the grid.
+For example, in a system where quality is monotonically increasing in cost, depending on one's tolerance for high cost any point in the model range might be optimal.
+%
+In determining one's priorities and selecting a target outcome, it is valuable to have a clear and accurate understanding of the Pareto front of the system.
+%
+In low-dimensional cases, CDO may be used to achieve such a holistic picture of the Pareto front by optimizing to each of a grid of performance targets.
+%
+%Where a model contains several outputs that one wishes to optimize, it can become complicated to juggle one's priorities in selecting targets for each of these outputs.
+%
+%Again to speak from the wind turbine application: we know we want to keep cost, deflection, and rotation low, but we might not have a clear prior conception of exactly what sorts of trade-offs amongst those outcomes we would consider optimal, much less how to implement our priorities in the calibration procedure. 
+%
+%Rather than wishing to optimize relative to some particular set of desired observations, one may prefer simply to learn as much as possible about the Pareto front as a whole.
+%
+%In low-dimensional cases this may be achieved using CDO as follows.
+%
+To do this, where the model output is $d-$dimensional, one may draw a grid over the range of $d-1$ of the model outputs and perform CDO to minimize the remaining output at each point of the grid.
 %
 The $d-1$ outputs, at each grid point, are treated as known up to observation error (meaning that the discrepancy function $\delta(\cdot)$ is set to 0 in the dimension of these outputs).
 %
@@ -994,20 +1006,24 @@ The resulting estimate is distinguished from other methods of estimating the Par
 
 This procedure is illustrated here using the wind turbine blade application.
 %
-For simplicity, rotation has been removed as a model output, leaving a 2-dimensional model output of deflection and cost. 
+For simplicity, rotation has been removed as a model output, leaving a system with 2-dimensional output of deflection and cost. 
 %
-A 20-point grid was drawn over costs. 
+The range of cost is known (via preliminary CDO) to be $[\$96,\$352]$.
 %
-Using the rough estimate of the Pareto front from preliminary CDO, we found that to cover the Pareto front, the cost grid should cover the range $[\$96,\$352]$.
+A 20-point grid was drawn over this range of costs. 
 %
-For each point $c$ in the cost grid, we used the point $[0\mathrm m,\$c]$ as an initial desired observation (constant with respect to temperature).
+%Using the rough estimate of the Pareto front from preliminary CDO, we found that to cover the Pareto front, the cost grid should cover the range $[\$96,\$352]$.
 %
-We then updated this initial desired observation, using the rough estimate from preliminary CDO, to be a point which lies near the Pareto front, to improve identifiability.
+For each point $c$ in the cost grid, we used the point $(0\mathrm m,\$c)$ as the performance target for calibration (constant with respect to temperature).
 %
-Here as in Section \ref{the_model}, ``near'' was taken to be 0.2 units on the standardized scale of model outputs.
+For each such point, then updated this initial desired observation to improve identifiability using the rough estimate of the Pareto front from preliminary CDO using desired observation $(0\mathrm m,\$0)$.
 %
-
-
+Note that only one round of preliminary CDO was needed for this purpose, rather than a separate instance at each grid point.
+%
+%, to be a point which lies near the Pareto front, to improve identifiability.
+%
+%Here as in Section \ref{the_model}, ``near'' was taken to be 0.2 units on the standardized scale of model outputs.
+%
 
 %\paragraph{Specifying known cost}\label{known_cost}
 %
@@ -1028,13 +1044,15 @@ Here as in Section \ref{the_model}, ``near'' was taken to be 0.2 units on the st
 %\end{equation}
 %where $\mathbf C_{\mathbf y}$ is the diagonal matrix where the $j,j$ entry $c_j$ is equal to $\sigma^2_1$ if $y_j$ is an observation of deflection, $c_j=\sigma^2_2$ if $y_j$ is an observation of rotation, and $c_j = s$ if $y_j$ is an observation of cost, for some small pre-selected value of $s$. In this application, I set $s=0.05$, so that the observation variance on standardized cost values at each point of the grid was 0.05. 
 
-The result of this strategy is similar to that one can derive a response surface over the $d-1$-dimensional grid of outputs, where that response describes the optimal results across the grid. 
+%The result of this strategy is similar to that one can derive a response surface over the $d-1$-dimensional grid of outputs, where that response describes the optimal results across the grid. 
 %
-If the grid covers the Pareto front in $d-1$ dimensions, then the result of the strategy is to provide a response surface with included uncertainty quantification describing, for each point in the grid, the optimal achievable outcome for the output not included in the grid.
+%If the grid covers the Pareto front in $d-1$ dimensions, then t
+The result of the strategy is to provide an estimate of the response surface with included uncertainty quantification describing, for each point in the grid, the optimal achievable outcome for the output not included in the grid.
 %
 Thus a decisionmaker can visualize the space of desirable possibilities with associated uncertainty metrics. 
 %
-They can do so without the need for antecedently rigorously determining their exact priorities for weighing gains in each of the outputs against one another, nor (much worse) working out how to translate those priorities into specific choices of desired observations and observation variance schemes. 
+They can do so without the need for antecedently rigorously determining their exact priorities for weighing gains in each of the outputs against one another.
+%, nor (much worse) working out how to translate those priorities into specific choices of desired observations and observation variance schemes. 
 %This is similar to the strategy of the previous section, but in addition to other benefits, this result has better interpretability in that the grid is over one of the model outputs, rather than over a hyperparameter whose interpretation is somewhat dubious. For example, a decision-maker is likely to feel quite comfortable choosing a budget based on expected outcomes at each cost; they may be less comfortable selecting a value of $\lambda_{cost}$.
 
 %The same sort of uncertainty analysis described in Section \ref{non-uniform_prior} is available here, since posterior parameter uncertainty and code uncertainty are easily recovered from the results of the MCMC routine. 
@@ -1042,6 +1060,15 @@ They can do so without the need for antecedently rigorously determining their ex
 The result of applying this strategy to the wind turbine blade application is shown in Figure \ref{fig:known_cost}. 
 %
 The rightmost plot is included to verify that the posterior model output respected the d-known cost values used in the calibrations.
+%
+The Pareto front for the system appears with uncertainty bands in the righthand plot.
+%
+This plot visualizes a distribution on the optimal performance outcome for any cost that a decisionmaker might select as a budget for production, which would be helpful when selecting a budget.
+%
+For example, the elbow around \$140 manifests itself as a potentially attractive choice, since it can be seen in the plot that prior to that point each dollar spent brings significant gains in reducing deflection.
+%
+Spending above that level continues to reduce deflection, but less sharply.
+
 
 \begin{figure}
 \centering
@@ -1051,24 +1078,43 @@ The rightmost plot is included to verify that the posterior model output respect
 \label{fig:known_cost}
 \end{figure}
 
+
+
+
 \section{Conclusion} \label{conclusion}
 % Discussion of the role of computer model validation as a potential methodology for design
 
-In this work we have described the theoretical background for the use of Gaussian processes to emulate computationally expensive computer model code, and the use of such emulators for computer model calibration under the framework established principally by \cite{Kennedy2001}, \cite{Williams2006} and \cite{Bayarri2007}. 
+In this work we have described the 
+%theoretical background for the use of Gaussian processes to emulate computationally expensive computer model code, and the 
+use of computer model calibration under the framework established by \cite{Kennedy2001}, \cite{Williams2006} and \cite{Bayarri2007} and how it can be used to address questions of engineering design. 
 %
-CDO is a modification of that framework which calibrates a computer model, not to field observations, but rather to desired observations, i.e., performance targets for the system. 
+CDO is a modification of that framework which calibrates a computer model, not to field observations, but rather to desired observations; i.e., performance targets for the system. 
 %
-Unlike other methods of Bayesian optimization (for an overview of which see \citealt{Shahriari2016}), CDO does not require the ability to carry out computer model observations adaptively.
+Unlike other methods of Bayesian optimization (e.g., \citealt{Shahriari2016}), CDO does not require the ability to carry out computer model observations adaptively.
 %
 Instead, it can operate using a batch of observations gathered prior to (and independently of) the calibration procedure.
 %
 We described the implementation of this approach in an MCMC routine along with considerations to accommodate computational instability.
-
-The use of this methodology is illustrated in the case of material design for a wind turbine blade. 
 %
-We have shown thereby a variety of ways in which CDO can be used to produce a guide that decision-makers can consult in the design process. 
+The use of this methodology is illustrated in the case of material design for a wind turbine blade. 
+
+We have shown thereby a variety of ways in which CDO can be used to guide decision-makers in the design process. 
 %
 By expropriating established tools of model calibration, CDO offers a method of optimization which is sensitive to all sources of uncertainty, and which results in an estimate that includes uncertainty quantification.
+
+As discussed earlier, the methodology as described here treats the computer model as universally valid over the domain of the calibration inputs. 
+%
+Future work in this area will include the use of a discrepancy term capturing model bias.
+%
+This would allow for simultaneous calibrations: both traditional and CDO.
+%
+That is, a computer model could be calibrated to real observations while also being calibrated to performance targets treated as desired observations.
+%
+These two goals would not necessarily conflict, since the two calibrations take different inputs as the calibration parameters.
+% 
+CDO calibrates inputs that are under operator control, and thereby would be treated as control inputs in traditional calibration.
+%
+Other extensions of the proposed methodology could include its application to state-aware calibration \citep{Atamturktur2015,Stevens2018,Brown2016}, which would allow the optimal region of the calibration parameters to vary as a function of the control inputs.
 
 
 
