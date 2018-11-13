@@ -46,10 +46,10 @@ costs = reshape(cost_n,[],length(theta1));
 
 e1 = [  0   0   0 ] ;  % output 1 color
 e2 = [.25 .25 .25 ] ;  % output 1 color
-e3 = [.75 .75 .75 ] ;  % output 1 color
+e3 = [.9 .9 .9 ] ;  % output 1 color
 f1 = 'r'; f2='g'; f3='b'; % for color version
-ea = .85       ;  % edge alpha
-fa = .85       ;  % face alpha
+ea = 1      ;  % edge alpha
+fa = .1       ;  % face alpha
 
 f=figure();
 surf(theta2,theta1,oscls,'FaceColor',e1,'EdgeColor',e1,...
@@ -86,7 +86,7 @@ hh.Position = hh.Position + [ 0 -.115 0 0 ];
 
 %saveas(f,'FIG_toy_sim_model_outputs.png');
 set(f,'Color','w');
-export_fig FIG_toy_sim_model_outputs -eps -m3 -painters 
+% export_fig FIG_toy_sim_model_outputs -eps -m3 -painters 
 
 %% Toy sim results using set discrep marginal precision for var vals
 %%% COLOR VERSION
@@ -134,7 +134,7 @@ clc ; clearvars -except dpath ; close all ;
 hh=figure();
 
 % Set desired observation
-%des_obs_os = [ 0 0 0];
+des_obs_os = [ 0 0 0];
 
 % Set true optimum: this is for desired observation [0 0 0] and for desired
 % observations derived from that one
@@ -147,7 +147,7 @@ load([dpath,'Example\Ex_results\'...
     'results');
 
 samps = results.samples_os(results.settings.burn_in:end,:);
-des_obs_os = results.settings.desired_obs;
+%des_obs_os = results.settings.desired_obs;
 [theta1,theta2] = meshgrid(linspace(0,3,1000),linspace(0,6,1000));
 % Load true samples;
 load([dpath,'Example\Ex_results\'...
@@ -180,7 +180,8 @@ title(['Posterior \theta samples: desired obs. '...
     '[0.71 0.71 17.92], \lambda_\delta = 1']);
 
 %%% Now add contour plot 
-[C,h]= contour(theta1,theta2,redists,[1 2 3 4 5 ],'LineWidth',3);
+%[C,h]= contour(theta1,theta2,redists,[1 2 3 4 5 ],'LineWidth',3);
+[C,h]= contour(theta1,theta2,redists,[16 17 18 19 20 ],'LineWidth',3);
 clabel(C,h,'fontsize',12);
 xlabel('\theta_1'); ylabel('\theta_2');
 
@@ -196,13 +197,14 @@ p=plot(optim(1),optim(2),'ok','MarkerSize',7,'MarkerFaceColor','m',...
 
 %%% Turn last one into version for SCSC poster:
 title(['Posterior \theta samples']);
-% h3.Children(1).Position = h3.Children(1).Position + [0 0.11 0 -0.08];
-% h3.Children(2).Position = h3.Children(2).Position + [0.14 0 -0.1 0];
-%set(h3,'Color','none');
-%posc = h3.Children(4).Position;
-%h3.Children(4).Position = posc + [-0.09 -0.07 0.09 0.07];
+hh.Children(3).Position = hh.Children(3).Position +[-.075 -.075 .075 .075];
+pause(0.5);
+% hh.Children(1).Position = hh.Children(1).Position + [0 0 0 0.035];
+% hh.Children(2).Position = hh.Children(2).Position + [0 0 0.035 0];
 set(hh,'Color','w');
 %export_fig FIG_post_theta_contour_desobs0_lambdadelta1 -png -m3 -painters;
+% export_fig FIG_post_theta_contour_desobs0_lambdadelta1 ...
+%     -m3 -eps -painters;
 
 %% WTA estimate of pareto front, with resulting choice of des_obs
 
@@ -541,14 +543,14 @@ ylim([0 .0700]);
 line([des_obs(3) des_obs(3)],ylim,'Color','black','Linestyle',':',...
     'linewidth',2);
 % Add suptitle
-st=suptitle('Prior and posterior predictive distributions');
-st.Position=[0.5 -.1 0];
+% st=suptitle('Prior and posterior predictive distributions');
+% st.Position=[0.5 -.1 0];
 lg=legend('Posterior','Prior','Target','Location','northeast');
 pos=lg.Position; lg.Position = pos + [0.017 0.045 0 0];
 
 %%% Save
 set(f, 'Color','white');
-%export_fig FIG_prior_vs_posterior_dist -png -m3 -painters
+% export_fig FIG_prior_vs_posterior_dist -eps -m3 -painters
 
 %% WTA Posterior scatterhist from calibration
 clc ; clearvars -except dpath ; close all ;
@@ -567,7 +569,7 @@ title('Posterior distribution on \theta');
 set(h,'Color','w');
 
 % saveas(h,'FIG_post_dist_scatterhist.png');
-export_fig 'FIG_post_dist_scatterhist' -png -m3;
+% export_fig 'FIG_post_dist_scatterhist' -png -m3;
 
 %% WTA Contour plot of highest density regions of posterior distribution 
 clc ; clearvars -except dpath ; close all ;
@@ -611,7 +613,7 @@ xlabel('Volume fraction'); ylabel('Thickness (mm)');
 
 % Save
 set(ff,'Color','w');
-%export_fig 'FIG_post_dist_contourplot' -png -m3;
+% export_fig 'FIG_post_dist_contourplot' -eps -m3;
 
 %% Toy case marginal posteriors with true optimum
 
@@ -661,4 +663,4 @@ suptitle('Marginal posterior distributions with priors and optima');
 %     %%% Save
 set(h,'Color','white');
 figstr = sprintf('FIG_iter_post_marginals');
-%export_fig(figstr,'-png','-m3','-painters',h);
+% export_fig(figstr,'-eps','-m3','-painters',h);
