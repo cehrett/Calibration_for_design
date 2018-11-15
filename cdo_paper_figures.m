@@ -45,23 +45,26 @@ costs = reshape(cost_n,[],length(theta1));
 
 
 e1 = [  0   0   0 ] ;  % output 1 color
-e2 = [.25 .25 .25 ] ;  % output 1 color
-e3 = [.9 .9 .9 ] ;  % output 1 color
+e2 = [.4 .4 .4 ] ;  % output 1 color
+e3 = [.8 .8 .8 ] ;  % output 1 color
+g1 = [ 0 0 .6 ] ; 
+g2 = [ 1 .3 0 ] ;
+g3 = [ .4 1 .8 ] ; 
 f1 = 'r'; f2='g'; f3='b'; % for color version
 ea = 1      ;  % edge alpha
-fa = .1       ;  % face alpha
+fa = 0      ;  % face alpha
 
 f=figure();
-surf(theta2,theta1,oscls,'FaceColor',e1,'EdgeColor',e1,...
+surf(theta2,theta1,oscls,'FaceColor',g1,'EdgeColor',g1,...
     'EdgeAlpha',ea,'FaceAlpha',fa);
 axis vis3d;
 
 hold on;
-surf(theta2,theta1,perfs,'FaceColor',e2,'EdgeColor',e2,...
+surf(theta2,theta1,perfs,'FaceColor',g2,'EdgeColor',g2,...
     'EdgeAlpha',ea,'FaceAlpha',fa); 
 axis vis3d;
 
-surf(theta2,theta1,costs,'FaceColor',e3,'EdgeColor',e3,...
+surf(theta2,theta1,costs,'FaceColor',g3,'EdgeColor',g3,...
     'EdgeAlpha',ea,'FaceAlpha',fa); 
 axis vis3d;
 xlabel('\theta_2'); ylabel('\theta_1'); zlabel('Outcomes');
@@ -86,7 +89,7 @@ hh.Position = hh.Position + [ 0 -.115 0 0 ];
 
 %saveas(f,'FIG_toy_sim_model_outputs.png');
 set(f,'Color','w');
-% export_fig FIG_toy_sim_model_outputs -eps -m3 -painters 
+export_fig FIG_toy_sim_model_outputs -eps -m3 -painters 
 
 %% Toy sim results using set discrep marginal precision for var vals
 %%% COLOR VERSION
@@ -244,7 +247,7 @@ des_obs_new = PF_optim - spec_dist * dirvec  ;
 des_obs_new_os = des_obs_new .* osds + omeans; 
 
 %%% Take a look
-h=figure();
+h=figure('pos',[10 10 400 300]);
 sc=scatter3(eouts(:,1),eouts(:,2),eouts(:,3),90,'g',...
     'MarkerEdgeAlpha',.5,'MarkerFaceAlpha',1,...
     'MarkerFaceColor','g','Marker','x','LineWidth',2);
@@ -262,7 +265,7 @@ h.CurrentAxes.View = [55.8000    9.4666] ; %[-3.9333   10.5333] ;
 title('Estimated Pareto front with desired observation');
 xlabel('Deflection');ylabel('Rotation');zlabel('Cost');
 set(h,'Color','w');
- %export_fig 'FIG_est_PF_with_des_obs' -png -m3
+% export_fig 'FIG_est_PF_with_des_obs' -eps -m3 -painters
 % saveas(h,'FIG_est_PF_with_des_obs.png');
 
 %% WTA Pareto bands
@@ -355,8 +358,8 @@ ylim_rotn = [min(post_rotn_lq_cu)/ylimrat max(post_rotn_uq_cu)*ylimrat];
 %%% Begin figures
 % Set alphas for two types of uncertainty
 alpha_wcu = 0.5;  %with code uncertainty
-alpha_wocu= 0.25; %without
-h=figure('rend','painters','pos',[10 10 800 400]);
+alpha_wocu= 0.15; %without
+h=figure('rend','painters','pos',[10 10 640 320]);
 x = 96:1:350; % x fills the cost domain
 
 % Now begin plot 2/2
@@ -452,13 +455,13 @@ ylim(ylim_cost);
 go_plot_diag=plot(ylim_cost,ylim_cost,'--b','LineWidth',2);
 
 % Now add a main title and fix any infelicities
-suptitle(['Posterior estimate vs. target cost,',...
-    ' with ',num2str(cred_level),'% credible interval ']); 
+% suptitle(['Posterior estimate vs. target cost,',...
+%     ' with ',num2str(cred_level),'% credible interval ']); 
 set(h,'pos',figpos); % Just so we can reuse the positioning code from above
 p = get(xl1,'position');
-set(xl1,'position',p + [0 2.75 0]);
+% set(xl1,'position',p + [0 2.75 0]);
 p = get(xl2,'position');
-set(xl2,'position',p + [0 0.00125 0])
+% set(xl2,'position',p + [0 0.00125 0])
 % p = get(xl3,'position');
 % set(xl3,'position',p + [0 0.0002 0])
 
@@ -466,16 +469,16 @@ set(xl2,'position',p + [0 0.00125 0])
 leg_gos = [go_plot_mean go_fill_unc go_fill_cunc_up go_plot_diag];
 lg=legend(leg_gos,'Posterior predictive mean',...
     'C.I. w/o code uncertainty',...
-    sprintf('Expanded C.I. w/ code uncertainty'),...
+    sprintf('C.I. with code uncertainty'),...
     'Diagonal for reference',...
     'Location','northwest');
-lg.Position(1:2)=[.612 .6875];
+lg.Position(1:2)=[.612 .71675];
 
     
 %%% Save
 set(h,'Color','white');
 export_fig FIG_cost_grid_pareto_bands -png -m3 -painters
-%saveas(h,'FIG_cost_grid_pareto_with_code_uncert.png');
+% saveas(h,'FIG_cost_grid_pareto_with_code_uncert.png');
 
 %% WTA prior predictive distribution vs posterior predictive distribution
 clc ; clearvars -except dpath ; close all ;
