@@ -63,12 +63,9 @@
 \bigskip
 \begin{abstract}
 In traditional engineering design, material selection involves choosing a material with appropriate properties from a database of known materials, often as a matter of ad-hoc satisficing. 
-%
-Material design usually occurs separately, without an eye to specific end-uses. We wed these design processes, selecting a material design by modeling its performance outcomes in a particular engineering application.
-%
+Material design usually occurs separately, and without an eye to specific end-uses. We wed these design processes, selecting a material design by modeling its performance outcomes in a particular engineering application.
  We show that existing techniques for model calibration can be profitably reconceptualized as a method for optimization and applied to solve this material design problem. 
-%
-We demonstrate our proposed approach by calibrating material design parameters to desired performance targets for a wind turbine blade.
+We demonstrate by calibrating material design parameters to desired performance targets for a wind turbine blade.
 \end{abstract}
 
 \noindent%
@@ -82,11 +79,11 @@ We demonstrate our proposed approach by calibrating material design parameters t
 
 Broadly, in model calibration, one may consider a model to be of the form $\eta(\mathbf x,\boldsymbol \theta)$, where $(\mathbf x,\boldsymbol \theta)$ comprise all inputs to the model. 
 %
-The input vector $\mathbf x$ is the collection of inputs that are known and/or under the control of the researcher.
+Input vector $\mathbf x$ is the collection of inputs that are known and/or under the control of the researcher.
 %
 The vector of calibration inputs $\boldsymbol \theta$ is the collection of parameters the values of which are unknown. 
 %
-These must be estimated for simulation. 
+These must be estimated for successful simulation. 
 %
 Thus where $f$ describes the true system and $y$ an observation of that system, consider the model to be 
 %
@@ -94,7 +91,7 @@ Thus where $f$ describes the true system and $y$ an observation of that system, 
 y(\mathbf x)=f(\mathbf x)+\epsilon(\mathbf x)=\eta(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x)+\epsilon(\mathbf x)
 \end{equation} 
 %
-where $\delta(\cdot)$ describes the model discrepancy (the bias of the model as an estimate of the real system) and $\epsilon(\cdot)$ is a mean-zero observation error, often i.i.d.\ Gaussian. 
+where $\delta(\cdot)$ describes the model discrepancy -- i.e., the bias of the model as an estimate of the real system -- and $\epsilon(\cdot)$ is a mean-zero observation error, often i.i.d.\ Gaussian. 
 %
 
 Much interest in the past two decades has centered on Bayesian methods for model calibration. 
@@ -117,9 +114,9 @@ Rather than calibrating a computer model's unknown parameters to observations fr
 %
 The performance targets are treated as though they were observations of a real system, and the calibration minimizes the discrepancy between the computer model output and these ``desired observations.''
 %
-The proposed methodology provides not merely a point estimate of optimal settings, but a posterior distribution which facilitates uncertainty quantification.
+The proposed methodology provides not merely a point estimate of optimal settings, but a posterior distribution which includes uncertainty quantification.
 
-Our proposed methodology uses the Bayesian framework for computer model calibration provided by  \cite{Kennedy2001}.
+The proposed methodology uses the Bayesian framework for computer model calibration provided by  \cite{Kennedy2001}.
 % 
 This area is furthered by \cite{Higdon2004}, who undertake model calibration with quantification of the related uncertainty. 
 They explicitly incorporate uncertainty regarding the computer model output, the bias of the computer model, and uncertainty due to observation error (of field data). 
@@ -157,7 +154,7 @@ Just as a multivariate Gaussian random variable is characterized by its mean vec
 %
 Thus for any points $\mathbf x,\mathbf y$ in the domain of the Gaussian process, $\mu(\mathbf x)$ gives the mean of the Gaussian process at $\mathbf x$, and $C(\mathbf x, \mathbf y)$ gives the covariance between the values of the Gaussian process at points $\mathbf x$ and $\mathbf y$.
 %
-The distribution of the process at any finite number of points is multivariate Gaussian with mean vector and covariance matrix determined by $\mu(\cdot)$ and $C(\cdot,\cdot)$.
+The distribution of the process at any finite number of points is multivariate Gaussian with mean vector and covariance matrix given by $\mu(\cdot)$ and $C(\cdot,\cdot)$.
 %
 In principle, model calibration need not rely on a GP emulator, or any other sort of emulator; one could (e.g.) complete a full Bayesian analysis via an MCMC chain that involves running the relevant computer model at each iteration of the chain. 
 %
@@ -173,7 +170,7 @@ Firstly, because their use does not require detailed foreknowledge of the model 
 %
 Secondly, GPs easily interpolate the computer model output, which is attractive when the computer model is deterministic. 
 %
-This is usually the case, although some attention in model calibration has focused specifically on stochastic computer models; e.g.\ \cite{Pratola2018}. 
+This is usually the case, although some attention in model calibration has focused specifically on stochastic computer models; see e.g.\ \cite{Pratola2018}. 
 %
 Thirdly, GPs facilitate uncertainty quantification through the variance of the posterior GP. 
 %
@@ -228,7 +225,7 @@ C((\mathbf x,\mathbf t),(\mathbf x',\mathbf t')) = \frac 1\lambda_\eta \prod_{k=
 %
 where each $\beta_k$ describes the strength of the GP's dependence on one of the elements of the input vectors $\mathbf x,\mathbf t$, and $\alpha_\eta$ determines the smoothness of the GP. 
 
-It is common to plug in the MLEs of $\lambda_\eta$ and $\boldsymbol \beta^\eta$ instead of including them in a full Bayesian analysis.
+It is common to plug in the MLEs of $\lambda_\eta$ and $\boldsymbol \\beta^\eta$ instead of including them in a full Bayesian analysis.
 %
 In the proposed methodology, that is not merely a convenience, but rather is essential.
 %
@@ -238,7 +235,7 @@ The resulting emulator would be trained not only only the simulator output, but 
 %
 Therefore, we use values found by minimizing the negative log likelihood of the observations of the simulation with respect to $\lambda_\eta$ and $\boldsymbol\beta^\eta$.
 %
-We set the GP to have constant mean $c\equiv0$, which works well when (as here) the GP is not used for extrapolation \citep{Bayarri2007}.
+We set the GP to have constant mean $c\equiv0$, which works well when (as here) the GP is not used for extrapolation.
 %
 
 We similarly model the discrepancy term as a GP, also with mean zero, and with covariance function
@@ -258,8 +255,6 @@ A Gamma prior is appropriate for $\lambda_\delta$, with strength determined by t
 With sufficient prior information, a degenerate prior can be used. 
 %
 Details surrounding the choice of prior for $\lambda_\delta$ will be discussed below.
-%
-We set $\alpha_\delta=2$, thereby assuming that the model is smooth.
 
 Where the simulation observations are $\boldsymbol \eta = (\eta(\mathbf x_1,\mathbf t_1),\cdots,\eta(\mathbf x_n,\mathbf t_n))^T$, the field observations are $\mathbf y = (y(\mathbf x_{n+1}),\cdots,y(\mathbf x_{n+m}))^T$,
 %\equiv (y(\mathbf x_{n+1},\boldsymbol\theta),\cdots,y(\mathbf x_{n+m},\boldsymbol\theta))^T$ 
@@ -278,10 +273,10 @@ Thus, the joint posterior density under the model is
 \pi(\boldsymbol \theta,\lambda_\delta,\boldsymbol \rho^\delta|\mathcal D,\lambda_\eta,\boldsymbol \rho^\eta)
 \propto \pi(\mathcal D | \boldsymbol \theta,\lambda_\eta, \boldsymbol \rho^\eta,\lambda_\delta,\boldsymbol \rho^\delta) \times %\pi(\lambda_\eta) \times 
 %\pi(\boldsymbol \rho^\eta) \times 
-\pi(\lambda_\delta) \times \pi(\boldsymbol \rho^\delta).
+\pi(\lambda_\delta) \times \pi(\boldsymbol \rho^\delta)
 \end{equation}
 %
-Where a discrepancy function is not included in the model, 
+Note that where a discrepancy function is not included in the model, 
 %and the mean $c$ is treated as a constant, 
 (\ref{eq:full_dist}) simplifies to 
 %
@@ -317,7 +312,7 @@ In such a circumstance, in calibrating $t\in\mathcal T$ to one's desires, one do
 %
 Instead, one finds a distribution on the settings that achieve the best realistic approximation to the desired targets.
 
-The tools of model calibration founded in the work of \cite{Kennedy2001} retain their advantages under our proposed methodology.
+The tools of model calibration founded in the work of \cite{Kennedy2001} retain their advantages under the proposed methodology.
 %
 Most centrally, calibration to desired observations $\mathbf y$ produces not merely a static optimum $t\in\mathcal T$, but rather a posterior distribution of $t|\mathbf y$ reflective of remaining uncertainty about the appropriate value of $t$. 
 %
@@ -349,11 +344,11 @@ Such a target observation in certain situations may be appropriate.
 %
 However, in general, target observations should aim only a little beyond what is realistically achievable; only as much as is necessary to ensure the targets are at least as ambitious as any true optimum in the system.
 %
-Three reasons why one should go only a little beyond that are as follows: 
+Three reasons why one should go only a little beyond that are as follows. 
 %
-Firstly, if target observations are set to be too farfetched, then the calibration can become computationally unstable due  to underflow and round-off error, since any value of $\boldsymbol \theta$ within its support will have extremely low likelihood.
+(1) If target observations are set to be too farfetched, then the calibration can become computationally unstable due  to underflow and round-off error, since any value of $\boldsymbol \theta$ within its support will have extremely low likelihood.
 %
-Secondly, increasing the distance of the desired observations from the optimal region reduces the identifiability of that region.
+(2) Increasing the distance of the desired observations from the optimal region reduces the identifiability of that region.
 %
 The calibration finds the region of the parameter space with output closest to the target observations.
 %
@@ -364,7 +359,7 @@ As a result, the identifiability of the optimal region will suffer.
 %
 %relative difference between the distance to the Pareto front and the distance to other regions of the model range, thereby decreasing the identifiability of the region to which one wishes to calibrate.
 %
-Thirdly, the desired observations lose their interpretability when they delve too far into the fantastical, such as with impossibly negative values. 
+(3) The desired observations lose their interpretability when they delve too far into the fantastical, such as with impossibly negative values. 
 %
 Identifying the appropriate range of outputs for desired observations, which exceed reality only slightly, will often require one to consult a subject matter expert. 
 
@@ -379,8 +374,7 @@ When a target cannot be selected, calibration can be performed to each point in 
 %That is, rather than include a desired observation of, say, cost in the model or set a prior that induces low cost, one can simply specify a known cost and calibrate desired performance targets to a design having that cost. 
 %%
 %If it is antecendently unknown which cost settings are optimal, under this third option one may calibrate to performance targets under each point of a grid of ``known'' costs. 
-E.g., since different manufacturers have different budgets, one can calibrate to performance targets under each point of a grid of ``known'' costs, rather than calibrating the model to a specific desired observation of cost.
-%That is, rather than include a desired observation of (e.g.) cost when calibrating a model, one can calibrate to performance targets under each point of a grid of ``known'' costs. 
+That is, rather than include a desired observation of (e.g.) cost when calibrating a model, one can calibrate to performance targets under each point of a grid of ``known'' costs. 
 %
 Thus we present a comprehensive picture of optimal parameter distributions and resulting performance under a range of costs, which could inform the process of setting a budget for material construction.
 
@@ -392,7 +386,7 @@ Thus we present a comprehensive picture of optimal parameter distributions and r
 
 It is not merely likely but often desirable that the performance targets have low probability with respect to the likelihood of the calibrated model. 
 %
-In this way, CDO is unlike traditional calibration. 
+In this way, CDO (calibration to desired observations) is unlike traditional calibration. 
 %
 The reason for this is that if the posterior predictive distribution places substantial probability mass at regions of the parameter space that achieve the target desired observations, then the desired observations may have been insufficiently ambitious. 
 %
@@ -439,7 +433,7 @@ But in cases such as the wind turbine application, finding the desired observati
 
 %\subsection{Setting the marginal variance for model discrepancy}\label{mvfmd}
 
-Hereafter in this work, we model 
+Hereafter in this work, we will assume that 
 %model shortcoming will be captured via a 
 the discrepancy term $\delta(\cdot)$ will be modeled as a mean-zero, stationary GP. 
 %
@@ -454,15 +448,17 @@ How informative one's prior on $\lambda_\delta$ will be depends upon how much on
 For instance, if in a univariate case it is known with some confidence that the true optimum is nearly constant across control settings and that it occurs in the interval $[10,11]$, then a constant desired observation of $9$ could be used with an informative prior tailored to this prior knowledge of the approximate resulting discrepancy -- say $\mathrm{Gamma}(20,\mathrm{rate}=20)$.
 %
 
-Where the prior on $\lambda_\delta$ cannot be chosen to be \emph{accurate} (due to insufficient prior knowledge of the Pareto front) it should be chosen to \emph{overestimate} the precision.
+When the true Pareto front cannot be estimated prior to undertaking CDO, the desired observations and the prior on the marginal precision of the discrepancy function must be set to avoid the identifiability problems of the Kennedy-O'Hagan framework.
+%
+That is, where the prior on $\lambda_\delta$ cannot be chosen to be \emph{accurate} (due to insufficient prior knowledge) it should be chosen to \emph{overestimate} the precision.
 %
 Otherwise, underestimation of $\lambda_\delta$ may lead to poor identifiability of the optimal region of the parameter space.
 %
-This is because $\lambda_\delta$ indirectly describes the (inverse) expected distance of the desired observations from the posterior predictive distribution.
+Again consider the example with the constant optimum in $[10,11]$, but suppose now that our prior knowledge is much more impoverished -- we can confidently hold only that the optimum takes positive values under $20$. 
 %
-Thus, underestimating $\lambda_\delta$ can result in there being little penalty in leaving the region of the model range that is closest to the desired observations.
+Then a constant desired observation of $-1$ could be paired with a $\mathrm{Exp}(1)$ prior on $\lambda_\delta$, to reflect our hope for a discrepancy of 1 while remaining open to a significantly larger discrepancy.
 %
-When setting a prior that overestimates $\lambda_\delta$, the posterior distribution of $\lambda_\delta$ becomes less reliable than when an accurate prior is used.
+In such a case, by setting a prior that overestimates $\lambda_\delta$, the posterior distribution of $\lambda_\delta$ becomes less reliable than when the prior derives from substantive prior knowledge.
 %
 Nonetheless, even when $\lambda_\delta$ must be overestimated, the posterior distribution of $\boldsymbol \theta$ will still peak at the optimal region(s) of the parameter space, since overestimation of $\lambda_\delta$ only increases the penalty of leaving that region.
 %
@@ -472,60 +468,21 @@ However, if $\lambda_\delta$ is too highly overestimated, then MCMC may become t
 %
 In short, while the proposed methodology is forgiving of overestimation of $\lambda_\delta$, the identifiability of the optimal region(s) is best served by supplying as accurate and informative of a prior as possible. 
 
+When too little is known about the Pareto front of a system to select a performance target and an appropriate prior for $\lambda_\delta$, a preliminary round of CDO can be used to estimate the Pareto front.
 %
-%ORIG:\\
-%When the true Pareto front cannot be estimated prior to undertaking CDO, the desired observations and the prior on the marginal precision of the discrepancy function must be set to avoid the identifiability problems of the Kennedy-O'Hagan framework.
-%%
-%That is, where the prior on $\lambda_\delta$ cannot be chosen to be \emph{accurate} (due to insufficient prior knowledge) it should be chosen to \emph{overestimate} the precision.
-%%
-%Otherwise, underestimation of $\lambda_\delta$ may lead to poor identifiability of the optimal region of the parameter space.
-%%
-%Again consider the example with the constant optimum in $[10,11]$, but suppose now that our prior knowledge is much more impoverished -- we can confidently hold only that the optimum takes positive values under $20$. 
-%%
-%Then a constant desired observation of $-1$ could be paired with a $\mathrm{Exp}(1)$ prior on $\lambda_\delta$, to reflect our hope for a discrepancy of 1 while remaining open to a significantly larger discrepancy.
-%%
-%In such a case, by setting a prior that overestimates $\lambda_\delta$, the posterior distribution of $\lambda_\delta$ becomes less reliable than when the prior derives from substantive prior knowledge.
-%%
-%Nonetheless, even when $\lambda_\delta$ must be overestimated, the posterior distribution of $\boldsymbol \theta$ will still peak at the optimal region(s) of the parameter space, since overestimation of $\lambda_\delta$ only increases the penalty of leaving that region.
-%%
-%And so while relying on vague knowledge of the optimum does interfere with one's ability to estimate the true discrepancy of the model from the desired observations, even in such circumstances one may still locate the posterior mode(s) of $\boldsymbol \theta$ and thereby the optimal settings for the model.
-%%
-%However, if $\lambda_\delta$ is too highly overestimated, then MCMC may become trapped in a local mode. 
-%%
-%In short, while the proposed methodology is forgiving of overestimation of $\lambda_\delta$, the identifiability of the optimal region(s) is best served by supplying as accurate and informative of a prior as possible. 
-%%
-%\\//ORIG
-
-%In cases where little is known about the Pareto front of a system prior to calibration, in order to select a performance target and an appropriately informative prior for $\lambda_\delta$ i
-%To improve one's choice of performance targets (by decreasing the distance between the targets and the optimal region) and select an accurate prior for $\lambda_\delta$, a preliminary round of CDO can be used to estimate the Pareto front.
-%When too little is known about the Pareto front of a system to select a performance target and an appropriate prior for $\lambda_\delta$, a preliminary round of CDO can be used to estimate the Pareto front.
-In situations where one lacks the prior knowledge necessary to select performance targets near the Pareto front and an accurate prior for $\lambda_\delta$, an alternative to simply relying on an overestimated $\lambda_\delta$ with a ``safe'' choice of performance targets is to use a preliminary round of CDO to estimate the Pareto front.
+For example, consider again the univariate case where we know only that the optimum is in the range $(0,20)$. 
 %
-For example, consider again the univariate case, supposing now that we know only that the optimal output is approximately constant somewhere in the range $(0,20)$. 
+One can perform CDO with constant desired observation $-1$ and a prior on $\lambda_\delta$ that deliberately exploits the identifiability problems of the Kennedy-O'Hagan framework in order to explore large regions of the parameter space -- say $\mathrm{Exp}(\mathrm{rate}=0.1)$. %HERE
 %
-%As described above, one could perform CDO 
+The Pareto front of the resulting predictive distribution can be used as an estimate of the true Pareto front in the vicinity of the desired observation.
 %
-One could perform CDO directly with constant desired observation $-1$ and an exponential prior on $\lambda_\delta$ with rate 2.
-%
-If the true optimal output turns out to be in the lower end of its known range, this will likely work well.
-%
-However, if the optimal output turns out to be high, the optimal region of the parameter space could suffer from poor identifiability.
-%
-To avoid this, one can instead perform CDO still with constant desired observation $-1$ but with a prior on $\lambda_\delta$ that deliberately exploits the identifiability problems of the Kennedy-O'Hagan framework in order to explore large regions of the parameter space -- say exponential with rate 0.1.
-% 
-Though the resulting posterior distribution will have greater density in the optimal region(s) than would a uniform sampling, it will likely not center in the optimal region, instead covering a larger area of the model range.
-%
-The resulting posterior predictive distribution can be filtered to retain only its Pareto front, and these remaining predictive samples can be used as an estimate of the true Pareto front in the vicinity of the desired observation.
-%
-This preliminary estimate (unlike the estimate achieved after full CDO) does not include uncertainty quantification.%, since it is achieved by filtering the predictive distribution samples to retain only the Pareto optimal points.
+This preliminary estimate (unlike the estimate achieved after full CDO) does not include uncertainty quantification, since it is achieved by filtering the predictive distribution samples to retain only the Pareto optimal points.
 %
 The preliminary estimate allows one to select a new (set of) desired observation(s) that are known to lie near the optimal region, along with an accurate and informative prior on $\lambda_\delta$ that reflects the estimated distance between the new desired observation(s) and the optimal region.
 %
-Performing CDO with these new targets and prior will result in a posterior distribution that occupies the optimal region, and the resulting posterior predictive distribution will allow one to estimate the optimal output with uncertainty quantification.
+To continue the above example, preliminary CDO may show one that the true optimum across the domain of the control inputs is in the interval $[10,11]$, which puts one in a position to use the aforementioned combination of a constant desired observation of 9 and $\lambda_\delta\sim$ Gamma(20, rate=20) prior, or even a degenerate prior with $\lambda_\delta$ set equal to 1.
 %
-To continue the above example, preliminary CDO may show that the true optimum across the domain of the control inputs is in the interval $[10,11]$, which puts one in a position to use the aforementioned combination of a constant desired observation of 9 and $\lambda_\delta\sim$ Gamma(20, 20) prior, or even a degenerate prior with $\lambda_\delta$ set equal to 1.
-%
-The full CDO process, including preliminary estimation of the Pareto front, is given in Algorithm 1.
+The full CDO process including preliminary estimation of the Pareto front is shown as Algorithm (1).
 
 \begin{figure}
 \centering
@@ -535,11 +492,11 @@ The full CDO process, including preliminary estimation of the Pareto front, is g
 \hline
 1.&Set desired observations $\mathbf d$ to lie outside of the model range.\\
 2.&  Set a vague prior on $\lambda_\delta$.\\
-3.&  Perform calibration and use the resulting posterior samples of $\boldsymbol\theta$ to draw posterior predictive samples of the model output.\\
+3.&  Perform calibration and use the resulting posterior samples of $\theta$ to draw posterior predictive samples of the model output.\\
 4.&  Filter the resulting predictive samples to retain only the Pareto optimal samples. The remaining samples $\mathcal P$ serve as the estimate of the Pareto front.\\
 5.& Select new desired observations using $\mathcal P$. These may be entirely new targets chosen after examining $\mathcal P$, or may simply be updated automatically to set each $d_i$ to be the same (small) distance $1/\sqrt{\lambda}$ (for some $\lambda$) from $\mathcal P$.\\
 6.& Set a strong (or degenerate) prior on $\lambda_\delta$ with mean $\lambda$.\\
-7.& Perform calibration in the usual way.\\
+7.& Perform calibration.\\
 \hline
 \end{tabular}
 %\caption{Algorithm for calibration to desired observations, with preliminary estimation of Pareto front to improve the identifiability of the optimal region.}
@@ -555,9 +512,9 @@ But in the case of multivariate output, both the magnitude and the direction of 
 %
 In such a case, a poorly chosen set of desired observations may not result in calibration to the desired region of the Pareto front.
 %
-For instance, consider a case of bivariate positive output $(y_1,y_2)$ where the optimal value of $y_2$ is a continuous and strictly decreasing function of $y_1$. %HERE
+Consider a case of bivariate positive output $(y_1,y_2)$ where $y_2$ is continuous and strictly decreasing in $y_1$. 
 %
-Then any value of $y_1$ corresponds to some point in the Pareto front (since any point in the model range cannot be reduced in $y_1$ without increasing the optimal $y_2$), and so it may be unclear to what performance targets the system should be calibrated.
+Then any value of $y_1$ corresponds to some point in the Pareto front, and so it may be antecedently unclear to what performance targets the system should be calibrated.
 %
 In such a case when selecting a target for optimization one often wishes to locate an ``elbow'' which maximizes $\frac{d^2 y_2}{dy_1^2}$, 
 since this elbow is a point of diminishing returns when trading higher $y_1$ for lower $y_2$ values.

@@ -761,7 +761,6 @@ dists = sqrt(sum([ x(:) y(:) ] .^2,2))
 
 %% scr
 clc ; clearvars -except dpath ; close all ;
-fig=figure();
 
 % Define Pareto front
 x = linspace(1,2);
@@ -774,7 +773,7 @@ ytu = [1 1.1 1.12 1.14 1.1 .9 .7 .5 .4 .015];
 yu = spline(xt,ytu,fliplr(x));
 
 % Plot the model range
-p1 = fill([x fliplr(x)],[yl yu],[1 .175 .175]);
+p1 = fill([x fliplr(x)],[yl yu],'r');
 axis equal;
 %hold on; plot(xt,ytl,'o'); plot(xt,ytu,'o');
 xlim([0,2.1]);ylim([0,1.2]);
@@ -813,15 +812,7 @@ p5 = plot(xrr,yrr,':k','LineWidth',2);
 % Add labels and legend
 ylabel('y_2'); xlabel('y_1');
 lg = legend([p1 p3 p2 p5],{'Model range','Possible desired observation',...
-    'Nearest point to desired obs.','1.78\timesdiscrepancy distance'},...
-    'Location','Northwest');
-pos = [0.1300    0.6539    0.3661    0.1591];
-lg.Position = pos ;
-
-% Save
-set(fig,'color','white');
-figstr = sprintf('FIG_des_obs_selection_example');
-export_fig(figstr,'-eps','-m3','-painters',fig);
+    'Nearest point to desired obs.','Points'},'Location','Northwest');
 
 %% scr
 clc ; clearvars -except dpath ; close all ;
