@@ -1,0 +1,473 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.2)  17 DEC 2018 08:31
+entering extended mode
+**"C:/Users/carle/Documents/Fourth Exam/technometrics-template/CDO-technometric
+s-template.tex"
+
+("C:/Users/carle/Documents/Fourth Exam/technometrics-template/CDO-technometrics
+-template.tex"
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 75 language(s) loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size12.clo"
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(C:\Users\carle\AppData\Roaming\MiKTeX\2.9\tex\latex\natbib\natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip43
+\bibsep=\skip44
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count87
+)
+(C:\Users\carle\AppData\Roaming\MiKTeX\2.9\tex\latex\url\url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip45
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01 AMS text
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks15
+\ex@=\dimen105
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen106
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count88
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count89
+\leftroot@=\count90
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count91
+\DOTSCASE@=\count92
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen107
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count93
+\c@MaxMatrixCols=\count94
+\dotsspace@=\muskip11
+\c@parentequation=\count95
+\dspbrk@lvl=\count96
+\tag@help=\toks16
+\row@=\count97
+\column@=\count98
+\maxfields@=\count99
+\andhelp@=\toks17
+\eqnshift@=\dimen108
+\alignsep@=\dimen109
+\tagshift@=\dimen110
+\tagwidth@=\dimen111
+\totwidth@=\dimen112
+\lineht@=\dimen113
+\@envbody=\toks18
+\multlinegap=\skip46
+\multlinetaggap=\skip47
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+No file CDO-technometrics-template.aux.
+\openout1 = `CDO-technometrics-template.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+(C:\Users\carle\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count100
+\scratchdimen=\dimen114
+\scratchbox=\box28
+\nofMPsegments=\count101
+\nofMParguments=\count102
+\everyMPshowfont=\toks20
+\MPscratchCnt=\count103
+\MPscratchDim=\dimen115
+\MPnumerator=\count104
+\makeMPintoPDFobject=\count105
+\everyMPtoPDFconversion=\toks21
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 49.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 49.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 49.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 49.
+
+Overfull \hbox (23.58907pt too wide) in paragraph at lines 49--49
+ [][] 
+ []
+
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 49.
+[1
+
+{C:/Users/carle/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+
+Package natbib Warning: Citation `Kennedy2001' on page 3 undefined on input lin
+e 122.
+
+
+Package natbib Warning: Citation `Higdon2004' on page 3 undefined on input line
+ 124.
+
+
+Package natbib Warning: Citation `Williams2006' on page 3 undefined on input li
+ne 127.
+
+
+Package natbib Warning: Citation `Loeppky2006' on page 3 undefined on input lin
+e 129.
+
+
+Package natbib Warning: Citation `Bayarri2007' on page 3 undefined on input lin
+e 131.
+
+
+Package natbib Warning: Citation `Bayarri' on page 3 undefined on input line 13
+3.
+
+
+Package natbib Warning: Citation `Paulo2012' on page 3 undefined on input line 
+135.
+
+
+Package natbib Warning: Citation `Bayarri2007' on page 3 undefined on input lin
+e 135.
+
+
+Package natbib Warning: Citation `Brynjarsdottir2014' on page 3 undefined on in
+put line 137.
+
+
+LaTeX Warning: Reference `calib_for_design' on page 3 undefined on input line 1
+43.
+
+
+LaTeX Warning: Reference `example' on page 3 undefined on input line 145.
+
+
+LaTeX Warning: Reference `application' on page 3 undefined on input line 145.
+
+
+LaTeX Warning: Reference `application' on page 3 undefined on input line 147.
+
+
+LaTeX Warning: Reference `conclusion' on page 3 undefined on input line 149.
+
+[3]
+
+LaTeX Warning: Reference `example' on page 4 undefined on input line 164.
+
+
+Package natbib Warning: Citation `Pratola2018' on page 4 undefined on input lin
+e 176.
+
+[4]
+
+Package natbib Warning: Citation `Sacks1989' on page 5 undefined on input line 
+183.
+
+
+Package natbib Warning: Citation `Santner2003a' on page 5 undefined on input li
+ne 183.
+
+
+Package natbib Warning: Citation `OHagan1978' on page 5 undefined on input line
+ 185.
+
+
+Package natbib Warning: Citation `Kennedy2001' on page 5 undefined on input lin
+e 187.
+
+
+Package natbib Warning: Citation `Kennedy2006' on page 5 undefined on input lin
+e 189.
+
+
+Package natbib Warning: Citation `Bastos2009' on page 5 undefined on input line
+ 191.
+
+
+Package natbib Warning: Citation `Gramacy2008' on page 5 undefined on input lin
+e 195.
+
+
+Package natbib Warning: Citation `Qian2008' on page 5 undefined on input line 1
+97.
+
+[5]
+
+LaTeX Warning: Reference `eq:model_gen' on page 6 undefined on input line 208.
+
+
+Package natbib Warning: Citation `Bayarri2007' on page 6 undefined on input lin
+e 241.
+
+[6]
+
+LaTeX Warning: Reference `eq:full_dist' on page 7 undefined on input line 286.
+
+
+LaTeX Warning: Reference `eq:full_dist' on page 7 undefined on input line 290.
+
+
+Overfull \hbox (29.33983pt too wide) in paragraph at lines 282--291
+\OT1/cmr/m/n/12 Where a dis-crep-ancy func-tion is not in-cluded in the model, 
+([]) sim-pli-fies to $\OML/cmm/m/it/12 \OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 Dj[]\
+OML/cmm/m/it/12 ; []; [][]; []; [][]\OT1/cmr/m/n/12 )$.
+ []
+
+[7]
+
+Package natbib Warning: Citation `Kennedy2001' on page 8 undefined on input lin
+e 320.
+
+
+Package natbib Warning: Citation `Bayarri2007' on page 8 undefined on input lin
+e 332.
+
+
+Package natbib Warning: Citation `Tuo2016' on page 8 undefined on input line 33
+2.
+
+[8] [9]
+
+Package natbib Warning: Citation `Kennedy2001' on page 10 undefined on input li
+ne 450.
+
+
+Package natbib Warning: Citation `Bayarri2007' on page 10 undefined on input li
+ne 450.
+
+
+Package natbib Warning: Citation `Tuo2015' on page 10 undefined on input line 4
+50.
+
+
+Package natbib Warning: Citation `Plumlee2017' on page 10 undefined on input li
+ne 450.
+
+[10] [11] [12]
+
+LaTeX Warning: Reference `fig:do_selection_example' on page 13 undefined on inp
+ut line 550.
+
+[13] [14]
+Package epstopdf Info: Source file: <FIG_des_obs_selection_example.eps>
+(epstopdf)                    date: 2018-12-14 08:42:13
+(epstopdf)                    size: 43763 bytes
+(epstopdf)             Output file: <FIG_des_obs_selection_example-eps-converte
+d-to.pdf>
+(epstopdf)             Command: <epstopdf --outfile=FIG_des_obs_selection_examp
+le-eps-converted-to.pdf FIG_des_obs_selection_example.eps>
+(epstopdf)             \includegraphics on input line 597.
+runsystem(epstopdf --outfile=FIG_des_obs_selection_example-eps-converted-to.pdf
+ FIG_des_obs_selection_example.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_des_obs_selection_example-eps-converte
+d-to.pdf>
+(epstopdf)                    date: 2018-12-17 08:31:34
+(epstopdf)                    size: 9831 bytes.
+<FIG_des_obs_selection_example-eps-converted-to.pdf, id=62, 366.36874pt x 229.8
+5875pt>
+File: FIG_des_obs_selection_example-eps-converted-to.pdf Graphic file (type pdf
+)
+<use FIG_des_obs_selection_example-eps-converted-to.pdf>
+Package pdftex.def Info: FIG_des_obs_selection_example-eps-converted-to.pdf  us
+ed on input line 597.
+(pdftex.def)             Requested size: 293.09538pt x 183.88722pt.
+
+
+LaTeX Warning: Reference `fig:do_selection' on page 15 undefined on input line 
+617.
+
+[15] [16 <./FIG_des_obs_selection_example-eps-converted-to.pdf>]
+
+LaTeX Warning: Reference `fig:toy_sim_outputs' on page 17 undefined on input li
+ne 650.
+
+Package epstopdf Info: Source file: <FIG_toy_sim_model_outputs.eps>
+(epstopdf)                    date: 2018-11-15 07:54:02
+(epstopdf)                    size: 103434 bytes
+(epstopdf)             Output file: <FIG_toy_sim_model_outputs-eps-converted-to
+.pdf>
+(epstopdf)             Command: <epstopdf --outfile=FIG_toy_sim_model_outputs-e
+ps-converted-to.pdf FIG_toy_sim_model_outputs.eps>
+(epstopdf)             \includegraphics on input line 654.
+runsystem(epstopdf --outfile=FIG_toy_sim_model_outputs-eps-converted-to.pdf FIG
+_toy_sim_model_outputs.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_toy_sim_model_outputs-eps-converted-to
+.pdf>
+(epstopdf)                    date: 2018-12-17 08:31:35
+(epstopdf)                    size: 42177 bytes.
+<FIG_toy_sim_model_outputs-eps-converted-to.pdf, id=75, 236.885pt x 275.0275pt>
+
+File: FIG_toy_sim_model_outputs-eps-converted-to.pdf Graphic file (type pdf)
+<use FIG_toy_sim_model_outputs-eps-converted-to.pdf>
+Package pdftex.def Info: FIG_toy_sim_model_outputs-eps-converted-to.pdf  used o
+n input line 654.
+(pdftex.def)             Requested size: 189.50824pt x 220.0223pt.
+
+LaTeX Warning: Reference `eq:model_gen' on page 17 undefined on input line 685.
+
+
+
+LaTeX Warning: Reference `fig:toy_sim_results' on page 17 undefined on input li
+ne 687.
+
+[17] [18 <./FIG_toy_sim_model_outputs-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <FIG_post_theta_contour_desobs0_lambdadelta
+1.eps>
+(epstopdf)                    date: 2018-11-09 09:41:03
+(epstopdf)                    size: 3767596 bytes
+(epstopdf)             Output file: <FIG_post_theta_contour_desobs0_lambdadelta
+1-eps-converted-to.pdf>
+(epstopdf)             Command: <epstopdf --outfile=FIG_post_theta_contour_deso
+bs0_lambdadelta1-eps-converted-to.pdf FIG_post_theta_contour_desobs0_lambdadelt
+a1.eps>
+(epstopdf)             \includegraphics on input line 697.
+runsystem(epstopdf --outfile=FIG_post_theta_contour_desobs0_lambdadelta1-eps-co
+nverted-to.pdf FIG_post_theta_contour_desobs0_lambdadelta1.eps)...executed (all
+owed).
+
+Package epstopdf Info: Result file: <FIG_post_theta_contour_desobs0_lambdadelta
+1-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-12-17 08:31:42
+(epstopdf)                    size: 325409 bytes.
+
+!pdfTeX error: pdflatex (file ./FIG_post_theta_contour_desobs0_lambdadelta1-eps
+-converted-to.pdf): xpdf: reading PDF image failed
+ ==> Fatal error occurred, no output PDF file produced!

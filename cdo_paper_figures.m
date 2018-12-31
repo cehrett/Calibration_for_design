@@ -150,7 +150,6 @@ load([dpath,'Example\Ex_results\'...
     'results');
 
 samps = results.samples_os(results.settings.burn_in:end,:);
-%des_obs_os = results.settings.desired_obs;
 [theta1,theta2] = meshgrid(linspace(0,3,1000),linspace(0,6,1000));
 % Load true samples;
 load([dpath,'Example\Ex_results\'...
@@ -208,6 +207,129 @@ set(hh,'Color','w');
 %export_fig FIG_post_theta_contour_desobs0_lambdadelta1 -png -m3 -painters;
 % export_fig FIG_post_theta_contour_desobs0_lambdadelta1 ...
 %     -m3 -eps -painters;
+
+%% TS Heatmpar results, bad des_obs and good des_obs side by side comparson
+clc ; clearvars -except dpath ; close all ;
+
+% Load results for bad calibration
+load([dpath,'Example\Ex_results\'...
+    '2018-12-20_preliminary_cdo_truefn_discrep_do0_ldgam10p1'],...
+    'results');
+br = results ;
+
+% Load results for good calibration
+load([dpath,'Example\Ex_results\'...
+    '2018-07-11_discrepancy_true_fn_set_lambda_delta_1'],...
+    'results');
+gr = results;
+clear results;
+
+% Set true optimum: this is for desired observation [0 0 0] and for desired
+% observations derived from that one
+optim = [ 0.924924924924925   3.141141141141141 ] ;
+
+% Load true samples;
+load([dpath,'Example\Ex_results\'...
+    '2018-05-29_true_ctheta-output'],...
+    'ctheta_output');
+meanout = mean(br.settings.output_means');
+sdout   = mean(br.settings.output_sds'  );
+cost_std = (ctheta_output(:,6) - meanout(3))/...
+    sdout(3);
+defl_std = (ctheta_output(:,4) - meanout(1))/...
+    sdout(1);
+rotn_std = (ctheta_output(:,5) - meanout(2))/...
+    sdout(2);
+outputs_std = [defl_std rotn_std cost_std];
+
+des_obs_os = [ 0 0 0];
+des_obs = (des_obs_os-meanout)./...
+    sdout;
+
+% Now get Euclidean norms of each standardized output from origin (orig sc)
+origin_os = [ 0 0 0];
+origin = (origin_os-meanout)./...
+    sdout;
+dists = sqrt ( sum ( (outputs_std-origin).^2 , 2 ) ) ;
+redists = reshape(dists,1000,1000);
+
+% Make grid for plotting
+[theta1,theta2] = meshgrid(linspace(0,3,1000),linspace(0,6,1000));
+
+%%%%%%%
+%%% Make first plot, of bad calibration
+h1=figure();
+samps = br.samples_os(br.settings.burn_in:end,:);
+
+% Make scatterhist of posterior samples
+sc=scatterhist(samps(:,1),samps(:,2),'Marker','.','Color','b',...
+    'Markersize',1); 
+hold on;
+ttl1=title(sprintf(['Posterior \\theta samples:\ndesired obs. '...
+    '[0 0 0], \\lambda_\\delta\\simGam(10,10)']));
+
+% Now add contour plot 
+%[C,h]= contour(theta1,theta2,redists,[1 2 3 4 5 ],'LineWidth',3);
+[C,cntr1]= contour(theta1,theta2,redists,[16 17 18 19 20 ],'LineWidth',3);
+clabel(C,cntr1,'fontsize',12);
+xlabel('\theta_1'); ylabel('\theta_2');
+
+% Add true optimum
+p=plot(optim(1),optim(2),'ok','MarkerSize',7,'MarkerFaceColor','m',...
+    'LineWidth',2);
+
+%%%%%%%
+%%% Make second plot, of good calibration
+h2=figure();
+subplot(1,2,2);
+samps = gr.samples_os(gr.settings.burn_in:end,:);
+
+% Make scatterhist of posterior samples
+sc=scatterhist(samps(:,1),samps(:,2),'Marker','.','Color','b',...
+    'Markersize',1); 
+hold on;
+ttl2=title(sprintf(['Posterior \\theta samples:\ndesired obs. '...
+    '[0.71 0.71 17.92], \\lambda_\\delta=1']));
+
+% Now add contour plot 
+[C,cntr2]= contour(theta1,theta2,redists,[16 17 18 19 20 ],'LineWidth',3);
+clabel(C,cntr2,'fontsize',12);
+xlabel('\theta_1'); ylabel('\theta_2');
+
+% Add true optimum
+p=plot(optim(1),optim(2),'ok','MarkerSize',7,'MarkerFaceColor','m',...
+    'LineWidth',2);
+
+% create third figure split into two uipanels
+h3 = figure('pos',[10 10 780 290]);
+u1 = uipanel('position',[0,0,0.5,1]);
+u2 = uipanel('position',[0.5,0,0.5,1]);
+
+% get all children from each figure and move to the uipanels
+set(get(h1,'Children'),'parent',u1);
+set(get(h2,'Children'),'parent',u2);
+
+% Set colormap
+colormap(cntr1.Parent,'autumn');
+colormap(cntr2.Parent,'autumn');
+
+% Make room for titles
+spos1=ttl1.Parent.Position;
+spos2=ttl2.Parent.Position;
+ttl1.Parent.Position = spos1 + [ 0 0 0 -.05 ];
+ttl2.Parent.Position = spos2 + [ 0 0 0 -.05 ];
+% ttl2.Position = pos2 + [-.7 0 0];
+
+% Close unneeded figures
+close(h1,h2);
+
+% Save figure
+set(u1,'BackgroundColor','white');
+set(u2,'BackgroundColor','white');
+set(u1,'ShadowColor','w');
+set(u2,'ShadowColor','w');
+figstr = sprintf('FIG_preliminary_CDO_comparison');
+export_fig(figstr,'-eps','-m3','-painters',h3);
 
 %% WTA estimate of pareto front, with resulting choice of des_obs
 
@@ -670,97 +792,6 @@ figstr = sprintf('FIG_iter_post_marginals');
 
 %% Example of selecting performance target 
 clc ; clearvars -except dpath ; close all ;
-
-% Define Pareto front
-s = 1 ; 
-m = .5 ;
-x = linspace(-1,1) ; 
-changepoint = s*m/2;
-[~,posidx]=min(abs(x-changepoint));
-[~,negidx]=min(abs(x+changepoint));
-y2 = x.^2 / s + s * m^2 / 4; 
-y1 = -m * x ; 
-y3 = m * x ; 
-%h = plot(x, [y1(1:negidx) y2(negidx+1:posidx) ...
-%    y3(posidx+1:end)]); 
-
-% Define upper bound of model range
-xupper = fliplr(x); 
-v1=-.75; v2=0; v3=.9; v4=.99;
-r1=1.5; r2=1.5; r3=1.1; r4=1.01;
-yupper = polyval(...
-    polyfit([-1 v1 v2 v3 v4 1],[m r1*m r2*m r3*m r4*m m],5),xupper);
-
-% Now plot and rotate
-h = fill([x xupper], [y1(1:negidx) y2(negidx+1:posidx) ...
-    y3(posidx+1:end) yupper],'r','FaceAlpha',.75); 
-axis equal ; %rotate(h,[0 0 1],-32.5);
-
-%% scr
-clc; clearvars -except dpath ; close all ; 
-
-% Create model range Pareto front
-s = 1 ; 
-m = .5 ;
-x = linspace(-1,1) ; 
-changepoint = s*m/2;
-[~,posidx]=min(abs(x-changepoint));
-[~,negidx]=min(abs(x+changepoint));
-y2 = x.^2 / s + s * m^2 / 4; 
-y1 = -m * x ; 
-y3 = m * x ; 
-h = plot(x, [y1(1:negidx) y2(negidx+1:posidx) ...
-    y3(posidx+1:end)]); 
-axis equal
-rotate(h,[0 0 1],-30);
-h= plot([x x(1)], [y1(1:negidx) y2(negidx+1:posidx) ...
-    y3(posidx+1:end) y1(1)]); 
-xtrax = [.65 0 -.45 -.95 -1] ; xtray = [1 1 .85 .6 .5];
-h = fill([x xtrax], [y1(1:negidx) y2(negidx+1:posidx) ...
-    y3(posidx+1:end) xtray],'r'); 
-
-
-xupper = fliplr(x); 
-v1=-.75; v2=0; v3=.9; v4=.99;
-r1=1.5; r2=1.5; r3=1.1; r4=1.01;
-yupper = polyval(...
-    polyfit([-1 v1 v2 v3 v4 1],[m r1*m r2*m r3*m r4*m m],5),xupper);
-h = fill([x xupper], [y1(1:negidx) y2(negidx+1:posidx) ...
-    y3(posidx+1:end) yupper],'r','FaceAlpha',.75); 
-axis equal ; rotate(h,[0 0 1],-30);
-
-%% scr
-clc ; clearvars -except dpath ; close all ;
-
-% Define Pareto front
-s = 1 ; 
-m = .5 ;
-x = linspace(-1,1) + 1.5; 
-% v1=-.9 ; v2=-.1 ; v3=0   ; v4=.1 ; v5=.7 ; 
-% r1=.8  ; r2=.65  ; r3=.55 ; r4=.45 ; r5=.2 ;
-% y = polyval(...
-%     polyfit([-1 v1 v2 v3 v4 v5 1],[m r1*m r2*m r3*m r4*m r5*m m],6),x);
-xpts = linspace(-1,1,10) + 1.5;
-yvals = [1 .475 .15 0 .15 .3 .5 .7 .8 1] *m +.05;
-y = spline(xpts,yvals,x);
-
-% Define upper bound of model range
-xupper = fliplr(x); 
-v= [-.75 0 .9 .99] + 1.5;
-r1=1.5; r2=1.5; r3=1.1; r4=1.01;
-yupper = polyval(...
-    polyfit([x(1) v x(end)],[m r1*m r2*m r3*m r4*m m]+.05,5),xupper);
-
-% Plot the model range
-h = fill([x xupper],[y yupper],'r');
-axis equal; rotate(h,[0 0 1],-30);
-xlim([0,2.5]); ylim([0,2.5]);
-
-% Get closest point to [0,0]
-dists = sqrt(sum([ x(:) y(:) ] .^2,2))
-
-%% scr
-clc ; clearvars -except dpath ; close all ;
 fig=figure();
 
 % Define Pareto front
@@ -821,16 +852,5 @@ lg.Position = pos ;
 % Save
 set(fig,'color','white');
 figstr = sprintf('FIG_des_obs_selection_example');
-export_fig(figstr,'-eps','-m3','-painters',fig);
+% export_fig(figstr,'-eps','-m3','-painters',fig);
 
-%% scr
-clc ; clearvars -except dpath ; close all ;
-
-x = linspace(-10,10,41) ;
-y = 2*x.^2 ;
-gradient(y)
-v=gradient(y)./gradient(x)
-gradient(v)./gradient(x)
-
-diffdy= diff(y)./diff(x)
-diff(diffdy) ./ diff((x(1:end-1) + x(2:end))/2)
