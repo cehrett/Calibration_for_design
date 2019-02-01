@@ -70,7 +70,7 @@ We wed these design processes, designing a material by modeling its performance 
 %
 We show that techniques for model calibration can be reconceptualized as a method for optimization and applied to solve this material design problem. 
 %
-We demonstrate our proposed approach by calibrating material design settings to performance targets for a wind turbine blade and by estimating the system’s Pareto front, including uncertainty quantification. 
+We demonstrate our proposed approach by calibrating material design settings to performance targets for a wind turbine blade and by estimating the system's Pareto front with quantificatied uncertainties. 
 \end{abstract}
 
 \noindent%
@@ -82,48 +82,19 @@ We demonstrate our proposed approach by calibrating material design settings to 
 \section{Introduction}
 \label{introduction}
 
-When selecting a material to use in the design of a wind turbine blade, it is desirable to minimize both the deflection of the blade tip and the blade's rotation under load.
+Real-world optimization problems typically involve multiple objectives. 
 %
-It is not cost-effective to produce, install and observe blades of many different materials in order to find the optimal material for this purpose.
+This is particularly true in the design of engineering systems, where performance outcomes are balanced against budgetary constraints. 
 %
-Therefore here, as in many areas where real-world experimentation involves significant cost, computer models are used to predict the results of various choices of materials.
+Among the complexities involved in optimizing over multiple objectives is the effect of uncertainties in various aspects of the problem. 
 %
-Similarly, in material design, computer models can be used to predict the properties of a proposed material.
+Design is guided by models known to be imperfect, systems are built using materials with uncertainty regarding their material properties, variations will occur in the construction of designed systems, and so on. 
 %
-Whether obtained via observation or simulation, the properties of a material can serve as inputs to a computer model which predicts the behavior of a designed system that employs that material.
-%
-When computer models are used to predict both the properties of the material and the performance outcome of the designed system, there exists the opportunity to couple these design processes which would otherwise be disparate.
-%
-This contrasts with traditional engineering design, in which one chooses a material with appropriate properties for a project from a database of known materials, which were themselves designed apart from consideration of any particular project's performance goals.
-%
-Combining the two design processes allows the material design to be guided by the performance goals of the designed system.
-%
-In this paper, we adapt traditional Bayesian techniques of computer model calibration as a means to wed these design processes.
-%
+These uncertainties will propogate to uncertainty in the resulting solution to a given design problem. 
 
-Much interest in the past two decades has centered on the use of Bayesian model calibration to estimate unknown model parameters, which we may call calibration parameters. 
+In traditional engineering design, one chooses a material with appropriate properties for a project from a database of known materials, which were themselves designed apart from consideration of any particular project’s performance goals. 
 %
-The appeal of a Bayesian approach to model calibration is that it accounts for the calibration parameters as a source of uncertainty for the model. 
-%
-This uncertainty should be quantified so that its effect on the model can be made explicit. 
-%
-One can use Bayesian methods to construct a posterior distribution of the calibration parameters which balances our prior knowledge about the calibration parameters with what can be learned from the available data, and which allows for accurate uncertainty quantification on the model outputs. 
-%
-We apply these calibration techniques as a method for choosing material design inputs that optimize performance output.
-%
-These calibration techniques may seem out of place in an optimization problem such as the wind turbine blade material design application, since in many cases of optimization there are no unknown input parameters for the model. 
-%
-However, there are control inputs for which the optimal settings are unknown.
-%
-In the wind turbine application, the unknowns are the optimal ratio of the two ingredients of the composite and the optimal thickness of the material when used in a blade.
-%
-These unknown inputs can be treated as unknown parameters in a calibration problem.
-%
-Rather than calibrating a computer model's unknown parameters to observations from the real system, then, we calibrate the computer model's control input settings to performance targets.
-%
-The performance targets are treated as though they were observations of a real system, and the calibration minimizes the discrepancy between the computer model output and these ``desired observations.''
-%
-The proposed methodology provides not merely a point estimate of optimal settings, but a posterior distribution which facilitates uncertainty quantification.
+By coupling models of material properties and models of the behavior of a built system, we can combine these two traditionally separate design processes under the umbrella of a unified multiple objective optimization problem.
 
 Our proposed methodology uses the Bayesian framework for computer model calibration provided by  \cite{Kennedy2001}.
 % 
