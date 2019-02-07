@@ -121,7 +121,7 @@ In addition to optimizing to a specific set of target outcomes, in many situatio
 %
 For example, in a system in which there is a trade-off between cost and performance, which region of the model range is treated as a target outcome will depend upon the budgetary constraints of the project.
 %
-Decisionmakers in such a scenario are well-served by having a complete picture of the curve describing the optimal performance possible at any budget.
+Decision makers in such a scenario are well-served by having a complete picture of the curve describing the optimal performance possible at any budget.
 %
 More generally, in a system with multiple outputs, one wants to estimate the Pareto front of the model range, i.e., the set of points in the model range that are Pareto optimal.
 %
@@ -132,9 +132,19 @@ For example, if a bivariate system in a minimization problem has exactly three o
 We show that the proposed methodology can be used to estimate the Pareto front of a system with uncertainty quantification. 
 %
 
+We apply the proposed methodology both to an artificial example and to the problem of finding material design settings to optimize the performance and cost of a wind turbine blade of fixed geometry.
+%
+The wind turbine blade in question is to be constructed using a composite of two materials.
+%
+One design variable targeted for optimization is the \emph{volume fraction}, or ratio of the two materials used in the composite.
+%
+Another design variable is the thickness (in mm) of the composite material when used in the blade.
+%
+Our material design goal is to minimize the cost per square meter of the composite material, the rotation (in radians) of the blade when under load, and the deflection (in meters) of the blade tip when under load.
+
 In Section \ref{calib_for_design} we describe the calibration framework that we adapt as a method for optimization. 
 %
-In Sections \ref{example} and \ref{application} we apply the proposed methodology to an example involving simulated data and to the problem of finding material design settings to optimize the performance of a wind turbine blade.
+In Sections \ref{example} and \ref{application} we apply the proposed methodology to the example involving simulated data and to the wind turbine blade design.
 %
 In Section \ref{application} we apply the proposed methodology to produce an estimate of the Pareto front of the wind turbine blade system.
 %
@@ -157,9 +167,9 @@ The distribution of the process at any finite number of points is multivariate G
 %
 In principle, model calibration need not rely on a GP emulator, or any other sort of emulator; one could (e.g.) complete a full Bayesian analysis via Markov chain Monte Carlo \citep[MCMC;][]{Gelfand1990} by running the relevant computer model at each iteration of the chain. 
 %
-Indeed, in Section \ref{example} we perform calibration on our example simulated data without an emulator.
+Indeed, \cite{Hemez2011} compare the use of Kennedy-O'Hagan-style calibration both with and without and emulator, and in Section \ref{example} we perform calibration on our example simulated data without an emulator.
 %
-However, computer models are frequently too computationally expensive to allow for such profligacy.
+However, computer models are frequently too computationally expensive to allow for such profligacy \citep{VanBuren2013,VanBuren2014}.
 %
 Instead, a computationally tractable emulator can be constructed using a sample of observations from the computer model. 
 %
@@ -167,7 +177,7 @@ GPs are popular prior distributions on computer model output for three reasons.
 %
 Firstly, because their use does not require detailed foreknowledge of the model function's parametric form. 
 %
-Secondly, GPs easily interpolate the computer model output, which is attractive when the computer model is deterministic. 
+Secondly, GPs easily interpolate the computer model output, which is attractive when the computer model is deterministic and hence free of measurement error. 
 %
 This is usually the case, although some attention in model calibration \citep[e.g.][]{Pratola2018} has focused specifically on stochastic computer models. 
 %
@@ -197,7 +207,7 @@ and quantitative inputs, efforts have been made to branch away from these core a
 
 Whether or not an emulator is used, in calibration one may consider a computer model to be of the form $\eta(\mathbf x,\boldsymbol \theta)$, where $(\mathbf x,\boldsymbol \theta)$ comprise all inputs to the model. 
 %
-The input vector $\mathbf x$ is the collection of inputs that are known and/or under the control of the researcher.
+The input vector $\mathbf x$ is the collection of inputs, called control inputs, that are known and/or under the control of the researcher.
 %
 The vector of calibration inputs $\boldsymbol \theta$ is the collection of parameters the values of which are unknown. 
 %
@@ -229,7 +239,7 @@ C((\mathbf x,\mathbf t),(\mathbf x',\mathbf t')) = \frac 1\lambda_\eta \prod_{k=
 \exp \left(-\beta^\eta_{p+k}|t_k-t_k'|^{\alpha_\eta}\right)
 \end{equation}
 %
-where each $\beta_k$ describes the strength of the GP's dependence on one of the elements of the input vectors $\mathbf x,\mathbf t$, and $\alpha_\eta$ determines the smoothness of the GP. 
+where each $\beta_k$ describes the strength of the GP's dependence on one of the elements of the input vectors $\mathbf x$ and $\mathbf t$, and $\alpha_\eta$ determines the smoothness of the GP. 
 
 It is common to plug in the MLEs of $\lambda_\eta$ and $\boldsymbol \beta^\eta$ instead of including them in a full Bayesian analysis.
 %
@@ -250,6 +260,8 @@ We similarly model the discrepancy term $\delta(\cdot)$ as a GP, also with mean 
 $C_\delta(\mathbf x,\mathbf x') = \lambda_\delta^{-1} \prod_{k=1}^p
 \exp\left( -\beta_k^\delta |x_k-x_k'|^{\alpha_\delta} \right).$
 %\end{equation}
+%
+This is included in the model to capture systematic discrepancy between target outcomes and the feasible model range.
 %
 We use priors
 %$\lambda_\delta \sim \mathrm{Gamma}(5,\mathrm{scale}=5)$ and 
@@ -275,7 +287,7 @@ C((\mathbf x_i,\mathbf t_i),(\mathbf x_j,\mathbf t_j)) + I(i,j>n)\cdot(C_{obs}(\
 $
 where $C_{obs}(\cdot,\cdot)$ is the (known) observation error variance.
 %
-Thus, the joint posterior density under the model is
+Setting a uniform prior on the design variables $\boldsymbol\theta$, the joint posterior density under the model is
 %
 \begin{equation} \label{eq:full_dist}
 \pi(\boldsymbol \theta,\lambda_\delta,\boldsymbol \rho^\delta|\mathcal D,\lambda_\eta,\boldsymbol \rho^\eta)
@@ -298,7 +310,7 @@ Markov chain Monte Carlo methods are useful for evaluating (\ref{eq:full_dist}).
 Call performance targets treated as observations for the purpose of calibration ``desired observations'', and call the calibration procedure proposed here, which uses a Bayesian model calibration framework with desired observations, ``calibration to desired observations" (CDO). 
 %
 %Of course, computer models are more malleable than reality, and it is trivial to modify a computer model so that its output matches any given target. 
-Computer models are more malleable than reality, and one might worry that in calibrating a model to desired observations, the model's fidelity to reality might be questioned.
+One might worry that calibrating a model to artificial ``desired observation'' will undermine the model's accuracy, since the model is essentially being fed false data.
 %
 %It is both easy and pointless to create a model which is a computational ``yes man''. 
 %
@@ -311,9 +323,9 @@ Instead, one finds a distribution on the settings that achieve the most realisti
 
 The tools of model calibration founded in the work of \cite{Kennedy2001} retain their advantages under our proposed methodology.
 %
-Most centrally, calibration to desired observations $\mathbf y$ produces not merely a static optimum $\mathbf t\in\mathcal T$, but rather a posterior distribution of $\mathbf t|\mathbf y$ reflective of remaining uncertainty about the appropriate value of $\mathbf t$. 
+Most centrally, calibration to desired observations $\mathbf y$ produces not merely a point optimum $\mathbf t\in\mathcal T$, but rather a posterior distribution of $\mathbf t|\mathbf y$ reflective of remaining uncertainty about the appropriate value of $\mathbf t$. 
 %
-Such uncertainty may have its source in parameter uncertainty (uncertainty about the values of certain model inputs), code uncertainty (uncertainty about how closely the code approximates reality), and that which traditional calibration would consider observation error and model inadequacy. 
+Such uncertainty may have its source in parameter uncertainty (uncertainty about the values of model inputs other than the design variables), model form uncertainty (uncertainty about how closely the code approximates reality), and that which traditional calibration would consider observation error and model inadequacy. 
 %
 Of course,  targets are not actually observations, so the concept of observation error does not cleanly transfer. 
 %
@@ -325,15 +337,7 @@ Furthermore, by the use of informative priors on the model discrepancy and obser
 
 %\subsubsection{Level of target data}\label{level_of_desired_data}
 % Arbitrariness recommending prior on observation variance
-Unlike in the case of field observations, when calibrating to performance targets treated as desired observations, the question arises of choosing what exactly those ``observations'' should be.
-%
-In many cases, no objectively natural target manifests itself. 
-%
-Indeed, there is no barrier to the use even of impossible targets such as negative values for model outputs known to be nonnegative.
-%
-Such a target observation in certain situations may be appropriate. 
-%
-However, in general, target observations should aim only a little beyond what is realistically achievable; only as much as is necessary to ensure the targets are at least as ambitious as any true optimum in the system.
+In general, target observations should aim only a little beyond what is realistically achievable; only as much as is necessary to ensure the targets are at least as ambitious as any true optimum in the system.
 %
 Three reasons why one should go only a little beyond that are as follows: 
 %
@@ -850,7 +854,7 @@ Note that only one round of preliminary CDO was needed for this purpose, rather 
 %If the grid covers the Pareto front in $d-1$ dimensions, then t
 The result of the strategy is to provide an estimate of the response surface with included uncertainty quantification describing, for each point in the grid, the optimal achievable outcome for the output not included in the grid.
 %
-Thus a decisionmaker can visualize the space of desirable possibilities with associated uncertainty metrics. 
+Thus a decision maker can visualize the space of desirable possibilities with associated uncertainty metrics. 
 %
 They can do so without the need for rigorously determining their exact priorities for weighing gains in each of the outputs against one another.
 %, nor (much worse) working out how to translate those priorities into specific choices of desired observations and observation variance schemes. 
@@ -872,7 +876,7 @@ The lefthand plot shows that the posterior model output respected the ``known'' 
 %
 The Pareto front for the system appears with uncertainty bands in the righthand plot.
 %
-This plot visualizes a distribution on the optimal performance outcome for any cost that a decisionmaker might select as a budget for production, which would be helpful when selecting a budget.
+This plot visualizes a distribution on the optimal performance outcome for any cost that a decision maker might select as a budget for production, which would be helpful when selecting a budget.
 %
 For example, the elbow around \$140 manifests itself as a potentially attractive choice, since it can be seen in the plot that prior to that point each dollar spent brings significant gains in reducing deflection.
 %
