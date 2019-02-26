@@ -89,7 +89,7 @@ hh.Position = hh.Position + [ 0 -.115 0 0 ];
 
 %saveas(f,'FIG_toy_sim_model_outputs.png');
 set(f,'Color','w');
-export_fig FIG_toy_sim_model_outputs -eps -m3 -painters 
+% export_fig FIG_toy_sim_model_outputs -eps -m3 -painters 
 
 %% Toy sim results using set discrep marginal precision for var vals
 %%% COLOR VERSION
@@ -265,7 +265,7 @@ samps = br.samples_os(br.settings.burn_in:end,:);
 sc=scatterhist(samps(:,1),samps(:,2),'Marker','.','Color','b',...
     'Markersize',1); 
 hold on;
-ttl1=title(sprintf(['Posterior \\theta samples:\ndesired obs. '...
+ttl1=title(sprintf(['Posterior \\theta samples:\ntarget '...
     '[0 0 0], \\lambda_\\delta\\simGam(10,10)']));
 
 % Now add contour plot 
@@ -288,7 +288,7 @@ samps = gr.samples_os(gr.settings.burn_in:end,:);
 sc=scatterhist(samps(:,1),samps(:,2),'Marker','.','Color','b',...
     'Markersize',1); 
 hold on;
-ttl2=title(sprintf(['Posterior \\theta samples:\ndesired obs. '...
+ttl2=title(sprintf(['Posterior \\theta samples:\ntarget '...
     '[0.71 0.71 17.92], \\lambda_\\delta=1']));
 
 % Now add contour plot 
@@ -329,7 +329,7 @@ set(u2,'BackgroundColor','white');
 set(u1,'ShadowColor','w');
 set(u2,'ShadowColor','w');
 figstr = sprintf('FIG_preliminary_CDO_comparison');
-export_fig(figstr,'-eps','-m3','-painters',h3);
+% export_fig(figstr,'-eps','-q0','-painters',h3);
 
 %% WTA estimate of pareto front, with resulting choice of des_obs
 
@@ -384,7 +384,7 @@ scatter3(des_obs_new_os(1),des_obs_new_os(2),des_obs_new_os(3),90,'r',...
 ylim([0.075 0.1])
 h.CurrentAxes.View = [55.8000    9.4666] ; %[-3.9333   10.5333] ; 
 % [-5.0000    5.2000];% [ 63 10] ;%[-8.4333 17.7333] ; 
-title('Estimated Pareto front with desired observation');
+title('Estimated Pareto front with target outcome');
 xlabel('Deflection');ylabel('Rotation');zlabel('Cost');
 set(h,'Color','w');
 % export_fig 'FIG_est_PF_with_des_obs' -eps -m3 -painters
@@ -599,7 +599,7 @@ lg.Position(1:2)=[.612 .71675];
     
 %%% Save
 set(h,'Color','white');
-export_fig FIG_cost_grid_pareto_bands -png -m3 -painters
+% export_fig FIG_cost_grid_pareto_bands -png -m3 -painters
 % saveas(h,'FIG_cost_grid_pareto_with_code_uncert.png');
 
 %% WTA prior predictive distribution vs posterior predictive distribution
@@ -790,7 +790,7 @@ set(h,'Color','white');
 figstr = sprintf('FIG_iter_post_marginals');
 % export_fig(figstr,'-eps','-m3','-painters',h);
 
-%% Example of selecting performance target 
+%% Example of selecting performance target, v1
 clc ; clearvars -except dpath ; close all ;
 fig=figure();
 
@@ -843,8 +843,8 @@ p5 = plot(xrr,yrr,':k','LineWidth',2);
 
 % Add labels and legend
 ylabel('y_2'); xlabel('y_1');
-lg = legend([p1 p3 p2 p5],{'Model range','Possible desired observation',...
-    'Nearest point to desired obs.','1.78\timesdiscrepancy distance'},...
+lg = legend([p1 p3 p2 p5],{'Model range','Possible target outcome',...
+    'Nearest point to target','1.78\timesdiscrepancy distance'},...
     'Location','Northwest');
 pos = [0.1300    0.6539    0.3661    0.1591];
 lg.Position = pos ;
@@ -853,4 +853,69 @@ lg.Position = pos ;
 set(fig,'color','white');
 figstr = sprintf('FIG_des_obs_selection_example');
 % export_fig(figstr,'-eps','-m3','-painters',fig);
+
+%% Example of selecting performance target, v2
+clc ; clearvars -except dpath ; close all ;
+fig=figure();
+
+% Define Pareto front
+x = linspace(1.03,2.39);
+xt = linspace(1.03,2.39,10);
+ytl = [1 .6 .4 .15 .09 .0675 .0525 .04 .025 0.015];
+yl = spline(xt,ytl,x);
+
+% Define upper model bound
+ytu = [1 1.1 1.12 1.14 1.1 .9 .7 .5 .4 .015];
+yu = spline(xt,ytu,fliplr(x));
+
+% Plot the model range
+p1 = fill([x fliplr(x)],[yl yu],[1 .175 .175]);
+axis equal;
+%hold on; plot(xt,ytl,'o'); plot(xt,ytu,'o');
+xlim([0,2.4]);ylim([0,1.2]);
+
+% Get closest point to [0,0], and connect it to [0,0]
+dists = sqrt(sum([x(:) yl(:) ].^2,2)) ;
+[mnm,idx]=min(dists);
+fdists = sqrt(sum([x(:) yu(:) ].^2,2));
+hold on; 
+p2 = plot(x(idx),yl(idx),'ok','LineWidth',2,'MarkerSize',5);
+p3 = plot(0,0,'xk','LineWidth',2,'MarkerSize',7);
+p4 = plot([0 x(idx)],[0 yl(idx)],'-k','LineWidth',1);
+
+% Also plot elbow and nearby desired observation
+lbloc = 37 ; % elbow location index
+plot(x(lbloc),yl(lbloc),'ok','LineWidth',2,'MarkerSize',5);
+des_obs = [1.4825 0.065];
+plot(des_obs(1),des_obs(2),'xk','LineWidth',2,'MarkerSize',7);
+plot([des_obs(1) x(lbloc)],[des_obs(2) yl(lbloc)],'-k','LineWidth',1);
+dodist = norm([des_obs(1)-x(lbloc), des_obs(2)-yl(lbloc)]);
+
+% Get max distance from [0 0]
+dists_up = sqrt(sum([x(:) yu(:)].^2,2)) ;
+[mxm,idx] = max(dists_up);
+
+% Add partial circle showing region within 2 * dist from des_obs
+dist_ratio = mxm/mnm ; 
+x_idx = abs(x-des_obs(1))<=dist_ratio*dodist ;
+xr = x(x_idx) ; 
+yr = sin(acos((xr-des_obs(1))/dist_ratio/dodist)) ; 
+yrt=yr*dist_ratio*dodist+des_obs(2); % Similarly for y-vals
+in_mod_range_idx = yl(x_idx) <= yrt;
+xrr = xr( in_mod_range_idx );
+yrr = yrt( in_mod_range_idx );
+p5 = plot(xrr,yrr,':k','LineWidth',2);
+
+% Add labels and legend
+ylabel('y_2'); xlabel('y_1');
+lg = legend([p1 p3 p2 p5],{'Model range','Possible target outcome',...
+    'Nearest point to target','2\timesdiscrepancy distance'},...
+    'Location','Northwest');
+pos = [0.131    0.615    0.33    0.1591];
+lg.Position = pos ;
+
+% Save
+set(fig,'color','white');
+figstr = sprintf('FIG_des_obs_selection_example');
+export_fig(figstr,'-eps','-q0','-painters',fig);
 
