@@ -168,28 +168,31 @@ The distribution of the process at any finite number of points is multivariate G
 %
 In principle, model calibration need not rely on a GP emulator, or any other sort of emulator; one could (e.g.) complete a full Bayesian analysis via Markov chain Monte Carlo \citep[MCMC;][]{Gelfand1990} by running the relevant computer model at each iteration of the chain. 
 %
-Indeed, \cite{Hemez2011} compare the use of Kennedy-O'Hagan-style calibration both with and without an emulator, and in Section \ref{example} we perform calibration on our example simulated data without an emulator.
+\cite{Hemez2011} compare the use of Kennedy-O'Hagan-style calibration with and without an emulator. 
+%
+In Section \ref{example} we assume fast-running computer code for the simulated example.
 %
 However, computer models are frequently too computationally expensive to allow for such profligacy \citep{VanBuren2013,VanBuren2014}.
 %
-Instead, a computationally tractable emulator can be constructed using a sample of observations from the computer model. 
+Instead, a computationally tractable emulator can be constructed using a sample of output from the computer model. 
 %
+
 GPs are popular prior distributions on computer model output for three reasons.
 %
 Firstly, because their use does not require detailed foreknowledge of the model function's parametric form. 
 %
 Secondly, GPs easily interpolate the computer model output, which is attractive when the computer model is deterministic and hence free of measurement error. 
 %
-This is usually the case, although some attention in model calibration \citep[e.g.][]{Pratola2018} has focused specifically on stochastic computer models. 
+This is usually the case, although some attention in model calibration \citep[e.g.,][]{Pratola2018} has focused specifically on stochastic computer models. 
 %
 Thirdly, GPs facilitate uncertainty quantification through the variance of the posterior GP. 
 %
-This section provides brief background on Gaussian processes and their use in regression broadly and in computer model calibration specifically.
+This section provides brief background on Gaussian processes and their use in regression broadly, and in computer model calibration specifically.
 %
 
-The use of GPs to produce a computationally efficient predictor $\hat \eta (\mathbf x)$ of expensive computer code $\eta(\mathbf x)$ given observations of code output at $\mathbf X=(\mathbf x_1,\ldots,\mathbf x_n)^T$ is promulgated by \cite{Sacks1989} and explored at length by \cite{Santner2003a}.
+The use of GPs to produce a computationally efficient predictor of expensive computer code given observations of code output at $\mathbf X=(\mathbf x_1,\ldots,\mathbf x_n)^T$ is promulgated by \cite{Sacks1989} and explored at length by \cite{Santner2003a}.
 %
-Since computer code is typically deterministic, these applications differ from the focus of \cite{OHagan1978} in that the updated GP is induced to interpolate the observations $\boldsymbol \eta = (\eta(\mathbf x_1),\cdots,\eta(\mathbf x_n))^T$. 
+Since computer code is typically deterministic, these applications differ from the focus of \cite{OHagan1978} in that the updated GP is induced to interpolate the computer output $\boldsymbol \eta = (\eta(\mathbf x_1),\cdots,\eta(\mathbf x_n))^T$. 
 %
 \cite{Kennedy2001} use GPs for computer model calibration. 
 %
@@ -208,7 +211,7 @@ and quantitative inputs, efforts have been made to branch away from these core a
 
 Whether or not an emulator is used, in the framework used here one may consider a computer model to be of the form $\eta(\mathbf x,\boldsymbol \theta)$, where $(\mathbf x,\boldsymbol \theta)$ comprise all inputs to the model. 
 %
-The vector $\boldsymbol \theta$ is the collection of design variables over which we wish to optimize. 
+The vector $\boldsymbol \theta$ denotes the collection of design variables over which we wish to optimize. 
 %
 The vector $\mathbf x$ is the collection of all other inputs that are known and/or under the control of the researcher.
 %
@@ -217,10 +220,10 @@ Call $\mathbf x$ the \emph{control inputs}.
 Thus, the model is
 %
 \begin{equation} \label{eq:model_gen}
-y(\mathbf x)=\eta(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x)+\epsilon(\mathbf x)
+y(\mathbf x)=\eta(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x)+\epsilon(\mathbf x),
 \end{equation} 
 %
-where $y(\mathbf x)$ describes a model outcome at control inputs $\mathbf x$, $\delta(\cdot)$ describes the model discrepancy (the bias of the model as an estimate of the observations) and $\epsilon(\cdot)$ is a mean-zero observation error, often i.i.d.\ Gaussian. 
+where $y(\mathbf x)$ describes a model outcome at control inputs $\mathbf x$, $\delta(\cdot)$ describes the model discrepancy (the systematic bias of the model as an estimate of the response) and $\epsilon(\cdot)$ is a mean-zero observation error, often assumed to be i.i.d.\ Gaussian. 
 %
 
 To employ an emulator, suppose that we have inputs $\{(\mathbf x_i,\mathbf t_i)\}_{i=1}^n\subseteq \mathbb R^p\times \mathbb R^q$ scaled to the Cartesian product of the $p-$ and $q-$dimensional unit hypercubes, and that we have completed computer model runs 
@@ -236,17 +239,17 @@ Set the covariance function in terms of the marginal precision $\lambda_\eta$ an
 \begin{equation}\label{eq:Hig_cov}
 C((\mathbf x,\mathbf t),(\mathbf x',\mathbf t')) = \frac 1\lambda_\eta \prod_{k=1}^{p}
 \exp \left(-\beta^\eta_k|x_k-x_k'|^{\alpha_\eta}\right) \times
-\prod_{k=1}^{q}
-\exp \left(-\beta^\eta_{p+k}|t_k-t_k'|^{\alpha_\eta}\right)
+\prod_{j=1}^{q}
+\exp \left(-\beta^\eta_{p+j}|t_j-t_j'|^{\alpha_\eta}\right)
 \end{equation}
 %
 where each $\beta_k$ describes the strength of the GP's dependence on one of the elements of the input vectors $\mathbf x$ and $\mathbf t$, and $\alpha_\eta$ determines the smoothness of the GP. 
 %
 We set $\alpha_\eta = 2$, which assumes that the model output is infinitely differentiable.
 
-It is common to plug in the MLEs of $\lambda_\eta$ and $\boldsymbol \beta^\eta$ instead of including them in a full Bayesian analysis.
+It is common to plug in the MLEs of $\lambda_\eta$ and $\boldsymbol \beta^\eta$ instead of including them in a full Bayesian analysis \citep{Kennedy2001,Santner2003a,Qian2008,Paulo2012}.
 %
-In the proposed methodology, that is not merely a convenience, but rather is essential.
+In our proposed methodology, that is not merely a convenience, but rather is essential.
 %
 This is because in a full Bayesian analysis, $\lambda_\eta$ and $\boldsymbol\beta^\eta$ would be calibrated using target outcomes which are not real observations of the system.
 %
@@ -273,18 +276,16 @@ where $\rho_k^\delta = \exp(-\beta_k^\delta/4)$ for $k=1,\ldots,p$.
 %
 A Gamma prior is appropriate for $\lambda_\delta$, with strength determined by the amount of prior information available. 
 %
-With sufficient prior information, a degenerate prior can be used. 
+With sufficient prior information, though, we can set $\lambda_\delta$ to be constant. 
 %
-Details surrounding the choice of prior for $\lambda_\delta$ will be discussed below.
+Details surrounding the choice of prior for $\lambda_\delta$ are discussed below.
 %
 As with the covariance function of $\eta(\cdot,\cdot)$, we set $\alpha_\delta=2$.
 
 Let $\boldsymbol \eta = (\eta(\mathbf x_1,\mathbf t_1),\cdots,\eta(\mathbf x_n,\mathbf t_n))^T$ be the vector of completed runs of the simulator, $\mathbf y = (y(\mathbf x_{n+1}),\cdots,y(\mathbf x_{n+m}))^T$ the target outcomes we wish to induce the system to achieve, 
 and $\mathcal D = (\boldsymbol \eta^T,\mathbf y^T)^T$.
 %
-Then $\mathcal D | \boldsymbol \theta,\lambda_\eta, \boldsymbol \rho^\eta,\lambda_\delta,\boldsymbol \rho^\delta$ is distributed as multivariate normal with mean 0 and covariance $\mathbf C_\mathcal D$. 
-%
-$\mathbf C_\mathcal D$ is a matrix with $i,j$ entry equal to 
+Then $\mathcal D | \boldsymbol \theta,\lambda_\eta, \boldsymbol \rho^\eta,\lambda_\delta,\boldsymbol \rho^\delta$ is distributed as multivariate normal with mean 0 and covariance $\mathbf C_\mathcal D$, a matrix with $i,j$ entry equal to 
 $
 C((\mathbf x_i,\mathbf t_i),(\mathbf x_j,\mathbf t_j)) + I(i,j>n)\cdot(C_{obs}(\mathbf x_i,\mathbf x_j) + C_\delta(\mathbf x_i,\mathbf x_j))
 $
@@ -293,19 +294,13 @@ where $C_{obs}(\cdot,\cdot)$ is the (known) observation error variance.
 Setting a uniform prior on the design variables $\boldsymbol\theta$, the joint posterior density under the model is
 %
 \begin{equation} \label{eq:full_dist}
-\pi(\boldsymbol \theta,\lambda_\delta,\boldsymbol \rho^\delta|\mathcal D,\lambda_\eta,\boldsymbol \rho^\eta)
+\pi(\boldsymbol \theta,\lambda_\delta,\boldsymbol \rho^\delta|\mathcal D,\widehat{\lambda_\eta},\widehat{\boldsymbol \rho^\eta})
 \propto \pi(\mathcal D | \boldsymbol \theta,\lambda_\eta, \boldsymbol \rho^\eta,\lambda_\delta,\boldsymbol \rho^\delta) \times %\pi(\lambda_\eta) \times 
 %\pi(\boldsymbol \rho^\eta) \times 
 \pi(\lambda_\delta) \times \pi(\boldsymbol \rho^\delta).
 \end{equation}
 %
-When a discrepancy function is not included in the model, 
-%and the mean $c$ is treated as a constant, 
-(\ref{eq:full_dist}) simplifies to 
-%
-$\pi(\mathcal D | \boldsymbol \theta,\lambda_\eta, \boldsymbol \rho^\eta)$. 
-%
-Markov chain Monte Carlo methods are useful for evaluating (\ref{eq:full_dist}).
+Markov chain Monte Carlo methods are useful for estimating features of the posterior distribution.
 
 \subsection{Calibration to target outcomes}
 
@@ -317,18 +312,18 @@ One might worry that calibrating a model to artificial ``target outcome'' will u
 %
 %It is both easy and pointless to create a model which is a computational ``yes man''. 
 %
-In many cases, however, one is fortunate to have (perhaps after undertaking traditional model calibration, validation and verification) a computer model such that one is confident that the model is known to be faithful to reality over a given set $\mathcal T$ of user specified input settings.
+In many cases, however, one is fortunate to have (perhaps after undertaking traditional model calibration, validation and verification) a computer model that is known to be faithful to reality over a given set $\mathcal T$ of user specified input settings.
 %uniformly valid over a given set $\mathcal T$ of controllable parameters $t$, i.e., the model is known to be faithful to reality over $\mathcal T$. 
 %
-In such a circumstance, in calibrating $\mathbf t\in\mathcal T$ to one's desires, one does not risk calibrating the model \emph{away} from agreement with reality, even if one's targets are not realistically achievable. 
+In such a circumstance, in searching for $\mathbf t\in\mathcal T$ so that the model output matches one's targets, one does not risk using making predictions at settings under which the model is unreliable. 
 %
-Instead, one finds a distribution on the settings that achieve the most realistic approximation to the target outcomes.
+Instead, one finds a distribution of the settings that achieve the most realistic approximation to the target outcomes.
 
 The tools of model calibration founded in the work of \cite{Kennedy2001} retain their advantages under our proposed methodology.
 %
-Most centrally, calibration to target outcomes $\mathbf y$ produces not merely a point optimum $\mathbf t\in\mathcal T$, but rather a posterior distribution of $\mathbf t|\mathbf y$ reflective of remaining uncertainty about the appropriate value of $\mathbf t$. 
+Most centrally, calibration to target outcomes $\mathbf y$ produces not merely a point estimate $\mathbf t^*\in\mathcal T$, but rather a posterior distribution of $\mathbf t|\mathbf y$ reflective of remaining uncertainty about the appropriate value of $\mathbf t$. 
 %
-Such uncertainty may have its source in parameter uncertainty (uncertainty about the values of model inputs other than the design variables), model form uncertainty (uncertainty about how closely the code approximates reality), and that which traditional calibration would consider observation error and model inadequacy. 
+Such uncertainty may have its source in parameter uncertainty (uncertainty about the values of model inputs other than the design variables), model form uncertainty (uncertainty about how closely the code approximates reality), and that which traditional calibration would consider observation error. 
 %
 Of course,  targets are not actually observations, so the concept of observation error does not cleanly transfer. 
 %
@@ -350,7 +345,7 @@ CTO finds the region of the parameter space with output closest to the target ob
 %
 If the entire feasible performance range is far from the target observations, then the optimal region will in relative terms be only a little closer than the rest of the model range. 
 % 
-As a result, the identifiability of the optimal region will suffer.
+This is the same effect as when the variance of the observation error is much larger than the variance of the prior distribution on a parameter; i.e., the posterior is much more strongly determined by the prior than the likelihood, resulting in limited Bayesian learning about quantities of interest.
 %The nearness of the optimum to another point in the parameter space is relative to the estimated error at the optimum, and therefore if the entire model range is far from the target observations, then all points in the parameter space will be 
 %
 %relative difference between the distance to the Pareto front and the distance to other regions of the model range, thereby decreasing the identifiability of the region to which one wishes to calibrate.
@@ -364,9 +359,9 @@ Thirdly, the target outcomes lose their interpretability when they take on value
 %This option is not truly another means of achieving a calibration target, but rather is simply the decision to refrain from doing so. 
 %%
 
-When a target cannot be selected, calibration can be performed to each point in a grid over the region of plausible target values.
+When a target cannot be selected (for example, because priorities regarding cost/performance trade-offs have not yet been settled), design can be carried out using each point in a grid over the region of plausible target values.
 %
-For instance, one can calibrate to performance targets under each point of a grid of ``known'' costs, rather than calibrating the model to a specific desired cost.
+For instance, one can design to performance targets under each point of a grid of ``known'' costs, rather than ``calibrating'' the model to a specific desired cost.
 %
 In doing so, we present a comprehensive picture of optimal parameter distributions and resulting performance under a range of costs, which could inform the process of setting a budget for material construction.
 
@@ -375,18 +370,18 @@ In order to successfully locate the optimal design region, it is necessary eithe
 %
 Otherwise, the optimal region of the design variable space will suffer from poor identifiability.
 %
-This is a longstanding concern with the Kennedy-O'Hagan framework, raised in the discussion of \cite{Kennedy2001} as well as by \cite{Bayarri2007}, \cite{Tuo2015}, and \cite{Plumlee2017}.
+This longstanding concern was raised in the discussion of \cite{Kennedy2001}, as well as by \cite{Bayarri2007}, \cite{Tuo2015}, and \cite{Plumlee2017}.
 %
 How informative one's prior on $\lambda_\delta$ will be depends upon how much one knows about the true Pareto front prior to undertaking CTO.
 %
-For instance, if in a univariate case it is known with some confidence that the true optimum is nearly constant as a function of the other model inputs, and that it occurs in the interval $[10,11]$, then a constant target outcome of $9$ could be used with an informative prior tailored to this prior knowledge of the approximate resulting discrepancy -- say $\mathrm{Gamma}(20,20)$.
+For instance, if in a univariate case it is known with some confidence that the true optimum is nearly constant as a function of the other model inputs, and that it occurs in the interval $[10,11]$, then a constant target outcome of $9$ could be used with an informative prior tailored to this prior knowledge of the approximate resulting discrepancy.
 %
 
 Where the prior on $\lambda_\delta$ cannot be chosen to be \emph{accurate} (due to insufficient prior knowledge of the Pareto front) it should be chosen to \emph{overestimate} the precision.
 %
-Otherwise, underestimation of $\lambda_\delta$ may lead to poor identifiability of the optimal design region.
+Otherwise, underestimation of $\lambda_\delta$ may lead to poor identifiability of the optimal design region by granting the model too much flexibility in systematically deviating from the targets..
 %
-This is because $\lambda_\delta$ indirectly describes the (inverse) expected distance of the target outcomes from the posterior predictive distribution.
+This is because $\lambda_\delta$ affects the expected distance of the target outcomes from the posterior predictive distribution.
 %
 Thus, underestimating $\lambda_\delta$ can result in there being little penalty in leaving the region of the model range that is closest to the target outcomes.
 %
@@ -394,18 +389,18 @@ When setting a prior that overestimates $\lambda_\delta$, the posterior distribu
 %
 Nonetheless, even when $\lambda_\delta$ must be overestimated, the posterior distribution of $\boldsymbol \theta$ will still peak at the optimal design region(s), since overestimation of $\lambda_\delta$ only increases the penalty of leaving that region.
 %
-And so while relying on vague knowledge of the optimum does interfere with one's ability to estimate the true discrepancy of the model from the target outcomes, even in such circumstances one may still locate the posterior mode(s) of $\boldsymbol \theta$ and thereby the optimal settings for the model.
+Thus, while relying on vague knowledge of the optimum does interfere with one's ability to estimate the true discrepancy of the model from the target outcomes, one may still locate the posterior mode(s) of $\boldsymbol \theta$ and thereby the optimal settings for the model.
 % %HERE
 However, if $\lambda_\delta$ is too highly overestimated, then MCMC may become trapped in a local mode, leading to convergence problems. 
 %
 In short, while the proposed methodology is forgiving of overestimation of $\lambda_\delta$, the identifiability of the optimal design region(s) is best served by supplying as informative of a prior as possible. 
 
 %
-In situations where one lacks the prior knowledge necessary to select target outcomes near the Pareto front and an accurate prior for $\lambda_\delta$, an alternative to simply relying on an overestimated $\lambda_\delta$ with a ``safe'' choice of target outcomes is to use a preliminary round of CTO to estimate the Pareto front.
+In situations where one lacks the prior knowledge necessary to select target outcomes near the Pareto front and an accurate prior for $\lambda_\delta$, an alternative is to use a ``preliminary round'' of CTO to {\em estimate} the Pareto front.
 %
 For example, consider again the univariate case, supposing now that we know only that the optimal output is approximately constant somewhere in the range $(0,20)$. 
 %
-One could perform CTO directly with constant target outcome $-1$ and an exponential prior on $\lambda_\delta$ with rate 2.
+One could perform CTO directly with constant target outcome below the known model range (e.g., $-1$) and prior on $\lambda_\delta$ that weakly pulls the posterior predictive distribution toward the lower end of its range (e.g., exponential with rate 2).
 %
 If the true optimal output turns out to be close to the lower end of its known range, this will likely work well.
 %
@@ -415,16 +410,16 @@ To avoid this, one can instead perform CTO still with constant target outcome $-
 % 
 Though the resulting posterior distribution will have greater density in the optimal region(s) than would a uniform sampling, it will likely not center in the optimal region, instead covering a larger area of the model range.
 %
-The resulting posterior predictive distribution can be filtered to retain only its Pareto front, and these remaining predictive samples can be used as an estimate of the true Pareto front in the vicinity of the target outcome.
+The resulting posterior predictive distribution can be filtered to retain only its Pareto front, and this can be used as an estimate of the true Pareto front in the vicinity of the target outcome.
 %
-This preliminary estimate (unlike the estimate achieved after full CTO) does not include uncertainty quantification. 
+%This preliminary estimate (unlike the estimate achieved after full CTO) does not include uncertainty quantification. 
 %
-The preliminary estimate merely allows one to select a new set of target outcomes that is known to lie near the optimal region, along with an accurate and informative prior on $\lambda_\delta$ that reflects the estimated distance between the new target and the optimal region.
+The preliminary estimate allows one to select a new set of target outcomes that is known to lie near the optimal region, along with an accurate and informative prior on $\lambda_\delta$ that reflects the estimated distance between the new target and the optimal region.
 %
 Performing CTO with these new targets and prior will result in a posterior distribution that concentrates on the optimal region, and the resulting posterior predictive distribution will allow one to estimate the optimal output with appropriate quantification of the uncertainty.
 %
-
-To continue the above example, preliminary CTO may show that the true optimum across the domain of the control inputs is in the interval $[10,11]$, which puts one in a position to use the aforementioned combination of a constant target outcome of 9 and $\lambda_\delta\sim$ Gamma(20, 20) prior, or even a degenerate prior with $\lambda_\delta$ set equal to 1.
+%
+%To continue the above example, preliminary CTO may show that the true optimum across the domain of the control inputs is in the interval $[10,11]$, which puts one in a position to use the aforementioned combination of a constant target outcome of 9 and $\lambda_\delta\sim$ Gamma(20, 20) prior, or even a degenerate prior with $\lambda_\delta$ set equal to 1.
 %
 The full CTO process, including preliminary estimation of the Pareto front, is given in Algorithm 1.
 
@@ -436,11 +431,11 @@ The full CTO process, including preliminary estimation of the Pareto front, is g
 \hline
 1.&Set target outcomes to lie outside of the model range.\\
 2.&  Set a vague prior on $\lambda_\delta$.\\
-3.&  Perform calibration and use the resulting posterior samples of $\boldsymbol\theta$ to draw posterior predictive samples of the model output.\\
-4.&  Filter the resulting predictive samples to retain only the Pareto optimal samples. The remaining samples $\mathcal P$ serve as the estimate of the Pareto front.\\
-5.& Select new target outcomes using $\mathcal P$. These may be entirely new targets chosen after examining $\mathcal P$, or may simply be updated automatically to set each $d_i$ to be the same (small) distance $1/\sqrt{\lambda}$ (for some $\lambda$) from $\mathcal P$.\\
+3.&  Perform MCMC and use the resulting posterior samples of $\boldsymbol\theta$ to draw from the posterior predictive distribution of the model output.\\
+4.&  Filter the resulting predictions to retain only the Pareto optimal values. The remaining set of values $\mathcal P$ estimates the Pareto front.\\
+5.& Select new target outcomes using $\mathcal P$. These may be entirely new targets chosen after examining $\mathcal P$, or may simply be updated automatically to set each target outcome to be the same (small) distance $1/\sqrt{\lambda}$ (for some $\lambda$) from $\mathcal P$.\\
 6.& Set a strong (or degenerate) prior on $\lambda_\delta$ with mean $\lambda$.\\
-7.& Perform calibration in the usual way.\\
+7.& Perform MCMC in the usual way.\\
 \hline
 \end{tabular}
 \label{alg:CDO_alg}
@@ -483,7 +478,7 @@ The point closest to $(0,0)$ is not intrinsically superior to any other point on
 %
 Its uniqueness lies solely in being nearest to the origin, and that choice of target outcome was itself driven merely by our ignorance of the model range.
 %
-Thirdly, since we don't know the model range, we are not in a position to set an informative and accurate prior for $\lambda_\delta$.
+Thirdly, since we don't know the model range, we are not in a position to set an informative prior for $\lambda_\delta$.
 %
 By contrast, suppose now that we have performed preliminary CTO and have available a rough estimate of the Pareto front, empowering us to choose another point as our target outcome -- for example, the point $(1.32,0.065)$ pictured in Figure \ref{fig:do_selection_example} targets an ``elbow'' where allowing $y_1$ to increase further leads to diminishing returns in reducing $y_2$.
 %
@@ -518,42 +513,44 @@ $
 y_3 = 15 + 2 \theta_1 + {\theta_2^2}/4.
 $
 %
-Figure \ref{fig:toy_sim_outputs} displays the $y_1, y_2$, and $y_3$ surfaces as functions of $\theta_1$ and $\theta_2$ at $x = 2$ on a common scale.
+Figure \ref{fig:toy_sim_outputs} displays the $y_1, y_2$, and $y_3$ surfaces as functions of $\theta_1$ and $\theta_2$ at $x = 2$.
 %
 \begin{figure}
 \centering
 \includegraphics[scale=.8]{FIG_toy_sim_model_outputs.eps}
 %\captionsetup{width=.4\linewidth}
-\caption{True outputs of the example model, shown on a common scale.}
+\caption{True outputs of the example model.}
 \label{fig:toy_sim_outputs}
 \end{figure}
 %
 Assuming an easily evaluated model, we have
 %
 $
-\mathbf y(x) = \mathbf f(x,\boldsymbol \theta) + \delta(x) + \epsilon
+\mathbf z(x) = \mathbf f(x,\boldsymbol \theta) + \delta(x) + \epsilon
 $
 %
-for target outcome $\mathbf y$, where $\mathbf f$ is the model output, $\delta(\cdot)$ is the discrepancy between the optimal region and the target outcome, and $\boldsymbol \epsilon$ follows a $N(\mathbf 0,0.05I)$ distribution. 
+for target outcome $\mathbf z$, where $\mathbf f = (y_1,y_2,y_3)^T$ is the model output, $\delta(\cdot)$ is the discrepancy between the optimal region and the target outcome, and $\boldsymbol \epsilon$ follows a $N(\mathbf 0,0.05I)$ distribution. 
 %
 Aside from easing matters computationally, $\boldsymbol \epsilon$ serves as ``observation error'' of our own target outcomes, since in a typical case one can at best identify a small region within which the choice of any particular point as a target outcome would be arbitrary due to our acceptable tolerance.
 %
 
 We initially set the target outcomes to $(0,0,0)$, constant as a function of $x$. 
 %
-We then estimated the Pareto front via a preliminary round of CTO with $\lambda_\delta\sim \mathrm{Exp}(1)$ in order to estimate the standardized distance of the target outcome from the Pareto front.
+We then estimated the Pareto front via a preliminary round of CTO without an emulator and with $\lambda_\delta\sim \mathrm{Exp}(1)$ in order to estimate the standardized distance of the target outcome from the Pareto front.
 %
-We filtered the resulting posterior predictive distribution to retain only the Pareto optimal points and estimated the distance from the Pareto front to the target outcome.
+We filtered the resulting posterior predictive distribution to retain only the Pareto optimal points.
 %
-The distance is 16 units on the standardized scale, which is large compared to the model range, at roughly four times its diameter.
+Rescaling so that each model output $y$ is replaced with $y^*=(y-\mathbb E(y))/\sqrt{\mathbb V(y)}$, the distance from the Pareto front to the target outcome is 16 units.
+%
+This is large compared to the model range, at roughly four times its diameter.
 %
 As a result, the use of $(0,0,0)$ as a target outcome would lead to poor identifiability of the optimal region. 
 %
 This is because the target outcome is approximately the same distance from any point in the model range, relative to the distance from the target outcome to the optimal region.
 %
 Therefore in order to improve identifiability of the optimal region, we updated the target outcome to lie along the line connecting the original target outcome to the nearest point of the estimated Pareto front, but now closer to the latter.
-%
-We chose a distance of one unit away (roughly one fourth of the diameter of the model range), approaching the estimated Pareto front as closely as possible while remaining confident that the new target outcome of $(0.71, 0.71, 17.92)$ still outperforms the true Pareto front (i.e., lies outside the model range and is such that if it were added to the model range, it would be a Pareto optimal point).
+%HERE
+We chose a distance of one unit away (roughly one fourth of the diameter of the model range), approaching the estimated Pareto front as closely as possible while remaining confident that the new target outcome of $(0.71, 0.71, 17.92)$ still outperforms the true Pareto front.
 %
 We then set the marginal precision of the discrepancy function to 1 for subsequent CTO, corresponding to a degenerate prior informed by the estimated distance of the new target outcome from the Pareto front.
 %
