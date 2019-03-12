@@ -359,7 +359,7 @@ Thirdly, the target outcomes lose their interpretability when they take on value
 %This option is not truly another means of achieving a calibration target, but rather is simply the decision to refrain from doing so. 
 %%
 
-When a target cannot be selected (for example, because priorities regarding cost/performance trade-offs have not yet been settled), design can be carried out using each point in a grid over the region of plausible target values.
+When a target cannot be selected (for example, because priorities regarding cost and performance trade-offs have not yet been settled), design can be carried out using each point in a grid over the region of plausible target values.
 %
 For instance, one can design to performance targets under each point of a grid of ``known'' costs, rather than ``calibrating'' the model to a specific desired cost.
 %
@@ -379,7 +379,7 @@ For instance, if in a univariate case it is known with some confidence that the 
 
 Where the prior on $\lambda_\delta$ cannot be chosen to be \emph{accurate} (due to insufficient prior knowledge of the Pareto front) it should be chosen to \emph{overestimate} the precision.
 %
-Otherwise, underestimation of $\lambda_\delta$ may lead to poor identifiability of the optimal design region by granting the model too much flexibility in systematically deviating from the targets..
+Otherwise, underestimation of $\lambda_\delta$ may lead to poor identifiability of the optimal design region by granting the model too much flexibility in systematically deviating from the targets.
 %
 This is because $\lambda_\delta$ affects the expected distance of the target outcomes from the posterior predictive distribution.
 %
@@ -549,24 +549,24 @@ As a result, the use of $(0,0,0)$ as a target outcome would lead to poor identif
 This is because the target outcome is approximately the same distance from any point in the model range, relative to the distance from the target outcome to the optimal region.
 %
 Therefore in order to improve identifiability of the optimal region, we updated the target outcome to lie along the line connecting the original target outcome to the nearest point of the estimated Pareto front, but now closer to the latter.
-%HERE
+%
 We chose a distance of one unit away (roughly one fourth of the diameter of the model range), approaching the estimated Pareto front as closely as possible while remaining confident that the new target outcome of $(0.71, 0.71, 17.92)$ still outperforms the true Pareto front.
 %
 We then set the marginal precision of the discrepancy function to 1 for subsequent CTO, corresponding to a degenerate prior informed by the estimated distance of the new target outcome from the Pareto front.
 %
-Observation error $\epsilon(\cdot)$ from \eqref{eq:model_gen} was taken to be distributed as $N(0,0.05)$ for all $x$.
+Observation error $\epsilon(\cdot)$ from \eqref{eq:model_gen} was taken to be distributed as $N(0,0.05)$ for all $x$, which ensures that almost all ($>95\%$) of the target outcomes' probability mass is outside our estimate of the Pareto front.
 %
 For comparison, we also performed CTO directly, without the use of preliminary CTO.
 %
 To do so, we used our original target outcome of $(0,0,0)$ with a Gamma(10,10) prior deliberately overestimating $\lambda_\delta$.
 %
-Notice that although the Gamma prior from direct CTO and the degenerate prior $\lambda_\delta=1$ from full CTO have the same means, this is an overestimation only in the case of direct CTO, since the two calibrations used different target outcomes.
+Notice that although the Gamma prior from direct CTO and the degenerate prior $\lambda_\delta=1$ from full CTO have the same means, this is an overestimation only in the case of direct CTO, since the two posterior explorations used different target outcomes.
 %
 While the Exp(1) prior used in preliminary CTO does pair a mean of 1 with target outcome (0,0,0), the exponential prior does not penalize low values of $\lambda_\delta$, and so fails to result in overestimation of $\lambda_\delta$.
 %
-Figure \ref{fig:toy_sim_results} shows the resulting posterior distributions of the two calibration procedures, including the marginal distributions of the design variables. 
+Figure \ref{fig:toy_sim_results} shows the resulting posterior distributions of the two design procedures, including the marginal distributions of the design variables. 
 %
-The marginals in each case show substantial Bayesian learning compared to the prior distribution of the design variables, which is uniform. 
+The marginals in each case show substantial Bayesian learning compared to the prior (uniform) distribution of the design variables. 
 %
 CTO successfully maps the contours of the optimal region in each of the two cases, and peaks near the true optimum. 
 %
@@ -591,13 +591,13 @@ This simulation example illustrates that CTO can be used directly with little fo
 
 \section{Application}\label{application}
 
-In this section we describe the use of CTO for designing a material to be used in a wind turbine blade of fixed geometry. 
+In this section we apply our proposed approach toward designing a material to be used in a wind turbine blade of fixed geometry. 
 %
 The goal is to wed the typically separate tasks of material selection and material design, thereby designing a composite material to optimize performance in a turbine blade.
 %
-CTO here is mediated by a model using \texttt{ANSYS} finite element analysis software \citep{ansys}. 
+Our computer model here uses \texttt{ANSYS} finite element analysis software \citep{ansys}. 
 %HERE
-We assume that the finite element model is an accurate representation of reality.
+It is important to observe that we assume the finite element model is an accurate representation of reality.
 
 \subsection{Project background}
 
@@ -609,7 +609,7 @@ The blade is to be a composite of two given materials, one serving as the \texti
 %
 In a composite, the matrix holds the filler together; an example would be concrete, in which a filler of loose stones is combined with a matrix of cement.
 %
-For the wind turbine blade, given a fixed choice of matrix and filler, the properties of the composite depend on the volume fraction (i.e. the volume ratio of filler material to matrix material used in the composite) and the thickness of the material used to build the blade. 
+For the wind turbine blade, given a fixed choice of matrix and filler, the properties of the composite depend on the volume fraction (the volume ratio of filler material to matrix material used in the composite) and the thickness of the material used to build the blade. 
 %
 The resulting material properties impact the performance of the blade, as well as its cost per square meter. 
 %
@@ -619,50 +619,50 @@ The output of the model is the triplet $(d,r,c)$, where $d$ is tip deflection (i
 % 
 The wind turbine should be capable of operating over the range of temperatures 230K-330K. 
 %
-We used CTO to find a distribution on optimal settings for $v$ and $k$ given outputs from the finite element simulator and target outcomes.
+%We used CTO to find a distribution on optimal settings for $v$ and $k$ given outputs from the finite element simulator and target outcomes.
 
 \subsection{Emulation of finite element model}\label{emulator}
 The finite element simulator is too computationally expensive to be suitable for direct use in an MCMC routine. 
 %
 We employed a GP emulator in the manner of \cite{Williams2006}. 
 %
-For this purpose, we drew 504 (trivariate) observations from the finite element simulator. 
+For this purpose, we drew 500 (trivariate) observations from the finite element simulator. 
 %
 The inputs are determined by a Latin hypercube sampling design \citep{McKay1979} based on plausible ranges for the three inputs, as identified by subject matter experts.
 %
-We consider the finite element observations to follow a GP with mean 0 and covariance function $C$ as described by (\ref{eq:Hig_cov}).
+We take the computer output to follow a GP with mean 0 and product power exponential covariance function as given in (\ref{eq:Hig_cov}).
 %
 %I do not include a discrepancy function, per the considerations of Section \ref{obs_error}.
 
-The hyperparameters $\lambda_\eta,\boldsymbol \beta^\eta$ must be estimated.
+The hyperparameters $\lambda_\eta,\boldsymbol \beta^\eta$ must be estimated to plug in to the prior.
 % 
-To avoid our estimates being biased by calibration to the target outcomes, we estimated them prior to calibration via maximum likelihood estimation.
+To avoid our estimates being biased by the influence of the target outcomes, we estimated them prior to the design stage via maximum likelihood using only the finite element model output..
 % 
 %Initially, a grid optimization method was used: a grid of $\boldsymbol \beta^\eta$ values was used, finding at each point of the grid the likelihood of the simulation observations integrated over the support of $\lambda_\eta$. 
 %
 %However, $\boldsymbol \beta^\eta$ is a five-dimensional vector, and a grid fine enough to be useful was too computationally burdensome to be feasible. Instead, a 
 We used \texttt{fmincon()} \citep{MATLAB2017} %\citep{Cauchy1847} 
-to maximize the log-likelihood of the simulation observations  (Equation \eqref{eq:full_dist} with $\mathcal D=\boldsymbol\eta$) over the joint (6-dimensional) support of $\boldsymbol \beta^\eta,\lambda_\eta$.  
+to maximize (with $\mathcal D=\boldsymbol\eta$) over the joint (six-dimensional) support of $\boldsymbol \beta^\eta,\lambda_\eta$.  
 %
 The result is $\hat\lambda_\eta = 0.0152$, $\boldsymbol {\hat\rho}^\eta = (0.9358, 0.6509, 0.6736, 0.4797, 0.9673)$
 where $\rho^\eta_k = \exp(-\beta_k^\eta/4)$. 
 
-\subsection{Calibration of the wind turbine blade system}\label{the_model}
+\subsection{Design of the wind turbine blade system}\label{the_model}
 %
-All model inputs were normalized to [0,1] over their supports. 
+All model inputs were rescaled to [0,1]. 
 %
 All model outputs were standardized so that the vector of simulation responses $\boldsymbol\eta$ has mean 0 and standard deviation 1.
 %
 The full joint posterior density of the design variables and discrepancy function hyperparameters is given in Equation \eqref{eq:full_dist}, using the MLEs given above.
 %
 
-The initial target outcomes were set to $(0,0,0)$ on the original scale, constant as a function of temperature, on an evenly-spaced grid of 21 temperature values over the range [230K, 330K].
+The initial target outcomes were set to $(0,0,0)$ on the original scale, constant as a function of temperature, on an evenly-spaced grid temperature values over the range [230K, 330K].
 %
-We carried out a preliminary round of CTO with a weak Exp(5) prior on $\lambda_\delta$, in order to estimate the Pareto front and update the target outcomes to lie close to the Pareto front and thereby improve identifiability of the optimal region.
+We carried out a preliminary round of CTO with an Exp(5) prior on $\lambda_\delta$, in order to estimate the Pareto front and update the target outcomes to lie close to the Pareto front and thereby improve identifiability of the optimal region.
 %
-For this purpose, a total of 20,000 samples were drawn via Metropolis-Hastings-within-Gibbs MCMC \citep{Metropolis1953, Hastings1970, Geman1984}, of which 4,000 samples were discarded as burn-in. 
+For this purpose, a total of 20,000 Markov chain realizations were drawn via Metropolis-Hastings-within-Gibbs MCMC \citep{Metropolis1953, Hastings1970, Geman1984}, of which the first 4,000 draws were discarded as burn-in. 
 %
-During the burn-in period, the covariance of the proposal distributions for $\boldsymbol \theta$, $\lambda_\delta$, and $\boldsymbol\rho^\delta$ were all periodically adjusted for optimal acceptance rates using the sample covariance of the preceding draws.
+During the burn-in period, the covariance of the proposal distributions for $\boldsymbol \theta$, $\lambda_\delta$, and $\boldsymbol\rho^\delta$ were periodically adjusted for optimal acceptance rates \citep[of around $23\%$; see][]{Roberts1997} using the sample covariance of the preceding draws. %HERE ref
 %
 %The adjustment took place every 100 iterations of the MCMC, at which point the relevant covariance matrix was set to be equal to the sample covariance of the previous draws, times a scalar multiplier. 
 %
@@ -670,39 +670,39 @@ During the burn-in period, the covariance of the proposal distributions for $\bo
 %
 As expected for the preliminary round of CTO, the posterior distribution of $\boldsymbol\theta$ was quite diffuse.
 %
-We used the GP emulator to estimate the model output for each sample of $\boldsymbol \theta$ drawn.
+We used the GP emulator to predict the model output for each realization of $\boldsymbol \theta$.
 %
-We filtered the resulting posterior predictions to retain only the estimated Pareto front.
+Figure \ref{fig:elbow} displays the estimated Pareto front after filtering the posterior predictions.
 %
-Figure \ref{fig:elbow} displays the estimated Pareto front, where we can see a distinct ``elbow."
+Though the model range is three-dimensional, the Pareto front appears to be a roughly coplanar curve describing a trade-off in which reduced cost is achieved by allowing higher deflection and rotation.
+%
+We see a distinct point of maximum curvature in the Pareto front. 
+%
+This location seems to represent a point of diminishing returns in the tradeoff between performance and cost, and thus we selected this point as the target region for design.
 %
 \begin{figure}
 \centering
 \includegraphics[scale=0.8]{FIG_est_PF_with_des_obs.eps}
 %\captionsetup{width=.7\linewidth}
-\caption{Each x shows a non-Pareto optimal point drawn from the predictive distribution through preliminary CTO. The dots show the estimated Pareto front. The plus sign is the target outcome selected to calibrate to the ``elbow'' in the Pareto front.}
+\caption{Each x represents a non-Pareto optimal point drawn from the predictive distribution through preliminary CTO. The dots indicate the estimated Pareto front. The plus sign is the target selected as the performance objective in our proposed design approach.}
 \label{fig:elbow}
 \end{figure}
-%
-We selected this elbow as the target region for design.
 %
 To do so, we set the point $(\mathrm{deflection}=0.75\mathrm m,\ 
 \mathrm{rotation}=0.09\ \mathrm{rad},\ 
 \mathrm{cost}=\$130.34)$
- as the target outcome (constant as a function of temperature).
-%
-The elbow is the closest region of the Pareto front to this point.
+ as the target outcome, constant as a function of temperature.
 %
 Based on the estimated Pareto front, the target outcome is approximately 0.2 units away on the standardized scale.
 %
 Therefore, we set $\lambda_\delta=1/0.2^2=25.$
 %
 
-In the subsequent CTO step, we employed the same MCMC approach as in the preliminary round, except that $\lambda_\delta$ was now treated as known.
+In the subsequent CTO step, we employed the same MCMC approach as in the preliminary round, except that $\lambda_\delta$ was now fixed.
 %
 The marginal posterior distribution of the design variables is shown in Figure \ref{fig:wt_marg_post} as contours of highest density regions.
 %
-The contrast of the posterior distribution with the prior, which is uniform over the area shown in the figure, indicates that significant Bayesian learning has occurred in the design process.
+The contrast of the posterior distribution with the prior, which is uniform over the area shown in the figure, indicates that strong Bayesian learning has occurred in the design process.
 %
 %\begin{figure}
 %\centering
@@ -727,17 +727,17 @@ The prior and posterior marginal predictive distributions of the model outputs a
 %\includegraphics[width=.4\linewidth]{FIG_post_dist_contourplot}
 \includegraphics[scale=0.8]{FIG_prior_vs_posterior_dist}
 %\captionsetup{width=.7\linewidth}
-\caption{Prior and posterior marginal predictive distributions for each of the three model outputs. Note that it is to be expected that the posteriors peak near the target (and not on it), since the target was intentionally chosen to lie outside the model range.}
+\caption{Approximate prior and posterior marginal predictive densities for each of the three model outputs. Note that it is to be expected that the posteriors peak near the target (and not on it), since the target was intentionally chosen to lie outside the model range.}
 \label{fig:prior_post_pred_comp}
 \end{figure}
 %
-The posterior marginals peak sharply near the target outcome.
+Each marginal posterior density peaks sharply near the target outcome.
 %
 The mean model output under the prior is $(\text{deflection}=0.76\mathrm m,\ \text{rotation}=0.09\text{ rads},\ \text{cost}=\$207.90/\mathrm m^2)$, whereas under the posterior it is $(0.76\mathrm m,0.09\ \mathrm{rad},\$148.68/\mathrm m^2)$.
 %
-Though the performance outcomes are approximately the same under the posterior distribution as under the prior, the cost per square meter has dropped dramatically.
+Though the mean performance outcomes are approximately the same under the posterior distribution as under the prior, the mean cost per square meter and the uncertainty of the outcomes have both been dramatically reduced.
 %
-If one desires instead to prioritize gains in performance over cost, this can be accomplished by selecting target outcomes that reflect those priorities. 
+If one desires instead to prioritize gains in performance over cost, this can be accomplished by selecting target outcomes that reflect those priorities, as we discuss in Section \ref{removing_cal_pars}. 
 
 \subsection{Pareto front estimation}\label{removing_cal_pars}
 
@@ -745,7 +745,7 @@ If one desires instead to prioritize gains in performance over cost, this can be
 
 Often in the case of a system with multivariate output, one might not antecedently have a clear goal for design.
 %
-When \textit{ceteris paribus} all outputs are to be minimized, any point in the Pareto front is optimal relative to some set of priorities.
+All else being equal, when all outputs are to be minimized, any point in the Pareto front is optimal relative to some set of priorities.
 %
 If those priorities have not been explicitly determined prior to the design process, then no particular outcome can be targeted.
 %
@@ -761,7 +761,7 @@ To do this, where the model output is $d-$dimensional, one may draw a grid over 
 %
 The $d-1$ outputs, at each grid point, are treated as known up to observation error (meaning that the discrepancy function $\delta(\cdot)$ is set to 0 in the dimension of these outputs).
 %
-The resulting estimate is distinguished from other methods of estimating the Pareto front (including from the filtering method employed in preliminary CTO) by including uncertainty quantification.
+The resulting estimate is distinguished from other methods of estimating the Pareto front (including from the filtering method employed in preliminary CTO) in that it allows for quantifying the uncertainty associated with the Pareto front..
 %
 
 Our proposed procedure is illustrated here using the wind turbine blade application.
@@ -783,7 +783,7 @@ Note that only one round of preliminary CTO was needed for this purpose, rather 
 
 The result of the strategy is to provide an estimate of the response surface with included uncertainty quantification describing, for each point in the grid, the optimal achievable outcome for the output not included in the grid.
 %
-Thus a decision-maker can visualize the space of desirable possibilities with associated uncertainty metrics. 
+This enables a decision-maker to visualize the space of desirable possibilities with associated uncertainty metrics. 
 %
 They can do so without the need for rigorously predetermining their exact priorities for weighing gains in each of the outputs against one another.
 %
@@ -797,13 +797,13 @@ The result of applying this strategy to the wind turbine blade application is sh
 \label{fig:known_cost}
 \end{figure}
 %
-The lefthand plot shows that the posterior model output respected the ``known'' cost values used in the design process.
+The lefthand plot shows that the posterior model predictions respected the ``known'' cost values used in the design process.
 %
-The Pareto front for the system appears with uncertainty bands in the righthand plot.
+The Pareto front for the system, along with associated uncertainty bands, appears in the righthand plot.
 %
 This plot visualizes a distribution on the optimal performance outcome for any cost that a decision-maker might select as a budget for production, which would be helpful when selecting a budget.
 %
-For example, the elbow around \$140 manifests itself as a potentially attractive choice, since it can be seen in the plot that prior to that point each dollar spent brings significant gains in reducing deflection.
+For example, the point of maximum curvature around \$140 manifests itself as a potentially attractive choice, since it can be seen in the plot that prior to that point each dollar spent brings significant gains in reducing deflection.
 %
 Spending above that level continues to reduce deflection, but less sharply.
 
@@ -815,7 +815,7 @@ If one has substantive goals that drive one to select that target, then one is w
 %
 But if the target $(0,0,0)$ is chosen arbitrarily, then the resulting optimal region is itself determined arbitrarily.
 %
-The estimate of the Pareto front provided by preliminary CTO allows us to identify regions of special interest, and to select target outcomes that calibrate to those regions, as illustrated in Figure \ref{fig:elbow}.
+The estimate of the Pareto front provided by preliminary CTO allows us to identify regions of special interest, and to select target outcomes that that lead to clearly defined designs, as illustrated in Figure \ref{fig:elbow}.
 %
 The use of CTO in this case also demonstrates the value of obtaining a posterior distribution on the design variables, rather than just a point estimate.
 %
@@ -823,9 +823,9 @@ For example, Figure \ref{fig:wt_marg_post} shows not just that a reasonable poin
 %
 More generally, one can see in the Figure an indication of the range of $\boldsymbol\theta$ values that achieve results near the target, which is potentially useful when one's goal is to set tolerances (rather than a specific value) for $\boldsymbol\theta$.
 %
-Finally, the use of CTO in the wind turbine case illustrates how the method can deliver ``Pareto bands'', providing not merely an estimate of the Pareto front (as in preliminary CTO) but also uncertainty bands on that estimate.
+Finally, the use of CTO in the wind turbine case illustrates how the method can deliver ``Pareto bands'', providing not merely an estimate of the Pareto front (as in preliminary CTO) but also uncertainty associated with that estimate.
 %
-Such an estimate can be of use to decision-makers when deciding on performance and budgetary targets.
+Such an estimate can be of use to decision-makers when deciding on performance subject to budgetary constraints.
 
 
 
@@ -837,7 +837,7 @@ We have described how the
 %theoretical background for the use of Gaussian processes to emulate computationally expensive computer model code, and the 
 computer model calibration framework established by \cite{Kennedy2001} can be adapted to address questions of engineering design. 
 %
-CTO is a modification of that framework which calibrates a computer model, not to field observations, but rather to target outcomes; i.e., to performance and cost goals for the system. 
+Calibration to target outcomes is a modification of that framework which calibrates a computer model, not to field observations, but rather to performance and cost goals for the system. 
 %
 Unlike other methods of Bayesian optimization (a review of which was provided by \citealt{Shahriari2016}), CTO does not require the ability to evaluate model output adaptively.
 %
@@ -849,15 +849,17 @@ The use of this methodology is illustrated in the case of material design for a 
 %
 We have shown thereby a variety of ways in which CTO can be used to guide decision-makers in the design process. 
 %
-By expropriating established tools of model calibration, CTO offers a method of optimization which is sensitive to all sources of uncertainty, and which results in an estimate that includes uncertainty quantification.
+By expropriating established tools of model calibration, CTO offers a method of optimization which is sensitive to, and quantifies, all sources of uncertainty.
 
 The methodology as described here treats the computer model as universally valid over the domain of the design variables. 
 %
-Future work in this area will include the use of a discrepancy term capturing model bias.
+Future work in this area will include the use of a second discrepancy term capturing model bias.
 %
-This would allow for simultaneous calibrations: both traditional and CTO.
+That is, while CTO as presented above includes $\delta()$ to capture systematic discrepancy between the target outcomes and the true system, it assumes that the computer model is an unbiased estimate of the true system.
 %
-Other extensions of the proposed methodology could include its application to so-called ``state-aware calibration'' \citep{Atamturktur2015,Stevens2018,Brown2016}, which would allow the optimal region of the design variables to vary as a function of the control inputs.
+The inclusion of a second discrepancy term would avoid this idealizing assumption.
+%
+Other possible extensions of our proposed methodology include its application to so-called ``state-aware calibration'' \citep{Atamturktur2015,Stevens2018,Brown2016}, which would allow the optimal region of the design variables to vary as a function of the control inputs.
 
 
 
