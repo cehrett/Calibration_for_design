@@ -455,6 +455,79 @@ The difference is even more pronounced when using the known optimal value of $\t
 For example, in the large discrepancy version of $g_2$, DCTO produces an MSE less than one sixth that of KOH+CTO.
 %
 It appears that DCTO and KOH+CTO perform similarly with respect to calibration, but that DCTO produces superior results with respect to design.
+%
+
+%
+The posterior predictive distributions under DCTO and KOH+CTO are very close under six of the eight discrepancies studied.
+%
+Nonetheless, in most of those six cases DCTO enjoys very slightly narrower posterior predictive distributions. 
+%
+In the two cases under which DCTO and KOH+CTO diverge appreciably, DCTO enjoys much better results, with sharper distributions that center nearer to the true optimal model output.
+%
+Figure \ref{fig:01_post_dist} shows the posterior predictive distributions for $g_0$, the case of no model discrepancy, and for two settings of $g_1$, the case of multiplicative model discrepancy.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep0}\\
+	\vspace{1em}
+	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep1}\\
+	\vspace{1em}
+	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep2}
+	\captionsetup{width=.85\linewidth}
+	\caption{Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$. The red KOH+CTO and blue DCTO distributions overlap almost perfectly, but in all cases except the bottom middle plot, DCTO peaks just slightly above KOH+CTO.}
+	\label{fig:01_post_dist}
+\end{figure}
+%
+Here, the posterior predictive distributions for DCTO and KOH+CTO overlap almost perfectly, except for the slightly higher peaks of DCTO.
+%
+
+%
+Figure \ref{fig:2_post_dist} shows the results for two settings of $g_2$, an additive discrepancy form.
+%
+For the smaller discrepancy setting of $g_2$, the results are similar to those for $g_0$ and $g_1$, with DCTO enjoying slightly less uncertainty.
+%
+The larger discrepancy setting for $g_2$ is the same case as that shown in Figure \ref{fig:2_discrep_results}, where KOH+CTO performs well with respect to calibration but poorly with respect to design.
+%
+Figure \ref{fig:2_post_dist} shows that this poor design corresponds to wildly different predictive performance between DCTO and KOH+CTO, with KOH+CTO suffering from high uncertainty and strange multimodal behavior for some levels of the control input $x$.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep3}\\
+	\vspace{1em}
+	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep4}
+	\captionsetup{width=.85\linewidth}
+	\caption{Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$.}
+	\label{fig:2_post_dist}
+\end{figure}
+%
+It is however notable that even here, the posterior predictive distribution's global mode still occurs at the same location as the global mode under DCTO, despite the fact that this is not true of the posterior distributions of the design parameter $t_2$ under the two techniques.
+%
+
+The additive discrepancy form of $g_3$ again has similar posterior predictive results under DCTO and KOH+CTO for both small and large versions of the discrepancy, except when an informative prior is supplied for the discrepancy function.
+%
+Recall that the small discrepancy version of $g_3$ is a case in which both DCTO and KOH performed poorly with respect to calibration, as shown in Figure \ref{fig:3_discrep_results}.
+%
+The top row of Figure \ref{fig:3_post_dist} shows that this poor calibration does not result in similarly poor predictive performance.
+%
+The improved calibration that results from applying an informative prior, as shown in Figure \ref{fig:3_informative_discrep_results}, inflates the posterior uncertainty surrounding the design variable $t_2$ for KOH+CTO, while slightly deflating the $t_2$ uncertainty for DCTO.
+%
+Figure \ref{fig:3_post_dist} (middle row) seems to show that this difference between KOH+CTO translates to similar differences in posterior predictive distributions when using the informative prior: slightly less uncertainty under DCTO, slightly more under KOH+CTO.
+%
+However, despite the fact that both techniques experience dramatically better calibration under the informative prior than without it, there is not a similarly dramatic difference between the posterior predictive distributions with and without the informative prior, under either technique.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep5}\\
+	\vspace{1em}
+	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf}\\
+	\vspace{1em}
+	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep6}
+	\captionsetup{width=.85\linewidth}
+	\caption{Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$.}
+	\label{fig:3_post_dist}
+\end{figure}
+%
+
 
 \bigskip
 
