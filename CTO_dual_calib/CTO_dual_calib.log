@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.2)  27 MAY 2019 11:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.2)  17 JUN 2019 11:13
 entering extended mode
 **./CTO_dual_calib.tex
 (CTO_dual_calib.tex
@@ -254,50 +254,50 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
 
 {C:/Users/carle/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
 [3]
-<FIG_obj_fn.png, id=24, 369.0588pt x 314.6154pt>
+<FIG_obj_fn.png, id=23, 369.0588pt x 314.6154pt>
 File: FIG_obj_fn.png Graphic file (type png)
 <use FIG_obj_fn.png>
 Package pdftex.def Info: FIG_obj_fn.png  used on input line 178.
 (pdftex.def)             Requested size: 313.70145pt x 267.42435pt.
-<FIG_true_optimal_theta1_theta2.png, id=25, 489.5088pt x 188.3838pt>
+<FIG_true_optimal_theta1_theta2.png, id=24, 489.5088pt x 188.3838pt>
 File: FIG_true_optimal_theta1_theta2.png Graphic file (type png)
 <use FIG_true_optimal_theta1_theta2.png>
 Package pdftex.def Info: FIG_true_optimal_theta1_theta2.png  used on input line
  192.
 (pdftex.def)             Requested size: 416.08444pt x 160.12697pt.
  [4] [5 <./FIG_obj_fn.png>]
-<FIG_six_discrepancies.png, id=34, 406.6392pt x 489.5088pt>
+<FIG_six_discrepancies.png, id=33, 406.6392pt x 489.5088pt>
 File: FIG_six_discrepancies.png Graphic file (type png)
 <use FIG_six_discrepancies.png>
 Package pdftex.def Info: FIG_six_discrepancies.png  used on input line 241.
 (pdftex.def)             Requested size: 345.64496pt x 416.08444pt.
  [6 <./FIG_true_optimal_theta1_theta2.png (PNG copy)>]
-<FIG_KOHCTO_DCTO_comp_discrep0_results.png, id=38, 362.47922pt x 182.93344pt>
+<FIG_KOHCTO_DCTO_comp_discrep0_results.png, id=37, 362.47922pt x 182.93344pt>
 File: FIG_KOHCTO_DCTO_comp_discrep0_results.png Graphic file (type png)
 <use FIG_KOHCTO_DCTO_comp_discrep0_results.png>
 Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep0_results.png  used on inp
 ut line 274.
 (pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
  [7] [8 <./FIG_six_discrepancies.png (PNG copy)>]
-<FIG_KOHCTO_DCTO_comp_discrep1_results.png, id=47, 362.47922pt x 182.93344pt>
+<FIG_KOHCTO_DCTO_comp_discrep1_results.png, id=46, 362.47922pt x 182.93344pt>
 File: FIG_KOHCTO_DCTO_comp_discrep1_results.png Graphic file (type png)
 <use FIG_KOHCTO_DCTO_comp_discrep1_results.png>
 Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep1_results.png  used on inp
 ut line 294.
 (pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
-<FIG_KOHCTO_DCTO_comp_discrep2_results.png, id=48, 362.47922pt x 182.93344pt>
+<FIG_KOHCTO_DCTO_comp_discrep2_results.png, id=47, 362.47922pt x 182.93344pt>
 File: FIG_KOHCTO_DCTO_comp_discrep2_results.png Graphic file (type png)
 <use FIG_KOHCTO_DCTO_comp_discrep2_results.png>
 Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep2_results.png  used on inp
 ut line 295.
 (pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
-<FIG_KOHCTO_DCTO_comp_discrep3_results.png, id=49, 362.47922pt x 182.93344pt>
+<FIG_KOHCTO_DCTO_comp_discrep3_results.png, id=48, 362.47922pt x 182.93344pt>
 File: FIG_KOHCTO_DCTO_comp_discrep3_results.png Graphic file (type png)
 <use FIG_KOHCTO_DCTO_comp_discrep3_results.png>
 Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep3_results.png  used on inp
 ut line 303.
 (pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
-<FIG_KOHCTO_DCTO_comp_discrep4_results.png, id=50, 362.47922pt x 182.93344pt>
+<FIG_KOHCTO_DCTO_comp_discrep4_results.png, id=49, 362.47922pt x 182.93344pt>
 File: FIG_KOHCTO_DCTO_comp_discrep4_results.png Graphic file (type png)
 <use FIG_KOHCTO_DCTO_comp_discrep4_results.png>
 Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep4_results.png  used on inp
@@ -308,19 +308,19 @@ _DCTO_comp_discrep1_results.png (PNG copy)> <./FIG_KOHCTO_DCTO_comp_discrep2_re
 sults.png (PNG copy)>]
 [11 <./FIG_KOHCTO_DCTO_comp_discrep3_results.png (PNG copy)> <./FIG_KOHCTO_DCTO
 _comp_discrep4_results.png (PNG copy)>]
-<FIG_KOHCTO_DCTO_comp_discrep5_results.png, id=60, 362.47922pt x 182.93344pt>
+<FIG_KOHCTO_DCTO_comp_discrep5_results.png, id=59, 362.47922pt x 182.93344pt>
 File: FIG_KOHCTO_DCTO_comp_discrep5_results.png Graphic file (type png)
 <use FIG_KOHCTO_DCTO_comp_discrep5_results.png>
 Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep5_results.png  used on inp
 ut line 334.
 (pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
-<FIG_KOHCTO_DCTO_comp_discrep6_results.png, id=61, 362.47922pt x 182.93344pt>
+<FIG_KOHCTO_DCTO_comp_discrep6_results.png, id=60, 362.47922pt x 182.93344pt>
 File: FIG_KOHCTO_DCTO_comp_discrep6_results.png Graphic file (type png)
 <use FIG_KOHCTO_DCTO_comp_discrep6_results.png>
 Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep6_results.png  used on inp
 ut line 335.
 (pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
-<FIG_KOHCTO_DCTO_comp_discrep5_inf_results.png, id=62, 362.47922pt x 182.93344p
+<FIG_KOHCTO_DCTO_comp_discrep5_inf_results.png, id=61, 362.47922pt x 182.93344p
 t>
 File: FIG_KOHCTO_DCTO_comp_discrep5_inf_results.png Graphic file (type png)
 <use FIG_KOHCTO_DCTO_comp_discrep5_inf_results.png>
@@ -330,102 +330,101 @@ Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep5_inf_results.png  used on
  [12] [13 <./FIG_KOHCTO_DCTO_comp_discrep5_results.png (PNG copy)> <./FIG_KOHCT
 O_DCTO_comp_discrep6_results.png (PNG copy)>] [14 <./FIG_KOHCTO_DCTO_comp_discr
 ep5_inf_results.png (PNG copy)>]
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 384.
-
-[15]
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png, id=76, 470.50781pt x 161.47829pt>
+<FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png, id=72, 470.50781pt x 161.47829pt>
 
 File: FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png Graphic file (type png)
 <use FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png>
 Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png  used on i
-nput line 471.
+nput line 391.
 (pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep1.png, id=77, 470.50781pt x 161.47829pt>
+<FIG_DCTO_KOHCTO_post_pred_dist_discrep1.png, id=73, 470.50781pt x 161.47829pt>
 
 File: FIG_DCTO_KOHCTO_post_pred_dist_discrep1.png Graphic file (type png)
 <use FIG_DCTO_KOHCTO_post_pred_dist_discrep1.png>
 Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep1.png  used on i
-nput line 473.
+nput line 393.
 (pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep2.png, id=78, 470.50781pt x 161.47829pt>
+<FIG_DCTO_KOHCTO_post_pred_dist_discrep2.png, id=74, 470.50781pt x 161.47829pt>
 
 File: FIG_DCTO_KOHCTO_post_pred_dist_discrep2.png Graphic file (type png)
 <use FIG_DCTO_KOHCTO_post_pred_dist_discrep2.png>
 Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep2.png  used on i
-nput line 475.
+nput line 395.
 (pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png, id=79, 470.50781pt x 161.47829pt>
+<FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png, id=75, 470.50781pt x 161.47829pt>
 
 File: FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png Graphic file (type png)
 <use FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png>
 Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png  used on i
-nput line 495.
+nput line 415.
 (pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep4.png, id=80, 470.50781pt x 161.47829pt>
+<FIG_DCTO_KOHCTO_post_pred_dist_discrep4.png, id=76, 470.50781pt x 161.47829pt>
 
 File: FIG_DCTO_KOHCTO_post_pred_dist_discrep4.png Graphic file (type png)
 <use FIG_DCTO_KOHCTO_post_pred_dist_discrep4.png>
 Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep4.png  used on i
-nput line 497.
+nput line 417.
 (pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
- [16] [17 <./FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png (PNG copy)> <./FIG_DCT
-O_KOHCTO_post_pred_dist_discrep1.png (PNG copy)> <./FIG_DCTO_KOHCTO_post_pred_d
-ist_discrep2.png (PNG copy)>]
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png, id=87, 470.50781pt x 161.47829pt>
+
+[15] [16 <./FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png (PNG copy)> <./FIG_DCTO
+_KOHCTO_post_pred_dist_discrep1.png (PNG copy)> <./FIG_DCTO_KOHCTO_post_pred_di
+st_discrep2.png (PNG copy)>] [17 <./FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png
+ (PNG copy)> <./FIG_DCTO_KOHCTO_post_pred_dist_discrep4.png (PNG copy)>]
+<FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png, id=86, 470.50781pt x 161.47829pt>
 
 File: FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png Graphic file (type png)
 <use FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png>
 Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png  used on i
-nput line 520.
+nput line 442.
 (pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf.png, id=88, 470.50781pt x 161.4782
+<FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf.png, id=87, 470.50781pt x 161.4782
 9pt>
 File: FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf.png Graphic file (type png)
 <use FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf.png>
 Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf.png  used 
-on input line 522.
+on input line 444.
 (pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep6.png, id=89, 470.50781pt x 161.47829pt>
+<FIG_DCTO_KOHCTO_post_pred_dist_discrep6.png, id=88, 470.50781pt x 161.47829pt>
 
 File: FIG_DCTO_KOHCTO_post_pred_dist_discrep6.png Graphic file (type png)
 <use FIG_DCTO_KOHCTO_post_pred_dist_discrep6.png>
 Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep6.png  used on i
-nput line 524.
+nput line 446.
 (pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
- [18 <./FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png (PNG copy)> <./FIG_DCTO_KOH
-CTO_post_pred_dist_discrep4.png (PNG copy)>]
-(CTO_dual_calib.bbl) [19] [20 <./FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png (P
-NG copy)> <./FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf.png (PNG copy)> <./FIG
-_DCTO_KOHCTO_post_pred_dist_discrep6.png (PNG copy)>] (CTO_dual_calib.aux) ) 
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 459.
+
+[18] [19 <./FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png (PNG copy)> <./FIG_DCTO
+_KOHCTO_post_pred_dist_discrep5_inf.png (PNG copy)> <./FIG_DCTO_KOHCTO_post_pre
+d_dist_discrep6.png (PNG copy)>] [20] (CTO_dual_calib.bbl) [21]
+(CTO_dual_calib.aux) ) 
 Here is how much of TeX's memory you used:
- 4006 strings out of 493305
- 60798 string characters out of 3138875
- 121383 words of memory out of 3000000
- 7478 multiletter control sequences out of 15000+200000
- 17118 words of font info for 64 fonts, out of 3000000 for 9000
+ 4004 strings out of 493305
+ 60773 string characters out of 3138875
+ 124382 words of memory out of 3000000
+ 7477 multiletter control sequences out of 15000+200000
+ 16810 words of font info for 63 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,11n,39p,517b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:
-/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program
- Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmmib10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb
-><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmti12.pfb>
-Output written on CTO_dual_calib.pdf (20 pages, 977961 bytes).
+ 41i,11n,39p,556b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:
+/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program
+ Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:
+/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on CTO_dual_calib.pdf (21 pages, 969272 bytes).
 PDF statistics:
- 150 PDF objects out of 1000 (max. 8388607)
+ 149 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  96 words of extra memory for PDF output out of 10000 (max. 10000000)
 

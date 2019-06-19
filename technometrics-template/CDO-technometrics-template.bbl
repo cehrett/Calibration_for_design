@@ -1,0 +1,234 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{{ANSYS, Inc.}}{{ANSYS, Inc.}}{2017}]{ansys}
+{ANSYS, Inc.} (2017).
+\newblock Ansys\textsuperscript{\textregistered} academic research mechanical,
+  release 18.1.
+
+\bibitem[\protect\citeauthoryear{Atamturktur and Brown}{Atamturktur and
+  Brown}{2015}]{Atamturktur2015}
+Atamturktur, S. and D.~A. Brown (2015).
+\newblock {State-aware calibration for inferring systematic bias in computer
+  models of complex systems}.
+\newblock {\em NAFEMS World Congress Proceedings, June 21-24\/}.
+
+\bibitem[\protect\citeauthoryear{Bastos and O'Hagan}{Bastos and
+  O'Hagan}{2009}]{Bastos2009}
+Bastos, L.~S. and A.~O'Hagan (2009).
+\newblock {Diagnostics for Gaussian process emulators}.
+\newblock {\em Technometrics\/}~{\em 51\/}(4), 425--438.
+
+\bibitem[\protect\citeauthoryear{Bayarri, Berger, Cafeo, Garcia-Donato, Liu,
+  Palomo, Parthasarathy, Paulo, Sacks, and Walsh}{Bayarri
+  et~al.}{2007}]{Bayarri}
+Bayarri, M.~J., J.~O. Berger, J.~Cafeo, G.~Garcia-Donato, F.~Liu, J.~Palomo,
+  R.~J. Parthasarathy, R.~Paulo, J.~Sacks, and D.~Walsh (2007).
+\newblock {Computer model validation with functional output}.
+\newblock {\em The Annals of Statistics\/}~{\em 35}, 1874--1906.
+
+\bibitem[\protect\citeauthoryear{Bayarri, Berger, Paulo, Sacks, Cafeo,
+  Cavendish, Lin, and Tu}{Bayarri et~al.}{2007}]{Bayarri2007}
+Bayarri, M.~J., J.~O. Berger, R.~Paulo, J.~Sacks, J.~A. Cafeo, J.~Cavendish,
+  C.-H. Lin, and J.~Tu (2007).
+\newblock {A framework for validation of computer models}.
+\newblock {\em Technometrics\/}~{\em 49\/}(2), 138--154.
+
+\bibitem[\protect\citeauthoryear{Brown and Atamturktur}{Brown and
+  Atamturktur}{2018}]{Brown2016}
+Brown, D.~A. and S.~Atamturktur (2018).
+\newblock {Nonparametric functional calibration of computer models}.
+\newblock {\em Statistica Sinica\/}~{\em 28}, 721--742.
+
+\bibitem[\protect\citeauthoryear{Brynjarsd{\'{o}}ttir and
+  O'Hagan}{Brynjarsd{\'{o}}ttir and O'Hagan}{2014}]{Brynjarsdottir2014}
+Brynjarsd{\'{o}}ttir, J. and A.~O'Hagan (2014).
+\newblock {Learning about physical parameters: The importance of model
+  discrepancy}.
+\newblock {\em Inverse Problems\/}~{\em 30\/}(11).
+
+\bibitem[\protect\citeauthoryear{Gelfand and Smith}{Gelfand and
+  Smith}{1990}]{Gelfand1990}
+Gelfand, A.~E. and A.~F.~M. Smith (1990, jun).
+\newblock {Sampling-based approaches to calculating marginal densities}.
+\newblock {\em Journal of the American Statistical Association\/}~{\em
+  85\/}(410), 398--409.
+
+\bibitem[\protect\citeauthoryear{Geman and Geman}{Geman and
+  Geman}{1984}]{Geman1984}
+Geman, S. and D.~Geman (1984).
+\newblock {Stochastic relaxation, Gibbs distributions, and the Bayesian
+  restoration of images}.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine
+  Intelligence\/}~{\em 6\/}(6), 721--741.
+
+\bibitem[\protect\citeauthoryear{Gramacy and Lee}{Gramacy and
+  Lee}{2008}]{Gramacy2008}
+Gramacy, R.~B. and H.~K.~H. Lee (2008).
+\newblock {Bayesian treed Gaussian process models with an application to
+  computer modeling}.
+\newblock {\em Journal of the American Statistical Association\/}~{\em
+  103\/}(483), 1119--1130.
+
+\bibitem[\protect\citeauthoryear{Hastings}{Hastings}{1970}]{Hastings1970}
+Hastings, W. (1970).
+\newblock {Monte Carlo sampling methods using Markov chains and their
+  applications}.
+\newblock {\em Biometrika\/}~{\em 57\/}(1), 97--109.
+
+\bibitem[\protect\citeauthoryear{Hemez and Atamturktur}{Hemez and
+  Atamturktur}{2011}]{Hemez2011}
+Hemez, F.~M. and S.~Atamturktur (2011, sep).
+\newblock {The dangers of sparse sampling for the quantification of margin and
+  uncertainty}.
+\newblock {\em Reliability Engineering {\&} System Safety\/}~{\em 96\/}(9),
+  1220--1231.
+
+\bibitem[\protect\citeauthoryear{Higdon, Kennedy, Cavendish, Cafeo, and
+  Ryne}{Higdon et~al.}{2004}]{Higdon2004}
+Higdon, D., M.~Kennedy, J.~C. Cavendish, J.~A. Cafeo, and R.~D. Ryne (2004).
+\newblock {Combining field data and computer simulations for calibration and
+  prediction}.
+\newblock {\em SIAM Journal on Scientific Computing\/}~{\em 26\/}(2), 448--466.
+
+\bibitem[\protect\citeauthoryear{Kennedy, Anderson, Conti, and O'Hagan}{Kennedy
+  et~al.}{2006}]{Kennedy2006}
+Kennedy, M.~C., C.~W. Anderson, S.~Conti, and A.~O'Hagan (2006).
+\newblock {Case studies in Gaussian process modelling of computer codes}.
+\newblock {\em Reliability Engineering {\&} System Safety\/}~{\em 91\/}(10-11),
+  1301--1309.
+
+\bibitem[\protect\citeauthoryear{Kennedy and O'Hagan}{Kennedy and
+  O'Hagan}{2001}]{Kennedy2001}
+Kennedy, M.~C. and A.~O'Hagan (2001).
+\newblock {Bayesian calibration of computer models}.
+\newblock {\em Journal of the Royal Statistical Society: Series B\/}~{\em
+  63\/}(3), 425--464.
+
+\bibitem[\protect\citeauthoryear{Loeppky, Bingham, and Welch}{Loeppky
+  et~al.}{2006}]{Loeppky2006}
+Loeppky, J.~L., D.~Bingham, and W.~J. Welch (2006).
+\newblock {\em {Computer model calibration or tuning in practice}}.
+\newblock University of British Columbia: Department of Statistics.
+
+\bibitem[\protect\citeauthoryear{{\sc Matlab}}{{\sc Matlab}}{2017}]{MATLAB2017}
+{\sc Matlab} (2017).
+\newblock {\em Version 9.2.0 (R2017a)}.
+\newblock Natick, Massachusetts: The MathWorks, Inc.
+
+\bibitem[\protect\citeauthoryear{McKay, Beckman, and Conover}{McKay
+  et~al.}{1979}]{McKay1979}
+McKay, M.~D., R.~J. Beckman, and W.~J. Conover (1979).
+\newblock {Comparison of three methods for selecting values of input variables
+  in the analysis of output from a computer code}.
+\newblock {\em Technometrics\/}~{\em 21\/}(2), 239--245.
+
+\bibitem[\protect\citeauthoryear{Metropolis, Rosenbluth, Rosenbluth, Teller,
+  and Teller}{Metropolis et~al.}{1953}]{Metropolis1953}
+Metropolis, N., A.~W. Rosenbluth, M.~N. Rosenbluth, A.~H. Teller, and E.~Teller
+  (1953).
+\newblock {Equation of state calculations by fast computing machines}.
+\newblock {\em The Journal of Chemical Physics\/}~{\em 21\/}(6), 1087--1092.
+
+\bibitem[\protect\citeauthoryear{O'Hagan}{O'Hagan}{1978}]{OHagan1978}
+O'Hagan, A. (1978).
+\newblock {Curve fitting and optimal design for prediction}.
+\newblock {\em Journal of the Royal Statistical Society: Series B\/}~{\em
+  40\/}(1), 1--42.
+
+\bibitem[\protect\citeauthoryear{Paulo, Garc{\'{i}}a-Donato, and Palomo}{Paulo
+  et~al.}{2012}]{Paulo2012}
+Paulo, R., G.~Garc{\'{i}}a-Donato, and J.~Palomo (2012).
+\newblock {Calibration of computer models with multivariate output}.
+\newblock {\em Computational Statistics and Data Analysis\/}~{\em 56},
+  3959--3974.
+
+\bibitem[\protect\citeauthoryear{Plumlee}{Plumlee}{2017}]{Plumlee2017}
+Plumlee, M. (2017).
+\newblock {Bayesian calibration of inexact computer models}.
+\newblock {\em Journal of the American Statistical Association\/}~{\em
+  112\/}(519), 1274--1285.
+
+\bibitem[\protect\citeauthoryear{Pratola and Chkrebtii}{Pratola and
+  Chkrebtii}{2018}]{Pratola2018}
+Pratola, M. and O.~Chkrebtii (2018).
+\newblock {Bayesian calibration of multistate stochastic simulators}.
+\newblock {\em Statistica Sinica\/}~{\em 28}, 693--719.
+
+\bibitem[\protect\citeauthoryear{Qian, Wu, and Wu}{Qian
+  et~al.}{2008}]{Qian2008}
+Qian, P. Z.~G., H.~Wu, and C.~F.~J. Wu (2008).
+\newblock {Gaussian process models for computer experiments with qualitative
+  and quantitative factors}.
+\newblock {\em Technometrics\/}~{\em 50\/}(3), 383--396.
+
+\bibitem[\protect\citeauthoryear{Roberts, Gelman, and Gilks}{Roberts
+  et~al.}{1997}]{Roberts1997}
+Roberts, G., A.~Gelman, and W.~Gilks (1997).
+\newblock {Weak convergence and optimal scaling of random walk Metropolis
+  algorithms}.
+\newblock {\em The Annals of Applied Probability\/}~{\em 7\/}(1), 120.
+
+\bibitem[\protect\citeauthoryear{Sacks, Welch, Mitchell, and Wynn}{Sacks
+  et~al.}{1989}]{Sacks1989}
+Sacks, J., W.~J. Welch, T.~J. Mitchell, and H.~P. Wynn (1989).
+\newblock {Design and analysis of computer experiments}.
+\newblock {\em Statistical Science\/}~{\em 4\/}(4), 409--423.
+
+\bibitem[\protect\citeauthoryear{Santner, Williams, and Notz}{Santner
+  et~al.}{2003}]{Santner2003a}
+Santner, T.~J., B.~J. Williams, and W.~I. Notz (2003).
+\newblock {\em {The design and analysis of computer experiments}}.
+\newblock New York: Springer.
+
+\bibitem[\protect\citeauthoryear{Shahriari, Swersky, Wang, Adams, and
+  de~Freitas}{Shahriari et~al.}{2016}]{Shahriari2016}
+Shahriari, B., K.~Swersky, Z.~Wang, R.~P. Adams, and N.~de~Freitas (2016).
+\newblock {Taking the human out of the loop: A review of Bayesian
+  optimization}.
+\newblock {\em Proceedings of the IEEE\/}~{\em 104\/}(1), 148--175.
+
+\bibitem[\protect\citeauthoryear{Stevens, Atamturktur, Brown, Williams, and
+  Unal}{Stevens et~al.}{2018}]{Stevens2018}
+Stevens, G.~N., S.~Atamturktur, D.~A. Brown, B.~J. Williams, and C.~Unal
+  (2018).
+\newblock {Statistical inference of empirical constituents in partitioned
+  analysis from integral-effect experiments}.
+\newblock {\em Engineering Computations\/}~{\em 35\/}(2), 672--691.
+
+\bibitem[\protect\citeauthoryear{Tuo and Wu}{Tuo and Wu}{2015}]{Tuo2015}
+Tuo, R. and C.~F.~J. Wu (2015).
+\newblock {Efficient calibration for imperfect computer models}.
+\newblock {\em Annals of Statistics\/}~{\em 43\/}(6).
+
+\bibitem[\protect\citeauthoryear{Tuo and Wu}{Tuo and Wu}{2016}]{Tuo2016}
+Tuo, R. and C.~F.~J. Wu (2016).
+\newblock {A theoretical framework for calibration in computer models:
+  Parametrization, estimation and convergence properties}.
+\newblock {\em SIAM/ASA Journal on Uncertainty Quantification\/}~{\em 4\/}(1),
+  767--795.
+
+\bibitem[\protect\citeauthoryear{{Van Buren}, Atamturktur, and Hemez}{{Van
+  Buren} et~al.}{2014}]{VanBuren2014}
+{Van Buren}, K.~L., S.~Atamturktur, and F.~M. Hemez (2014, feb).
+\newblock {Model selection through robustness and fidelity criteria: Modeling
+  the dynamics of the CX-100 wind turbine blade}.
+\newblock {\em Mechanical Systems and Signal Processing\/}~{\em 43\/}(1-2),
+  246--259.
+
+\bibitem[\protect\citeauthoryear{{Van Buren}, Mollineaux, Hemez, and
+  Atamturktur}{{Van Buren} et~al.}{2013}]{VanBuren2013}
+{Van Buren}, K.~L., M.~G. Mollineaux, F.~M. Hemez, and S.~Atamturktur (2013,
+  jul).
+\newblock {Simulating the dynamics of wind turbine blades: part II, model
+  validation and uncertainty quantification}.
+\newblock {\em Wind Energy\/}~{\em 16\/}(5), 741--758.
+
+\bibitem[\protect\citeauthoryear{Williams, Higdon, Gattiker, Moore, McKay, and
+  Keller-McNulty}{Williams et~al.}{2006}]{Williams2006}
+Williams, B., D.~Higdon, J.~Gattiker, L.~Moore, M.~McKay, and S.~Keller-McNulty
+  (2006).
+\newblock {Combining experimental data and computer simulations, with an
+  application to flyer plate experiments}.
+\newblock {\em Bayesian Analysis\/}~{\em 1\/}(4), 765--792.
+
+\end{thebibliography}
