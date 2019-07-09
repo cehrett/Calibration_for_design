@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.2)  8 JUL 2019 11:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.2)  9 JUL 2019 10:24
 entering extended mode
-**./CDO-technometrics-template.tex
-(CDO-technometrics-template.tex
+**./working_version.tex
+(working_version.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 75 language(s) loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -124,21 +124,21 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(CDO-technometrics-template.aux)
-\openout1 = `CDO-technometrics-template.aux'.
+(working_version.aux)
+\openout1 = `working_version.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 
 (C:\Users\carle\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -205,30 +205,30 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 49.
+LaTeX Font Info:    Try loading font information for U+msa on input line 48.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 49.
+LaTeX Font Info:    Try loading font information for U+msb on input line 48.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 49.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 48.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 49.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 48.
 
-Overfull \hbox (23.58907pt too wide) in paragraph at lines 49--49
+Overfull \hbox (23.58907pt too wide) in paragraph at lines 48--48
  [][] 
  []
 
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 49.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 48.
 [1
 
 {C:/Users/carle/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
@@ -242,7 +242,7 @@ d-to.pdf>
 (epstopdf)                    size: 9895 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_des_obs_selection_examp
 le-eps-converted-to.pdf FIG_des_obs_selection_example.eps>
-(epstopdf)             \includegraphics on input line 525.
+(epstopdf)             \includegraphics on input line 528.
 Package epstopdf Info: Output file is already uptodate.
 <FIG_des_obs_selection_example-eps-converted-to.pdf, id=59, 366.36874pt x 206.7
 725pt>
@@ -250,9 +250,9 @@ File: FIG_des_obs_selection_example-eps-converted-to.pdf Graphic file (type pdf
 )
 <use FIG_des_obs_selection_example-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_des_obs_selection_example-eps-converted-to.pdf  us
-ed on input line 525.
+ed on input line 528.
 (pdftex.def)             Requested size: 293.09538pt x 165.41821pt.
- [14] [15] [16 <./FIG_des_obs_selection_example-eps-converted-to.pdf>]
+ [14] [15 <./FIG_des_obs_selection_example-eps-converted-to.pdf>] [16]
 Package epstopdf Info: Source file: <FIG_toy_sim_model_outputs.eps>
 (epstopdf)                    date: 2019-03-06 11:03:35
 (epstopdf)                    size: 103434 bytes
@@ -262,22 +262,22 @@ Package epstopdf Info: Source file: <FIG_toy_sim_model_outputs.eps>
 (epstopdf)                    size: 42177 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_toy_sim_model_outputs-e
 ps-converted-to.pdf FIG_toy_sim_model_outputs.eps>
-(epstopdf)             \includegraphics on input line 604.
+(epstopdf)             \includegraphics on input line 607.
 Package epstopdf Info: Output file is already uptodate.
 <FIG_toy_sim_model_outputs-eps-converted-to.pdf, id=74, 236.885pt x 275.0275pt>
 
 File: FIG_toy_sim_model_outputs-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_toy_sim_model_outputs-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_toy_sim_model_outputs-eps-converted-to.pdf  used o
-n input line 604.
+n input line 607.
 (pdftex.def)             Requested size: 189.50824pt x 220.0223pt.
 
-Overfull \hbox (22.67133pt too wide) in paragraph at lines 581--620
+Overfull \hbox (22.67133pt too wide) in paragraph at lines 584--623
 \OT1/cmr/m/n/12 seek op-ti-mal set-tings for $[]$. We con-sider three out-puts:
  $\OML/cmm/m/it/12 y[] \OT1/cmr/m/n/12 = [][]$,
  []
 
-[17] [18 <./FIG_toy_sim_model_outputs-eps-converted-to.pdf>] [19]
+[17] [18 <./FIG_toy_sim_model_outputs-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <FIG_preliminary_CDO_comparison.eps>
 (epstopdf)                    date: 2019-03-06 11:03:35
 (epstopdf)                    size: 7513616 bytes
@@ -287,17 +287,17 @@ ed-to.pdf>
 (epstopdf)                    size: 663115 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_preliminary_CDO_compari
 son-eps-converted-to.pdf FIG_preliminary_CDO_comparison.eps>
-(epstopdf)             \includegraphics on input line 675.
+(epstopdf)             \includegraphics on input line 678.
 Package epstopdf Info: Output file is already uptodate.
-<FIG_preliminary_CDO_comparison-eps-converted-to.pdf, id=88, 552.0625pt x 220.8
+<FIG_preliminary_CDO_comparison-eps-converted-to.pdf, id=84, 552.0625pt x 220.8
 25pt>
 File: FIG_preliminary_CDO_comparison-eps-converted-to.pdf Graphic file (type pd
 f)
 <use FIG_preliminary_CDO_comparison-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_preliminary_CDO_comparison-eps-converted-to.pdf  u
-sed on input line 675.
+sed on input line 678.
 (pdftex.def)             Requested size: 441.65059pt x 176.66022pt.
- [20 <./FIG_preliminary_CDO_comparison-eps-converted-to.pdf>] [21] [22]
+ [19] [20 <./FIG_preliminary_CDO_comparison-eps-converted-to.pdf>] [21]
 Package epstopdf Info: Source file: <FIG_est_PF_with_des_obs.eps>
 (epstopdf)                    date: 2019-03-06 11:03:35
 (epstopdf)                    size: 71411 bytes
@@ -307,15 +307,15 @@ df>
 (epstopdf)                    size: 14506 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_est_PF_with_des_obs-eps
 -converted-to.pdf FIG_est_PF_with_des_obs.eps>
-(epstopdf)             \includegraphics on input line 784.
+(epstopdf)             \includegraphics on input line 787.
 Package epstopdf Info: Output file is already uptodate.
-<FIG_est_PF_with_des_obs-eps-converted-to.pdf, id=108, 286.06876pt x 224.84pt>
+<FIG_est_PF_with_des_obs-eps-converted-to.pdf, id=104, 286.06876pt x 224.84pt>
 File: FIG_est_PF_with_des_obs-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_est_PF_with_des_obs-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_est_PF_with_des_obs-eps-converted-to.pdf  used on 
-input line 784.
+input line 787.
 (pdftex.def)             Requested size: 228.85532pt x 179.87224pt.
- [23]
+ [22]
 Package epstopdf Info: Source file: <FIG_post_dist_contourplot.eps>
 (epstopdf)                    date: 2019-03-06 11:03:35
 (epstopdf)                    size: 32478 bytes
@@ -325,14 +325,14 @@ Package epstopdf Info: Source file: <FIG_post_dist_contourplot.eps>
 (epstopdf)                    size: 8350 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_post_dist_contourplot-e
 ps-converted-to.pdf FIG_post_dist_contourplot.eps>
-(epstopdf)             \includegraphics on input line 816.
+(epstopdf)             \includegraphics on input line 819.
 Package epstopdf Info: Output file is already uptodate.
-<FIG_post_dist_contourplot-eps-converted-to.pdf, id=112, 225.84375pt x 179.6712
+<FIG_post_dist_contourplot-eps-converted-to.pdf, id=109, 225.84375pt x 179.6712
 5pt>
 File: FIG_post_dist_contourplot-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_post_dist_contourplot-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_post_dist_contourplot-eps-converted-to.pdf  used o
-n input line 816.
+n input line 819.
 (pdftex.def)             Requested size: 180.67523pt x 143.73717pt.
 Package epstopdf Info: Source file: <FIG_prior_vs_posterior_dist.eps>
 (epstopdf)                    date: 2019-03-06 11:03:35
@@ -343,18 +343,18 @@ to.pdf>
 (epstopdf)                    size: 11464 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_prior_vs_posterior_dist
 -eps-converted-to.pdf FIG_prior_vs_posterior_dist.eps>
-(epstopdf)             \includegraphics on input line 827.
+(epstopdf)             \includegraphics on input line 830.
 Package epstopdf Info: Output file is already uptodate.
-<FIG_prior_vs_posterior_dist-eps-converted-to.pdf, id=113, 487.8225pt x 207.776
+<FIG_prior_vs_posterior_dist-eps-converted-to.pdf, id=110, 487.8225pt x 207.776
 25pt>
 File: FIG_prior_vs_posterior_dist-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_prior_vs_posterior_dist-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_prior_vs_posterior_dist-eps-converted-to.pdf  used
- on input line 827.
+ on input line 830.
 (pdftex.def)             Requested size: 390.25853pt x 166.2212pt.
- [24 <./FIG_est_PF_with_des_obs-eps-converted-to.pdf>] [25 <./FIG_post_dist_con
-tourplot-eps-converted-to.pdf>] [26 <./FIG_prior_vs_posterior_dist-eps-converte
-d-to.pdf>]
+ [23] [24 <./FIG_est_PF_with_des_obs-eps-converted-to.pdf> <./FIG_post_dist_con
+tourplot-eps-converted-to.pdf>] [25 <./FIG_prior_vs_posterior_dist-eps-converte
+d-to.pdf>] [26]
 Package epstopdf Info: Source file: <FIG_cost_grid_pareto_bands.eps>
 (epstopdf)                    date: 2019-03-06 11:03:35
 (epstopdf)                    size: 9076680 bytes
@@ -364,42 +364,41 @@ o.pdf>
 (epstopdf)                    size: 102908 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_cost_grid_pareto_bands-
 eps-converted-to.pdf FIG_cost_grid_pareto_bands.eps>
-(epstopdf)             \includegraphics on input line 894.
+(epstopdf)             \includegraphics on input line 897.
 Package epstopdf Info: Output file is already uptodate.
 <FIG_cost_grid_pareto_bands-eps-converted-to.pdf, id=142, 416.55624pt x 222.832
 5pt>
 File: FIG_cost_grid_pareto_bands-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_cost_grid_pareto_bands-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_cost_grid_pareto_bands-eps-converted-to.pdf  used 
-on input line 894.
+on input line 897.
 (pdftex.def)             Requested size: 333.24544pt x 178.26624pt.
 
-[27] [28 <./FIG_cost_grid_pareto_bands-eps-converted-to.pdf>] [29] [30]
+[27 <./FIG_cost_grid_pareto_bands-eps-converted-to.pdf>] [28] [29]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
-(Font)              using `OT1/cmr/bx/n' instead on input line 983.
+(Font)              using `OT1/cmr/bx/n' instead on input line 986.
 
-(CDO-technometrics-template.bbl
+(working_version.bbl
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 5.
- [31] [32] [33] [34]
+ [30] [31] [32] [33]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ‰ in font cmr12!
- [35]) [36]
-(CDO-technometrics-template.aux)
+ [34]) [35] (working_version.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
  2991 strings out of 493305
- 40963 string characters out of 3138875
- 103599 words of memory out of 3000000
+ 40831 string characters out of 3138875
+ 105599 words of memory out of 3000000
  6470 multiletter control sequences out of 15000+200000
  17897 words of font info for 67 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,15n,26p,540b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,15n,26p,529b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiK
@@ -418,9 +417,9 @@ e1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
 s/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmt
 t12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10
 .pfb>
-Output written on CDO-technometrics-template.pdf (36 pages, 1131549 bytes).
+Output written on working_version.pdf (35 pages, 1131036 bytes).
 PDF statistics:
- 237 PDF objects out of 1000 (max. 8388607)
+ 234 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

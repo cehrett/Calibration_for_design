@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+%\usepackage{amsmath}
 \usepackage{graphicx}
 %\usepackage{enumerate}
 \usepackage{natbib} %comment out if you do not have the package
@@ -175,7 +176,7 @@ In a composite, the matrix holds the filler together; an example would be concre
 %
 Another design variable is the thickness (in mm) of the shear web used in the blade.
 %
-Our material design goal is to reduce the cost per square meter of the composite material, the angle of twist (in radians) of the blade when under load, and the deflection (in meters) of the blade tip when under load.
+Our material design goal is to reduce the cost per square meter of the composite material, the rotation (in radians) of the blade when under load, and the deflection (in meters) of the blade tip when under load.
 %
 
 %
@@ -333,9 +334,7 @@ However, a similar uncertainty would be that due to how close reality \emph{can}
 The Bayesian model calibration framework allows for the quantification of all of these uncertainties. 
 %
 Furthermore, by the use of informative priors on the model discrepancy and observation error, the identifiability concerns of the Kennedy-O'Hagan approach can be mitigated \citep{Bayarri2007,Tuo2016}.
-%
 
-%
 In general, target outcomes should aim only a little beyond what is realistically achievable; only as much as is necessary to ensure the targets are at least as ambitious as any true optimum in the system.
 %
 Three reasons why one should go only a little beyond that are as follows: 
@@ -395,7 +394,7 @@ $C_\delta(\mathbf x,\mathbf x') = \lambda_\delta^{-1} \prod_{k=1}^p
 \exp\left( -\beta_k^\delta |x_k-x_k'|^{\alpha_\delta} \right).$
 %\end{equation}
 %
-This is included in the model to capture systematic discrepancy, not between the model and the true system (since we here assume our model is uniformly valid), but between target outcomes and the feasible design space.
+This is included in the model to capture systematic discrepancy between target outcomes and the feasible design space.
 %
 We use priors
 %$\lambda_\delta \sim \mathrm{Gamma}(5,\mathrm{scale}=5)$ and 
@@ -445,7 +444,7 @@ Markov chain Monte Carlo methods are useful for estimating features of the poste
 %
 In order to successfully locate the optimal design region, it is necessary either to place an informative prior on the marginal precision $\lambda_\delta$ of the discrepancy $\delta(\cdot)$, or else to specify $\lambda_\delta$ outright. 
 %
-Otherwise, the optimal region of the design variable space will suffer from poor identifiability, which in our case will mean that the posterior distribution will not be concentrated within the optimal region.
+Otherwise, the optimal region of the design variable space will suffer from poor identifiability.
 %
 This longstanding concern was raised in the discussion of \cite{Kennedy2001}, as well as by \cite{Bayarri2007}, \cite{Tuo2015}, and \cite{Plumlee2017}.
 %
@@ -501,14 +500,12 @@ Performing CTO with these new targets and prior will result in a posterior distr
 The full CTO process, including preliminary estimation of the Pareto front, is given in Algorithm 1.
 
 \begin{figure}
-\spacingset{1}
 \centering
-%\renewcommand{\arraystretch}{}
 \begin{tabular}{|l|p{5.5in}|}
 \hline
 \multicolumn{2}{|c|}{Algorithm 1: Full CTO procedure including preliminary estimation of Pareto front}\\
 \hline
-1.& Set target outcomes to lie outside of the feasible design space.\\
+1.&Set target outcomes to lie outside of the feasible design space.\\
 2.&  Set a vague prior on $\lambda_\delta$.\\
 3.&  Perform MCMC and use the resulting posterior samples of $\boldsymbol\theta$ to draw from the posterior predictive distribution of the model output.\\
 4.&  Filter the resulting predictions to retain only the Pareto optimal values. The remaining set of values $\mathcal P$ estimates the Pareto front.\\
@@ -677,7 +674,7 @@ This simulation example illustrates that CTO can be used directly with little fo
 \centering
 \includegraphics[scale=.8]{FIG_preliminary_CDO_comparison}
 %\captionsetup{width=.7\linewidth}
-\caption{Posterior draws from CTO in the simulated example without and with the use of preliminary CTO. The contours show, for each point in the design space, the Euclidean distance of the model output at that point from the original target outcome (0,0,0), averaged across the control input range $[1.95,2.05]$. The large dot shows the true optimum.}
+\caption{Posterior draws from CTO in the simulated example both without and with the use of preliminary CTO. The contours show, for each point in the design space, the Euclidean distance of the model output at that point from the original target outcome (0,0,0), averaged across the control input range $[1.95,2.05]$. The large dot shows the true optimum.}
 \label{fig:toy_sim_results}
 \end{figure}
 
@@ -709,7 +706,7 @@ Temperature affects the composite material properties and hence the blade tip de
 %
 The finite element model takes as inputs a triplet $(h,v,k)$, where $h$ is the operating temperature of the wind turbine (in kelvin), $v$ is the volume fraction of the material, and $k$ is the thickness of the material (in mm). 
 %
-The output of the model is the triplet $(d,r,c)$, where $d$ is tip deflection (in meters), $r$ is twist (in radians), and $c$ is cost per square meter (USD) to construct the material.
+The output of the model is the triplet $(d,r,c)$, where $d$ is tip deflection (in meters), $r$ is rotation (in radians), and $c$ is cost per square meter (USD) to construct the material.
 %
 The wind turbine is deemed to operate over the range of temperatures 230K-330K. 
 %
@@ -728,7 +725,7 @@ We took the computer output to follow a GP with mean 0 and product power exponen
 %
 Since the model output is trivariate, we use two binary dummy variables $a_1,a_2$ to convert the model to univariate output with five inputs, in order to employ a univariate GP emulator.
 % 
-Thus for given values of $h,v,k$: setting $a_1=a_2=0$ outputs the tip deflection $d$, setting $a_1=1$ and $a_2=0$ outputs the twist $r$, and settings $a_1=0$ and $a_2=1$ outputs the cost $c$.
+Thus for given values of $h,v,k$: setting $a_1=a_2=0$ outputs the tip deflection $d$, setting $a_1=1$ and $a_2=0$ outputs the rotation $r$, and settings $a_1=0$ and $a_2=1$ outputs the cost $c$.
 %I do not include a discrepancy function, per the considerations of Section \ref{obs_error}.
 
 The hyperparameters $\lambda_\eta,\boldsymbol \beta^\eta$ are estimated to plug in to the prior
@@ -776,7 +773,7 @@ We used the GP emulator to predict the model output for each realization of $\bo
 %
 Figure \ref{fig:elbow} displays the estimated Pareto front after filtering the posterior predictions to retain only non-dominated performance predictions.
 %
-Though the design space is three-dimensional, the Pareto front appears to be a roughly coplanar curve describing a trade-off in which reduced cost is achieved by allowing higher deflection and twist.
+Though the design space is three-dimensional, the Pareto front appears to be a roughly coplanar curve describing a trade-off in which reduced cost is achieved by allowing higher deflection and rotation.
 %
 We see a distinct point of maximum curvature in the Pareto front. 
 %
@@ -791,7 +788,7 @@ This location seems to represent a point of diminishing returns in the tradeoff 
 \end{figure}
 %
 To do so, we set the point $(\mathrm{deflection}=0.75\mathrm m,\ 
-\mathrm{twist}=0.09\ \mathrm{rad},\ 
+\mathrm{rotation}=0.09\ \mathrm{rad},\ 
 \mathrm{cost}=\$130.34)$
  as the target outcome, constant as a function of temperature.
 %
@@ -829,13 +826,13 @@ The prior and posterior marginal predictive distributions of the model outputs a
 %\includegraphics[width=.4\linewidth]{FIG_post_dist_contourplot}
 \includegraphics[scale=0.8]{FIG_prior_vs_posterior_dist}
 %\captionsetup{width=.7\linewidth}
-\caption{Approximate prior and posterior marginal predictive densities for each of the three outputs. Note that it is to be expected that the posteriors peak near the target (and not on it), since the target was intentionally chosen to lie outside the feasible design space.}
+\caption{Approximate prior and posterior marginal predictive densities for each of the three model outputs. Note that it is to be expected that the posteriors peak near the target (and not on it), since the target was intentionally chosen to lie outside the feasible design space.}
 \label{fig:prior_post_pred_comp}
 \end{figure}
 %
 Each marginal posterior density peaks sharply near the target outcome.
 %
-The mean model output under the prior is $(\text{deflection}=0.76\mathrm m,\ \text{twist}=0.09\text{ rads},\ \text{cost}=\$207.90/\mathrm m^2)$, whereas under the posterior it is $(0.76\mathrm m,0.09\ \mathrm{rad},\$149.47/\mathrm m^2)$.
+The mean model output under the prior is $(\text{deflection}=0.76\mathrm m,\ \text{rotation}=0.09\text{ rads},\ \text{cost}=\$207.90/\mathrm m^2)$, whereas under the posterior it is $(0.76\mathrm m,0.09\ \mathrm{rad},\$149.47/\mathrm m^2)$.
 %
 Though the mean performance outcomes are approximately the same under the posterior distribution as under the prior, the mean cost per square meter and the uncertainty of the outcomes have both been dramatically reduced.
 %
@@ -869,7 +866,7 @@ The resulting estimate of the Pareto front differs from the filtering method emp
 
 Our proposed procedure is illustrated here using the wind turbine blade application.
 %
-For simplicity, twist has been removed as a model output, leaving a system with 2-dimensional output of deflection and cost. 
+For simplicity, rotation has been removed as a model output, leaving a system with 2-dimensional output of deflection and cost. 
 %
 The range of cost is known (via preliminary CTO) to be $[\$96,\$352]$.
 %
@@ -892,7 +889,7 @@ This enables a decision-maker to visualize the space of desirable possibilities 
 %
 The result of applying this strategy to the wind turbine blade application is shown in Figure \ref{fig:known_cost}. 
 %
-\begin{figure}[h]
+\begin{figure}
 \centering
 \includegraphics[scale=.8]{FIG_cost_grid_pareto_bands.eps}
 %\captionsetup{width=.7\linewidth}
