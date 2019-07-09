@@ -126,7 +126,7 @@ More generally, in a system with multiple outputs, one wants to estimate the Par
 %
 A point is Pareto optimal if and only if, in order to improve any one of its elements, some other element must be made worse off.
 %
-For example, if a bivariate system in a minimization problem has exactly three output points $a=(2,0)$, $b=(2,1)$, and $c=(1,10)$ then $a$ and $c$ are each Pareto optimal, but $b$ is not, since there is a point (namely $a$) that is less than or equal to $b$ in every output and strictly less than $b$ in at least one output.
+%For example, if a bivariate system in a minimization problem has exactly three output points $a=(2,0)$, $b=(2,1)$, and $c=(1,10)$ then $a$ and $c$ are each Pareto optimal, but $b$ is not, since there is a point (namely $a$) that is less than or equal to $b$ in every output and strictly less than $b$ in at least one output.
 %
 In a system in which there is a trade-off between cost and performance, for example, which region of the Pareto front is considered most desirable will depend upon the budgetary constraints of the project.
 %
@@ -159,9 +159,9 @@ Common to those approaches is the conception of calibration as using real observ
 %
 By contrast, in our proposed methodology, we use artificial observations (representing our design targets) to obtain a posterior distribution on design variables $\boldsymbol\theta$ such that the posterior predictive distribution of the model approaches our design targets.
 %
-We describe how, with little added computational cost, the methodology provides an initial rough estimate of the Pareto front for the system, which can be used to select artificial observations closer to the design space and thereby promote stronger Bayesian learning about the optimal settings for the design variables $\boldsymbol\theta$.
+%We describe how, with little added computational cost, the methodology provides an initial rough estimate of the Pareto front for the system, which can be used to select artificial observations closer to the design space and thereby promote stronger Bayesian learning about the optimal settings for the design variables $\boldsymbol\theta$.
 %
-Repeated applications of the procedure can then be used to produce the more thorough ``Pareto bands'' which estimate the Pareto front with quantified uncertainties.
+Repeated applications of the procedure can be used to produce the more thorough ``Pareto bands'' which estimate the Pareto front with quantified uncertainties.
 %
 
 %
@@ -202,7 +202,7 @@ Thus for any points $\mathbf x,\mathbf y$ in the domain of the GP, $\mu(\mathbf 
 %
 The distribution of the process at any finite number of points is multivariate Gaussian with mean vector and covariance matrix determined by $\mu(\cdot)$ and $C(\cdot,\cdot)$.
 %
-In principle, model calibration need not rely on a GP emulator, or any other sort of emulator; one could complete a full Bayesian analysis via Markov chain Monte Carlo \citep[MCMC;][]{Gelfand1990} by running the relevant computer model at each iteration of the chain \citep[see][for an investigation of the trade-offs involved in the choice of whether to use an emulator]{Hemez2011}. 
+In principle, model calibration need not rely on a GP emulator, or any other sort of emulator; one could complete a full Bayesian analysis via Markov chain Monte Carlo \citep[MCMC;][]{Gelfand1990} by running the relevant computer model at each iteration of the chain \citep[see e.g.][]{Hemez2011}. 
 %
 %\cite{Hemez2011} compare the use of Kennedy-O'Hagan-style calibration with and without an emulator. 
 %%
@@ -328,7 +328,7 @@ Such uncertainty may have its source in parameter uncertainty (uncertainty about
 %
 Of course,  targets are not actually observations, so the concept of observation error does not cleanly transfer. 
 %
-However, a similar uncertainty would be that due to how close reality \emph{can} come to our target outcomes. 
+However, a similar uncertainty would be uncertainty about which specific target values best reflect one's design goals.
 %
 The Bayesian model calibration framework allows for the quantification of all of these uncertainties. 
 %
@@ -338,22 +338,22 @@ Furthermore, by the use of informative priors on the model discrepancy and obser
 %
 In general, target outcomes should aim only a little beyond what is realistically achievable; only as much as is necessary to ensure the targets are at least as ambitious as any true optimum in the system.
 %
-Three reasons why one should go only a little beyond that are as follows: 
+Two reasons why one should go only a little beyond that are as follows: 
 %
 Firstly, if target outcomes are set to be too farfetched, then the procedure can become computationally unstable due  to underflow and round-off error, since any value of $\boldsymbol \theta$ within its support will have extremely low likelihood.
 %
 Secondly, increasing the distance of the target outcomes from the optimal region reduces the identifiability of that region.
 %
-CTO finds the region of the parameter space with output closest to the target outcomes.
-%
-If the entire feasible performance range is far from the target outcomes, then the optimal region will in relative terms be only a little closer than the rest of the design space. 
+%CTO finds the region of the parameter space with output closest to the target outcomes.
+%%
+%If the entire feasible performance range is far from the target outcomes, then the optimal region will in relative terms be only a little closer than the rest of the design space. 
 % 
-This is the same effect as when the variance of the observation error is much larger than the variance of the prior distribution on a parameter; i.e., the posterior is much more strongly determined by the prior than the likelihood, resulting in limited Bayesian learning about quantities of interest.
+This is the same effect as the general case when observation error variance is much larger than the variance of the prior distribution on a parameter; i.e., the posterior is much more strongly determined by the prior than the likelihood, resulting in limited Bayesian learning about quantities of interest.
 %The nearness of the optimum to another point in the parameter space is relative to the estimated error at the optimum, and therefore if the entire model range is far from the target observations, then all points in the parameter space will be 
 %
 %relative difference between the distance to the Pareto front and the distance to other regions of the model range, thereby decreasing the identifiability of the region to which one wishes to calibrate.
 %
-A third reason to keep target outcomes close to the feasible design space is that the targets lose their interpretability when they take on values that are implausible or impossible. 
+%A third reason to keep target outcomes close to the feasible design space is that the targets lose their interpretability when they take on values that are implausible or impossible. 
 %
 
 %%
@@ -362,11 +362,11 @@ A third reason to keep target outcomes close to the feasible design space is tha
 %This option is not truly another means of achieving a calibration target, but rather is simply the decision to refrain from doing so. 
 %%
 
-When a target cannot be selected (for example, because priorities regarding cost and performance trade-offs have not yet been settled), design can be carried out using each point in a grid over the region of plausible target values.
-%
-For instance, one can design to performance targets under each point of a grid of ``known'' costs, rather than designing with a specific desired cost.
-%
-In doing so, we present a comprehensive picture of optimal parameter distributions and resulting performance under a range of costs, which could inform the process of setting a budget.
+%When a target cannot be selected (for example, because priorities regarding cost and performance trade-offs have not yet been settled), design can be carried out using each point in a grid over the region of plausible target values.
+%%
+%For instance, one can design to performance targets under each point of a grid of ``known'' costs, rather than designing with a specific desired cost.
+%%
+%In doing so, we present a comprehensive picture of optimal parameter distributions and resulting performance under a range of costs, which could inform the process of setting a budget.
 %
 
 %
@@ -402,9 +402,9 @@ We use priors
 $\rho^\delta_k \sim \mathrm{Beta}(1,0.3),$
 where $\rho_k^\delta = \exp(-\beta_k^\delta/4)$ for $k=1,\ldots,p$. 
 %
-A Gamma prior is appropriate for $\lambda_\delta$, with strength determined by the amount of prior information available. 
+%A Gamma prior is appropriate for $\lambda_\delta$, with strength determined by the amount of prior information available. 
 %
-With sufficient prior information, though, we can set $\lambda_\delta$ to be constant. 
+%With sufficient prior information, though, we can set $\lambda_\delta$ to be constant. 
 %
 Details surrounding the choice of prior for $\lambda_\delta$ are discussed below.
 %
@@ -415,15 +415,15 @@ and $\mathcal D = (\boldsymbol \eta^T,\mathbf y^T)^T$.
 %
 Then $\mathcal D | \boldsymbol \theta,\widehat{\lambda_\eta}, \widehat{\boldsymbol \rho^\eta},\lambda_\delta,\boldsymbol \rho^\delta$ is distributed as multivariate normal with mean 0 and covariance $\mathbf C_\mathcal D$, a matrix with $i,j$ entry equal to 
 $
-C((\mathbf x_i,\mathbf t_i),(\mathbf x_j,\mathbf t_j)) + I(i,j>n)\cdot(C_{obs}(\mathbf x_i,\mathbf x_j) + C_\delta(\mathbf x_i,\mathbf x_j))
+C((\mathbf x_i,\mathbf t_i),(\mathbf x_j,\mathbf t_j)) + I(i,j>n)\cdot(C_{obs}(\mathbf x_i,\mathbf x_j) + C_\delta(\mathbf x_i,\mathbf x_j)).
 $
 %where $C_{obs}(\cdot,\cdot)$ is the (known) observation error variance.
 %
-where $C_{obs}(\cdot,\cdot)$ serves as ``observation error'' of our own target outcomes, since in a typical case one can at best identify a small region within which the choice of any particular point as a target outcome would be arbitrary due to our acceptable tolerance.
+$C_{obs}(\cdot,\cdot)$ serves as ``observation error'' of our own target outcomes, since in a typical case one can at best identify a small target region within which the choice of any particular point as a target outcome would be arbitrary.
 %
-Thus, $C_{obs}(\mathbf x_i,\mathbf x_j) = \sigma^2\delta^K_{ij}$, where $\delta^K$ is the Kronecker delta and $\sigma^2$ is chosen to reflect the desired tolerance level, such that targets within $\sigma$ of each other are considered to be roughly equivalent.
+Thus, $C_{obs}(\mathbf x_i,\mathbf x_j) = \sigma^2\delta^K_{ij}$, where $\delta^K$ is the Kronecker delta and $\sigma^2$ is chosen to reflect the desired tolerance level, such that targets within $\sigma$ of each other are considered roughly equivalent.
 %
-The appropriate setting for $\sigma^2$ will differ across applications.
+%The appropriate setting for $\sigma^2$ will differ across applications.
 %
 For our applications, we set $\sigma^2=0.05$ (with target outcomes standardized to have mean zero and prior standard deviation 1).
 %
@@ -440,10 +440,10 @@ Setting a uniform prior on the design variables $\boldsymbol\theta$, the joint p
 \pi(\lambda_\delta) \times \pi(\boldsymbol \rho^\delta).
 \end{equation}
 %
-Markov chain Monte Carlo methods are useful for estimating features of the posterior distribution.
+Markov chain Monte Carlo methods are used to explore the posterior distribution.
 
 %
-In order to successfully locate the optimal design region, it is necessary either to place an informative prior on the marginal precision $\lambda_\delta$ of the discrepancy $\delta(\cdot)$, or else to specify $\lambda_\delta$ outright. 
+To successfully locate the optimal design region, one must either to place an informative prior on the marginal precision $\lambda_\delta$ of the discrepancy $\delta(\cdot)$, or else specify $\lambda_\delta$ outright. 
 %
 Otherwise, the optimal region of the design variable space will suffer from poor identifiability, which in our case will mean that the posterior distribution will not be concentrated within the optimal region.
 %
@@ -458,15 +458,15 @@ Where the prior on $\lambda_\delta$ cannot be chosen to be \emph{accurate} (due 
 %
 Otherwise, underestimation of $\lambda_\delta$ may lead to poor identifiability of the optimal design region by granting the model too much flexibility in systematically deviating from the targets.
 %
-This is because $\lambda_\delta$ affects the expected distance of the target outcomes from the posterior predictive distribution.
+%This is because $\lambda_\delta$ affects the expected distance of the target outcomes from the posterior predictive distribution.
 %
-Thus, underestimating $\lambda_\delta$ can result in there being little penalty in leaving the region of the design space that is closest to the target outcomes.
+%Thus, underestimating $\lambda_\delta$ can result in there being little penalty in leaving the region of the design space that is closest to the target outcomes.
 %
-When setting a prior that overestimates $\lambda_\delta$, the posterior distribution of $\lambda_\delta$ becomes less reliable than when an accurate prior is used.
+%When setting a prior that overestimates $\lambda_\delta$, the posterior distribution of $\lambda_\delta$ becomes less reliable than when an accurate prior is used.
 %
-Nonetheless, even when $\lambda_\delta$ must be overestimated, the posterior distribution of $\boldsymbol \theta$ will still peak at the optimal design region, since overestimation of $\lambda_\delta$ forces the mean-zero discrepancy to be small and thereby only increases the penalty of leaving the optimal region.
+%Nonetheless, even when $\lambda_\delta$ must be overestimated, the posterior distribution of $\boldsymbol \theta$ will still peak at the optimal design region, since overestimation of $\lambda_\delta$ forces the mean-zero discrepancy to be small and thereby only increases the penalty of leaving the optimal region.
 %
-Thus, while relying on vague knowledge of the optimum does interfere with one's ability to estimate the true discrepancy of the model from the target outcomes, one may still locate the posterior mode(s) of $\boldsymbol \theta$ and thereby the optimal settings for the model.
+%Thus, while relying on vague knowledge of the optimum does interfere with one's ability to estimate the true discrepancy of the model from the target outcomes, one may still locate the posterior mode(s) of $\boldsymbol \theta$ and thereby the optimal settings for the model.
 % %HERE
 However, if $\lambda_\delta$ is too highly overestimated, then MCMC may become trapped in a local mode, leading to convergence problems. 
 %
