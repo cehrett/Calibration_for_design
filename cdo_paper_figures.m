@@ -54,30 +54,52 @@ f1 = 'r'; f2='g'; f3='b'; % for color version
 ea = 1      ;  % edge alpha
 fa = 0      ;  % face alpha
 
-f=figure();
+
+f=figure('pos',[10 10 325 200]);
+sp1 = subplot(1,2,1);
+sp2 = subplot(1,2,2);
+set(sp1,'position',[.1 .225 .65 .825]);
+set(sp2,'position',[.4 .225 .6 .825]);
+set(f,'currentaxes',sp1);
 surf(theta2,theta1,oscls,'FaceColor',g1,'EdgeColor',g1,...
     'EdgeAlpha',ea,'FaceAlpha',fa);
-axis vis3d;
+% axis vis3d;
 
 hold on;
 surf(theta2,theta1,perfs,'FaceColor',g2,'EdgeColor',g2,...
     'EdgeAlpha',ea,'FaceAlpha',fa); 
-axis vis3d;
+% axis vis3d;
 
 surf(theta2,theta1,costs,'FaceColor',g3,'EdgeColor',g3,...
     'EdgeAlpha',ea,'FaceAlpha',fa); 
-axis vis3d;
+% axis vis3d;
 xlabel('\theta_2'); ylabel('\theta_1'); zlabel('Outcomes');
 
 h=gca;
 h.View = [13.1667 11.3333] ; % Sets the perspective
 set(h,'ztick',[]);
 
-title('Model outcomes on normalized scale');
+% title('Model outcomes on normalized scale');
 
-hh = legend('y_1','y_2','y_3','Orientation','horizontal',...
-    'Location','south');
-hh.Position = hh.Position + [ 0 -.115 0 0 ];
+% hh = legend('y_1','y_2','y_3','Orientation','horizontal',...
+%     'Location','south');
+% hh.Position = hh.Position + [ 0 -.115 0 0 ];
+% set(gcf,'unit','inches');
+% fig_size = get(gcf,'position');
+set(f,'currentaxes',sp2);
+s1=patch(nan*[0 1 1 0],[0 0 1 1],g1);
+hold on;
+s2=patch(nan*[1 2 2 1],[1 1 2 2],g2);
+s3=patch(nan*[2 3 3 2],[2 2 3 3],g3);
+set(sp2,'Visible','off');
+% set(s1,'Visible','off');set(s2,'Visible','off');set(s3,'Visible','off');
+
+hh = legend(sp2,'y_1','y_2','y_3','Orientation','vertical',...
+    'Location','east');
+% set(hh,'unit','inches');
+% leg_size = get(hh,'position');
+% fig_size(3) = fig_size(3) + leg_size(3);
+% set(gcf,'position',fig_size)
 
 % %%% Code to turn it into the version used on SCSC poster
 % hh.Orientation = 'vertical';
@@ -89,7 +111,7 @@ hh.Position = hh.Position + [ 0 -.115 0 0 ];
 
 %saveas(f,'FIG_toy_sim_model_outputs.png');
 set(f,'Color','w');
-% export_fig FIG_toy_sim_model_outputs -eps -m3 -painters 
+% export_fig FIG_toy_sim_model_outputs -eps -m3 -painters
 
 %% Toy sim results using set discrep marginal precision for var vals
 %%% COLOR VERSION
@@ -272,7 +294,8 @@ ttl1=title(sprintf(['Posterior \\theta samples:\ntarget '...
 %[C,h]= contour(theta1,theta2,redists,[1 2 3 4 5 ],'LineWidth',3);
 [C,cntr1]= contour(theta1,theta2,redists,[16 17 18 19 20 ],'LineWidth',3);
 clabel(C,cntr1,'fontsize',12);
-xlabel('\theta_1'); ylabel('\theta_2');
+xlab = xlabel('\theta_1'); ylabel('\theta_2');
+xlab.Position = xlab.Position + [0 .2 0];
 
 % Add true optimum
 p=plot(optim(1),optim(2),'ok','MarkerSize',7,'MarkerFaceColor','m',...
@@ -294,14 +317,15 @@ ttl2=title(sprintf(['Posterior \\theta samples:\ntarget '...
 % Now add contour plot 
 [C,cntr2]= contour(theta1,theta2,redists,[16 17 18 19 20 ],'LineWidth',3);
 clabel(C,cntr2,'fontsize',12);
-xlabel('\theta_1'); ylabel('\theta_2');
+xlab= xlabel('\theta_1'); ylabel('\theta_2');
+xlab.Position = xlab.Position + [0 .2 0];
 
 % Add true optimum
 p=plot(optim(1),optim(2),'ok','MarkerSize',7,'MarkerFaceColor','m',...
     'LineWidth',2);
 
 % create third figure split into two uipanels
-h3 = figure('pos',[10 10 780 290]);
+h3 = figure('pos',[10 10 780 260]);
 u1 = uipanel('position',[0,0,0.5,1]);
 u2 = uipanel('position',[0.5,0,0.5,1]);
 
@@ -322,6 +346,13 @@ ttl2.Parent.Position = spos2 + [ 0 0 0 -.05 ];
 
 % Close unneeded figures
 close(h1,h2);
+
+% Move things a bit
+movedist = -.0869/2;
+u1.Children(1).Position = u1.Children(1).Position + [0 movedist 0 0];
+u2.Children(1).Position = u2.Children(1).Position + [0 movedist 0 0];
+u1.Children(3).Position = u1.Children(3).Position + [0 0 0 movedist];
+u2.Children(3).Position = u2.Children(3).Position + [0 0 0 movedist];
 
 % Save figure
 set(u1,'BackgroundColor','white');
@@ -870,7 +901,7 @@ yu = spline(xt,ytu,fliplr(x));
 
 % Plot the model range
 p1 = fill([x fliplr(x)],[yl yu],[1 .175 .175]);
-axis equal;
+% axis equal;
 %hold on; plot(xt,ytl,'o'); plot(xt,ytu,'o');
 xlim([0,2.4]);ylim([0,1.2]);
 
@@ -906,16 +937,19 @@ xrr = xr( in_mod_range_idx );
 yrr = yrt( in_mod_range_idx );
 p5 = plot(xrr,yrr,':k','LineWidth',2);
 
+% Resize
+fig.Position = fig.Position + [ 0 0 0 -175];
+
 % Add labels and legend
 ylabel('y_2'); xlabel('y_1');
 lg = legend([p1 p3 p2 p5],{'Model range','Possible target outcome',...
     'Nearest point to target','2\timesdiscrepancy distance'},...
     'Location','Northwest');
-pos = [0.131    0.615    0.33    0.1591];
+pos = [0.13    0.707    0.33    0.1591];
 lg.Position = pos ;
 
 % Save
 set(fig,'color','white');
 figstr = sprintf('FIG_des_obs_selection_example');
-export_fig(figstr,'-eps','-q0','-painters',fig);
+% export_fig(figstr,'-eps','-q0','-painters',fig);
 
