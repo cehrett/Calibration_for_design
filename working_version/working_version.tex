@@ -81,7 +81,7 @@ By using desired performance targets in place of observed data, we show that cal
 % 
 This allows materials to be designed with specific engineering targets in mind while quantifying the associated sources of uncertainty. 
 %
-We demonstrate our proposed approach by ``calibrating'' material design settings to performance targets for a wind turbine blade and by estimating the system's Pareto front with quantified uncertainties.
+We demonstrate our proposed approach by ``calibrating'' material design settings to performance targets for a wind turbine blade. % and by estimating the system's Pareto front with quantified uncertainties.
 \end{abstract}
 
 \noindent%
@@ -123,19 +123,19 @@ Here, we instead align the computer model to performance and cost targets by fin
 %
 
 %
-In addition to optimizing to a specific set of targets, it is often helpful to have a comprehensive picture of optimal outcomes without committing to specific targets.
-%
-More generally, in a system with multiple outputs, one wants to estimate the Pareto front of the design space; i.e., the set of points in the design space that are {\em Pareto optimal}.
-%
-A point is Pareto optimal if and only if, in order to improve any one of its elements, some other element must be made worse off.
-%
-%For example, if a bivariate system in a minimization problem has exactly three output points $a=(2,0)$, $b=(2,1)$, and $c=(1,10)$ then $a$ and $c$ are each Pareto optimal, but $b$ is not, since there is a point (namely $a$) that is less than or equal to $b$ in every output and strictly less than $b$ in at least one output.
-%
-In a system in which there is a trade-off between cost and performance, for example, which region of the Pareto front is most desirable will depend upon budgetary constraints.
-%
-%Decision-makers in such a scenario are well-served by having a complete picture of the curve describing the optimal performance at any budget.
-%
-We show that our proposed methodology can be used to produce ``Pareto bands'' which estimate the Pareto front of a system with quantified uncertainties. 
+%In addition to optimizing to a specific set of targets, it is often helpful to have a comprehensive picture of optimal outcomes without committing to specific targets.
+%%
+%More generally, in a system with multiple outputs, one wants to estimate the Pareto front of the design space; i.e., the set of points in the design space that are {\em Pareto optimal}.
+%%
+%A point is Pareto optimal if and only if, in order to improve any one of its elements, some other element must be made worse off.
+%%
+%%For example, if a bivariate system in a minimization problem has exactly three output points $a=(2,0)$, $b=(2,1)$, and $c=(1,10)$ then $a$ and $c$ are each Pareto optimal, but $b$ is not, since there is a point (namely $a$) that is less than or equal to $b$ in every output and strictly less than $b$ in at least one output.
+%%
+%In a system in which there is a trade-off between cost and performance, for example, which region of the Pareto front is most desirable will depend upon budgetary constraints.
+%%
+%%Decision-makers in such a scenario are well-served by having a complete picture of the curve describing the optimal performance at any budget.
+%%
+%We show that our proposed methodology can be used to produce ``Pareto bands'' which estimate the Pareto front of a system with quantified uncertainties. 
 %
 
 %
@@ -159,13 +159,13 @@ Similarly, \cite{Paulo2012} apply the approach of \cite{Bayarri2007} to computer
 %
 
 %
-Common to those approaches is the conception of calibration as using real observations to get a posterior distribution on unknown parameters $\boldsymbol\theta$ so that the posterior predictive distribution of the model approximates reality.
+Common to those approaches is a conception of calibration as using real observations to get a posterior distribution on unknown parameters $\boldsymbol\theta$ so that the posterior predictive distribution of the model approximates reality.
 %
-By contrast, in our proposed methodology, we use artificial observations (representing design targets) to obtain a posterior distribution on design variables $\boldsymbol\theta$ so that the posterior predictive distribution of the model approaches those targets.
+By contrast, our proposed methodology uses artificial observations (representing design targets) to obtain a posterior distribution on design variables $\boldsymbol\theta$ so that the posterior predictive distribution approaches those targets.
 %
 %We describe how, with little added computational cost, the methodology provides an initial rough estimate of the Pareto front for the system, which can be used to select artificial observations closer to the design space and thereby promote stronger Bayesian learning about the optimal settings for the design variables $\boldsymbol\theta$.
 %
-Repeated applications of the procedure can be used to produce the more thorough ``Pareto bands'' which estimate the Pareto front with quantified uncertainties.
+%Repeated applications of the procedure can be used to produce the more thorough ``Pareto bands'' which estimate the Pareto front with quantified uncertainties.
 %
 
 %
@@ -183,13 +183,13 @@ Our material design goal is to reduce the cost per square meter of the composite
 %
 
 %
-In Section \ref{calib_for_design}, we review the calibration framework that grounds our proposed design optimization approach. 
+In Section \ref{calib_for_design}, we review the calibration framework grounding our design optimization approach. 
 %
 In Sections \ref{example} and \ref{application}, we apply our methodology to simulated data and to wind turbine blade design.
 %
-In Section \ref{application}, we show how our approach can produce an estimate of the Pareto front of the turbine blade system while quantifying associated uncertainty.
+%In Section \ref{application}, we show how our approach can produce an estimate of the Pareto front of the turbine blade system while quantifying associated uncertainty.
 %
-Section \ref{conclusion} discusses the results and offers thoughts about future directions.
+Section \ref{conclusion} discusses the results and thoughts about future directions.
 
 %
 \section{Calibration for design}\label{calib_for_design}
@@ -459,7 +459,7 @@ Otherwise, the optimal region of the design variable space will suffer from poor
 %
 This longstanding concern was raised in the discussion of \cite{Kennedy2001}, as well as by \cite{Bayarri2007}, \cite{Tuo2015}, and \cite{Plumlee2017}.
 %
-How informative one's prior on $\lambda_\delta$ will be depends upon how much one knows about the true Pareto front prior to undertaking CTO.
+How informative one's prior on $\lambda_\delta$ will be depends upon how much one knows about the feasible design space prior to undertaking CTO.
 %
 For instance, if in a univariate case it is known with some confidence that the true optimum is nearly constant as a function of the other model inputs, and that it occurs in the interval $[10,11]$, then a constant target outcome of $9$ could be used with an informative prior tailored to this prior knowledge of the approximate resulting discrepancy.
 %
@@ -483,9 +483,15 @@ However, if $\lambda_\delta$ is too highly overestimated, MCMC may become trappe
 In short, while the proposed methodology is forgiving of overestimation of $\lambda_\delta$, the identifiability of the optimal design region(s) is best served by supplying as informative of a prior as possible. 
 
 %
-When one lacks the prior knowledge necessary to select target outcomes near the Pareto front and an accurate prior for $\lambda_\delta$, one option is a ``preliminary round'' of CTO to estimate the Pareto front.
+When one lacks the prior knowledge necessary to select target outcomes near the feasible design space and an accurate prior for $\lambda_\delta$, one option is a ``preliminary round'' of CTO to estimate the system's Pareto front, i.e., the set of points in the design space that are {\em Pareto optimal}.
 %
-For example, consider again the univariate case, supposing now that we know only that the optimal output is approximately constant somewhere in the range $(0,20)$. 
+A point is Pareto optimal if and only if, in order to improve any one of its elements, some other element must be made worse off.
+%
+%For example, if a bivariate system in a minimization problem has exactly three output points $a=(2,0)$, $b=(2,1)$, and $c=(1,10)$ then $a$ and $c$ are each Pareto optimal, but $b$ is not, since there is a point (namely $a$) that is less than or equal to $b$ in every output and strictly less than $b$ in at least one output.
+%
+In a system in which there is a trade-off between cost and performance, for example, which region of the Pareto front is most desirable will depend upon budgetary constraints.
+%
+As an example of preliminary CTO, consider again the univariate case, supposing now that we know only that the optimal output is approximately constant somewhere in the range $(0,20)$. 
 %
 %One could perform CTO directly with constant target outcome below the known feasible design space (e.g., $-1$) and prior on $\lambda_\delta$ that weakly pulls the posterior predictive distribution toward the lower end of its range (e.g., exponential with rate 2).
 %
@@ -748,7 +754,7 @@ Since the model output is trivariate, we use two binary dummy variables $a_1,a_2
 Thus for given values of $h,v,k$: setting $a_1=a_2=0$ outputs the tip deflection $d$, setting $a_1=1$ and $a_2=0$ outputs the twist $r$, and settings $a_1=0$ and $a_2=1$ outputs the cost $c$.
 %I do not include a discrepancy function, per the considerations of Section \ref{obs_error}.
 
-The hyperparameters $\lambda_\eta,\boldsymbol \beta^\eta$ are estimated to plug in to the prior
+The hyperparameters $\lambda_\eta,\boldsymbol \beta^\eta$ are estimated %to plug in to the prior
 % 
 %To avoid our estimates being biased by the influence of the target outcomes, we estimated them prior to the design stage 
 via maximum likelihood using only the finite element model output.
@@ -772,8 +778,6 @@ All model outputs were standardized so that each of the three responses has mean
 %
 The full joint posterior density of the design variables and discrepancy function hyperparameters is given in Equation \eqref{eq:full_dist}, using the MLEs given above.
 %
-
-%
 Initial target outcomes were set to $(0,0,0)$ on the original scale, constant as a function of temperature, on an evenly-spaced grid of temperature values over the range [230K, 330K].
 %
 We carried preliminary CTO with an Exp(5) prior on $\lambda_\delta$ to estimate the Pareto front and update the target outcomes to lie close to the Pareto front. % and thereby improve identifiability of the optimal region.
@@ -787,6 +791,8 @@ During the burn-in period, the covariances of the proposal distributions were pe
 %The level of the scalar multiplier was adaptively adjusted to promote optimal acceptance rates of $\approx 30\%$ for $\boldsymbol\theta$ and $\boldsymbol\rho$, and $\approx 44\%$ for $\lambda_\delta$.
 %
 Convergence of the three chains was verified visually and by the Gelman-Rubin statistic \citep[$\approx1.01$;][]{Gelman1992a}.
+%
+
 %
 As expected for preliminary CTO, the posterior distribution of $\boldsymbol\theta$ was quite diffuse.
 %
@@ -860,74 +866,74 @@ Though the mean performance outcomes are approximately the same under the poster
 %
 If one desires instead to prioritize gains in performance over cost, this can be accomplished by selecting target outcomes that reflect those priorities.
 
-\subsection{Pareto front estimation with uncertainties}\label{removing_cal_pars}
-
-%\subsubsection{Motivation}
-
-%Often in the case of a system with multivariate output, one might not antecedently have a clear goal for design.
+%\subsection{Pareto front estimation with uncertainties}\label{removing_cal_pars}
 %
-%All else being equal, w
-When multiple design outputs are to be minimized, any point in the Pareto front is optimal relative to some set of priorities.
+%%\subsubsection{Motivation}
 %
-If those priorities have not been explicitly determined prior to the design process, then no particular outcome can be targeted.
+%%Often in the case of a system with multivariate output, one might not antecedently have a clear goal for design.
+%%
+%%All else being equal, w
+%When multiple design outputs are to be minimized, any point in the Pareto front is optimal relative to some set of priorities.
+%%
+%If those priorities have not been explicitly determined prior to the design process, then no particular outcome can be targeted.
+%%
+%%In determining one's priorities, it is helpful to know the Pareto front of the relevant system.
+%%
+%For example, in a system where performance is monotonically increasing in cost, depending on one's tolerance for high cost, any point in the design space might be optimal.
+%%
+%%In determining one's priorities and selecting a target outcome, it is valuable to have a clear and accurate understanding of the Pareto front of the system.
+%%
+%In low-dimensional cases, CTO may be used to achieve a holistic picture of the Pareto front by optimizing to each target outcome on a grid.
+%%
+%To do this, where the model output is $d-$dimensional, one may draw a grid over the range of $d-1$ of the model outputs and perform CTO to minimize the remaining output at each point of the grid.
+%%
+%The $d-1$ outputs, at each grid point, are treated as known up to observation error (meaning that the discrepancy function $\delta(\cdot)$ is set to 0 in the dimension of these outputs).
+%%
+%The resulting estimate of the Pareto front differs from the filtering method employed in preliminary CTO in that it allows for quantifying the uncertainty associated with the Pareto front.
+%%
 %
-%In determining one's priorities, it is helpful to know the Pareto front of the relevant system.
+%Our proposed procedure is illustrated here using the wind turbine blade application.
+%%
+%For simplicity, twist has been removed as a model output, leaving a system with 2-dimensional output of deflection and cost. 
+%%
+%The range of cost is known (via preliminary CTO) to be $[\$96,\$352]$.
+%%
+%A 20-point grid was drawn over this range of costs. 
+%%
+%%Using the rough estimate of the Pareto front from preliminary CDO, we found that to cover the Pareto front, the cost grid should cover the range $[\$96,\$352]$.
+%%
+%For each point $c$ in the cost grid, we used the point $(0\mathrm m,\$c)$ as the target outcome for calibration (constant with respect to temperature).
+%%
+%For each such point, we then updated this initial target outcome to improve identifiability using the rough estimate of the Pareto front from preliminary CTO using target outcome $(0\mathrm m,\$0)$.
+%%
+%Note that only one round of preliminary CTO was needed for this purpose, rather than a separate instance at each grid point.
+%%
 %
-For example, in a system where performance is monotonically increasing in cost, depending on one's tolerance for high cost, any point in the design space might be optimal.
-%
-%In determining one's priorities and selecting a target outcome, it is valuable to have a clear and accurate understanding of the Pareto front of the system.
-%
-In low-dimensional cases, CTO may be used to achieve a holistic picture of the Pareto front by optimizing to each target outcome on a grid.
-%
-To do this, where the model output is $d-$dimensional, one may draw a grid over the range of $d-1$ of the model outputs and perform CTO to minimize the remaining output at each point of the grid.
-%
-The $d-1$ outputs, at each grid point, are treated as known up to observation error (meaning that the discrepancy function $\delta(\cdot)$ is set to 0 in the dimension of these outputs).
-%
-The resulting estimate of the Pareto front differs from the filtering method employed in preliminary CTO in that it allows for quantifying the uncertainty associated with the Pareto front.
-%
-
-Our proposed procedure is illustrated here using the wind turbine blade application.
-%
-For simplicity, twist has been removed as a model output, leaving a system with 2-dimensional output of deflection and cost. 
-%
-The range of cost is known (via preliminary CTO) to be $[\$96,\$352]$.
-%
-A 20-point grid was drawn over this range of costs. 
-%
-%Using the rough estimate of the Pareto front from preliminary CDO, we found that to cover the Pareto front, the cost grid should cover the range $[\$96,\$352]$.
-%
-For each point $c$ in the cost grid, we used the point $(0\mathrm m,\$c)$ as the target outcome for calibration (constant with respect to temperature).
-%
-For each such point, we then updated this initial target outcome to improve identifiability using the rough estimate of the Pareto front from preliminary CTO using target outcome $(0\mathrm m,\$0)$.
-%
-Note that only one round of preliminary CTO was needed for this purpose, rather than a separate instance at each grid point.
-%
-
-The result is an estimate of the response surface with quantified uncertainty describing, for each point in the grid, the minimal achievable outcome for the output not included in the grid.
-%
-%This enables a decision-maker to visualize the space of desirable possibilities with associated uncertainties. 
-%
-%They can do so without the need for rigorously predetermining their exact priorities for weighing gains in each of the outputs against one another.
-%
-The result of applying this strategy to the wind turbine blade application is shown in Figure \ref{fig:known_cost}. 
-%
-\begin{figure}[h]
-\centering
-\includegraphics[scale=.8]{FIG_cost_grid_pareto_bands.eps}
-%\captionsetup{width=.7\linewidth}
-\caption{The lefthand plot shows the posterior predictive distribution of cost as a function of target cost, verifying that the calibration achieved the target costs up to small error. The righthand plot shows the Pareto front for the system with quantified uncertainty.}
-\label{fig:known_cost}
-\end{figure}
-%
-The lefthand plot shows that the posterior model predictions respected the target cost values used in the design process.
-%
-The Pareto front for the system, along with associated uncertainty bands, appears in the righthand plot.
-%
-%This plot visualizes a distribution on the optimal performance outcome for any cost that a decision-maker might select as a budget for production, which would be helpful when selecting a budget.
-%
-%For example, the point of maximum curvature around \$140 manifests itself as a potentially attractive choice, since it can be seen in the plot that prior to that point each dollar spent brings significant gains in reducing deflection.
-%
-%Spending above that level continues to reduce deflection, but less sharply.
+%The result is an estimate of the response surface with quantified uncertainty describing, for each point in the grid, the minimal achievable outcome for the output not included in the grid.
+%%
+%%This enables a decision-maker to visualize the space of desirable possibilities with associated uncertainties. 
+%%
+%%They can do so without the need for rigorously predetermining their exact priorities for weighing gains in each of the outputs against one another.
+%%
+%The result of applying this strategy to the wind turbine blade application is shown in Figure \ref{fig:known_cost}. 
+%%
+%\begin{figure}[h]
+%\centering
+%\includegraphics[scale=.8]{FIG_cost_grid_pareto_bands.eps}
+%%\captionsetup{width=.7\linewidth}
+%\caption{The lefthand plot shows the posterior predictive distribution of cost as a function of target cost, verifying that the calibration achieved the target costs up to small error. The righthand plot shows the Pareto front for the system with quantified uncertainty.}
+%\label{fig:known_cost}
+%\end{figure}
+%%
+%The lefthand plot shows that the posterior model predictions respected the target cost values used in the design process.
+%%
+%The Pareto front for the system, along with associated uncertainty bands, appears in the righthand plot.
+%%
+%%This plot visualizes a distribution on the optimal performance outcome for any cost that a decision-maker might select as a budget for production, which would be helpful when selecting a budget.
+%%
+%%For example, the point of maximum curvature around \$140 manifests itself as a potentially attractive choice, since it can be seen in the plot that prior to that point each dollar spent brings significant gains in reducing deflection.
+%%
+%%Spending above that level continues to reduce deflection, but less sharply.
 
 The use of CTO in the wind turbine calibration case illustrates how preliminary CTO may be used, not merely to improve the identifiability of a pre-determined optimal region as in Section \ref{example}, but rather to identify a desirable region of the design space and select target outcomes that design to that region.
 %
@@ -945,7 +951,7 @@ For example, Figure \ref{fig:wt_marg_post} shows not just that a reasonable poin
 %
 More generally, CTO delivers an indication of the range of $\boldsymbol\theta$ values that achieve results near the target, which is potentially useful when one's goal is to set tolerances (rather than a specific value) for $\boldsymbol\theta$.
 %
-Finally, the use of CTO in the wind turbine case illustrates how the method can deliver ``Pareto bands'', providing not merely an estimate of the Pareto front (as in preliminary CTO) but also uncertainty associated with that estimate.
+%Finally, the use of CTO in the wind turbine case illustrates how the method can deliver ``Pareto bands'', providing not merely an estimate of the Pareto front (as in preliminary CTO) but also uncertainty associated with that estimate.
 %
 %Such an estimate can be of use to decision-makers when deciding on performance goals subject to budgetary constraints.
 
@@ -956,25 +962,25 @@ Finally, the use of CTO in the wind turbine case illustrates how the method can 
 
 We have described how the 
 %theoretical background for the use of Gaussian processes to emulate computationally expensive computer model code, and the 
-computer model calibration framework established by \cite{Kennedy2001} can be adapted for engineering design. 
+computer model calibration framework of  \cite{Kennedy2001} can be adapted for engineering design. 
 %
-Calibration to target outcomes undertakes design by ``calibrating'' a computer model not to field observations, but rather to artificial data representing performance and cost targets for the system. 
+Calibration to target outcomes undertakes design by ``calibrating'' a model not to field observations, but rather to artificial data representing performance and cost targets. 
 %
 The procedure optionally includes a computationally cheap preliminary step that provides a rough estimate of the Pareto front, which may be used to select target outcomes that promote strong Bayesian learning.
 %
-The resulting posterior predictive distribution approximates the target outcomes, so that the posterior distribution of $\boldsymbol\theta$ constitutes a distribution on optimal design settings for the system.
+The resulting posterior predictive distribution approximates the target outcomes, so that the posterior distribution of $\boldsymbol\theta$ constitutes a distribution on optimal design settings.
 %
-Repeated applications of this methodology allow one to construct a thorough estimate of the Pareto front of the system with quantified uncertainties.
+Repeated applications of this methodology allow one to construct a thorough estimate of the Pareto front of the system with quantified uncertainties by selecting target outcomes that explore different portions of the Pareto front.
 %
-Unlike other methods of Bayesian optimization (a review of which was provided by \citealt{Shahriari2016}), CTO does not require the ability to evaluate model output adaptively.
+Unlike other methods of Bayesian optimization (a review of which is provided by \citealt{Shahriari2016}), CTO does not require the ability to evaluate model output adaptively.
 %
-Instead, it can operate using a batch of observations gathered prior to (and independently of) the design process.
+Instead, it can rely on a batch of observations gathered prior to (and independently of) the design process.
 %
 We described the implementation of this approach in an MCMC routine along with considerations to accommodate computational instability.
 %
 The use of this methodology is illustrated in the case of material design for a wind turbine blade. 
 %
-We have shown thereby a variety of ways in which CTO can be used to guide decision-makers in the design process. 
+%We have shown thereby a variety of ways in which CTO can be used to guide decision-makers in the design process. 
 %
 By expropriating established tools of model calibration, CTO offers a method of optimization which is sensitive to, and quantifies, all sources of uncertainty.
 %

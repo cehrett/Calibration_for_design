@@ -940,16 +940,19 @@ p5 = plot(xrr,yrr,':k','LineWidth',2);
 % Resize
 fig.Position = fig.Position + [ 0 0 0 -175];
 
+
 % Add labels and legend
-ylabel('y_2'); xlabel('y_1');
+ylabel('y_2'); xlb = xlabel('y_1');
 lg = legend([p1 p3 p2 p5],{'Model range','Possible target outcome',...
     'Nearest point to target','2\timesdiscrepancy distance'},...
     'Location','Northwest');
-pos = [0.13    0.707    0.33    0.1591];
+pos = [0.13    0.72    0.33    0.1591];
 lg.Position = pos ;
+ax=gca; ax.Position = ax.Position + [0 0.01 0 0];
+xlb.Position = xlb.Position + [0 .08 0];
 
 % Save
 set(fig,'color','white');
 figstr = sprintf('FIG_des_obs_selection_example');
-% export_fig(figstr,'-eps','-q0','-painters',fig);
+export_fig(figstr,'-eps','-q0','-painters',fig);
 
