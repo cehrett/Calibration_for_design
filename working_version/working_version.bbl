@@ -62,7 +62,7 @@ Gelman, A., J.~B. Carlin, H.~S. Stern, D.~B. Dunson, A.~Vehtari, and D.~B.
 
 \bibitem[\protect\citeauthoryear{Gelman and Rubin}{Gelman and
   Rubin}{1992}]{Gelman1992a}
-Gelman, A. and D.~B. Rubin (1992, nov).
+Gelman, A. and D.~B. Rubin (1992).
 \newblock {Inference from Iterative Simulation Using Multiple Sequences}.
 \newblock {\em Statistical Science\/}~{\em 7\/}(4), 457--472.
 
@@ -96,7 +96,7 @@ Hastings, W. (1970).
 
 \bibitem[\protect\citeauthoryear{Hemez and Atamturktur}{Hemez and
   Atamturktur}{2011}]{Hemez2011}
-Hemez, F.~M. and S.~Atamturktur (2011, sep).
+Hemez, F. and S.~Atamturktur (2011).
 \newblock {The dangers of sparse sampling for the quantification of margin and
   uncertainty}.
 \newblock {\em Reliability Engineering {\&} System Safety\/}~{\em 96\/}(9),
@@ -235,7 +235,7 @@ Tuo, R. and C.~F.~J. Wu (2016).
 
 \bibitem[\protect\citeauthoryear{{Van Buren}, Atamturktur, and Hemez}{{Van
   Buren} et~al.}{2014}]{VanBuren2014}
-{Van Buren}, K.~L., S.~Atamturktur, and F.~M. Hemez (2014, feb).
+{Van Buren}, K.~L., S.~Atamturktur, and F.~M. Hemez (2014).
 \newblock {Model selection through robustness and fidelity criteria: Modeling
   the dynamics of the CX-100 wind turbine blade}.
 \newblock {\em Mechanical Systems and Signal Processing\/}~{\em 43\/}(1-2),
@@ -243,8 +243,7 @@ Tuo, R. and C.~F.~J. Wu (2016).
 
 \bibitem[\protect\citeauthoryear{{Van Buren}, Mollineaux, Hemez, and
   Atamturktur}{{Van Buren} et~al.}{2013}]{VanBuren2013}
-{Van Buren}, K.~L., M.~G. Mollineaux, F.~M. Hemez, and S.~Atamturktur (2013,
-  jul).
+{Van Buren}, K.~L., M.~G. Mollineaux, F.~M. Hemez, and S.~Atamturktur (2013).
 \newblock {Simulating the dynamics of wind turbine blades: part II, model
   validation and uncertainty quantification}.
 \newblock {\em Wind Energy\/}~{\em 16\/}(5), 741--758.

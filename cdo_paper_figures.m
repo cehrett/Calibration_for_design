@@ -652,7 +652,7 @@ des_obs = results.settings.desired_obs;
 clear results; 
 
 %%% Make figure using histograms
-f=figure('pos',[10 10  780.0000  300]);
+f=figure('pos',[10 10  780.0000  200]);
 % Deflection
 subplot(1,3,1);
 [p,x]=ksdensity(posamps(:,1));
@@ -702,7 +702,7 @@ line([des_obs(3) des_obs(3)],ylim,'Color','black','Linestyle',':',...
 % st=suptitle('Prior and posterior predictive distributions');
 % st.Position=[0.5 -.1 0];
 lg=legend('Posterior','Prior','Target','Location','northeast');
-pos=lg.Position; lg.Position = pos + [0.017 0.045 0 0];
+pos=lg.Position; lg.Position = pos + [0.017 0.065 0 0];
 
 %%% Save
 set(f, 'Color','white');
@@ -943,7 +943,8 @@ fig.Position = fig.Position + [ 0 0 0 -175];
 
 % Add labels and legend
 ylabel('y_2'); xlb = xlabel('y_1');
-lg = legend([p1 p3 p2 p5],{'Model range','Possible target outcome',...
+lg = legend([p1 p3 p2 p5],{'Feasible design space',...
+    'Possible target outcome',...
     'Nearest point to target','2\timesdiscrepancy distance'},...
     'Location','Northwest');
 pos = [0.13    0.72    0.33    0.1591];
@@ -954,5 +955,5 @@ xlb.Position = xlb.Position + [0 .08 0];
 % Save
 set(fig,'color','white');
 figstr = sprintf('FIG_des_obs_selection_example');
-export_fig(figstr,'-eps','-q0','-painters',fig);
+% export_fig(figstr,'-eps','-q0','-painters',fig);
 

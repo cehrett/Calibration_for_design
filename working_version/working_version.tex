@@ -38,8 +38,8 @@
     School of Mathematical and Statistical Sciences, Clemson University,\\
     Evan Chodora \\
     Department of Mechanical Engineering, Clemson University,\\
-    Mingzhe Jiang \\
-    Department of Chemical and Biomolecular Engineering, Clemson University,\\
+%    Mingzhe Jiang \\
+%    Department of Chemical and Biomolecular Engineering, Clemson University,\\
     Christopher Kitchens \\
     Department of Chemical and Biomolecular Engineering, Clemson University,\\
     and \\
@@ -77,7 +77,7 @@
 %
 Computer model calibration typically operates by choosing parameter values in a computer model so that the model output faithfully predicts reality. 
 %
-By using desired performance targets in place of observed data, we show that calibration techniques can be repurposed to wed engineering and material design, two processes that are traditionally carried out separately.
+By using performance targets in place of observed data, we show that calibration techniques can be repurposed to wed engineering and material design, two processes that are traditionally carried out separately.
 % 
 This allows materials to be designed with specific engineering targets in mind while quantifying the associated sources of uncertainty. 
 %
@@ -521,7 +521,7 @@ The full CTO process, including preliminary Pareto front estimation, is given in
 \spacingset{1}
 \centering
 %\renewcommand{\arraystretch}{}
-\begin{tabular}{|l|p{5.85in}|}
+\begin{tabular}{|l|p{.9\linewidth}|}
 \hline
 \multicolumn{2}{|c|}{Algorithm 1: Full CTO procedure including preliminary estimation of Pareto front}\\
 \hline
@@ -529,7 +529,7 @@ The full CTO process, including preliminary Pareto front estimation, is given in
 %2.&  Set a vague prior on $\lambda_\delta$.\\
 %2.&  Perform MCMC and use the resulting posterior samples of $\boldsymbol\theta$ to draw from the posterior predictive distribution of the model output.\\
 %2.&  Perform MCMC; use the posterior $\boldsymbol\theta$ samples to sample the posterior predictive distribution.\\
-2.&  Use MCMC to draw from $\boldsymbol\theta|\mathbf y$ and thereby from the posterior predictive distribution.\\
+2.&  Use MCMC to sample $\boldsymbol\theta|\mathbf y$ and thereby the posterior predictive distribution.\\
 3.&  Filter the predictions to retain only their Pareto optimal values $\mathcal P$. \\%The remaining set of values $\mathcal P$ estimates the Pareto front.\\
 4.& Select new target outcomes $\mathbf y^*$ using $\mathcal P$ as an estimate of the model's Pareto front. \\%These may be entirely new targets chosen after examining $\mathcal P$, or may simply be updated automatically to set each target outcome to be the same (small) distance $1/\sqrt{\lambda}$ (for some $\lambda$) from $\mathcal P$.\\
 5.& Set a strong (or degenerate) prior on $\lambda_\delta$ with mean the distance from $\mathcal P$ to $\mathbf y^*$.\\
@@ -542,7 +542,7 @@ The full CTO process, including preliminary Pareto front estimation, is given in
 
 Figure \ref{fig:do_selection_example} illustrates the benefits of preliminary CTO.
 %
-\begin{figure}[h]
+\begin{figure}
 \centering
 \includegraphics[scale=.8]{FIG_des_obs_selection_example.eps}
 %\captionsetup{width=.4\linewidth}
@@ -662,7 +662,7 @@ To improve identifiability of the optimal region, we updated the target outcome 
 %
 We chose a distance of one unit away, as this is the standard deviation of each model output.
 %
-We thereby approach the estimated Pareto front while remaining confident that the new target outcome $(0.71, 0.71, 17.92)$ outperforms the true Pareto front.
+We thereby approach the estimated Pareto front while remaining confident that the new target outcome $(0.71, 0.71, 17.92)$ outperforms the true Pareto front, 
 %
 %This confidence is based on the observation that 
 since $F(\mathbf x-(0.71,0.71,17.92)^T)>0.95$, where $\mathbf x$ is the nearest point of the estimated Pareto front and $F$ is the cdf of the tolerance $\boldsymbol\epsilon\sim N(\mathbf 0, 0.05I)$.
@@ -806,7 +806,7 @@ A distinct point of maximum curvature appears in the Pareto front.
 %
 This seems to be a point of diminishing returns in the trade-off between performance and cost, and thus we selected this point as the target for design.
 %
-\begin{figure}[h]
+\begin{figure}
 \centering
 \includegraphics[scale=0.8]{FIG_est_PF_with_des_obs.eps}
 %\captionsetup{width=.7\linewidth}
@@ -825,11 +825,11 @@ Therefore, we set $\lambda_\delta=1/0.2^2=25.$
 %
 
 %
-In the subsequent CTO step, we employed the same MCMC approach as in the preliminary round, except that $\lambda_\delta$ was now fixed.
+In the subsequent CTO, we employed the same MCMC approach as in the preliminary round, except  $\lambda_\delta$ was now fixed.
 %
-The marginal posterior distribution of $\boldsymbol\theta$ is shown in Figure \ref{fig:wt_marg_post} as contours of highest density regions.
+The posterior distribution of $\boldsymbol\theta$ appears in Figure \ref{fig:wt_marg_post} as contours of highest density regions.
 %
-The contrast of the posterior distribution with the prior, which is uniform over the area shown in the figure, indicates that strong Bayesian learning has occurred in the design process.
+The contrast of the posterior distribution with the prior, which is uniform over the area shown in the figure, indicates that strong Bayesian learning has occurred.
 %
 %\begin{figure}
 %\centering
@@ -838,7 +838,7 @@ The contrast of the posterior distribution with the prior, which is uniform over
 %\caption{The histograms show the marginal posterior of each calibration parameter. The dotted lines show the priors.}
 %\label{fig:wt_marg_post}
 %\end{figure}
-\begin{figure}[h]
+\begin{figure}
 \centering
 %\includegraphics[width=.4\linewidth]{FIG_post_dist_contourplot}
 \includegraphics[scale=0.8]{FIG_post_dist_contourplot}
@@ -847,7 +847,7 @@ The contrast of the posterior distribution with the prior, which is uniform over
 \label{fig:wt_marg_post}
 \end{figure}
 %
-The prior and posterior marginal predictive distributions of the model outputs are shown in Figure \ref{fig:prior_post_pred_comp}, where the prior predictive distributions are based on a uniform sampling of the model inputs.
+The prior and posterior predictive distributions of the model outputs appear in Figure \ref{fig:prior_post_pred_comp}, where the prior predictive distributions are based on a uniform sampling of the model inputs.
 %
 \begin{figure}[h]
 \centering
@@ -860,11 +860,11 @@ The prior and posterior marginal predictive distributions of the model outputs a
 %
 Each marginal posterior density peaks sharply near the target outcome.
 %
-The mean model output under the prior is $(\text{deflection}=0.76\mathrm m,\ \text{twist}=0.09\text{ rads},\ \text{cost}=\$207.90/\mathrm m^2)$, whereas under the posterior it is $(0.76\mathrm m,0.09\ \mathrm{rad},\$149.47/\mathrm m^2)$.
+The mean output under the prior is $(0.76\mathrm m,0.09\text{ rads},\$207.90/\mathrm m^2)$, and under the posterior it is $(0.76\mathrm m,0.09\ \mathrm{rad},\$149.47/\mathrm m^2)$.
 %
-Though the mean performance outcomes are approximately the same under the posterior distribution as under the prior, the mean cost per square meter and the uncertainty of the outcomes have both decreased dramatically.
+Though the mean performance outcomes are approximately the same under the posterior and the prior, mean cost per square meter and the uncertainty of the outcomes are dramatically lower.
 %
-If one desires instead to prioritize gains in performance over cost, this can be accomplished by selecting target outcomes that reflect those priorities.
+If one prefers to prioritize gains in performance over cost, this can be accomplished by selecting target outcomes that reflect those priorities.
 
 %\subsection{Pareto front estimation with uncertainties}\label{removing_cal_pars}
 %
@@ -935,7 +935,7 @@ If one desires instead to prioritize gains in performance over cost, this can be
 %%
 %%Spending above that level continues to reduce deflection, but less sharply.
 
-The use of CTO in the wind turbine calibration case illustrates how preliminary CTO may be used, not merely to improve the identifiability of a pre-determined optimal region as in Section \ref{example}, but rather to identify a desirable region of the design space and select target outcomes that design to that region.
+The use of CTO in the wind turbine design illustrates how preliminary CTO may be used, not merely to improve the identifiability of a pre-determined optimal region as in Section \ref{example}, but rather to identify a desirable region of the design space and select target outcomes that design to that region.
 %
 %In the wind turbine case, selecting $(0,0,0)$ as one's target determines the optimal region to be the high-cost region toward the upper-left of Figure \ref{fig:elbow}, since (on the standardized scale of model outputs) that region happens to be closest to the target.
 %
@@ -970,7 +970,7 @@ The procedure optionally includes a computationally cheap preliminary step that 
 %
 The resulting posterior predictive distribution approximates the target outcomes, so that the posterior distribution of $\boldsymbol\theta$ constitutes a distribution on optimal design settings.
 %
-Repeated applications of this methodology allow one to construct a thorough estimate of the Pareto front of the system with quantified uncertainties by selecting target outcomes that explore different portions of the Pareto front.
+Repeated applications of this methodology could allow one to construct a thorough estimate of the Pareto front of the system with quantified uncertainties by selecting target outcomes that explore different portions of the Pareto front.
 %
 Unlike other methods of Bayesian optimization (a review of which is provided by \citealt{Shahriari2016}), CTO does not require the ability to evaluate model output adaptively.
 %
@@ -1007,7 +1007,9 @@ Other possible extensions of our proposed methodology include its application to
 
 %\item[Title:] Brief description. (file type)
 
-\item[\scshape{Matlab} code for CTO:] This includes the example model described in Section \ref{example}, along with code to perform CTO on that system and thereby reproduce Figure \ref{fig:toy_sim_results}.
+\item[{\scshape Matlab} code for CTO:] This includes code to perform CTO on the example model of Section \ref{example}, reproducing Figure \ref{fig:toy_sim_results}. (Zipped {Matlab} .m scripts and .mat file)
+\item[FE model description:] This describes the background and FE implementation of the CX-100 wind turbine blade analyzed in this paper. (.pdf file)
+\item[FE implementation:] This includes Matlab and ANSYS files to model the blade along with airfoil profiles and macro files used during blade geometry generation. (.zip file)
 
 %\item [{\fontfamily{cmu}\selectfont \sc Testing} code for CDO:] This includes
 
