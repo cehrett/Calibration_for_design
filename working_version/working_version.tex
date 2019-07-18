@@ -706,7 +706,7 @@ This example illustrates that CTO can be used directly with little foreknowledge
 
 
 
-\section{Application}\label{application}
+\section{Application to Turbine Blade Material Design}\label{application}
 
 In this section we use CTO to design a material for use in a wind turbine blade. % of fixed geometry.
 %
@@ -716,7 +716,7 @@ Our model uses \texttt{ANSYS} finite element analysis software \citep{ansys}.
 %HERE
 We assume the model accurately represents reality.
 
-\subsection{Wind turbine blade design}
+%\subsection{Wind turbine blade design}
 
 Two performance measures for blades are tip deflection and twist angle.
 %
@@ -724,36 +724,35 @@ A goal of engineering design is to keep these measures and material cost low.
 %
 The blade is a composite of a given \emph{matrix} and \emph{filler}.
 %
-In a composite, the matrix holds the filler together; for example in concrete, a filler of loose stones combines with a cement matrix.
+In a composite, the matrix holds the filler together; e.g., concrete, in which a filler of loose stones combines with a cement matrix.
 %
 Given a matrix and filler, the material properties (and thus blade performance and cost) depend on the thickness of the shear web in the blade and on the \emph{volume fraction}, or ratio of filler to matrix.
 %
 %The resulting material properties impact the performance and cost of the blade.
 %
-Temperature also affects the composite's properties and hence performance.
+Temperature also affects the composite's properties and hence its performance.
 %
 The model inputs are a triplet $(h,v,k)$, where $h$ is the temperature of the turbine (in kelvin), $v$ is the volume fraction, and $k$ is the thickness (in mm).
 %
 The model output is a triplet $(d,r,c)$, where $d$ is tip deflection (in meters), $r$ is twist (in radians), and $c$ is cost per square meter (USD) of the material.
 %
-The turbine is deemed to operate over temperatures 230K-330K.
+The turbine is expected to operate over temperatures 230K-330K, which serves as the input domain. See the Supplementary Material to this article for details of the turbine blade model and its implementation in \texttt{ANSYS}.
 %
 %We used CTO to find a distribution on optimal settings for $v$ and $k$ given outputs from the finite element simulator and target outcomes.
 
-\subsection{Emulation of finite element model}\label{emulator} %HERE
+%\subsection{Emulation of finite element model}\label{emulator} %HERE
 The finite element simulator is too computationally expensive to be suitable for direct use in an MCMC routine.
 %
 We employed a GP emulator in the manner of \cite{Williams2006}.
 %
-For this purpose, we drew 500 (trivariate) observations from the finite element simulator according to a Latin hypercube sampling design \citep{McKay1979} based on plausible ranges for the three inputs as identified by subject matter experts: $[230\mathrm{K}, 330\mathrm{K}] \times [.2,.6]\times[10\mathrm{mm},25\mathrm{mm}]$.
+For this purpose, we drew 500 (trivariate) observations from the finite element simulator according to a Latin hypercube sampling design \citep{McKay1979} based on plausible ranges for the three inputs as identified by subject matter experts: $[230\mathrm{K}, 330\mathrm{K}] \times [0.2,0.6]\times[10\mathrm{mm},25\mathrm{mm}]$.
 %
 We took the computer output to follow a GP with mean 0 and product power exponential covariance function as given in (\ref{eq:Hig_cov}).
 %
 Since the model output is trivariate, we use two binary dummy variables $a_1,a_2$ to convert the model to univariate output with five inputs, in order to employ a univariate GP emulator.
 %
-Thus for given values of $h,v,k$: setting $a_1=a_2=0$ outputs the tip deflection $d$, setting $a_1=1$ and $a_2=0$ outputs the twist $r$, and settings $a_1=0$ and $a_2=1$ outputs the cost $c$.
+%Thus for given values of $h,v,k$: setting $a_1=a_2=0$ outputs the tip deflection $d$, setting $a_1=1$ and $a_2=0$ outputs the twist $r$, and settings $a_1=0$ and $a_2=1$ outputs the cost $c$.
 %I do not include a discrepancy function, per the considerations of Section \ref{obs_error}.
-
 The hyperparameters $\lambda_\eta,\boldsymbol \beta^\eta$ are estimated %to plug in to the prior
 %
 %To avoid our estimates being biased by the influence of the target outcomes, we estimated them prior to the design stage
@@ -770,7 +769,7 @@ where $\rho^\eta_k = \exp(-\beta_k^\eta/4)$.
 %
 %Following the form of Equation \eqref{eq:Hig_cov}, we have $p=3$, $q=2$, and $(x_1,\ldots,x_5)=(a_1,a_2,h,v,k)$.
 
-\subsection{Design of the wind turbine blade system}\label{the_model}
+%\subsection{Design of the wind turbine blade system}\label{the_model}
 %
 All model inputs were rescaled to [0,1].
 %
@@ -780,7 +779,7 @@ The full joint posterior density of the design variables and discrepancy functio
 %
 Initial target outcomes were set to $(0,0,0)$ on the original scale, constant as a function of temperature, on an evenly-spaced grid of temperature values over the range [230K, 330K].
 %
-We carried preliminary CTO with an Exp(5) prior on $\lambda_\delta$ to estimate the Pareto front and update the target outcomes to lie close to the Pareto front. % and thereby improve identifiability of the optimal region.
+We carried out preliminary CTO with an Exp(5) prior on $\lambda_\delta$ to estimate the Pareto front and update the target outcomes to lie close to the Pareto front. % and thereby improve identifiability of the optimal region.
 %
 For this purpose, 2,000 realizations were drawn via Metropolis-Hastings-within-Gibbs MCMC \citep{Metropolis1953, Hastings1970, Geman1984} in each of three chains (with random starts), of which the first 1,000 were discarded as burn-in.
 %
@@ -798,7 +797,7 @@ As expected for preliminary CTO, the posterior distribution of $\boldsymbol\thet
 %
 We used the GP emulator to predict the model output for each realization of $\boldsymbol \theta$.
 %
-Figure \ref{fig:elbow} displays the estimated Pareto front after filtering the posterior predictions to retain only non-dominated performance predictions.
+Figure \ref{fig:elbow} displays the estimated Pareto front after filtering the posterior predictions.
 %
 Though the design space is three-dimensional, the Pareto front appears to be a roughly coplanar curve describing a trade-off between cost and deflection/twist.
 %
@@ -806,11 +805,11 @@ A distinct point of maximum curvature appears in the Pareto front.
 %
 This seems to be a point of diminishing returns in the trade-off between performance and cost, and thus we selected this point as the target for design.
 %
-\begin{figure}
+\begin{figure}[tb]
 \centering
 \includegraphics[scale=0.8]{FIG_est_PF_with_des_obs.eps}
 %\captionsetup{width=.7\linewidth}
-\caption{Each x is a dominated design drawn from the predictive distribution through preliminary CTO. The dots indicate the estimated Pareto front. The plus sign is the target selected as the performance objective in our proposed design approach.}
+\caption{Each green 'x' is a dominated design drawn from the predictive distribution through preliminary CTO. The blue dots indicate the estimated Pareto front. The red plus sign is the target selected as the performance objective in our proposed design approach.}
 \label{fig:elbow}
 \end{figure}
 %
@@ -838,7 +837,7 @@ The contrast of the posterior distribution with the prior, which is uniform over
 %\caption{The histograms show the marginal posterior of each calibration parameter. The dotted lines show the priors.}
 %\label{fig:wt_marg_post}
 %\end{figure}
-\begin{figure}
+\begin{figure}[tb]
 \centering
 %\includegraphics[width=.4\linewidth]{FIG_post_dist_contourplot}
 \includegraphics[scale=0.8]{FIG_post_dist_contourplot}
@@ -849,7 +848,7 @@ The contrast of the posterior distribution with the prior, which is uniform over
 %
 The prior and posterior predictive distributions of the model outputs appear in Figure \ref{fig:prior_post_pred_comp}, where the prior predictive distributions are based on a uniform sampling of the model inputs.
 %
-\begin{figure}[h]
+\begin{figure}[tb]
 \centering
 %\includegraphics[width=.4\linewidth]{FIG_post_dist_contourplot}
 \includegraphics[scale=0.8]{FIG_prior_vs_posterior_dist}
@@ -947,7 +946,7 @@ The use of CTO in the wind turbine design illustrates how preliminary CTO may be
 %
 The use of CTO in this case also demonstrates the value of obtaining a posterior distribution on the design variables, rather than just a point estimate.
 %
-For example, Figure \ref{fig:wt_marg_post} shows not just that a reasonable point estimate of the optimal $\boldsymbol\theta$ is at (.58, 10.2mm), but also that if the volume fraction is lowered to 0.4 it is important to simultaneously raise the thickness to 14mm.
+For example, Figure \ref{fig:wt_marg_post} shows not just that a reasonable point estimate of the optimal $\boldsymbol\theta$ is at (0.58, 10.2mm), but also that if the volume fraction is lowered to 0.4 it is important to simultaneously raise the thickness to 14mm.
 %
 More generally, CTO delivers an indication of the range of $\boldsymbol\theta$ values that achieve results near the target, which is potentially useful when one's goal is to set tolerances (rather than a specific value) for $\boldsymbol\theta$.
 %
