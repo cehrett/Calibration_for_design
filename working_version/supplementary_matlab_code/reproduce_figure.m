@@ -13,7 +13,6 @@
 % using the example model, with target desired observation 
 % [0.7130 0.7144 17.9220]. 
 
-addpath('C:\Users\carle\Documents\MATLAB\NSF DEMS\Phase 1\Technometrics\');
 clc ; clearvars ; close all; 
 
 % desired_obs is found by first choosing [0 0 0] as the performance target,
