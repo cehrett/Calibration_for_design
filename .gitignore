@@ -1,2 +1,5 @@
 *converted-to.pdf
 *.synctex.gz
+*.*
+!*.tex
+!*.bib
