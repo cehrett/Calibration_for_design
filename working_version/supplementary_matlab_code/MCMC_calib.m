@@ -296,12 +296,12 @@ for ii = 1:M
         Sigma_od = cov(logit(delta_rec(:,1:(end-1)))) * mult_od
         msg = fprintf('Completed: %g/%g\n',ii,M);
         % Now lambda_delta
-        if accepted_ld < 24 mult_ld =max(mult_ld*.5,mult_ld*accepted_ld/24)
+        if accepted_ld < 44 mult_ld =max(mult_ld*.5,mult_ld*accepted_ld/44)
         end
-        if accepted_ld > 24
+        if accepted_ld > 44
             fprintf(repmat('\b',1,msg));
             fprintf('lambda delta proposal variance increased\n');
-            mult_ld = min(mult_ld*2,mult_ld*accepted_ld/24)
+            mult_ld = min(mult_ld*2,mult_ld*accepted_ld/44)
             msg = fprintf('Completed: %g/%g\n',ii,M);
         end
         Sigma_ld = var(log(delta_rec(:,end))) * mult_ld;
