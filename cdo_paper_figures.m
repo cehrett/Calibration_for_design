@@ -325,41 +325,41 @@ p=plot(optim(1),optim(2),'ok','MarkerSize',7,'MarkerFaceColor','m',...
     'LineWidth',2);
 
 % create third figure split into two uipanels
-h3 = figure('pos',[10 10 780 260]);
-u1 = uipanel('position',[0,0,0.5,1]);
-u2 = uipanel('position',[0.5,0,0.5,1]);
-
-% get all children from each figure and move to the uipanels
-set(get(h1,'Children'),'parent',u1);
-set(get(h2,'Children'),'parent',u2);
-
-% Set colormap
-colormap(cntr1.Parent,'autumn');
-colormap(cntr2.Parent,'autumn');
-
-% Make room for titles
-spos1=ttl1.Parent.Position;
-spos2=ttl2.Parent.Position;
-ttl1.Parent.Position = spos1 + [ 0 0 0 -.05 ];
-ttl2.Parent.Position = spos2 + [ 0 0 0 -.05 ];
-% ttl2.Position = pos2 + [-.7 0 0];
-
-% Close unneeded figures
-close(h1,h2);
-
-% Move things a bit
-movedist = -.0869/2;
-u1.Children(1).Position = u1.Children(1).Position + [0 movedist 0 0];
-u2.Children(1).Position = u2.Children(1).Position + [0 movedist 0 0];
-u1.Children(3).Position = u1.Children(3).Position + [0 0 0 movedist];
-u2.Children(3).Position = u2.Children(3).Position + [0 0 0 movedist];
-
-% Save figure
-set(u1,'BackgroundColor','white');
-set(u2,'BackgroundColor','white');
-set(u1,'ShadowColor','w');
-set(u2,'ShadowColor','w');
-figstr = sprintf('FIG_preliminary_CDO_comparison');
+% h3 = figure('pos',[10 10 780 260]);
+% u1 = uipanel('position',[0,0,0.5,1]);
+% u2 = uipanel('position',[0.5,0,0.5,1]);
+% 
+% % get all children from each figure and move to the uipanels
+% set(get(h1,'Children'),'parent',u1);
+% set(get(h2,'Children'),'parent',u2);
+% 
+% % Set colormap
+% colormap(cntr1.Parent,'autumn');
+% colormap(cntr2.Parent,'autumn');
+% 
+% % Make room for titles
+% spos1=ttl1.Parent.Position;
+% spos2=ttl2.Parent.Position;
+% ttl1.Parent.Position = spos1 + [ 0 0 0 -.05 ];
+% ttl2.Parent.Position = spos2 + [ 0 0 0 -.05 ];
+% % ttl2.Position = pos2 + [-.7 0 0];
+% 
+% % Close unneeded figures
+% close(h1,h2);
+% 
+% % Move things a bit
+% movedist = -.0869/2;
+% u1.Children(1).Position = u1.Children(1).Position + [0 movedist 0 0];
+% u2.Children(1).Position = u2.Children(1).Position + [0 movedist 0 0];
+% u1.Children(3).Position = u1.Children(3).Position + [0 0 0 movedist];
+% u2.Children(3).Position = u2.Children(3).Position + [0 0 0 movedist];
+% 
+% % Save figure
+% set(u1,'BackgroundColor','white');
+% set(u2,'BackgroundColor','white');
+% set(u1,'ShadowColor','w');
+% set(u2,'ShadowColor','w');
+% figstr = sprintf('FIG_preliminary_CDO_comparison');
 % export_fig(figstr,'-eps','-q0','-painters',h3);
 
 %% WTA estimate of pareto front, with resulting choice of des_obs
