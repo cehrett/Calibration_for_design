@@ -1,6 +1,4 @@
 \relax 
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}}
-\newlabel{introduction}{{1}{2}}
 \citation{Kennedy2001}
 \citation{Higdon2004}
 \citation{Higdon2004}
@@ -11,13 +9,15 @@
 \citation{Paulo2012}
 \citation{Bayarri2007}
 \citation{Brynjarsdottir2014}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}}
+\newlabel{introduction}{{1}{2}}
 \citation{Gelfand1990}
 \citation{Hemez2011}
 \citation{VanBuren2013,VanBuren2014}
+\citation{Pratola2018}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Calibration for design}{4}}
 \newlabel{calib_for_design}{{2}{4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Gaussian process emulators for calibration}{4}}
-\citation{Pratola2018}
 \citation{Sacks1989}
 \citation{Santner2003a}
 \citation{OHagan1978}
@@ -26,11 +26,11 @@
 \citation{Bastos2009}
 \citation{Gramacy2008}
 \citation{Qian2008}
-\newlabel{eq:model_gen}{{1}{6}}
-\newlabel{eq:Hig_cov}{{2}{6}}
+\newlabel{eq:model_gen}{{1}{5}}
 \citation{Kennedy2001}
 \citation{Bayarri2007,Tuo2016}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Design to target outcomes}{7}}
+\newlabel{eq:Hig_cov}{{2}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Design to target outcomes}{6}}
 \citation{Kennedy2001,Santner2003a,Qian2008,Paulo2012}
 \citation{Liu2009}
 \citation{Bayarri2007}
@@ -43,17 +43,17 @@
 \newlabel{alg:CDO_alg}{{2.2}{11}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Two choices of target outcomes. The farthest point in the design space from $(0,0)$ is only twice as far as the nearest point. By contrast, for $(1.32,0.065)$, the dotted line shows the region of the design space within twice the distance to the nearest point.}}{12}}
 \newlabel{fig:do_selection_example}{{1}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces True outputs of the example model.}}{12}}
+\newlabel{fig:toy_sim_outputs}{{2}{12}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Simulated Example}{12}}
 \newlabel{example}{{3}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces True outputs of the example model.}}{13}}
-\newlabel{fig:toy_sim_outputs}{{2}{13}}
 \citation{ansys}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Posterior draws from CTO in the simulated example without and with the use of preliminary CTO. The contours show, for each point in the design space, the Euclidean distance of the model output at that point from the original target outcome (0,0,0), averaged across the control input range $[1.95,2.05]$. The large dot shows the true optimum.}}{14}}
 \newlabel{fig:toy_sim_results}{{3}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Application}{14}}
+\newlabel{application}{{4}{14}}
 \citation{Williams2006}
 \citation{McKay1979}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Application}{15}}
-\newlabel{application}{{4}{15}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Wind turbine blade design}{15}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Emulation of finite element model}{15}}
 \newlabel{emulator}{{4.2}{15}}
@@ -64,20 +64,16 @@
 \citation{Gelman1992a}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Design of the wind turbine blade system}{16}}
 \newlabel{the_model}{{4.3}{16}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Each x is a dominated design drawn from the predictive distribution through preliminary CTO. The dots indicate the estimated Pareto front. The plus sign is the target selected as the performance objective in our proposed design approach.}}{18}}
-\newlabel{fig:elbow}{{4}{18}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Contours of highest density regions of the posterior distribution from CTO in the wind turbine blade system. The prior is uniform over the area shown.}}{19}}
-\newlabel{fig:wt_marg_post}{{5}{19}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Pareto front estimation with uncertainties}{19}}
-\newlabel{removing_cal_pars}{{4.4}{19}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Approximate prior and posterior marginal predictive densities for each of the three outputs. Note that it is to be expected that the posteriors peak near the target (and not on it), since the target was intentionally chosen to lie outside the feasible design space.}}{20}}
-\newlabel{fig:prior_post_pred_comp}{{6}{20}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The lefthand plot shows the posterior predictive distribution of cost as a function of target cost, verifying that the calibration achieved the target costs up to small error. The righthand plot shows the Pareto front for the system with quantified uncertainty.}}{21}}
-\newlabel{fig:known_cost}{{7}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Each x is a dominated design drawn from the predictive distribution through preliminary CTO. The dots indicate the estimated Pareto front. The plus sign is the target selected as the performance objective in our proposed design approach.}}{17}}
+\newlabel{fig:elbow}{{4}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Contours of highest density regions of the posterior distribution from CTO in the wind turbine blade system. The prior is uniform over the area shown.}}{18}}
+\newlabel{fig:wt_marg_post}{{5}{18}}
 \citation{Kennedy2001}
 \citation{Shahriari2016}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{22}}
-\newlabel{conclusion}{{5}{22}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Approximate prior and posterior marginal predictive densities for each of the three outputs. Note that it is to be expected that the posteriors peak near the target (and not on it), since the target was intentionally chosen to lie outside the feasible design space.}}{19}}
+\newlabel{fig:prior_post_pred_comp}{{6}{19}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{19}}
+\newlabel{conclusion}{{5}{19}}
 \citation{Atamturktur2015,Stevens2018,Brown2016}
 \bibstyle{Chicago}
 \bibdata{lit_review}

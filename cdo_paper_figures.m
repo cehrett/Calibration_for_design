@@ -325,41 +325,41 @@ p=plot(optim(1),optim(2),'ok','MarkerSize',7,'MarkerFaceColor','m',...
     'LineWidth',2);
 
 % create third figure split into two uipanels
-h3 = figure('pos',[10 10 780 260]);
-u1 = uipanel('position',[0,0,0.5,1]);
-u2 = uipanel('position',[0.5,0,0.5,1]);
-
-% get all children from each figure and move to the uipanels
-set(get(h1,'Children'),'parent',u1);
-set(get(h2,'Children'),'parent',u2);
-
-% Set colormap
-colormap(cntr1.Parent,'autumn');
-colormap(cntr2.Parent,'autumn');
-
-% Make room for titles
-spos1=ttl1.Parent.Position;
-spos2=ttl2.Parent.Position;
-ttl1.Parent.Position = spos1 + [ 0 0 0 -.05 ];
-ttl2.Parent.Position = spos2 + [ 0 0 0 -.05 ];
-% ttl2.Position = pos2 + [-.7 0 0];
-
-% Close unneeded figures
-close(h1,h2);
-
-% Move things a bit
-movedist = -.0869/2;
-u1.Children(1).Position = u1.Children(1).Position + [0 movedist 0 0];
-u2.Children(1).Position = u2.Children(1).Position + [0 movedist 0 0];
-u1.Children(3).Position = u1.Children(3).Position + [0 0 0 movedist];
-u2.Children(3).Position = u2.Children(3).Position + [0 0 0 movedist];
-
-% Save figure
-set(u1,'BackgroundColor','white');
-set(u2,'BackgroundColor','white');
-set(u1,'ShadowColor','w');
-set(u2,'ShadowColor','w');
-figstr = sprintf('FIG_preliminary_CDO_comparison');
+% h3 = figure('pos',[10 10 780 260]);
+% u1 = uipanel('position',[0,0,0.5,1]);
+% u2 = uipanel('position',[0.5,0,0.5,1]);
+% 
+% % get all children from each figure and move to the uipanels
+% set(get(h1,'Children'),'parent',u1);
+% set(get(h2,'Children'),'parent',u2);
+% 
+% % Set colormap
+% colormap(cntr1.Parent,'autumn');
+% colormap(cntr2.Parent,'autumn');
+% 
+% % Make room for titles
+% spos1=ttl1.Parent.Position;
+% spos2=ttl2.Parent.Position;
+% ttl1.Parent.Position = spos1 + [ 0 0 0 -.05 ];
+% ttl2.Parent.Position = spos2 + [ 0 0 0 -.05 ];
+% % ttl2.Position = pos2 + [-.7 0 0];
+% 
+% % Close unneeded figures
+% close(h1,h2);
+% 
+% % Move things a bit
+% movedist = -.0869/2;
+% u1.Children(1).Position = u1.Children(1).Position + [0 movedist 0 0];
+% u2.Children(1).Position = u2.Children(1).Position + [0 movedist 0 0];
+% u1.Children(3).Position = u1.Children(3).Position + [0 0 0 movedist];
+% u2.Children(3).Position = u2.Children(3).Position + [0 0 0 movedist];
+% 
+% % Save figure
+% set(u1,'BackgroundColor','white');
+% set(u2,'BackgroundColor','white');
+% set(u1,'ShadowColor','w');
+% set(u2,'ShadowColor','w');
+% figstr = sprintf('FIG_preliminary_CDO_comparison');
 % export_fig(figstr,'-eps','-q0','-painters',h3);
 
 %% WTA estimate of pareto front, with resulting choice of des_obs
@@ -652,7 +652,7 @@ des_obs = results.settings.desired_obs;
 clear results; 
 
 %%% Make figure using histograms
-f=figure('pos',[10 10  780.0000  300]);
+f=figure('pos',[10 10  780.0000  200]);
 % Deflection
 subplot(1,3,1);
 [p,x]=ksdensity(posamps(:,1));
@@ -702,7 +702,7 @@ line([des_obs(3) des_obs(3)],ylim,'Color','black','Linestyle',':',...
 % st=suptitle('Prior and posterior predictive distributions');
 % st.Position=[0.5 -.1 0];
 lg=legend('Posterior','Prior','Target','Location','northeast');
-pos=lg.Position; lg.Position = pos + [0.017 0.045 0 0];
+pos=lg.Position; lg.Position = pos + [0.017 0.065 0 0];
 
 %%% Save
 set(f, 'Color','white');
@@ -940,13 +940,17 @@ p5 = plot(xrr,yrr,':k','LineWidth',2);
 % Resize
 fig.Position = fig.Position + [ 0 0 0 -175];
 
+
 % Add labels and legend
-ylabel('y_2'); xlabel('y_1');
-lg = legend([p1 p3 p2 p5],{'Model range','Possible target outcome',...
+ylabel('y_2'); xlb = xlabel('y_1');
+lg = legend([p1 p3 p2 p5],{'Feasible design space',...
+    'Possible target outcome',...
     'Nearest point to target','2\timesdiscrepancy distance'},...
     'Location','Northwest');
-pos = [0.13    0.707    0.33    0.1591];
+pos = [0.13    0.72    0.33    0.1591];
 lg.Position = pos ;
+ax=gca; ax.Position = ax.Position + [0 0.01 0 0];
+xlb.Position = xlb.Position + [0 .08 0];
 
 % Save
 set(fig,'color','white');
