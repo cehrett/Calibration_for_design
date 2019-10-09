@@ -11,13 +11,19 @@
 \citation{Brynjarsdottir2014}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}}
 \newlabel{introduction}{{1}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Counterfactual Bayes}{4}}
+\newlabel{counterfactual_bayes}{{2}{4}}
+\citation{Adams1974}
+\citation{Lewis1986}
+\citation{Young1994}
+\citation{Kennedy2001}
 \citation{Gelfand1990}
 \citation{Hemez2011}
 \citation{VanBuren2013,VanBuren2014}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Calibration for design}{7}}
+\newlabel{calib_for_design}{{3}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Gaussian process emulators for calibration}{7}}
 \citation{Pratola2018}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Calibration for design}{4}}
-\newlabel{calib_for_design}{{2}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Gaussian process emulators for calibration}{4}}
 \citation{Sacks1989}
 \citation{Santner2003a}
 \citation{OHagan1978}
@@ -26,11 +32,11 @@
 \citation{Bastos2009}
 \citation{Gramacy2008}
 \citation{Qian2008}
-\newlabel{eq:model_gen}{{1}{5}}
+\newlabel{eq:model_gen}{{1}{9}}
+\newlabel{eq:Hig_cov}{{2}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Design to target outcomes}{9}}
 \citation{Kennedy2001}
 \citation{Bayarri2007,Tuo2016}
-\newlabel{eq:Hig_cov}{{2}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Design to target outcomes}{6}}
 \citation{Kennedy2001,Santner2003a,Qian2008,Paulo2012}
 \citation{Liu2009}
 \citation{Bayarri2007}
@@ -39,79 +45,82 @@
 \citation{Bayarri2007}
 \citation{Tuo2015}
 \citation{Plumlee2017}
-\newlabel{eq:full_dist}{{3}{9}}
-\newlabel{alg:CDO_alg}{{2.2}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Two choices of target outcomes. The farthest point in the design space from $(0,0)$ is only twice as far as the nearest point. By contrast, for $(1.32,0.065)$, the dotted line shows the region of the design space within twice the distance to the nearest point.}}{12}}
-\newlabel{fig:do_selection_example}{{1}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces True outputs of the example model.}}{12}}
-\newlabel{fig:toy_sim_outputs}{{2}{12}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Simulated Example}{12}}
-\newlabel{example}{{3}{12}}
+\newlabel{eq:full_dist}{{3}{12}}
+\newlabel{alg:CDO_alg}{{3.2}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Two choices of target outcomes. The farthest point in the design space from $(0,0)$ is only twice as far as the nearest point. By contrast, for $(1.32,0.065)$, the dotted line shows the region of the design space within twice the distance to the nearest point.}}{15}}
+\newlabel{fig:do_selection_example}{{1}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Simulated Example}{15}}
+\newlabel{example}{{4}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces True outputs of the example model.}}{16}}
+\newlabel{fig:toy_sim_outputs}{{2}{16}}
 \citation{ansys}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Posterior draws from CTO in the simulated example without and with the use of preliminary CTO. The contours show, for each point in the design space, the Euclidean distance of the model output at that point from the original target outcome (0,0,0), averaged across the control input range $[1.95,2.05]$. The large dot shows the true optimum.}}{14}}
-\newlabel{fig:toy_sim_results}{{3}{14}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Application}{14}}
-\newlabel{application}{{4}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Posterior draws from CTO in the simulated example without and with the use of preliminary CTO. The contours show, for each point in the design space, the Euclidean distance of the model output at that point from the original target outcome (0,0,0), averaged across the control input range $[1.95,2.05]$. The large dot shows the true optimum.}}{17}}
+\newlabel{fig:toy_sim_results}{{3}{17}}
 \citation{Williams2006}
 \citation{McKay1979}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Wind turbine blade design}{15}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Emulation of finite element model}{15}}
-\newlabel{emulator}{{4.2}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Application}{18}}
+\newlabel{application}{{5}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Wind turbine blade design}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Emulation of finite element model}{18}}
+\newlabel{emulator}{{5.2}{18}}
 \citation{MATLAB2017}
 \citation{Metropolis1953,Hastings1970,Geman1984}
 \citation{Roberts1997}
 \citation{Gelman2013}
 \citation{Gelman1992a}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Design of the wind turbine blade system}{16}}
-\newlabel{the_model}{{4.3}{16}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Each x is a dominated design drawn from the predictive distribution through preliminary CTO. The dots indicate the estimated Pareto front. The plus sign is the target selected as the performance objective in our proposed design approach.}}{17}}
-\newlabel{fig:elbow}{{4}{17}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Contours of highest density regions of the posterior distribution from CTO in the wind turbine blade system. The prior is uniform over the area shown.}}{18}}
-\newlabel{fig:wt_marg_post}{{5}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Design of the wind turbine blade system}{19}}
+\newlabel{the_model}{{5.3}{19}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Each x is a dominated design drawn from the predictive distribution through preliminary CTO. The dots indicate the estimated Pareto front. The plus sign is the target selected as the performance objective in our proposed design approach.}}{21}}
+\newlabel{fig:elbow}{{4}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Contours of highest density regions of the posterior distribution from CTO in the wind turbine blade system. The prior is uniform over the area shown.}}{22}}
+\newlabel{fig:wt_marg_post}{{5}{22}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Approximate prior and posterior marginal predictive densities for each of the three outputs. Note that it is to be expected that the posteriors peak near the target (and not on it), since the target was intentionally chosen to lie outside the feasible design space.}}{22}}
+\newlabel{fig:prior_post_pred_comp}{{6}{22}}
 \citation{Kennedy2001}
 \citation{Shahriari2016}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Approximate prior and posterior marginal predictive densities for each of the three outputs. Note that it is to be expected that the posteriors peak near the target (and not on it), since the target was intentionally chosen to lie outside the feasible design space.}}{19}}
-\newlabel{fig:prior_post_pred_comp}{{6}{19}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{19}}
-\newlabel{conclusion}{{5}{19}}
 \citation{Atamturktur2015,Stevens2018,Brown2016}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{23}}
+\newlabel{conclusion}{{6}{23}}
 \bibstyle{Chicago}
 \bibdata{lit_review}
-\bibcite{ansys}{{1}{2017}{{{ANSYS, Inc.}}}{{{ANSYS, Inc.}}}}
-\bibcite{Atamturktur2015}{{2}{2015}{{Atamturktur and Brown}}{{Atamturktur and Brown}}}
-\bibcite{Bastos2009}{{3}{2009}{{Bastos and O'Hagan}}{{Bastos and O'Hagan}}}
-\bibcite{Bayarri}{{4}{2007}{{Bayarri et~al.}}{{Bayarri, Berger, Cafeo, Garcia-Donato, Liu, Palomo, Parthasarathy, Paulo, Sacks, and Walsh}}}
-\bibcite{Bayarri2007}{{5}{2007}{{Bayarri et~al.}}{{Bayarri, Berger, Paulo, Sacks, Cafeo, Cavendish, Lin, and Tu}}}
-\bibcite{Brown2016}{{6}{2018}{{Brown and Atamturktur}}{{Brown and Atamturktur}}}
-\bibcite{Brynjarsdottir2014}{{7}{2014}{{Brynjarsd{\'{o}}ttir and O'Hagan}}{{Brynjarsd{\'{o}}ttir and O'Hagan}}}
-\bibcite{Gelfand1990}{{8}{1990}{{Gelfand and Smith}}{{Gelfand and Smith}}}
-\bibcite{Gelman2013}{{9}{2013}{{Gelman et~al.}}{{Gelman, Carlin, Stern, Dunson, Vehtari, and Rubin}}}
-\bibcite{Gelman1992a}{{10}{1992}{{Gelman and Rubin}}{{Gelman and Rubin}}}
-\bibcite{Geman1984}{{11}{1984}{{Geman and Geman}}{{Geman and Geman}}}
-\bibcite{Gramacy2008}{{12}{2008}{{Gramacy and Lee}}{{Gramacy and Lee}}}
-\bibcite{Gramacy2012}{{13}{2012}{{Gramacy and Lee}}{{Gramacy and Lee}}}
-\bibcite{Hastings1970}{{14}{1970}{{Hastings}}{{Hastings}}}
-\bibcite{Hemez2011}{{15}{2011}{{Hemez and Atamturktur}}{{Hemez and Atamturktur}}}
-\bibcite{Higdon2004}{{16}{2004}{{Higdon et~al.}}{{Higdon, Kennedy, Cavendish, Cafeo, and Ryne}}}
-\bibcite{Kennedy2006}{{17}{2006}{{Kennedy et~al.}}{{Kennedy, Anderson, Conti, and O'Hagan}}}
-\bibcite{Kennedy2001}{{18}{2001}{{Kennedy and O'Hagan}}{{Kennedy and O'Hagan}}}
-\bibcite{Liu2009}{{19}{2009}{{Liu et~al.}}{{Liu, Bayarri, and Berger}}}
-\bibcite{Loeppky2006}{{20}{2006}{{Loeppky et~al.}}{{Loeppky, Bingham, and Welch}}}
-\bibcite{MATLAB2017}{{21}{2017}{{{\sc  Matlab}}}{{{\sc  Matlab}}}}
-\bibcite{McKay1979}{{22}{1979}{{McKay et~al.}}{{McKay, Beckman, and Conover}}}
-\bibcite{Metropolis1953}{{23}{1953}{{Metropolis et~al.}}{{Metropolis, Rosenbluth, Rosenbluth, Teller, and Teller}}}
-\bibcite{OHagan1978}{{24}{1978}{{O'Hagan}}{{O'Hagan}}}
-\bibcite{Paulo2012}{{25}{2012}{{Paulo et~al.}}{{Paulo, Garc{\'{i}}a-Donato, and Palomo}}}
-\bibcite{Plumlee2017}{{26}{2017}{{Plumlee}}{{Plumlee}}}
-\bibcite{Pratola2018}{{27}{2018}{{Pratola and Chkrebtii}}{{Pratola and Chkrebtii}}}
-\bibcite{Qian2008}{{28}{2008}{{Qian et~al.}}{{Qian, Wu, and Wu}}}
-\bibcite{Roberts1997}{{29}{1997}{{Roberts et~al.}}{{Roberts, Gelman, and Gilks}}}
-\bibcite{Sacks1989}{{30}{1989}{{Sacks et~al.}}{{Sacks, Welch, Mitchell, and Wynn}}}
-\bibcite{Santner2003a}{{31}{2003}{{Santner et~al.}}{{Santner, Williams, and Notz}}}
-\bibcite{Shahriari2016}{{32}{2016}{{Shahriari et~al.}}{{Shahriari, Swersky, Wang, Adams, and de~Freitas}}}
-\bibcite{Stevens2018}{{33}{2018}{{Stevens et~al.}}{{Stevens, Atamturktur, Brown, Williams, and Unal}}}
-\bibcite{Tuo2015}{{34}{2015}{{Tuo and Wu}}{{Tuo and Wu}}}
-\bibcite{Tuo2016}{{35}{2016}{{Tuo and Wu}}{{Tuo and Wu}}}
-\bibcite{VanBuren2014}{{36}{2014}{{{Van Buren} et~al.}}{{{Van Buren}, Atamturktur, and Hemez}}}
-\bibcite{VanBuren2013}{{37}{2013}{{{Van Buren} et~al.}}{{{Van Buren}, Mollineaux, Hemez, and Atamturktur}}}
-\bibcite{Williams2006}{{38}{2006}{{Williams et~al.}}{{Williams, Higdon, Gattiker, Moore, McKay, and Keller-McNulty}}}
+\bibcite{Adams1974}{{1}{1974}{{Adams}}{{Adams}}}
+\bibcite{ansys}{{2}{2017}{{{ANSYS, Inc.}}}{{{ANSYS, Inc.}}}}
+\bibcite{Atamturktur2015}{{3}{2015}{{Atamturktur and Brown}}{{Atamturktur and Brown}}}
+\bibcite{Bastos2009}{{4}{2009}{{Bastos and O'Hagan}}{{Bastos and O'Hagan}}}
+\bibcite{Bayarri}{{5}{2007}{{Bayarri et~al.}}{{Bayarri, Berger, Cafeo, Garcia-Donato, Liu, Palomo, Parthasarathy, Paulo, Sacks, and Walsh}}}
+\bibcite{Bayarri2007}{{6}{2007}{{Bayarri et~al.}}{{Bayarri, Berger, Paulo, Sacks, Cafeo, Cavendish, Lin, and Tu}}}
+\bibcite{Brown2016}{{7}{2018}{{Brown and Atamturktur}}{{Brown and Atamturktur}}}
+\bibcite{Brynjarsdottir2014}{{8}{2014}{{Brynjarsd{\'{o}}ttir and O'Hagan}}{{Brynjarsd{\'{o}}ttir and O'Hagan}}}
+\bibcite{Gelfand1990}{{9}{1990}{{Gelfand and Smith}}{{Gelfand and Smith}}}
+\bibcite{Gelman2013}{{10}{2013}{{Gelman et~al.}}{{Gelman, Carlin, Stern, Dunson, Vehtari, and Rubin}}}
+\bibcite{Gelman1992a}{{11}{1992}{{Gelman and Rubin}}{{Gelman and Rubin}}}
+\bibcite{Geman1984}{{12}{1984}{{Geman and Geman}}{{Geman and Geman}}}
+\bibcite{Gramacy2008}{{13}{2008}{{Gramacy and Lee}}{{Gramacy and Lee}}}
+\bibcite{Gramacy2012}{{14}{2012}{{Gramacy and Lee}}{{Gramacy and Lee}}}
+\bibcite{Hastings1970}{{15}{1970}{{Hastings}}{{Hastings}}}
+\bibcite{Hemez2011}{{16}{2011}{{Hemez and Atamturktur}}{{Hemez and Atamturktur}}}
+\bibcite{Higdon2004}{{17}{2004}{{Higdon et~al.}}{{Higdon, Kennedy, Cavendish, Cafeo, and Ryne}}}
+\bibcite{Kennedy2006}{{18}{2006}{{Kennedy et~al.}}{{Kennedy, Anderson, Conti, and O'Hagan}}}
+\bibcite{Kennedy2001}{{19}{2001}{{Kennedy and O'Hagan}}{{Kennedy and O'Hagan}}}
+\bibcite{Lewis1986}{{20}{1986}{{Lewis}}{{Lewis}}}
+\bibcite{Liu2009}{{21}{2009}{{Liu et~al.}}{{Liu, Bayarri, and Berger}}}
+\bibcite{Loeppky2006}{{22}{2006}{{Loeppky et~al.}}{{Loeppky, Bingham, and Welch}}}
+\bibcite{MATLAB2017}{{23}{2017}{{{\sc  Matlab}}}{{{\sc  Matlab}}}}
+\bibcite{McKay1979}{{24}{1979}{{McKay et~al.}}{{McKay, Beckman, and Conover}}}
+\bibcite{Metropolis1953}{{25}{1953}{{Metropolis et~al.}}{{Metropolis, Rosenbluth, Rosenbluth, Teller, and Teller}}}
+\bibcite{OHagan1978}{{26}{1978}{{O'Hagan}}{{O'Hagan}}}
+\bibcite{Paulo2012}{{27}{2012}{{Paulo et~al.}}{{Paulo, Garc{\'{i}}a-Donato, and Palomo}}}
+\bibcite{Plumlee2017}{{28}{2017}{{Plumlee}}{{Plumlee}}}
+\bibcite{Pratola2018}{{29}{2018}{{Pratola and Chkrebtii}}{{Pratola and Chkrebtii}}}
+\bibcite{Qian2008}{{30}{2008}{{Qian et~al.}}{{Qian, Wu, and Wu}}}
+\bibcite{Roberts1997}{{31}{1997}{{Roberts et~al.}}{{Roberts, Gelman, and Gilks}}}
+\bibcite{Sacks1989}{{32}{1989}{{Sacks et~al.}}{{Sacks, Welch, Mitchell, and Wynn}}}
+\bibcite{Santner2003a}{{33}{2003}{{Santner et~al.}}{{Santner, Williams, and Notz}}}
+\bibcite{Shahriari2016}{{34}{2016}{{Shahriari et~al.}}{{Shahriari, Swersky, Wang, Adams, and de~Freitas}}}
+\bibcite{Stevens2018}{{35}{2018}{{Stevens et~al.}}{{Stevens, Atamturktur, Brown, Williams, and Unal}}}
+\bibcite{Tuo2015}{{36}{2015}{{Tuo and Wu}}{{Tuo and Wu}}}
+\bibcite{Tuo2016}{{37}{2016}{{Tuo and Wu}}{{Tuo and Wu}}}
+\bibcite{VanBuren2014}{{38}{2014}{{{Van Buren} et~al.}}{{{Van Buren}, Atamturktur, and Hemez}}}
+\bibcite{VanBuren2013}{{39}{2013}{{{Van Buren} et~al.}}{{{Van Buren}, Mollineaux, Hemez, and Atamturktur}}}
+\bibcite{Williams2006}{{40}{2006}{{Williams et~al.}}{{Williams, Higdon, Gattiker, Moore, McKay, and Keller-McNulty}}}
+\bibcite{Young1994}{{41}{1994}{{Young}}{{Young}}}

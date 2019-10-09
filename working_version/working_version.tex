@@ -17,6 +17,10 @@
 \addtolength{\textheight}{1.3in}%
 \addtolength{\topmargin}{-.8in}%
 
+% Useful definitions
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
 
 \begin{document}
 
@@ -161,11 +165,15 @@ Similarly, \cite{Paulo2012} apply the approach of \cite{Bayarri2007} to computer
 %
 Common to those approaches is a conception of calibration as using real observations to get a posterior distribution on unknown parameters $\boldsymbol\theta$ so that the posterior predictive distribution of the model approximates reality.
 %
-By contrast, our proposed methodology uses artificial observations (representing design targets) to obtain a posterior distribution on design variables $\boldsymbol\theta$ so that the posterior predictive distribution approaches those targets.
+By contrast, using an approach we call counterfactual Bayes, our methodology uses artificial observations (representing design targets) to obtain a posterior distribution on design variables $\boldsymbol\theta$ so that the posterior predictive distribution approaches those targets.
 %
-%We describe how, with little added computational cost, the methodology provides an initial rough estimate of the Pareto front for the system, which can be used to select artificial observations closer to the design space and thereby promote stronger Bayesian learning about the optimal settings for the design variables $\boldsymbol\theta$.
+In counterfactual Bayes, we apply Bayesian reasoning to a hypothetical scenario that bears certain known relationships to reality.
 %
-%Repeated applications of the procedure can be used to produce the more thorough ``Pareto bands'' which estimate the Pareto front with quantified uncertainties.
+Those known relationships allow us to transfer knowledge gained about the hypothetical scenario to reality, thereby gaining valuable insights into the phenomenon of interest.
+%
+We describe how, with little added computational cost, the methodology provides an initial rough estimate of the Pareto front for the system, which can be used to select artificial observations closer to the design space and thereby promote stronger Bayesian learning about the optimal settings for the design variables $\boldsymbol\theta$.
+%
+Repeated applications of the procedure can be used to produce the more thorough ``Pareto bands'' which estimate the Pareto front with quantified uncertainties.
 %
 
 %
@@ -183,6 +191,8 @@ Our material design goal is to reduce the cost per square meter of the composite
 %
 
 %
+In Section \ref{counterfactual_bayes}, we introduce the counterfactual Bayes methodology we rely on for learning about a real system by applying Bayesian reasoning in a hypothetical scenario with known linkages to the real system.
+%
 In Section \ref{calib_for_design}, we review the calibration framework grounding our design optimization approach. 
 %
 In Sections \ref{example} and \ref{application}, we apply our methodology to simulated data and to wind turbine blade design.
@@ -190,6 +200,113 @@ In Sections \ref{example} and \ref{application}, we apply our methodology to sim
 %In Section \ref{application}, we show how our approach can produce an estimate of the Pareto front of the turbine blade system while quantifying associated uncertainty.
 %
 Section \ref{conclusion} discusses the results and thoughts about future directions.
+%
+
+%
+\section{Counterfactual Bayes}\label{counterfactual_bayes}
+%
+We introduce the approach used here using a simple thought experiment.
+%
+Consider a golfing enthusiast, David, who has been challenged to hit a ball on a long narrow fairway as far as possible in a given direction from a given starting point on the fairway. 
+%
+David has at his disposal not merely the usual set of clubs; David is a collector with a dizzying array of woods appropriate to this challenge.
+%
+They differ in loft angle (angle of the club head), in head material, in shaft material, in head volume, in shaft flexibility, shaft length, and so on. 
+%
+He knows that his drive distances are normally distributed with a common variance and a mean that varies based on the club, terrain and start point, but he does not know which club will produce the highest mean in this situation.
+%
+%Every time he considers choosing a particular club, he's able to think of several with e.g. a slightly better loft angle for this situation, or a slightly better shaft flexibility. 
+%
+However, David has a so-far untapped resource here.
+%
+David has a savant-like ability, given an observation of a player, terrain, ball start point and end point, to guess the club used in that instance. 
+%
+Of course, David has not made any relevant observation in this case, but he realizes that he can apply his ability to a \textit{hypothetical} observation of himself, the current terrain, his current start point and an end point of his choosing. 
+%
+He can reason as though he observed a particular extremely successful outcome, and thereby use his ability to identify which club would be most likely to have produced that outcome.
+%
+Since his drive distances are normally distributed with constant variance, he can infer that the club producing this extreme outcome is also the club having the optimal expected outcome in the hypothetical scenario.
+%
+Finally, since the model governing his drive distance is the same in the hypothetical scenario as in reality, he can conclude that the club he used in his hypothetical scenario is also the best choice for him to use in reality.
+%
+
+%
+%A potential concern is that whichever club he identifies in this way will not necessarily be the best choice for maximizing his drive distance.
+%%
+%E.g., if he identifies the club that is likeliest to get him a 200 yard outcome, perhaps he would be missing out on a club that could get him to 250 yards. 
+%%
+%David tackles this worry as follows. 
+%%
+%He knows that his drive distances are normally distributed with a common variance around a mean that depends upon the club, terrain and start point. 
+%%
+%He knows that he can reliably get 90-150 yards from a fairway drive, and that the most he's ever gotten is 175. 
+%%
+%Therefore, he is confident he will not reach 300 yards. 
+%%
+%So he selects 300 yards as the hypothetically observed displacement of his ball. 
+%%
+%Activating his knack for matching a club to an observed displacement, he identifies the club most likely to get him to 300 yards. 
+%%
+%Since he is confidence he will underperform this feat, and also knows that his drive distances are normally distributed with a common variance, he knows this is also the club that will produce an expected distance closest to 300 yards, and thus is the club which is likeliest to maximize his drive distance.
+%%
+%David has thus applied Bayesian reasoning to a hypothetical scenario, and used his knowledge of the relationship between that scenario and reality to learn which club is optimal for him to choose in reality.
+%
+
+%
+To generalize David's reasoning, we rely on the logician's conception of possible worlds, which are used to explain the semantics of modal sentences (sentences having to do with possibility and necessity, rather than what is merely actual). 
+%
+A possible world can be conceived of as an internally consistent description of a world, which may or may not match the actual world \citep[][though for an opposing perspective see \citealp{Lewis1986}]{Adams1974}. 
+%
+So even though it is perhaps true that all dogs weigh under 350lbs \citep[the heaviest recorded dog weighed 343lbs;][]{Young1994}, there is a possible world in which some dogs weigh over 350lbs, since it is possible to describe such a world without contradicting oneself; i.e., a 350lb dog \textit{could} exist.
+%
+%Describing such a world would require saying some things that are false, but would not require that one contradict oneself within the description. 
+%
+By contrast, there is no possible world in which some dogs are reptiles. 
+%
+Dogs are mammals by definition, and to describe any creature simultaneously as a reptile and as a dog is to contradict oneself. 
+%
+%Logicians rely upon the notion of possible worlds to explain that while ``All dogs are mammals'' and ``All dogs are under 350lbs'' are both true, nonetheless it is true that ``Necessarily, all dogs are mammals'' and false that ``Necessarily, all dogs are under 350lbs''.
+% 
+In the case of David, the fact that his drive distances follow a normal distribution allows us to infer there is a possible world in which he hits a 300 yard fairway drive, without thereby contradicting our assumption that in this possible world his drive distances follow the same distribution they do in the actual world.
+%
+%If the distribution had a finite upper bound, then we could not consistently describe a possible world sharing the same distribution on drive distances and in which an arbitrarily long drive is observed.
+%
+
+%Let $\alpha$ denote the actual world. Let $\omega$ denote the world in which David achieves a 300 yard fairway drive, and in which $p_\omega(d|h,t,s,c)=p_\alpha(d|h,t,s,c)$. We know that such an $\omega$ is a possible world because we know that $p_\alpha(d|h,t,s,c)=N(\mu,\sigma_2)$ for some $\mu$ and $\sigma^2$, and that thus $p_\alpha(300 yards|h,t,s,c)>0$. (If drive distances in $\alpha$ had finite support, then we could not consistently describe a world sharing the same distribution on drive distances and in which an arbitrarily large drive distance was observed.) Let $d$ be the distance achieved in a swing by player $h$ on terrain $t$ from start point $s$ using club $c$. Given $p(d|h,t,s,c)$ and an observation $(d,h,t,s)$, we can apply Bayes' rule to achieve a posterior distribution on clubs, $p(c|d,h,t,s)$. (David's knack for club identification can be though of as a knack for applying Bayes' rule in this way.) In $\omega$, we observe $(d,h,t,s)$, and straightforward application of Bayes' rule gives us a posterior distribution on clubs used in $\omega$. We can further infer that this is also a distribution on clubs maximizing David's drive distance in $\omega$. So far, we have learned nothing about reality, $\alpha$. But in addition to our knowledge about $\omega$, we have knowledge about the relationship between $\alpha$ and $\omega$ which allows us to transfer what we have learned about $\omega$ to $\alpha$. Namely, we know (by construction) that $\omega$ and $\alpha$ have the same relationship between club choice and drive distance. Thus, the club maximizing drive distance in $\omega$ is also the club maximizing drive distance in $\alpha$.
+
+%Let's try the previous paragraph again, but this time without David. More general.
+
+%
+We can generalize the counterfactual methodology David employs as follows.
+%
+Let $\alpha$ denote the actual world. 
+%
+Let $f_\alpha$ be a function relating inputs $\mathbf x,\boldsymbol \theta$ to some output $\mathbf y$, which describes some phenomenon of interest in the real world for which we wish to find optimal settings for $\boldsymbol\theta$. 
+%
+Suppose that $f_\alpha$ is such that the optimal outcome can be redescribed in terms of some target outcome $\mathbf y_t$, i.e., that $\argmin_{\boldsymbol\theta} f_\alpha(\mathbf x,\boldsymbol \theta)=\argmin_{\boldsymbol\theta} \lVert \mathbf y_{t} - f_\alpha(\mathbf x,\boldsymbol\theta)\rVert$. 
+%
+Then a distribution $\boldsymbol\theta|\mathbf x,\mathbf y_{t}$ \textit{de facto} approximates a distribution on $\boldsymbol\theta$ values producing the optimal achievable output of the system. 
+%
+%In the application considered in this paper, $\boldsymbol\theta$ describes design settings for the material composition of a wind turbine blade, $\mathbf x$ describes the operating temperature of the turbine, and $\mathbf y$ denotes performance metrics of interest as well as construction cost. 
+%
+Consider now a possible world $\omega$ in which the same phenomenon $f_\omega=f_\alpha$ holds true, and in which we observe $\mathbf y_{t}$. 
+%
+Then we can apply Bayes' rule to learn a posterior distribution $p(\boldsymbol\theta|\mathbf x,\mathbf y_{t})$ of $\boldsymbol \theta$ values in $\omega$. 
+%
+This is not directly applicable to the actual world, since we have not observed $\mathbf y_{t}$ here. 
+%
+But we have that $\boldsymbol\theta|\mathbf x,\mathbf y_{t}$ approximates a distribution on $\boldsymbol \theta$ values producing an optimal achievable outcome from the system $f_\omega$, and we furthermore have that $f_\alpha=f_\omega$ and thus that a distribution on $\boldsymbol \theta$ values optimal for $f_\omega$ is also a distribution on $\boldsymbol \theta$ values optimal for $f_\alpha$. 
+%
+Thus by relying on the known connections between $\omega$ and $\alpha$, we gain valuable insight into features of $\alpha$.
+%
+
+%
+In what follows, we apply this counterfactual Bayes approach to find distributions on optimal design settings.
+%
+In our approach, Kennedy-O'Hagan-style model calibration \citep{Kennedy2001} stands in for David's knack for identifying the ``settings'' (club choice) that produced a given observation.
+%
+We will apply that model calibration framework in a hypothetical scenario involving artificial observations of idealized outcomes $\mathbf y_t$, using our knowledge of the true system to exploit the resulting posterior distribution $\boldsymbol\theta|\mathbf y_t$ and thereby discover a distribution on optimal design settings.
+%
 
 %
 \section{Calibration for design}\label{calib_for_design}
