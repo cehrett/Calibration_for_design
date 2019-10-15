@@ -3,6 +3,7 @@
 %\usepackage{enumerate}
 \usepackage{natbib} %comment out if you do not have the package
 \usepackage{url} % not crucial - just used below for the URL 
+\usepackage[width=\textwidth]{caption}
 \usepackage{amsmath, amssymb}
 
 
@@ -176,6 +177,54 @@ We describe how, with little added computational cost, the methodology provides 
 Repeated applications of the procedure can be used to produce the more thorough ``Pareto bands'' which estimate the Pareto front with quantified uncertainties.
 %
 
+% Multi-objective lit
+Our approach is thus an example of Bayesian multi-objective optimization under uncertainty. Concerns about uncertainty in optimization may include uncertainty in the inputs (as when the inputs are not under perfect control), uncertainty in the outputs (as when the code or process of interest is not deterministic), and observation error \citep{Jin2005}. 
+%
+As a response to these sources of uncertainty, two different approaches are possible.
+%
+Firstly, one's focus may be on finding solutions that are robust to small perturbations in the inputs, e.g. by resampling in the design space around each candidate point considered during optimization \citep{Deb2006}.
+%
+Alternatively, rather than seeking robust solutions, one could endeavor simply to quantify the resulting uncertainty in the model outputs, again through resampling around points of interest \citep{Zhou2011}.
+%
+Our focus is on the latter of these two goals, though the posterior distributions our method also provides include information about the sensitivity of the model output to the various model inputs, and thereby provides information about the robustness of the estimated optima.
+%
+Since we are concerned with computationally expensive objective functions, our method also avoids resampling, which can add prodigiously to the computational expense of an optimization procedure.
+%
+
+%
+Though a Bayesian means of optimization, our proposed methodology contrasts with what is typically referred to as ``Bayesian optimization" (BO). 
+%
+In traditional BO, a Gaussian process (GP) surrogate model is based on a small set of training observations, and the resulting updated GP is used to define an ``acquisition function'' that is used sequentially to select new observation locations until a stopping condition is achieved \citep{Picheny2019}.
+%
+Acquisition functions are crafted to attempt to balance exploration with exploitation of the objective function.
+%
+Examples include the EGO (efficient global optimization) function of \cite{Jones1998}, and the EGO-inspired SUR (stepwise uncertainty reduction) function showcased for univariate BO by \cite{Chevalier2014}.
+%
+The SUR approach is applied to estimating the Pareto front of a multi-objective optimization problem by \cite{Picheny2015}.
+%
+The methodology we propose here differs from these forms of traditional BO by its avoidance of sequential sampling, which is desirable in cases where the computational budget is very small, or when the relevant observations are based on previously gathered data, or in general when the data-gathering process is not devoted exclusively to serving the ends of the optimization.
+%
+Our methodology also can be used to quantify all associated forms of uncertainty discussed above -- uncertainty due to the model inputs, due to the stochastic nature of the objective function, or due to observation error of the outputs (e.g. if the observations are of the phenomenon of interest itself rather than of a computer model thereof).
+%
+
+%
+Our approach thus has affinities with that of \cite{Olalotiti-Lawal2015}.
+%
+Both approaches use Markov chain Monte Carlo \citep[MCMC;][]{Gelfand1990} to explore a posterior distribution on the design inputs.
+%
+\cite{Olalotiti-Lawal2015} construct a distribution that is designed to lie both on and near the Pareto front of the objective function.
+%
+The acceptance rate and the variance of the distribution depend upon a user-defined temperature parameter.
+%
+The resulting posterior distribution includes uncertainty quantification.
+%
+The uncertainty quantified here is the uncertainty remaining in the distribution designed by the authors, which is not itself part of the modeled phenomenon.
+%
+By contrast, under our approach, the distribution explored via MCMC is dictated by the model itself (and by the GP surrogate thereof), and by the choice of performance/cost targets.
+%
+The approach we propose here also has somewhat greater flexibility -- while it may be used to explore the entire Pareto front as in \cite{Olalotiti-Lawal2015}, our approach also may be used as a form of ``goal programming" \citep{Miettinen2008}, targeting a particular region of the Pareto front in accordance with the preferences of the relevant decision-makers.
+%
+
 %
 We apply our proposed methodology both to a proof-of-concept example and to finding material design settings to optimize performance and cost for a wind turbine blade of fixed outer geometry.
 %
@@ -225,7 +274,7 @@ Of course, David has not made any relevant observation in this case, but he real
 %
 He can reason as though he observed a particular extremely successful outcome, and thereby use his ability to identify which club would be most likely to have produced that outcome.
 %
-Since his drive distances are normally distributed with constant variance, he can infer that the club producing this extreme outcome is also the club having the optimal expected outcome in the hypothetical scenario.
+Since his drive distances are normally distributed with common variance, he can infer that the club producing this extreme outcome is also the club having the optimal expected outcome in the hypothetical scenario.
 %
 Finally, since the model governing his drive distance is the same in the hypothetical scenario as in reality, he can conclude that the club he used in his hypothetical scenario is also the best choice for him to use in reality.
 %
@@ -255,9 +304,11 @@ Finally, since the model governing his drive distance is the same in the hypothe
 %
 To generalize David's reasoning, we rely on the logician's conception of possible worlds, which are used to explain the semantics of modal sentences (sentences having to do with possibility and necessity, rather than what is merely actual). 
 %
-A possible world can be conceived of as an internally consistent description of a world, which may or may not match the actual world \citep[][though for an opposing perspective see \citealp{Lewis1986}]{Adams1974}. 
+A possible world can be conceived of as an internally consistent description of a world, which may or may not match the actual world \citep[][though for an opposing perspective on modal ontology see \citealp{Lewis1986}]{Adams1974}. 
 %
-So even though it is perhaps true that all dogs weigh under 350lbs \citep[the heaviest recorded dog weighed 343lbs;][]{Young1994}, there is a possible world in which some dogs weigh over 350lbs, since it is possible to describe such a world without contradicting oneself; i.e., a 350lb dog \textit{could} exist.
+So even though it is perhaps true that all dogs weigh under 350lbs \citep[the heaviest recorded dog weighed 343lbs;][]{Young1994}, there is a possible world in which some dogs weigh over 350lbs, since it is possible to describe such a world without contradicting oneself.
+%
+I.e., a 350lb dog \textit{could} exist.
 %
 %Describing such a world would require saying some things that are false, but would not require that one contradict oneself within the description. 
 %
@@ -267,7 +318,7 @@ Dogs are mammals by definition, and to describe any creature simultaneously as a
 %
 %Logicians rely upon the notion of possible worlds to explain that while ``All dogs are mammals'' and ``All dogs are under 350lbs'' are both true, nonetheless it is true that ``Necessarily, all dogs are mammals'' and false that ``Necessarily, all dogs are under 350lbs''.
 % 
-In the case of David, the fact that his drive distances follow a normal distribution allows us to infer there is a possible world in which he hits a 300 yard fairway drive, without thereby contradicting our assumption that in this possible world his drive distances follow the same distribution they do in the actual world.
+In the case of David, the fact that his drive distances follow a normal distribution allows us to infer there is a possible world in which he manages to hit a 300 yard fairway drive, without thereby contradicting our assumption that in this possible world his drive distances follow the same distribution they do in the actual world.
 %
 %If the distribution had a finite upper bound, then we could not consistently describe a possible world sharing the same distribution on drive distances and in which an arbitrarily long drive is observed.
 %
@@ -297,7 +348,7 @@ This is not directly applicable to the actual world, since we have not observed 
 %
 But we have that $\boldsymbol\theta|\mathbf x,\mathbf y_{t}$ approximates a distribution on $\boldsymbol \theta$ values producing an optimal achievable outcome from the system $f_\omega$, and we furthermore have that $f_\alpha=f_\omega$ and thus that a distribution on $\boldsymbol \theta$ values optimal for $f_\omega$ is also a distribution on $\boldsymbol \theta$ values optimal for $f_\alpha$. 
 %
-Thus by relying on the known connections between $\omega$ and $\alpha$, we use observations made only in $\omega$ to gain valuable insight into features of $\alpha$.
+Thus by relying on known connections between $\omega$ and $\alpha$, we use observations made only in $\omega$ to gain valuable insight into features of $\alpha$.
 %
 
 %
@@ -315,7 +366,7 @@ We will apply that model calibration framework in a hypothetical scenario involv
 %
 \subsection{Gaussian process emulators for calibration}
 %
-In this work, when an emulator is needed we use Gaussian process (GP) emulators.
+In this work, when an emulator is needed we use GP emulators.
 %
 As a multivariate Gaussian random variable is characterized by a mean vector and covariance matrix, a GP is characterized by a mean and covariance functions $\mu:D\to \mathbb R$ and $C:D\times D\to \mathbb R$, where $D$ is the domain of the process. 
 %
@@ -323,7 +374,7 @@ For points $\mathbf x,\mathbf y\in D$, $\mu(\mathbf x)$ is the GP mean at $\math
 %
 The distribution of the GP at any finite number of points is multivariate normal with mean vector and covariance matrix determined by $\mu(\cdot)$ and $C(\cdot,\cdot)$.
 %
-In principle, model calibration need not rely on emulators; one can complete a Bayesian analysis via Markov chain Monte Carlo \citep[MCMC;][]{Gelfand1990} by running the model at each iteration of the chain \citep[see e.g.][]{Hemez2011}. 
+In principle, model calibration need not rely on emulators; one can complete a Bayesian analysis via MCMC by running the model at each iteration of the chain \citep[see e.g.][]{Hemez2011}. 
 %
 %\cite{Hemez2011} compare the use of Kennedy-O'Hagan-style calibration with and without an emulator. 
 %%
@@ -415,7 +466,7 @@ The model is completed by specifying priors for the hyperparameters $c,\lambda_\
 %
 
 %
-Call design targets treated as observations in the design procedure we propose below ``target outcomes'', and call that procedure, which uses a Bayesian model calibration framework with target outcomes in place of real observations, ``calibration to target outcomes" (CTO). 
+Call design targets treated as observations in the design procedure we propose below ``target outcomes'', and call that procedure, which pairs a Bayesian model calibration framework with target outcomes via counterfactual Bayes, ``calibration to target outcomes" (CTO). 
 %
 Thus target outcomes are a sort of artificial data, and the calibration procedure is carried out as if these artificial data had been observed in reality.
 %
@@ -663,6 +714,7 @@ Figure \ref{fig:do_selection_example} illustrates the benefits of preliminary CT
 \centering
 \includegraphics[scale=.8]{FIG_des_obs_selection_example.eps}
 %\captionsetup{width=.4\linewidth}
+\spacingset{1}
 \caption{Two choices of target outcomes. 
 %
 %The distance from $(0,0)$ to the farthest point in the feasible design space is only twice the distance to the nearest point. 
@@ -745,6 +797,7 @@ Figure \ref{fig:toy_sim_outputs} displays the (normalized) outputs as functions 
 \centering
 \includegraphics[scale=.8]{FIG_toy_sim_model_outputs.eps}
 %\captionsetup{width=.4\linewidth}
+\spacingset{1}
 \caption{True outputs of the example model.}
 \label{fig:toy_sim_outputs}
 \end{figure}
@@ -817,6 +870,7 @@ This example illustrates that CTO can be used directly with little foreknowledge
 \centering
 \includegraphics[scale=.8]{FIG_preliminary_CDO_comparison}
 %\captionsetup{width=.7\linewidth}
+\spacingset{1}
 \caption{Posterior draws from CTO in the simulated example without and with the use of preliminary CTO. The contours show, for each point in the design space, the Euclidean distance of the model output at that point from the original target outcome (0,0,0), averaged across the control input range $[1.95,2.05]$. The large dot shows the true optimum.}
 \label{fig:toy_sim_results}
 \end{figure}
@@ -927,6 +981,7 @@ This seems to be a point of diminishing returns in the trade-off between perform
 \centering
 \includegraphics[scale=0.8]{FIG_est_PF_with_des_obs.eps}
 %\captionsetup{width=.7\linewidth}
+\spacingset{1}
 \caption{Each x is a dominated design drawn from the predictive distribution through preliminary CTO. The dots indicate the estimated Pareto front. The plus sign is the target selected as the performance objective in our proposed design approach.}
 \label{fig:elbow}
 \end{figure}
@@ -952,6 +1007,7 @@ The contrast of the posterior distribution with the prior, which is uniform over
 %\centering
 %\includegraphics[width=.7\linewidth]{FIG_posterior_marginals_with_priors}
 %\captionsetup{width=.7\linewidth}
+%\spacingset{1}
 %\caption{The histograms show the marginal posterior of each calibration parameter. The dotted lines show the priors.}
 %\label{fig:wt_marg_post}
 %\end{figure}
@@ -960,6 +1016,7 @@ The contrast of the posterior distribution with the prior, which is uniform over
 %\includegraphics[width=.4\linewidth]{FIG_post_dist_contourplot}
 \includegraphics[scale=0.8]{FIG_post_dist_contourplot}
 %\captionsetup{width=.7\linewidth}
+\spacingset{1}
 \caption{Contours of highest density regions of the posterior distribution from CTO in the wind turbine blade system. The prior is uniform over the area shown.}
 \label{fig:wt_marg_post}
 \end{figure}
@@ -971,6 +1028,7 @@ The prior and posterior predictive distributions of the model outputs appear in 
 %\includegraphics[width=.4\linewidth]{FIG_post_dist_contourplot}
 \includegraphics[scale=0.8]{FIG_prior_vs_posterior_dist}
 %\captionsetup{width=.7\linewidth}
+\spacingset{1}
 \caption{Approximate prior and posterior marginal predictive densities for each of the three outputs. Note that it is to be expected that the posteriors peak near the target (and not on it), since the target was intentionally chosen to lie outside the feasible design space.}
 \label{fig:prior_post_pred_comp}
 \end{figure}
@@ -983,84 +1041,85 @@ Though the mean performance outcomes are approximately the same under the poster
 %
 If one prefers to prioritize gains in performance over cost, this can be accomplished by selecting target outcomes that reflect those priorities.
 
-%\subsection{Pareto front estimation with uncertainties}\label{removing_cal_pars}
+\subsection{Pareto front estimation with quantified uncertainties}\label{removing_cal_pars}
+
+%\subsubsection{Motivation}
+
+%Often in the case of a system with multivariate output, one might not antecedently have a clear goal for design.
 %
-%%\subsubsection{Motivation}
+%All else being equal, w
+When multiple design outputs are to be minimized, any point in the Pareto front is optimal relative to some set of priorities.
 %
-%%Often in the case of a system with multivariate output, one might not antecedently have a clear goal for design.
-%%
-%%All else being equal, w
-%When multiple design outputs are to be minimized, any point in the Pareto front is optimal relative to some set of priorities.
-%%
-%If those priorities have not been explicitly determined prior to the design process, then no particular outcome can be targeted.
-%%
-%%In determining one's priorities, it is helpful to know the Pareto front of the relevant system.
-%%
-%For example, in a system where performance is monotonically increasing in cost, depending on one's tolerance for high cost, any point in the design space might be optimal.
-%%
-%%In determining one's priorities and selecting a target outcome, it is valuable to have a clear and accurate understanding of the Pareto front of the system.
-%%
-%In low-dimensional cases, CTO may be used to achieve a holistic picture of the Pareto front by optimizing to each target outcome on a grid.
-%%
-%To do this, where the model output is $d-$dimensional, one may draw a grid over the range of $d-1$ of the model outputs and perform CTO to minimize the remaining output at each point of the grid.
-%%
-%The $d-1$ outputs, at each grid point, are treated as known up to observation error (meaning that the discrepancy function $\delta(\cdot)$ is set to 0 in the dimension of these outputs).
-%%
-%The resulting estimate of the Pareto front differs from the filtering method employed in preliminary CTO in that it allows for quantifying the uncertainty associated with the Pareto front.
-%%
+If those priorities have not been explicitly determined prior to the design process, then no particular outcome can be targeted.
 %
-%Our proposed procedure is illustrated here using the wind turbine blade application.
-%%
-%For simplicity, twist has been removed as a model output, leaving a system with 2-dimensional output of deflection and cost. 
-%%
-%The range of cost is known (via preliminary CTO) to be $[\$96,\$352]$.
-%%
-%A 20-point grid was drawn over this range of costs. 
-%%
-%%Using the rough estimate of the Pareto front from preliminary CDO, we found that to cover the Pareto front, the cost grid should cover the range $[\$96,\$352]$.
-%%
-%For each point $c$ in the cost grid, we used the point $(0\mathrm m,\$c)$ as the target outcome for calibration (constant with respect to temperature).
-%%
-%For each such point, we then updated this initial target outcome to improve identifiability using the rough estimate of the Pareto front from preliminary CTO using target outcome $(0\mathrm m,\$0)$.
-%%
-%Note that only one round of preliminary CTO was needed for this purpose, rather than a separate instance at each grid point.
-%%
+%In determining one's priorities, it is helpful to know the Pareto front of the relevant system.
 %
-%The result is an estimate of the response surface with quantified uncertainty describing, for each point in the grid, the minimal achievable outcome for the output not included in the grid.
-%%
-%%This enables a decision-maker to visualize the space of desirable possibilities with associated uncertainties. 
-%%
-%%They can do so without the need for rigorously predetermining their exact priorities for weighing gains in each of the outputs against one another.
-%%
-%The result of applying this strategy to the wind turbine blade application is shown in Figure \ref{fig:known_cost}. 
-%%
-%\begin{figure}[h]
-%\centering
-%\includegraphics[scale=.8]{FIG_cost_grid_pareto_bands.eps}
-%%\captionsetup{width=.7\linewidth}
-%\caption{The lefthand plot shows the posterior predictive distribution of cost as a function of target cost, verifying that the calibration achieved the target costs up to small error. The righthand plot shows the Pareto front for the system with quantified uncertainty.}
-%\label{fig:known_cost}
-%\end{figure}
-%%
-%The lefthand plot shows that the posterior model predictions respected the target cost values used in the design process.
-%%
-%The Pareto front for the system, along with associated uncertainty bands, appears in the righthand plot.
-%%
-%%This plot visualizes a distribution on the optimal performance outcome for any cost that a decision-maker might select as a budget for production, which would be helpful when selecting a budget.
-%%
-%%For example, the point of maximum curvature around \$140 manifests itself as a potentially attractive choice, since it can be seen in the plot that prior to that point each dollar spent brings significant gains in reducing deflection.
-%%
-%%Spending above that level continues to reduce deflection, but less sharply.
+For example, in a system where performance is monotonically increasing in cost, depending on one's tolerance for high cost, any point in the design space might be optimal.
+%
+%In determining one's priorities and selecting a target outcome, it is valuable to have a clear and accurate understanding of the Pareto front of the system.
+%
+In low-dimensional cases, CTO may be used to achieve a holistic picture of the Pareto front by optimizing to each target outcome on a grid.
+%
+To do this, where the model output is $d-$dimensional, one may draw a grid over the range of $d-1$ of the model outputs and perform CTO to minimize the remaining output at each point of the grid.
+%
+The $d-1$ outputs, at each grid point, are treated as known up to observation error (meaning that the discrepancy function $\delta(\cdot)$ is set to 0 in the dimension of these outputs).
+%
+The resulting estimate of the Pareto front differs from the filtering method employed in preliminary CTO in that it allows for quantifying the uncertainty associated with the Pareto front.
+%
+
+Our proposed procedure is illustrated here using the wind turbine blade application.
+%
+For simplicity, twist has been removed as a model output, leaving a system with 2-dimensional output of deflection and cost. 
+%
+The range of cost is known (via preliminary CTO) to be $[\$96,\$352]$.
+%
+A 20-point grid was drawn over this range of costs. 
+%
+%Using the rough estimate of the Pareto front from preliminary CDO, we found that to cover the Pareto front, the cost grid should cover the range $[\$96,\$352]$.
+%
+For each point $c$ in the cost grid, we used the point $(0\mathrm m,\$c)$ as the target outcome for calibration (constant with respect to temperature).
+%
+For each such point, we then updated this initial target outcome to improve identifiability using the rough estimate of the Pareto front from preliminary CTO using target outcome $(0\mathrm m,\$0)$.
+%
+Note that only one round of preliminary CTO was needed for this purpose, rather than a separate instance at each grid point.
+%
+
+The result is an estimate of the response surface with quantified uncertainty describing, for each point in the grid, the minimal achievable outcome for the output not included in the grid.
+%
+%This enables a decision-maker to visualize the space of desirable possibilities with associated uncertainties. 
+%
+%They can do so without the need for rigorously predetermining their exact priorities for weighing gains in each of the outputs against one another.
+%
+The result of applying this strategy to the wind turbine blade application is shown in Figure \ref{fig:known_cost}. 
+%
+\begin{figure}[h]
+\centering
+\includegraphics[scale=.8]{FIG_cost_grid_pareto_bands.eps}
+%\captionsetup{width=.7\linewidth}
+\spacingset{1}
+\caption{The lefthand plot shows the posterior predictive distribution of cost as a function of target cost, verifying that the calibration achieved the target costs up to small error. The righthand plot shows the Pareto front for the system with quantified uncertainty.}
+\label{fig:known_cost}
+\end{figure}
+%
+The lefthand plot shows that the posterior model predictions respected the target cost values used in the design process.
+%
+The Pareto front for the system, along with associated uncertainty bands, appears in the righthand plot.
+%
+%This plot visualizes a distribution on the optimal performance outcome for any cost that a decision-maker might select as a budget for production, which would be helpful when selecting a budget.
+%
+%For example, the point of maximum curvature around \$140 manifests itself as a potentially attractive choice, since it can be seen in the plot that prior to that point each dollar spent brings significant gains in reducing deflection.
+%
+%Spending above that level continues to reduce deflection, but less sharply.
 
 The use of CTO in the wind turbine design illustrates how preliminary CTO may be used, not merely to improve the identifiability of a pre-determined optimal region as in Section \ref{example}, but rather to identify a desirable region of the design space and select target outcomes that design to that region.
 %
-%In the wind turbine case, selecting $(0,0,0)$ as one's target determines the optimal region to be the high-cost region toward the upper-left of Figure \ref{fig:elbow}, since (on the standardized scale of model outputs) that region happens to be closest to the target.
+In the wind turbine case, selecting $(0,0,0)$ as one's target determines the optimal region to be the high-cost region toward the upper-left of Figure \ref{fig:elbow}, since (on the standardized scale of model outputs) that region happens to be closest to the target.
 %
-%If one has substantive goals that drive one to select that target, then one is well-served by optimizing to that high-cost region.
+If one has substantive goals that drive one to select that target, then one is well-served by optimizing to that high-cost region.
 %
-%But if the target $(0,0,0)$ is chosen arbitrarily, then the resulting optimal region is itself determined arbitrarily.
+But if the target $(0,0,0)$ is chosen arbitrarily, then the resulting optimal region is itself determined arbitrarily.
 %
-%The estimate of the Pareto front provided by preliminary CTO allows us to identify regions of special interest, and to select target outcomes that that lead to clearly defined designs, as illustrated in Figure \ref{fig:elbow}.
+The estimate of the Pareto front provided by preliminary CTO allows us to identify regions of special interest, and to select target outcomes that that lead to clearly defined designs, as illustrated in Figure \ref{fig:elbow}.
 %
 The use of CTO in this case also demonstrates the value of obtaining a posterior distribution on the design variables, rather than just a point estimate.
 %
@@ -1068,9 +1127,9 @@ For example, Figure \ref{fig:wt_marg_post} shows not just that a reasonable poin
 %
 More generally, CTO delivers an indication of the range of $\boldsymbol\theta$ values that achieve results near the target, which is potentially useful when one's goal is to set tolerances (rather than a specific value) for $\boldsymbol\theta$.
 %
-%Finally, the use of CTO in the wind turbine case illustrates how the method can deliver ``Pareto bands'', providing not merely an estimate of the Pareto front (as in preliminary CTO) but also uncertainty associated with that estimate.
+Finally, the use of CTO in the wind turbine case illustrates how the method can deliver ``Pareto bands'', providing not merely an estimate of the Pareto front (as in preliminary CTO) but also uncertainty associated with that estimate.
 %
-%Such an estimate can be of use to decision-makers when deciding on performance goals subject to budgetary constraints.
+Such an estimate can be of use to decision-makers when deciding on performance goals subject to budgetary constraints.
 
 
 

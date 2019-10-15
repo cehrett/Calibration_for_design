@@ -1,7 +1,7 @@
 \begin{thebibliography}{}
 
 \bibitem[\protect\citeauthoryear{Adams}{Adams}{1974}]{Adams1974}
-Adams, R.~M. (1974, sep).
+Adams, R.~M. (1974).
 \newblock {Theories of Actuality}.
 \newblock {\em No{\^{u}}s\/}~{\em 8\/}(3), 211.
 
@@ -50,6 +50,19 @@ Brynjarsd{\'{o}}ttir, J. and A.~O'Hagan (2014).
 \newblock {Learning about physical parameters: The importance of model
   discrepancy}.
 \newblock {\em Inverse Problems\/}~{\em 30\/}(11).
+
+\bibitem[\protect\citeauthoryear{Chevalier, Bect, Ginsbourger, Vazquez,
+  Picheny, and Richet}{Chevalier et~al.}{2014}]{Chevalier2014}
+Chevalier, C., J.~Bect, D.~Ginsbourger, E.~Vazquez, V.~Picheny, and Y.~Richet
+  (2014).
+\newblock {Fast Parallel Kriging-Based Stepwise Uncertainty Reduction With
+  Application to the Identification of an Excursion Set}.
+\newblock {\em Technometrics\/}~{\em 56\/}(4).
+
+\bibitem[\protect\citeauthoryear{Deb and Gupta}{Deb and Gupta}{2006}]{Deb2006}
+Deb, K. and H.~Gupta (2006, dec).
+\newblock {Introducing robustness in multi-objective optimization}.
+\newblock {\em Evolutionary Computation\/}~{\em 14\/}(4), 463--494.
 
 \bibitem[\protect\citeauthoryear{Gelfand and Smith}{Gelfand and
   Smith}{1990}]{Gelfand1990}
@@ -114,6 +127,19 @@ Higdon, D., M.~Kennedy, J.~C. Cavendish, J.~A. Cafeo, and R.~D. Ryne (2004).
   prediction}.
 \newblock {\em SIAM Journal on Scientific Computing\/}~{\em 26\/}(2), 448--466.
 
+\bibitem[\protect\citeauthoryear{Jin and Branke}{Jin and
+  Branke}{2005}]{Jin2005}
+Jin, Y. and J.~Branke (2005).
+\newblock {Evolutionary optimization in uncertain environments - A survey}.
+\newblock {\em IEEE Transactions on Evolutionary Computation\/}~{\em 9\/}(3),
+  303--317.
+
+\bibitem[\protect\citeauthoryear{Jones, Schonlau, and Welch}{Jones
+  et~al.}{1998}]{Jones1998}
+Jones, D.~R., M.~Schonlau, and W.~J. Welch (1998).
+\newblock {Efficient Global Optimization of Expensive Black-Box Functions}.
+\newblock Technical report.
+
 \bibitem[\protect\citeauthoryear{Kennedy, Anderson, Conti, and O'Hagan}{Kennedy
   et~al.}{2006}]{Kennedy2006}
 Kennedy, M.~C., C.~W. Anderson, S.~Conti, and A.~O'Hagan (2006).
@@ -129,9 +155,9 @@ Kennedy, M.~C. and A.~O'Hagan (2001).
   63\/}(3), 425--464.
 
 \bibitem[\protect\citeauthoryear{Lewis}{Lewis}{1986}]{Lewis1986}
-Lewis, D. K. D.~K. (1986).
+Lewis, D.~K. (1986).
 \newblock {\em {On the plurality of worlds}}.
-\newblock B. Blackwell.
+\newblock Blackwell.
 
 \bibitem[\protect\citeauthoryear{Liu, Bayarri, and Berger}{Liu
   et~al.}{2009}]{Liu2009}
@@ -165,11 +191,25 @@ Metropolis, N., A.~W. Rosenbluth, M.~N. Rosenbluth, A.~H. Teller, and E.~Teller
 \newblock {Equation of state calculations by fast computing machines}.
 \newblock {\em The Journal of Chemical Physics\/}~{\em 21\/}(6), 1087--1092.
 
+\bibitem[\protect\citeauthoryear{Miettinen}{Miettinen}{2008}]{Miettinen2008}
+Miettinen, K. (2008).
+\newblock {\em Introduction to Multiobjective Optimization: Noninteractive
+  Approaches}, pp.\  1--26.
+\newblock Berlin, Heidelberg: Springer Berlin Heidelberg.
+
 \bibitem[\protect\citeauthoryear{O'Hagan}{O'Hagan}{1978}]{OHagan1978}
 O'Hagan, A. (1978).
 \newblock {Curve fitting and optimal design for prediction}.
 \newblock {\em Journal of the Royal Statistical Society: Series B\/}~{\em
   40\/}(1), 1--42.
+
+\bibitem[\protect\citeauthoryear{Olalotiti-Lawal and
+  Datta-Gupta}{Olalotiti-Lawal and Datta-Gupta}{2015}]{Olalotiti-Lawal2015}
+Olalotiti-Lawal, F. and A.~Datta-Gupta (2015, sep).
+\newblock {A Multi-Objective Markov Chain Monte Carlo Approach for History
+  Matching and Uncertainty Quantification}.
+\newblock In {\em SPE Annual Technical Conference and Exhibition}. Society of
+  Petroleum Engineers.
 
 \bibitem[\protect\citeauthoryear{Paulo, Garc{\'{i}}a-Donato, and Palomo}{Paulo
   et~al.}{2012}]{Paulo2012}
@@ -177,6 +217,18 @@ Paulo, R., G.~Garc{\'{i}}a-Donato, and J.~Palomo (2012).
 \newblock {Calibration of computer models with multivariate output}.
 \newblock {\em Computational Statistics and Data Analysis\/}~{\em 56},
   3959--3974.
+
+\bibitem[\protect\citeauthoryear{Picheny}{Picheny}{2015}]{Picheny2015}
+Picheny, V. (2015).
+\newblock {Multiobjective optimization using Gaussian process emulators via
+  stepwise uncertainty reduction}.
+\newblock {\em Statistics and Computing\/}~{\em 25\/}(6), 1265--1280.
+
+\bibitem[\protect\citeauthoryear{Picheny, Binois, and Habbal}{Picheny
+  et~al.}{2019}]{Picheny2019}
+Picheny, V., M.~Binois, and A.~Habbal (2019, jan).
+\newblock {A Bayesian optimization approach to find Nash equilibria}.
+\newblock {\em Journal of Global Optimization\/}~{\em 73\/}(1), 171--192.
 
 \bibitem[\protect\citeauthoryear{Plumlee}{Plumlee}{2017}]{Plumlee2017}
 Plumlee, M. (2017).
@@ -270,5 +322,12 @@ Williams, B., D.~Higdon, J.~Gattiker, L.~Moore, M.~McKay, and S.~Keller-McNulty
 Young, M. (1994).
 \newblock {\em {The Guinness book of records, 1995}}.
 \newblock Facts on File.
+
+\bibitem[\protect\citeauthoryear{Zhou, Qian, and Zhou}{Zhou
+  et~al.}{2011}]{Zhou2011}
+Zhou, Q., P.~Z.~G. Qian, and S.~Zhou (2011).
+\newblock {A simple approach to emulation for computer models with qualitative
+  and quantitative factors}.
+\newblock {\em Technometrics\/}~{\em 53\/}(3), 266--273.
 
 \end{thebibliography}

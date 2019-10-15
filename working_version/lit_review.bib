@@ -1545,7 +1545,7 @@ author = {Adams, Robert Merrihew},
 doi = {10.2307/2214751},
 issn = {00294624},
 journal = {No{\^{u}}s},
-month = {sep},
+month = {},
 number = {3},
 pages = {211},
 publisher = {JSTOR},
@@ -1555,21 +1555,166 @@ year = {1974}
 }
 @book{Lewis1986,
 abstract = {This book is a defense of modal realism; the thesis that our world is but one of a plurality of worlds, and that the individuals that inhabit our world are only a few out of all the inhabitants of all the worlds. Lewis argues that the philosophical utility of modal realism is a good reason for believing that it is true.},
-author = {Lewis, David K. (David Kellogg)},
+author = {Lewis, David K},
 isbn = {9780631224266},
 pages = {276},
-publisher = {B. Blackwell},
+publisher = {Blackwell},
 title = {{On the plurality of worlds}},
 year = {1986}
 }
 @book{Young1994,
 abstract = {"All-new 34th ed."--Jacket. Includes index. This new, 34th edition of a classic presents about 15,000 records documenting Guinness achievements and records set during 1994; but this goes far beyond a listing of statistics. Color and black and white photos and intriguing illustrations are packed into the Guinness listings, providing a virtual wealth of eye-catching details accessible to leisure readers.},
-author = {Young, Mark.},
+author = {Young, Mark},
 isbn = {0816026467},
 pages = {320},
 publisher = {Facts on File},
 title = {{The Guinness book of records, 1995}},
 year = {1994}
 }
-
+@article{Jin2005,
+abstract = {Evolutionary algorithms often have to solve optimization problems in the presence of a wide range of uncertainties. Generally, uncertainties in evolutionary computation can be divided into the following four categories. First, the fitness function is noisy. Second, the design variables and/or the environmental parameters may change after optimization, and the quality of the obtained optimal solution should be robust against environmental changes or deviations from the optimal point. Third, the fitness function is approximated, which means that the fitness function suffers from approximation errors. Fourth, the optimum of the problem to be solved changes over time and, thus, the optimizer should be able to track the optimum continuously. In all these cases, additional measures must be taken so that evolutionary algorithms are still able to work satisfactorily. This paper attempts to provide a com prehensive overview of the related work within a unified framework, which has been scattered in a variety of research areas. Existing approaches to addressing different uncertainties are presented and discussed, and the relationship between the different categories of uncertainties are investigated. Finally, topics for future research are suggested. {\textcopyright} 2005 IEEE.},
+author = {Jin, Yaochu and Branke, J{\"{u}}rgen},
+doi = {10.1109/TEVC.2005.846356},
+file = {:C$\backslash$:/Users/carle/Documents/Mendeley/Jin, Branke - 2005 - Evolutionary optimization in uncertain environments - A survey.pdf:pdf},
+issn = {1089778X},
+journal = {IEEE Transactions on Evolutionary Computation},
+keywords = {Approximation models,Dynamic environments,Noise,Robustness,Uncertainty},
+number = {3},
+pages = {303--317},
+title = {{Evolutionary optimization in uncertain environments - A survey}},
+volume = {9},
+year = {2005}
+}
+@article{Zhou2011,
+author = {Zhou, Aimin and Qu, Bo-Yang and Li, Hui and Zhao, Shi-Zheng and Suganthan, Ponnuthurai Nagaratnam and Zhang, Qingfu},
+doi = {10.1016/j.swevo.2011.03.001},
+file = {:C$\backslash$:/Users/carle/Documents/Mendeley/Zhou et al. - 2011 - Multiobjective evolutionary algorithms A survey of the state of the art.pdf:pdf},
+issn = {22106502},
+journal = {Swarm and Evolutionary Computation},
+mendeley-groups = {Calibration},
+month = {mar},
+number = {1},
+pages = {32--49},
+title = {{Multiobjective evolutionary algorithms: A survey of the state of the art}},
+url = {https://linkinghub.elsevier.com/retrieve/pii/S2210650211000058},
+volume = {1},
+year = {2011}
+}
+@article{Deb2006,
+abstract = {In optimization studies including multi-objective optimization, the main focus is placed on finding the global optimum or global Pareto-optimal solutions, representing the best possible objective values. However, in practice, users may not always be interested in finding the so-called global best solutions, particularly when these solutions are quite sensitive to the variable perturbations which cannot be avoided in practice. In such cases, practitioners are interested in finding the robust solutions which are less sensitive to small perturbations in variables. Although robust optimization is dealt with in detail in single-objective evolutionary optimization studies, in this paper, we present two different robust multi-objective optimization procedures, where the emphasis is to find a robust frontier, instead of the global Pareto-optimal frontier in a problem. The first procedure is a straightforward extension of a technique used for single-objective optimization and the second procedure is a more practical approach enabling a user to set the extent of robustness desired in a problem. To demonstrate the differences between global and robust multi-objective optimization principles and the differences between the two robust optimization procedures suggested here, we develop a number of constrained and unconstrained test problems having two and three objectives and show simulation results using an evolutionary multi-objective optimization (EMO) algorithm. Finally, we also apply both robust optimization methodologies to an engineering design problem. {\textcopyright} 2006 by the Massachusetts Institute of Technology.},
+annote = {r2019-09-30
+The authors describe two different forms of robust optimization. The first, they say, is a direct extension of ideas already floating around for robust single-objective optimization. Here, the central idea is that instead of finding the global PF of the original objective function f, you instead find the global PF of a different objective function, f{\_}eff, for which the value of f{\_}eff(x) is given by the mean of f(x) in a $\backslash$delta-neighborhood around the argument x. $\backslash$delta is a parameter that must be chosen/tuned. The second form of robust optimization is their innovation. Here, one does still get the PF of the original objective f, but subject to a new constraint, that ||f(x) - f{\_}p(x)|| / ||f(x)|| $\backslash$leq $\backslash$eta, for some user-defined $\backslash$eta. f{\_}p here is either f{\_}eff, or else is the maximum value of f in the delta-neighborhood around x, or whatever else best fits the goals of the analyst. They tout the fact that a user can define $\backslash$eta to fit her goals, but they downplay (ignore?) the fact that she still has to select $\backslash$delta, too. They show that the two kinds of robust optimization can get pretty different results, in some cases.
+One issue with this that comes to mind is that in its manifestation here it seems to take acount in a very rudimentary way of prior knowledge about the uncertainty of the inputs. You just define a $\backslash$delta, maybe a different one for each input but even then it seems that you just get a uniform sampling or a LHC over the region defined by $\backslash$delta. Our approach does this better. But then, it seems to me like it would probably be pretty easy to improve this approach in that area too.
+Less clear is how you'd get this approach to include code uncertainty, the way our approach does.
+Maybe the central difference is that our approach returns an estimate of the global PF with quantified uncertainty, whereas this approach doesn't even attempt to provide an estimate of the global PF, much less with quantified uncertainties. Really the two approaches seem like night and day, considered in this way.},
+author = {Deb, Kalyanmoy and Gupta, Himanshu},
+doi = {10.1162/evco.2006.14.4.463},
+file = {:C$\backslash$:/Users/carle/Documents/Mendeley/Deb, Gupta - 2006 - Introducing robustness in multi-objective optimization(2).pdf:pdf},
+issn = {10636560},
+journal = {Evolutionary Computation},
+keywords = {Evolutionary algorithms,Global and local optimal solutions,Multi-objective optimization,Pareto-optimal solutions,Robust solutions},
+mendeley-groups = {Calibration},
+month = {dec},
+number = {4},
+pages = {463--494},
+title = {{Introducing robustness in multi-objective optimization}},
+volume = {14},
+year = {2006}
+}
+@article{Picheny2019,
+abstract = {Game theory finds nowadays a broad range of applications in engineering and machine learning. However, in a derivative-free, expensive black-box context, very few algorithmic solutions are available to find game equilibria. Here, we propose a novel Gaussian-process based approach for solving games in this context. We follow a classical Bayesian optimization framework, with sequential sampling decisions based on acquisition functions. Two strategies are proposed, based either on the probability of achieving equilibrium or on the stepwise uncertainty reduction paradigm. Practical and numerical aspects are discussed in order to enhance the scalability and reduce computation time. Our approach is evaluated on several synthetic game problems with varying number of players and decision space dimensions. We show that equilibria can be found reliably for a fraction of the cost (in terms of black-box evaluations) compared to classical, derivative-based algorithms. The method is available in the R package GPGame available on CRAN at https://cran.r-project.org/package=GPGame.},
+annote = {r2019-05-07
+Interesting paper describing the use of Bayesian optimization to find Nash equilibria. Some nice references related to GP regression that would be good for me to follow up on.},
+author = {Picheny, Victor and Binois, Mickael and Habbal, Abderrahmane},
+doi = {10.1007/s10898-018-0688-0},
+file = {:C$\backslash$:/Users/carle/Documents/Mendeley/Picheny, Binois, Habbal - 2019 - A Bayesian optimization approach to find Nash equilibria(2).pdf:pdf},
+journal = {Journal of Global Optimization},
+mendeley-groups = {Calibration},
+month = {jan},
+number = {1},
+pages = {171--192},
+publisher = {Springer US},
+title = {{A Bayesian optimization approach to find Nash equilibria}},
+url = {http://link.springer.com/10.1007/s10898-018-0688-0},
+volume = {73},
+year = {2019}
+}
+@techreport{Jones1998,
+abstract = {In many engineering optimization problems, the number of function evaluations is severely limited by time or cost. These problems pose a special challenge to the field of global optimization, since existing methods often require more function evaluations than can be comfortably afforded. One way to address this challenge is to fit response surfaces to data collected by evaluating the objective and constraint functions at a few points. These surfaces can then be used for visualization, tradeoff analysis, and optimization. In this paper, we introduce the reader to a response surface methodology that is especially good at modeling the nonlinear, multimodal functions that often occur in engineering. We then show how these approximating functions can be used to construct an efficient global optimization algorithm with a credible stopping rule. The key to using response surfaces for global optimization lies in balancing the need to exploit the approximating surface (by sampling where it is minimized) with the need to improve the approximation (by sampling where prediction error may be high). Striking this balance requires solving certain auxiliary problems which have previously been considered intractable, but we show how these computational obstacles can be overcome.},
+author = {Jones, Donald R and Schonlau, Matthias and Welch, William J},
+booktitle = {Journal of Global Optimization},
+file = {:C$\backslash$:/Users/carle/Documents/Mendeley/Jones, Schonlau, Welch - 1998 - Efficient Global Optimization of Expensive Black-Box Functions.pdf:pdf},
+keywords = {Bayesian global optimization,Kriging,Random function,Response surface,Stochastic process,Visualization},
+pages = {455--492},
+title = {{Efficient Global Optimization of Expensive Black-Box Functions}},
+url = {http://www.ressources-actuarielles.net/EXT/ISFA/1226.nsf/0/f84f7ac703bf5862c12576d8002f5259/{\$}FILE/Jones98.pdf},
+volume = {13},
+year = {1998}
+}
+@article{Chevalier2014,
+abstract = {Stepwise uncertainty reduction (SUR) strategies aim at$\backslash$nconstructing a sequence of points for evaluating a function f in$\backslash$nsuch a way that the residual uncertainty about a quantity of$\backslash$ninterest progressively decreases to zero. Using such strategies$\backslash$nin the framework of Gaussian process modeling has been shown to$\backslash$nbe efficient for estimating the volume of excursion of f above a$\backslash$nfixed threshold. However, SUR strategies remain cumbersome to use$\backslash$nin practice because of their high computational complexity, and$\backslash$nthe fact that they deliver a single point at each iteration. In$\backslash$nthis article we introduce several multipoint sampling criteria,$\backslash$nallowing the selection of batches of points at which f can be$\backslash$nevaluated in parallel. Such criteria are of particular interest$\backslash$nwhen f is costly to evaluate and several CPUs are simultaneously$\backslash$navailable. We also manage to drastically reduce the computational$\backslash$ncost of these strategies through the use of closed form formulas.$\backslash$nWe illustrate their performances in various numerical$\backslash$nexperiments, including a nuclear safety test case. Basic notions$\backslash$nabout kriging, auxiliary problems, complexity calculations, R$\backslash$ncode, and data are available online as supplementary materials.},
+annote = {r2019-10-04
+The paper describes how to use SUR with closed formulae that make it computationally tractable, even when selecting multiple evaluation points simultaneously (to take advantage of parallel processing). For CTO, this would seem to be citable as an important paper in the development of SUR for Bayesian optimization. This paper considers only univariate objective functions (and their focus is anyway on failure probability, not on optimization).},
+author = {Chevalier, Cl{\'{e}}ment and Bect, Julien and Ginsbourger, David and Vazquez, Emmanuel and Picheny, Victor and Richet, Yann},
+doi = {10.1080/00401706.2013.860918},
+file = {:C$\backslash$:/Users/carle/Documents/Mendeley/Chevalier et al. - 2014 - Fast Parallel Kriging-Based Stepwise Uncertainty Reduction With Application to the Identification of an Excurs.pdf:pdf},
+issn = {0040-1706},
+journal = {Technometrics},
+number = {4},
+title = {{Fast Parallel Kriging-Based Stepwise Uncertainty Reduction With Application to the Identification of an Excursion Set}},
+volume = {56},
+year = {2014}
+}
+@article{Picheny2015,
+abstract = {Optimization of expensive computer models with the help of Gaussian process emulators in now commonplace. However, when several (competing) objectives are considered, choosing an appropriate sampling strategy remains an open question. We present here a new algorithm based on stepwise uncertainty reduction principles to address this issue. Optimization is seen as a sequential reduction of the volume of the excursion sets below the current best solutions, and our sampling strategy chooses the points that give the highest expected reduction. Closed-form formulae are provided to compute the sampling criterion, avoiding the use of cumbersome simulations. We test our method on numerical examples, showing that it provides an efficient trade-off between exploration and intensification.},
+annote = {r2019-07-19
+The authors lay out a reasonably intuitive and well-motivated algorithm for stepwise uncertainty reduction in multi-objective optimization. Essentially at each step you pick the new evaluation location by finding the point expected to most lower the hypervolume of the difference between the currently sampled Pareto front and the true Pareto front. Computationally expensive, requires numerical integration.},
+author = {Picheny, Victor},
+doi = {10.1007/s11222-014-9477-x},
+file = {:C$\backslash$:/Users/carle/Documents/Mendeley/Picheny - 2015 - Multiobjective optimization using Gaussian process emulators via stepwise uncertainty reduction(2).pdf:pdf},
+isbn = {1122201494},
+issn = {15731375},
+journal = {Statistics and Computing},
+keywords = {EGO,Excursion sets,Kriging,Pareto front},
+number = {6},
+pages = {1265--1280},
+publisher = {Springer US},
+title = {{Multiobjective optimization using Gaussian process emulators via stepwise uncertainty reduction}},
+url = {http://dx.doi.org/10.1007/s11222-014-9477-x},
+volume = {25},
+year = {2015}
+}
+@inproceedings{Olalotiti-Lawal2015,
+annote = {r2019-03-27
+This paper presents a method for probabilistic estimation of a Pareto front for a multiobjective optimization problem using MCMC. Sound familiar?},
+author = {Olalotiti-Lawal, Feyi and Datta-Gupta, Akhil},
+booktitle = {SPE Annual Technical Conference and Exhibition},
+doi = {10.2118/175144-MS},
+file = {:C$\backslash$:/Users/carle/Documents/Mendeley/Olalotiti-Lawal, Datta-Gupta - 2015 - A Multi-Objective Markov Chain Monte Carlo Approach for History Matching and Uncertainty Quanti(2).pdf:pdf},
+isbn = {978-1-61399-376-7},
+keywords = {Differential Evolution,Grid Connectivity Transform,Markov Chain Monte Carlo,Subsurface Uncertainty Quantification},
+mendeley-groups = {Calibration},
+month = {sep},
+publisher = {Society of Petroleum Engineers},
+title = {{A Multi-Objective Markov Chain Monte Carlo Approach for History Matching and Uncertainty Quantification}},
+url = {http://www.onepetro.org/doi/10.2118/175144-MS},
+year = {2015}
+}
+@Inbook{Miettinen2008,
+author="Miettinen, Kaisa",
+editor="Branke, J{\"u}rgen
+and Deb, Kalyanmoy
+and Miettinen, Kaisa
+and S{\l}owi{\'{n}}ski, Roman",
+title="Introduction to Multiobjective Optimization: Noninteractive Approaches",
+bookTitle="Multiobjective Optimization: Interactive and Evolutionary Approaches",
+year="2008",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="1--26",
+abstract="We give an introduction to nonlinear multiobjective optimization by covering some basic concepts as well as outlines of some methods. Because Pareto optimal solutions cannot be ordered completely, we need extra preference information coming from a decision maker to be able to select the most preferred solution for a problem involving multiple conflicting objectives. Multiobjective optimization methods are often classified according to the role of a decision maker in the solution process. In this chapter, we concentrate on noninteractive methods where the decision maker either is not involved or specifies preference information before or after the actual solution process. In other words, the decision maker is not assumed to devote too much time in the solution process.",
+isbn="978-3-540-88908-3",
+doi="10.1007/978-3-540-88908-3_1",
+url="https://doi.org/10.1007/978-3-540-88908-3_1"
+}
 
