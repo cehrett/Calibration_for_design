@@ -230,12 +230,6 @@ Picheny, V., M.~Binois, and A.~Habbal (2019, jan).
 \newblock {A Bayesian optimization approach to find Nash equilibria}.
 \newblock {\em Journal of Global Optimization\/}~{\em 73\/}(1), 171--192.
 
-\bibitem[\protect\citeauthoryear{Plumlee}{Plumlee}{2017}]{Plumlee2017}
-Plumlee, M. (2017).
-\newblock {Bayesian calibration of inexact computer models}.
-\newblock {\em Journal of the American Statistical Association\/}~{\em
-  112\/}(519), 1274--1285.
-
 \bibitem[\protect\citeauthoryear{Pratola and Chkrebtii}{Pratola and
   Chkrebtii}{2018}]{Pratola2018}
 Pratola, M. and O.~Chkrebtii (2018).
@@ -255,6 +249,12 @@ Roberts, G., A.~Gelman, and W.~Gilks (1997).
 \newblock {Weak convergence and optimal scaling of random walk Metropolis
   algorithms}.
 \newblock {\em The Annals of Applied Probability\/}~{\em 7\/}(1), 120.
+
+\bibitem[\protect\citeauthoryear{Rubin}{Rubin}{1974}]{Rubin1974}
+Rubin, D.~B. (1974, oct).
+\newblock {Estimating causal effects of treatments in randomized and
+  nonrandomized studies}.
+\newblock {\em Journal of Educational Psychology\/}~{\em 66\/}(5), 688--701.
 
 \bibitem[\protect\citeauthoryear{Sacks, Welch, Mitchell, and Wynn}{Sacks
   et~al.}{1989}]{Sacks1989}
@@ -282,11 +282,6 @@ Stevens, G.~N., S.~Atamturktur, D.~A. Brown, B.~J. Williams, and C.~Unal
 \newblock {Statistical inference of empirical constituents in partitioned
   analysis from integral-effect experiments}.
 \newblock {\em Engineering Computations\/}~{\em 35\/}(2), 672--691.
-
-\bibitem[\protect\citeauthoryear{Tuo and Wu}{Tuo and Wu}{2015}]{Tuo2015}
-Tuo, R. and C.~F.~J. Wu (2015).
-\newblock {Efficient calibration for imperfect computer models}.
-\newblock {\em Annals of Statistics\/}~{\em 43\/}(6).
 
 \bibitem[\protect\citeauthoryear{Tuo and Wu}{Tuo and Wu}{2016}]{Tuo2016}
 Tuo, R. and C.~F.~J. Wu (2016).

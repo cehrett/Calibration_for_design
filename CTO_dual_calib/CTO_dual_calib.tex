@@ -3,7 +3,8 @@
 \usepackage{graphicx}
 %\usepackage{enumerate}
 \usepackage{natbib} %comment out if you do not have the package
-\usepackage{url} % not crucial - just used below for the URL 
+\usepackage{url}
+ % not crucial - just used below for the URL 
 \usepackage{amsmath, amssymb}
 \usepackage{setspace} % NOT IN TECHNOMETRICS TEMPLATE
 \usepackage{caption} % NOT IN TECHNOMETRICS TEMPLATE
@@ -95,51 +96,136 @@ For example, one may be more interested in calibrating the model to be accurate 
 Undertaking dual calibration may allow us to focus our calibration efforts on such regions of interest, prioritizing them over other areas of the model range.
 %
 
-\section{The model}
+%
+\section{Na\"ive DCTO}
+%% Describe KOH model
+%
+The version of KOH considered here is that which finds a posterior distribution on a parameter of interest, $\boldsymbol\theta$, using a GP emulator with hyperparameters $\widehat{\boldsymbol\phi_\eta}$ estimated via maximum likelihood using a budget of computer model observations $\boldsymbol\eta$. 
+%
+Similarly, we use a GP prior with hyperparameters $\phi_\delta$ to model discrepancy between the computer model $\eta()$ and the true function $f()$ that it represents.
+%
+In the work described here, we employ stationary GPs with a Gaussian kernel covariance structure $C(\mathbf x,\mathbf x') = 1/\lambda \times \exp(-\beta(\mathbf x-\mathbf x')^2)$, so that $\widehat {\boldsymbol\phi_\eta} = \left[\widehat \beta,\ \widehat \lambda\right]$.
+%
+Setting priors on $\boldsymbol\theta$ and on $\phi_\delta$, we train the GP emulator on observations $\boldsymbol \eta$ and use MCMC to explore the distribution
+\begin{equation} \label{eq:full_dist}
+\pi(\boldsymbol \theta,\phi_\delta|\mathcal D,\widehat{\phi_\eta})
+\propto \pi(\mathcal D | \boldsymbol \theta,\widehat{\phi_\eta}, \phi_\delta) %\times \pi(\lambda_\eta) 
+%\times \pi(\boldsymbol \rho^\eta) 
+\times \pi(\boldsymbol\theta)
+\times \pi(\phi_\delta)
+\end{equation}
+%
+where $\mathcal D = (\boldsymbol\eta^T,\ \mathbf y^T)^T$.
+%
 
 %
-Let $f$ be the model of interest, and partition its inputs as $(x,\theta_1,\theta_2)$ where $x$ denotes the known and/or controllable inputs, $\theta_1$ denotes the parameters targeted for KOH calibration, and $\theta_2$ denotes the input settings targeted for design via CTO.
+In a computer calibration problem, $\mathbf y$ is a set of observations of the system modeled by $\eta()$.
 %
-If $f$ can be run quickly, then we use it directly in MCMC.
+In CTO, by contrast, $y$ is a set of target outcomes -- artificial data representing the way that one wishes to induce the system to behave, rather than observations one has made of the system in reality.
 %
-However, if it is computationally expensive, we employ a surrogate by setting a Gaussian process (GP) prior on $f$ with mean $m_0(x,t_1,t_2)$ and covariance function $C_0((x,t_1,t_2),(x',t_1',t_2'))$.
+When one wishes to perform CTO on a system that also requires traditional calibration, then, one obvious idea is to combine the two approaches by using Equation \eqref{eq:full_dist} with $\mathbf y= (\mathbf y_r^T,\ \mathbf y_t^T)^T$, an array containing both real observations $\mathbf y_r$ (for calibration) and target outcomes $\mathbf y_t$ (for CTO).
 %
-From here on in this discussion, assume that a GP surrogate is used for $f$.
+However, this approach will not work, for two reasons.
 %
-Typically, there will be some systematic discrepancy between the output of $f$ and the true system, even if the true value of $\theta_1$ is used.
+Firstly, the inputs $\boldsymbol\theta$ are typically not the same in calibration and in CTO.
 %
-We model this discrepancy, between the true system and $f$ at the true value of $\theta_1$, with another GP prior $\delta_1$ having mean $m_1(x,t_2)$ and covariance function $C_1((x,t_2),(x',t_2'))$.
+In calibration, one seeks to estimate the value of an input that either represents some true unknown quantity, or else which induces the model to represent some true unknown quantity.
 %
-In addition to the discrepancy between $f$ and the true system, there may also be a systematic discrepancy between the true system and our performance/cost targets, particularly if the latter are especially optimistic.
+In CTO, one seeks to find a distribution on an input that is under the researcher's control.
 %
-We model this discrepancy using a GP prior with mean $m_2(x)$ and covariance function $C_2(x,x')$.
+
 %
-Notice that this discrepancy is between the true system at optimal settings for $\theta_2$ and $f$ using the true value of $\theta_1$ and the optimal settings for $\theta_2$.
+Relatedly, by including target outcomes in one's observations $\mathbf y$ used in KOH calibration, one compromises the integrity of the calibration.
 %
-In addition to systematic discrepancy between $f$ and reality, measurement error must be included in the model.
+KOH calibration, after all, aims to use one's observations of the real system to estimate the value of  $\boldsymbol \theta$.
 %
-Thus let $\epsilon\sim N(0,\sigma^2)$ denote the (known) i.i.d.\ variance of (real) observations at any given values of $x,t_2$.
+If one's observations $\mathbf y$ do not reflect the behavior of the real system, then they will constitute a poor source of information for bringing the model into alignment with reality.
 %
-Finally, we assume that $\eta,\delta_1,\delta_2,$ and $\epsilon$ are all mutually independent.
+Simply put, to represent reality one must train one's model on observations of reality, not on unobserved targets.
+%
+
+%
+\section{Dual calibration to target outcomes}
+%
+Given that na\"ive DCTO cannot accomplish the dual tasks of calibration and design, a different approach must be taken.
+%
+The two tasks must be separated.
+%
+An obvious choice here is to perform KOH calibration first, without involving any target outcomes, and then to use the calibrated model in order to perform CTO.
+%
+Under this approach, with observations $
+\mathbf y_r$ of the system of interest, one would employ the model described in Equation \eqref{eq:full_dist} with $\boldsymbol \theta = \boldsymbol \theta_c$ (the parameters to be calibrated) and with $\mathcal D = \mathcal D_c = (\boldsymbol\eta^T, \mathbf y_c^T)^T$.
+%
+The result would be a posterior distribution of $\boldsymbol \theta_c$ and of $\delta(\cdot)$, the systematic discrepancy between the computer model $\eta(\cdot,\cdot)$ and the true system $f(\cdot)$.
+%
+These can be used to produce estimates $\widehat{\boldsymbol\theta_c}$ and $\widehat\delta(\cdot)$ such that $f(\mathbf z)\approx\eta(\mathbf z,\widehat{\boldsymbol\theta_c})+\widehat\delta(\mathbf z)$ for all $\mathbf z$ in the domain of $f$.
+%
+The result is a calibrated model $\eta_c(\mathbf z)=\eta(\mathbf z,\widehat{\boldsymbol\theta_c})+\widehat\delta(\mathbf z)$ which can be used for CTO.
+%
+
+%
+With $\eta_c$ in hand, one can partition $\mathbf z$ into $(\mathbf x,\boldsymbol\theta_d)$ where $\boldsymbol\theta_d$ is the set of inputs over which one wishes to optimize, and $\mathbf x$ are all other inputs to the calibrated model.
+%
+We can write $\eta_c(\mathbf z)$ as $\eta_c(\mathbf x,\boldsymbol\theta_d)$.
+%
+Then one can perform CTO again using Equation \eqref{eq:full_dist}, this time with $\boldsymbol\theta = \boldsymbol\theta_d$ and $\mathcal D = \mathcal D_d = (\boldsymbol\eta_c^T,\mathbf y_d^T)^T$ where $\boldsymbol\eta_c = \boldsymbol \eta+ \widehat{\boldsymbol \delta}= \boldsymbol \eta+ (\widehat\delta(\mathbf z_1), \cdots, \widehat\delta(\mathbf z_n))^T.$
+%
+Notice that a single set of simulator runs $\boldsymbol\eta$ can be used both for KOH and for subsequent CTO.
+%
+A crucial difference between KOH and CTO is that for the CTO step one would not attempt to model any systematic discrepancy between $\eta_c$ and $f$, since an estimate of that discrepancy is already included in $\eta_c$.
+%
+For the purposes of Equation \eqref{eq:full_dist}, this amounts to setting a degenerate prior on $\phi_\delta$ at 0.
+%
+
+%
+Above, the use of CTO following KOH relies on two separate implementations of Equation \eqref{eq:full_dist}.
+%
+It will be useful to produce an integrated model which describes the use of both procedures, and which makes clear the relationship between them.
+%
+For this purpose, consider $\eta$ as having three inputs $(\mathbf x,\mathbf t_c,\mathbf t_d)$ where $\mathbf t_c$ denotes the parameters targeted for KOH calibration, $\mathbf t_d$ denotes the input settings targeted for design via CTO, and $\mathbf x$ denotes the remaining known and/or controllable inputs.
+%
+If $\eta$ can be run quickly, then we use it directly in MCMC.
+%
+However, if it is computationally expensive, we employ a surrogate by setting a Gaussian process (GP) prior on $\eta$ with mean $m_\eta(\mathbf x,\mathbf t_c,\mathbf t_d)$ and covariance function $C_0((\mathbf x,\mathbf t_c,\mathbf t_d),(\mathbf x',\mathbf t_c',\mathbf t_d'))$.
+%
+From here on in this discussion, assume that a GP surrogate is used for $\eta$.
+%
+Model the systematic discrepancy between $\eta$ and $f$ at the true value of $\mathbf t_c=\boldsymbol\theta_c$ with another GP prior $\delta(\cdot,\cdot)$ having mean $m_\delta(\mathbf x,\mathbf t_d)$ and covariance function $C_\delta((\mathbf x,\mathbf t_d),(\mathbf x',\mathbf t_d'))$.
+%
+In addition to systematic discrepancy between $\eta$ and reality, measurement error $\epsilon_r$ may be included in the model for real observations $\mathbf y_c$, and additional Gaussian observation error $\epsilon_d$ may be included for target outcomes $\mathbf y_d$.
+%
+The purpose of additional observation error $\epsilon_d$ is twofold.
+%
+Depending on the distribution of $\epsilon_c$, the target outcomes $\mathbf y_d$ may or may not be within the support of a model that lacks $\epsilon_d$.
+%
+Including $\epsilon_d$ ensures that the targets are compatible with the model.
+%
+Secondly, including $\epsilon_d$ and estimating its variance $\sigma_d^2$ provides computational benefits.
+%
+For example, even if the target outcomes are compatible with a model that does not include $\epsilon_d$, they may be extreme outliers to the extent that the relevant likelihoods are small enough to generate significant numerical errors during MCMC.
+%
+In terms of the interpretation of the model, adding $\epsilon_d$ amounts to supposing that the observations made in $\omega$ were subject to greater than usual observation error, where that additional error is distributed as $N(0,\sigma_d^2)$.
+%
+Though it is not necessary to assume that $\epsilon_c$ is Gaussian, for simplicity of presentation we assume here that it is distributed as $N(0,\sigma^2_c)$.
+%
+Finally, we assume that $\eta,\delta$, $\epsilon_c$ and $\epsilon_d$ are all mutually independent.
 %
 
 %
 A collection of simulation runs is needed to train the GP code surrogate.
 %
-Let $(\mathbf{x_s},\mathbf{t_{1s}},\mathbf{t_{2s}})$ be the design matrix for these simulation runs, and let $\mathbf{y_s}$ denote the output of these runs.
+Let $(\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}})$ be the design matrix for these simulation runs, and let $\mathbf{y_s}$ denote the output of these runs.
 %
-Similarly, let $\mathbf{y_r}$ be the real observations at $\mathbf{x_r},\mathbf{t_{2r}}$, and let $\mathbf {y_d}$ be a set of artificial ``observations'' reflecting our cost and performance targets at control settings $\mathbf {x_d}$.
+Similarly, let $\mathbf{y_c}$ be observations made at $\mathbf{x_c},\mathbf{t_{c}}$, and let $\mathbf {y_d}$ be target outcomes ``observed'' at $\mathbf {x_d}$.
 %
-Call $\mathbf{y_d}$ the {\em target outcomes}.
-%
-Finally, let $\mathbf y = (\mathbf{y_s},\mathbf{y_r},\mathbf{y_d})^T$.
+Finally, let $\mathbf y = (\mathbf{y_s}^T,\mathbf{y_c}^T,\mathbf{y_d}^T)^T$.
 %
 Then it follows that $\mathbf y\sim \mathrm{N}(\mathbf m,\mathbf C)$, where
 \[
 \mathbf m = \begin{pmatrix}
-m_0(\mathbf{x_s},\mathbf{t_{1s}},\mathbf{t_{2s}})\\
-m_0(\mathbf{x_r},\mathbf1\theta_1,\mathbf{t_{2r}}) + m_1(\mathbf{x_1},\mathbf{t_{2r}})\\
-m_0(\mathbf{x_d},\mathbf1\theta_1,\mathbf1\theta_2) + m_1(\mathbf{x_d},\mathbf1\theta_2) + m_2(\mathbf{x_d})
+m_s(\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}})\\
+m_s(\mathbf{x_c},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{d}}) + m_\delta(\mathbf{x_c},\mathbf{t_{d}})\\
+m_s(\mathbf{x_d},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T) + m_\delta(\mathbf{x_d},\mathbf1\boldsymbol\theta_c^T)
 \end{pmatrix},
 \]
 \[
@@ -150,54 +236,104 @@ m_0(\mathbf{x_d},\mathbf1\theta_1,\mathbf1\theta_2) + m_1(\mathbf{x_d},\mathbf1\
 \end{pmatrix},
 \]
 \begin{align*}
-\mathbf{C_{11}}&=C_0\left((\mathbf{x_s},\mathbf{t_{1s}},\mathbf{t_{2s}}),(\mathbf{x_s},\mathbf{t_{1s}},\mathbf{t_{2s}})\right)\\
-\mathbf{C_{21}}&=C_0\left((\mathbf{x_s},\mathbf{t_{1s}},\mathbf{t_{2s}}),(\mathbf{x_r},\mathbf1\theta_1,\mathbf{t_{2r}})\right)\\
-\mathbf{C_{31}}&=C_0\left((\mathbf{x_s},\mathbf{t_{1s}},\mathbf{t_{2s}}),(\mathbf{x_d},\mathbf1\theta_1,\mathbf1\theta_2)\right)\\
+\mathbf{C_{11}}&=C_0\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}})\right)\\
+\mathbf{C_{21}}&=C_0\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_c},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dc}})\right)\\
+\mathbf{C_{31}}&=C_0\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_d},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right)\\
 \mathbf{C_{12}}&=\mathbf{C_{21}}^T\\
-\mathbf{C_{22}}&=C_0\left((\mathbf{x_r},\mathbf1\theta_1,\mathbf{t_{2r}}),(\mathbf{x_r},\mathbf1\theta_1,\mathbf{t_{2r}})\right) + C_1\left( (\mathbf{x_r},\mathbf{t_{2r}}),(\mathbf{x_r},\mathbf{t_{2r}}) \right) + \sigma_2 \mathbf I\\
-\mathbf{C_{32}}&=C_0\left((\mathbf{x_r},\mathbf1\theta_1,\mathbf{t_{2r}}),(\mathbf{x_d},\mathbf1\theta_1,\mathbf1\theta_2)\right) + C_1\left( (\mathbf{x_r},\mathbf{t_{2r}}),(\mathbf{x_d},\mathbf1\theta_2) \right)\\
+\mathbf{C_{22}}&=C_\eta\left((\mathbf{x_c},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dc}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dc}})\right) + C_\delta\left( (\mathbf{x_c},\mathbf{t_{dc}}),(\mathbf{x_c},\mathbf{t_{dc}}) \right) + \sigma^2_c \mathbf I\\
+\mathbf{C_{32}}&=C_\eta\left((\mathbf{x_c},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dc}}),(\mathbf{x_d},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + C_\delta\left( (\mathbf{x_c},\mathbf{t_{dc}}),(\mathbf{x_d},\mathbf1\boldsymbol\theta_d^T) \right)\\
 \mathbf{C_{13}}&=\mathbf{C_{31}}^T\\
 \mathbf{C_{23}}&=\mathbf{C_{32}}^T\\
-\mathbf{C_{33}}&=C_0\left((\mathbf{x_d},\mathbf1\theta_1,\mathbf1\theta_2),(\mathbf{x_d},\mathbf1\theta_1,\mathbf1\theta_2)\right) + C_1\left( (\mathbf{x_d},\mathbf1\theta_2),(\mathbf{x_d},\mathbf1\theta_2) \right) + C_2(\mathbf{x_d},\mathbf{x_d})
+\mathbf{C_{33}}&=C_\eta\left((\mathbf{x_d},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_d},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + C_\delta\left( (\mathbf{x_d},\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_d},\mathbf1\boldsymbol\theta_d^T) \right) + \sigma^2_c\mathbf I + \sigma^2_d \mathbf I
 \end{align*}
 %
 Note that when $\mathbf{y_d}$ and $\mathbf{x_d}$ are empty and $\mathbf m, \mathbf C$ reduce respectively to their first two and upper two-by-two block elements, this is simply the KOH framework.
 %
-Thus, DCTO generalizes the KOH framework.
+Thus, this combination of KOH and CTO generalizes the KOH framework.
+%
+
+%
+This inclusive framework allows for KOH and CTO to be undertaken simultaneously.
+%
+Call this inclusive framework DCTO, for dual calibration with target outcomes.
+%
+A primary benefit of DCTO is that under this combined approach, the results of CTO include quantification of all sources of uncertainty.
+%
+By performing KOH and then subsequently undertaking CTO using static estimates $\widehat{\boldsymbol\theta_c}$ and $\widehat \delta$ from KOH, uncertainty surrounding those estimates is not included in the results of CTO.
+%
+Another benefit of the combined approach appears in cases in which $\boldsymbol\theta_c$ is suspected to be a function of $\boldsymbol\theta_d$.
+%
+In such cases, one may be interested only or primarily in the value of $\boldsymbol\theta_c$ at the optimal value of $\boldsymbol\theta_d$.
+%
+If one has the freedom to sample adaptively from the true system, then this freedom can be applied in DCTO to concentrate samples disproportionately in the region of interest.
+%
+This idea is explored further in Section XXX.
+%
+
+%
+Another crucial difference between performing CTO after KOH and performing DCTO is the role of the targets $\mathbf y_d$ in the calibration of $\boldsymbol\theta_c$.
+%
+In DCTO as described above, the likelihood of $\boldsymbol\theta_c$ is affected by $\mathbf y_d$, whereas in KOH $\mathbf y_d$ is not included in the model and hence cannot affect the distribution of $\boldsymbol\theta_c$.
+%
+This is a point in favor of performing KOH separate from CTO, as $\mathbf y_d$ is artificial data and cannot plausibly serve as a source of information about the correct value of $\boldsymbol\theta_c$.
+%
+A similar issue affects CTO when an emulator is used.
+%
+In KOH, the hyperparameters of an emulator may be estimated prior to calibration (e.g. via maximum likelihood), or else one may set priors for these hyperparameters and sample from their posteriors during the calibration process.
+%
+If the latter route is chosen for CTO, then one would again face a situation in which learning about real quantities from artificial data.
+%
+The hyperparameters of the GP emulating $\eta$ should be estimated using observations of $\eta$ and of the real process that $\eta$ simulates.
+%
+The solution in the case of CTO is to employ some form of modularity \citep{Liu2009}.
+%
+A modular analysis intentionally falls short of being a full Bayesian analysis, either for computational benefits, or to quarantine ``suspect'' aspects of the model.
+%
+The target outcomes $\mathbf y_d$ are precisely such a suspect source of Bayesian learning---they are by their nature extreme outliers, and hence are a poor guide both for estimating the hyperparameters of the GP emulator and for estimating the parameter $\boldsymbol\theta_c$.
+%
+In CTO, modularization with respect to the GP hyperparameters typically takes the form of producing maximum likelihood estimates of the GP hyperparameters and using those in lieu of setting priors and exploring a posterior distribution.
+%
+Modularization with respect to $\boldsymbol\theta_c$ is implicit in the fact that an estimate $\widehat{\boldsymbol\theta_c}$ is used in CTO after KOH.
+%
+DCTO can similarly modularize simply by refraining from including $\mathbf y_d$ in the updates of $\boldsymbol\theta_c$ during MCMC.
+%
+That is, rather than calculating the likelihood of a proposed sample $t_c^{(i+1)}$ at step $i$ of the MCMC using $\mathbf y = (\mathbf y_s^T, \mathbf y_c^T, \mathbf y_d^T)^T$, one can instead calculate its likelihood using only $\mathbf y_r = (\mathbf y_s^T, \mathbf y_c^T)\sim N(\mathbf m_r,\mathbf C_r)$, where $\mathbf m_r$ and $\mathbf C_r$ are respectively the upper two and upper-left two-by-two components of $\mathbf m$ and $\mathbf C$.
+%
+Such modularization ensures that all Bayesian learning of $\boldsymbol\theta_c$ is based upon the real observations rather than upon $\mathbf y_d$.
 %
 
 %
 \section{Example with simulated data}
 %
-Consider the function of three inputs $f(x,t_1,t_2) = x / (t_2^{t_1-1}\exp(-0.75t_2)+1)$. 
+Consider the function of three inputs $\eta(x,t_c,t_d) = x / (t_d^{t_c-1}\exp(-0.75t_d)+1)$. 
 %
-Figure \ref{fig:example_output} shows the output of this function for $x=1$ over the range $(t_1,t_2)\in[1.5,4.5]\times[0,5]$.
+Figure \ref{fig:example_output} shows the output of this function for $x=1$ over the range $(t_c,t_d)\in[1.5,4.5]\times[0,5]$.
 %
 \begin{figure}
 \centering
 \includegraphics[scale=0.85]{FIG_obj_fn}
 \captionsetup{width=.85\linewidth}
-\caption{Example computer model output over the support of the calibration parameter $t_1$ and the design parameter $t_2$.}
+\caption{Example computer model output over the support of the calibration parameter $t_c$ and the design parameter $t_d$.}
 \label{fig:example_output}
 \end{figure}
 %
-We arbitrarily set $\theta_1=2$ to be the ``true'' value of $t_1$.
+We arbitrarily set $\theta_c=2$ to be the ``true'' value of $t_c$.
 %
-For any value of $x$ and $t_1$, the optimal (minimizing) value of $t_2$ is $(4/3)(t_1-1)$, so we have $\theta_2=4/3.$
+For any value of $x$ and $t_c$, the optimal (minimizing) value of $t_d$ is $(4/3)(t_c-1)$, so we have $\theta_d=4/3.$
 %
-Figure \ref{fig:true_vals} shows the locations of the true and optimal values (respectively) of $\theta_1$ and $\theta_2$.
+Figure \ref{fig:true_vals} shows the locations of the true and optimal values (respectively) of $\theta_c$ and $\theta_d$.
 %
 \begin{figure}
 \centering
 \includegraphics[scale=0.85]{FIG_true_optimal_theta1_theta2}
  	\captionsetup{width=.85\linewidth}
-\caption{The lefthand plot shows the computer model output at $x=1$ and optimal $\theta_2$ for each value of the calibration parameter $t_1$ The righthand plot show the model output at $x=1,t_1=\theta_1$ for each value of the design parameter $t_2$.}
+\caption{The lefthand plot shows the computer model output at $x=1$ and optimal $\theta_d$ for each value of the calibration parameter $t_c$. The righthand plot show the model output at $x=1,t_c=\theta_c$ for each value of the design parameter $t_d$.}
 \label{fig:true_vals}
 \end{figure}
 %
-There it is clear that the true value of $\theta_1$ is far from optimal -- if this value were within our control, its optimal value would be at the upper end of its support, at 4.5.
+There it is clear that the true value of $\theta_c$ is far from optimal -- if this value were within our control, its optimal value would be at the upper end of its support, at 4.5.
 %
-Thus $f$ showcases the ability of DCTO to perform simultaneously both calibration and design in the case when our ``truth-seeking'' goals and our design goals are in tension.
+Thus $\eta$ showcases the ability of DCTO to perform simultaneously both calibration and design in the case when our ``truth-seeking'' goals and our design goals are in tension.
 %
 
 %
@@ -205,58 +341,64 @@ Thus $f$ showcases the ability of DCTO to perform simultaneously both calibratio
 % 
 We used DCTO on four versions of the problem.
 %
-First, we assumed that $f$ is free from discrepancy -- i.e. that $f(x,\theta_1,t_2)$ is an unbiased estimator of the ``true'' system $g(x,t_2)$.
+First, we assumed that $\eta$ is free from discrepancy -- i.e. that $\eta(x,\theta_c,t_d)$ is an unbiased estimator of the ``true'' system $f(x,t_d)$.
 %
-The other three versions each assume that $f$ suffers from some form of discrepancy.
+The other three versions each assume that $\eta$ suffers from some form of discrepancy.
 %
-Let $g_1,g_2,g_3$ denote the ``true'' systems in these three cases.
+Let $f_1,f_2,f_3$ denote the ``true'' systems in these three cases.
 %
 We set 
 \begin{align*}
-g_1(x,t_2) &= f(x,\theta_1,t_2) \left(1-c(x-.5)(x-1)/x) \right) \\
-g_2(x,t_2)&= f(x,\theta_1,t_2) - c(x-.5)(x-1)\left(t_2-\frac43\right)^2 + d\\
-g_3(x,t_2)&=f(x,\theta_1,t_2) + cxt_2+d
+f_1(x,t_d) &= \eta(x,\theta_c,t_d) \left(1-a(x-.5)(x-1)/x) \right) \\
+f_2(x,t_d)&= \eta(x,\theta_c,t_d) - a(x-.5)(x-1)\left(t_d-\frac43\right)^2 + b\\
+f_3(x,t_d)&=\eta(x,\theta_c,t_d) + axt_d+b
 \end{align*}
 %
-Where $c,d$ are constants which determine how severe the discrepancy is in each case.
+Where $a,b$ are constants which determine how severe the discrepancy is in each case.
 %
-The function $g_1$ has a multiplicative discrepancy dependent only on $x$. 
+The function $f_1$ has a multiplicative discrepancy dependent only on $x$. 
 %
-This discrepancy does not affect the optimal value of $t_2$.  The discrepancy of $g_2$ is additive, and is dependent upon both $x$ and $\theta_1$. 
+This discrepancy does not affect the optimal value of $t_d$.  
 %
-Though this discrepancy can affect the optimal value of $t_2$, in the case that $\theta_1=2$ (which is what we assume to be the truth) it does not.
+The discrepancy of $f_2$ is additive, and is dependent upon both $x$ and $\theta_c$. 
 %
-Thus under $g_1$ and $g_2$, it remains the case that the optimal value of $t_2$ is $\theta_2=4/3$. 
+Though this discrepancy can affect the optimal value of $t_d$, in the case that $\theta_c=2$ (which is what we assume to be the truth) it does not.
 %
-By contrast, $g_3$ has an additive discrepancy which does affect the optimal setting for $t_2$. 
+Thus under $f_1$ and $f_2$, it remains the case that the optimal value of $t_d$ is $\theta_d=4/3$. 
 %
-For $g_3$, optimal $t_2$ is dependent upon both the true value of $\theta_1$ and upon the value of $c$. 
+By contrast, $f_3$ has an additive discrepancy which does affect the optimal setting for $t_d$. 
 %
-For example, for $\theta_1=2$ and $c=0.055$, the optimal $t_2$ is $\theta_2\approx1$.
+For $f_3$, optimal $t_d$ is dependent upon both the true value of $\theta_c$ and upon the value of $a$. 
 %
-Figure \ref{fig:discrepancies} shows the discrepancies for two different versions (corresponding to different settings of $(c,d)$) of each $g_i$.
+For example, for $\theta_c=2$ and $a=0.055$, the optimal $t_d$ is $\theta_d\approx1$.
+%
+Figure \ref{fig:discrepancies} shows the discrepancies for two different versions (corresponding to different settings of $(a,b)$) of each $f_i$.
 %
 \begin{figure}
 \centering
 \includegraphics[scale=0.85]{FIG_six_discrepancies}
 \captionsetup{width=.85\linewidth}
-\caption{The $i^{\text{th}}$ row shows $g_i$ (the objective function with discrepancy), $f$ (the computer model), and the discrepancy $g_i-f$, all at $x=0.75$. In each row, a less aggressive version of the discrepancy appears on the left, and a more aggressive on the right. In each plot, the topmost surface is $g_i$, the middle surface is $f$, and the bottom surface is the discrepancy $g_i-f$.}
+\caption{The $i^{\text{th}}$ row shows $f_i$ (the objective function with discrepancy), $\eta$ (the computer model), and the discrepancy $f_i-\eta$, all at $x=0.75$. In each row, a less aggressive version of the discrepancy appears on the left, and a more aggressive on the right. In each plot, the topmost surface is $f_i$, the middle surface is $\eta$, and the bottom surface is the discrepancy $f_i-\eta$.}
 \label{fig:discrepancies}
 \end{figure}
 %
 
 %
-We applied DCTO to each of seven cases: the non-discrepancy case, and the two different versions of each $g_i$ shown in Figure \ref{fig:discrepancies}.
+We applied DCTO to each of seven cases: the non-discrepancy case, and the two different versions of each $f_i$ shown in Figure \ref{fig:discrepancies}.
 %
 We found that in these cases, no appreciable difference resulted from the decision of whether or not to use an emulator (where the emulator was trained on a latin hypercube design of 250 points on the space of model inputs).
 %
 Therefore, the results reported here do not employ an emulator.
 %
-In each case, we gathered 50 ``observations'' of $g_i$ on a latin hypercube design over the supports of $x$ and $\theta_2$, setting $\theta_1$ equal to its ``true'' value of 2.
+In each case, we gathered 50 ``observations'' of $f_i$ on a latin hypercube design over the supports of $x$ and $\theta_d$, setting $\theta_c$ equal to its ``true'' value of 2.
 %
 After standardizing the response to have mean 0 and standard deviation 1, we added i.i.d.\ N(0,0.05) noise to the response.
 %
-We then carried out DCTO using Metropolis-Hastings-within-Gibbs MCMC, drawing 8000 samples each of $t_1,t_2,\boldsymbol\rho_{\delta_1},\lambda_{\delta_1},\rho_{\delta_2},\lambda_{\delta_2}$, where the latter four are the hyperparameters of the product power exponential covariance functions $C_1$ and $C_2$.
+We then carried out DCTO using Metropolis-Hastings-within-Gibbs MCMC, drawing 8000 samples each of $t_c,t_d,\boldsymbol\rho_{\delta},\lambda_{\delta},\sigma^2_d$, where $\boldsymbol\phi_\delta = (\boldsymbol\rho_\delta^T,\lambda_\delta)^T$.
+%
+We modularized the analysis by drawing each of $\boldsymbol\theta_c,\boldsymbol\rho_\delta,\lambda_\delta$ using the likelihood based only on $\mathbf y_r$ rather than on $\mathbf y$.
+%
+
 %
 In order to evaluate the success of the calibration component of DCTO, we also carried out a two-step procedure of using traditional KOH calibration of $\theta_1$, followed by a second step using CTO to obtain a distribution of $\theta_2$. 
 %In the first step of this KOH+CTO procedure, we re-running the procedure with $\mathbf{x_d},\mathbf{y_d}$ as empty (null) vectors, followed by CTO calibration of $\theta_2$ using the 

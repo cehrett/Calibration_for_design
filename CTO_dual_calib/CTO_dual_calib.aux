@@ -2,34 +2,38 @@
 \citation{kennedy2001}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}}
 \newlabel{introduction}{{1}{2}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}The model}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Example computer model output over the support of the calibration parameter $t_1$ and the design parameter $t_2$.\relax }}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Na\"ive DCTO}{2}}
+\newlabel{eq:full_dist}{{1}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Dual calibration to target outcomes}{4}}
+\citation{Liu2009}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Example with simulated data}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Example computer model output over the support of the calibration parameter $t_c$ and the design parameter $t_d$.\relax }}{10}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:example_output}{{1}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Example with simulated data}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The lefthand plot shows the computer model output at $x=1$ and optimal $\theta _2$ for each value of the calibration parameter $t_1$ The righthand plot show the model output at $x=1,t_1=\theta _1$ for each value of the design parameter $t_2$.\relax }}{6}}
-\newlabel{fig:true_vals}{{2}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Results}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The $i^{\text  {th}}$ row shows $g_i$ (the objective function with discrepancy), $f$ (the computer model), and the discrepancy $g_i-f$, all at $x=0.75$. In each row, a less aggressive version of the discrepancy appears on the left, and a more aggressive on the right. In each plot, the topmost surface is $g_i$, the middle surface is $f$, and the bottom surface is the discrepancy $g_i-f$.\relax }}{8}}
-\newlabel{fig:discrepancies}{{3}{8}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Prior and posterior distributions of the calibration parameter $\theta _1$ and design parameter $\theta _2$, along with their true/optimal values, for DCTO and KOH+CTO carried out when there is no discrepancy between the true system and the computer model.\relax }}{9}}
-\newlabel{fig:no_discrep_results}{{4}{9}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Prior and posterior distributions of the calibration parameter $\theta _1$ and design parameter $\theta _2$, along with their true/optimal values, for DCTO and KOH+CTO in the case of true systems $g_1$. The top row corresponds to a smaller discrepancy, with $c=1.5$; the bottom row corresponds to a larger discrepancy, with $c=3.5$.\relax }}{10}}
-\newlabel{fig:1_discrep_results}{{5}{10}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Prior and posterior distributions of the calibration parameter $\theta _1$ and design parameter $\theta _2$, along with their true/optimal values, for DCTO and KOH+CTO in the case of true systems $g_2$. The top row corresponds to a smaller discrepancy, with $(c,d)=(.15,.075)$; the bottom row corresponds to a larger discrepancy, with $(c,d)=(.65,.075)$.\relax }}{11}}
-\newlabel{fig:2_discrep_results}{{6}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Prior and posterior distributions of the calibration parameter $\theta _1$ and design parameter $\theta _2$, along with their true/optimal values, for DCTO and KOH+CTO in the case of true systems $g_3$. The top row corresponds to a smaller discrepancy, with $(c,d)=(.055,0)$; the bottom row corresponds to a larger discrepancy, with $(c,d)=(.055,.1)$.\relax }}{13}}
-\newlabel{fig:3_discrep_results}{{7}{13}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Prior and posterior distributions of the calibration parameter $\theta _1$ and design parameter $\theta _2$, along with their true/optimal values, for DCTO ond KOH in the case of true systems $g_3$ with $(c,d)=(.055,0)$ and an informative prior for $\delta _1$.\relax }}{14}}
-\newlabel{fig:3_informative_discrep_results}{{8}{14}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$. The red KOH+CTO and blue DCTO distributions overlap almost perfectly, but in all cases except the bottom middle plot, DCTO peaks just slightly above KOH+CTO.\relax }}{16}}
-\newlabel{fig:01_post_dist}{{9}{16}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$.\relax }}{17}}
-\newlabel{fig:2_post_dist}{{10}{17}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$.\relax }}{19}}
-\newlabel{fig:3_post_dist}{{11}{19}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Posterior variances and mean absolute deviations for the calibration variable $\theta _1$ and the design variable $\theta _2$. The estimator $\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle \theta _i$}\mathaccent "0362{\theta _i}$ is the posterior mean of $t_i$. The final line in each table gives the results for the use of an informative prior for the discrepancy of $g_3$ with $(c,d)=(0,.055)$.\relax }}{20}}
-\newlabel{table:vars_and_ads}{{1}{20}}
+\newlabel{fig:example_output}{{1}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The lefthand plot shows the computer model output at $x=1$ and optimal $\theta _d$ for each value of the calibration parameter $t_c$. The righthand plot show the model output at $x=1,t_c=\theta _c$ for each value of the design parameter $t_d$.\relax }}{10}}
+\newlabel{fig:true_vals}{{2}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Results}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The $i^{\text  {th}}$ row shows $f_i$ (the objective function with discrepancy), $\eta $ (the computer model), and the discrepancy $f_i-\eta $, all at $x=0.75$. In each row, a less aggressive version of the discrepancy appears on the left, and a more aggressive on the right. In each plot, the topmost surface is $f_i$, the middle surface is $\eta $, and the bottom surface is the discrepancy $f_i-\eta $.\relax }}{12}}
+\newlabel{fig:discrepancies}{{3}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Prior and posterior distributions of the calibration parameter $\theta _1$ and design parameter $\theta _2$, along with their true/optimal values, for DCTO and KOH+CTO carried out when there is no discrepancy between the true system and the computer model.\relax }}{14}}
+\newlabel{fig:no_discrep_results}{{4}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Prior and posterior distributions of the calibration parameter $\theta _1$ and design parameter $\theta _2$, along with their true/optimal values, for DCTO and KOH+CTO in the case of true systems $g_1$. The top row corresponds to a smaller discrepancy, with $c=1.5$; the bottom row corresponds to a larger discrepancy, with $c=3.5$.\relax }}{15}}
+\newlabel{fig:1_discrep_results}{{5}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Prior and posterior distributions of the calibration parameter $\theta _1$ and design parameter $\theta _2$, along with their true/optimal values, for DCTO and KOH+CTO in the case of true systems $g_2$. The top row corresponds to a smaller discrepancy, with $(c,d)=(.15,.075)$; the bottom row corresponds to a larger discrepancy, with $(c,d)=(.65,.075)$.\relax }}{16}}
+\newlabel{fig:2_discrep_results}{{6}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Prior and posterior distributions of the calibration parameter $\theta _1$ and design parameter $\theta _2$, along with their true/optimal values, for DCTO and KOH+CTO in the case of true systems $g_3$. The top row corresponds to a smaller discrepancy, with $(c,d)=(.055,0)$; the bottom row corresponds to a larger discrepancy, with $(c,d)=(.055,.1)$.\relax }}{17}}
+\newlabel{fig:3_discrep_results}{{7}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Prior and posterior distributions of the calibration parameter $\theta _1$ and design parameter $\theta _2$, along with their true/optimal values, for DCTO ond KOH in the case of true systems $g_3$ with $(c,d)=(.055,0)$ and an informative prior for $\delta _1$.\relax }}{19}}
+\newlabel{fig:3_informative_discrep_results}{{8}{19}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$. The red KOH+CTO and blue DCTO distributions overlap almost perfectly, but in all cases except the bottom middle plot, DCTO peaks just slightly above KOH+CTO.\relax }}{20}}
+\newlabel{fig:01_post_dist}{{9}{20}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$.\relax }}{21}}
+\newlabel{fig:2_post_dist}{{10}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$.\relax }}{23}}
+\newlabel{fig:3_post_dist}{{11}{23}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Posterior variances and mean absolute deviations for the calibration variable $\theta _1$ and the design variable $\theta _2$. The estimator $\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle \theta _i$}\mathaccent "0362{\theta _i}$ is the posterior mean of $t_i$. The final line in each table gives the results for the use of an informative prior for the discrepancy of $g_3$ with $(c,d)=(0,.055)$.\relax }}{24}}
+\newlabel{table:vars_and_ads}{{1}{24}}
 \bibstyle{Chicago}
 \bibdata{lit_review}
 \bibcite{kennedy2001}{{1}{2001}{{Kennedy and O'Hagan}}{{Kennedy and O'Hagan}}}
+\bibcite{Liu2009}{{2}{2009}{{Liu et~al.}}{{Liu, Bayarri, and Berger}}}
