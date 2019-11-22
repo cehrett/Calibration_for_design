@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.2)  14 NOV 2019 11:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.2)  21 NOV 2019 16:15
 entering extended mode
 **./CTO_dual_calib.tex
 (CTO_dual_calib.tex
@@ -143,7 +143,11 @@ Package caption3 Info: TeX engine: e-TeX on input line 67.
 )
 \c@ContinuedFloat=\count100
 )
-(CTO_dual_calib.aux)
+(CTO_dual_calib.aux
+
+LaTeX Warning: Label `fig:no_discrep_results' multiply defined.
+
+)
 \openout1 = `CTO_dual_calib.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
@@ -158,8 +162,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
 LaTeX Font Info:    ... okay on input line 26.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
 LaTeX Font Info:    ... okay on input line 26.
-
-(C:\Users\carle\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+ (C:\Users\carle\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count101
 \scratchdimen=\dimen121
@@ -272,159 +275,162 @@ File: FIG_six_discrepancies.png Graphic file (type png)
 Package pdftex.def Info: FIG_six_discrepancies.png  used on input line 379.
 (pdftex.def)             Requested size: 345.64496pt x 416.08444pt.
  [11] [12 <./FIG_six_discrepancies.png (PNG copy)>]
-<FIG_KOHCTO_DCTO_comp_discrep0_results.png, id=57, 362.47922pt x 182.93344pt>
-File: FIG_KOHCTO_DCTO_comp_discrep0_results.png Graphic file (type png)
-<use FIG_KOHCTO_DCTO_comp_discrep0_results.png>
-Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep0_results.png  used on inp
-ut line 416.
-(pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
+Package epstopdf Info: Source file: <FIG_dual_calib_post_theta1-d0.eps>
+(epstopdf)                    date: 2019-11-21 09:28:10
+(epstopdf)                    size: 100677 bytes
+(epstopdf)             Output file: <FIG_dual_calib_post_theta1-d0-eps-converte
+d-to.pdf>
+(epstopdf)                    date: 2019-11-21 09:41:50
+(epstopdf)                    size: 96611 bytes
+(epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_post_theta1-
+d0-eps-converted-to.pdf FIG_dual_calib_post_theta1-d0.eps>
+(epstopdf)             \includegraphics on input line 416.
+Package epstopdf Info: Output file is already uptodate.
+<FIG_dual_calib_post_theta1-d0-eps-converted-to.pdf, id=57, 226.8475pt x 151.56
+625pt>
+File: FIG_dual_calib_post_theta1-d0-eps-converted-to.pdf Graphic file (type pdf
+)
+<use FIG_dual_calib_post_theta1-d0-eps-converted-to.pdf>
+Package pdftex.def Info: FIG_dual_calib_post_theta1-d0-eps-converted-to.pdf  us
+ed on input line 416.
+(pdftex.def)             Requested size: 192.82127pt x 128.83191pt.
+Package epstopdf Info: Source file: <FIG_dual_calib_post_theta2-d0.eps>
+(epstopdf)                    date: 2019-11-21 09:28:10
+(epstopdf)                    size: 98840 bytes
+(epstopdf)             Output file: <FIG_dual_calib_post_theta2-d0-eps-converte
+d-to.pdf>
+(epstopdf)                    date: 2019-11-21 09:41:52
+(epstopdf)                    size: 96490 bytes
+(epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_post_theta2-
+d0-eps-converted-to.pdf FIG_dual_calib_post_theta2-d0.eps>
+(epstopdf)             \includegraphics on input line 417.
+Package epstopdf Info: Output file is already uptodate.
+<FIG_dual_calib_post_theta2-d0-eps-converted-to.pdf, id=58, 226.8475pt x 151.56
+625pt>
+File: FIG_dual_calib_post_theta2-d0-eps-converted-to.pdf Graphic file (type pdf
+)
+<use FIG_dual_calib_post_theta2-d0-eps-converted-to.pdf>
+Package pdftex.def Info: FIG_dual_calib_post_theta2-d0-eps-converted-to.pdf  us
+ed on input line 417.
+(pdftex.def)             Requested size: 192.82127pt x 128.83191pt.
 
 [13]
-<FIG_KOHCTO_DCTO_comp_discrep1_results.png, id=62, 362.47922pt x 182.93344pt>
-File: FIG_KOHCTO_DCTO_comp_discrep1_results.png Graphic file (type png)
-<use FIG_KOHCTO_DCTO_comp_discrep1_results.png>
-Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep1_results.png  used on inp
-ut line 436.
-(pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
-<FIG_KOHCTO_DCTO_comp_discrep2_results.png, id=63, 362.47922pt x 182.93344pt>
-File: FIG_KOHCTO_DCTO_comp_discrep2_results.png Graphic file (type png)
-<use FIG_KOHCTO_DCTO_comp_discrep2_results.png>
-Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep2_results.png  used on inp
-ut line 437.
-(pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
-<FIG_KOHCTO_DCTO_comp_discrep3_results.png, id=64, 362.47922pt x 182.93344pt>
-File: FIG_KOHCTO_DCTO_comp_discrep3_results.png Graphic file (type png)
-<use FIG_KOHCTO_DCTO_comp_discrep3_results.png>
-Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep3_results.png  used on inp
-ut line 445.
-(pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
-<FIG_KOHCTO_DCTO_comp_discrep4_results.png, id=65, 362.47922pt x 182.93344pt>
-File: FIG_KOHCTO_DCTO_comp_discrep4_results.png Graphic file (type png)
-<use FIG_KOHCTO_DCTO_comp_discrep4_results.png>
-Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep4_results.png  used on inp
-ut line 446.
-(pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
- [14 <./FIG_KOHCTO_DCTO_comp_discrep0_results.png (PNG copy)>] [15 <./FIG_KOHCT
-O_DCTO_comp_discrep1_results.png (PNG copy)> <./FIG_KOHCTO_DCTO_comp_discrep2_r
-esults.png (PNG copy)>] [16 <./FIG_KOHCTO_DCTO_comp_discrep3_results.png (PNG c
-opy)> <./FIG_KOHCTO_DCTO_comp_discrep4_results.png (PNG copy)>]
-<FIG_KOHCTO_DCTO_comp_discrep5_results.png, id=75, 362.47922pt x 182.93344pt>
-File: FIG_KOHCTO_DCTO_comp_discrep5_results.png Graphic file (type png)
-<use FIG_KOHCTO_DCTO_comp_discrep5_results.png>
-Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep5_results.png  used on inp
-ut line 476.
-(pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
-<FIG_KOHCTO_DCTO_comp_discrep6_results.png, id=76, 362.47922pt x 182.93344pt>
-File: FIG_KOHCTO_DCTO_comp_discrep6_results.png Graphic file (type png)
-<use FIG_KOHCTO_DCTO_comp_discrep6_results.png>
-Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep6_results.png  used on inp
-ut line 477.
-(pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
- [17 <./FIG_KOHCTO_DCTO_comp_discrep5_results.png (PNG copy)> <./FIG_KOHCTO_DCT
-O_comp_discrep6_results.png (PNG copy)>]
-<FIG_KOHCTO_DCTO_comp_discrep5_inf_results.png, id=80, 362.47922pt x 182.93344p
-t>
-File: FIG_KOHCTO_DCTO_comp_discrep5_inf_results.png Graphic file (type png)
-<use FIG_KOHCTO_DCTO_comp_discrep5_inf_results.png>
-Package pdftex.def Info: FIG_KOHCTO_DCTO_comp_discrep5_inf_results.png  used on
- input line 511.
-(pdftex.def)             Requested size: 308.10878pt x 155.49414pt.
- [18]
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png, id=84, 470.50781pt x 161.47829pt>
-
-File: FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png Graphic file (type png)
-<use FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png>
-Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep0.png  used on i
-nput line 533.
-(pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep1.png, id=85, 470.50781pt x 161.47829pt>
-
-File: FIG_DCTO_KOHCTO_post_pred_dist_discrep1.png Graphic file (type png)
-<use FIG_DCTO_KOHCTO_post_pred_dist_discrep1.png>
-Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep1.png  used on i
-nput line 535.
-(pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep2.png, id=86, 470.50781pt x 161.47829pt>
-
-File: FIG_DCTO_KOHCTO_post_pred_dist_discrep2.png Graphic file (type png)
-<use FIG_DCTO_KOHCTO_post_pred_dist_discrep2.png>
-Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep2.png  used on i
-nput line 537.
-(pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png, id=87, 470.50781pt x 161.47829pt>
-
-File: FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png Graphic file (type png)
-<use FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png>
-Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png  used on i
-nput line 557.
-(pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep4.png, id=88, 470.50781pt x 161.47829pt>
-
-File: FIG_DCTO_KOHCTO_post_pred_dist_discrep4.png Graphic file (type png)
-<use FIG_DCTO_KOHCTO_post_pred_dist_discrep4.png>
-Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep4.png  used on i
-nput line 559.
-(pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
- [19 <./FIG_KOHCTO_DCTO_comp_discrep5_inf_results.png (PNG copy)>] [20 <./FIG_D
-CTO_KOHCTO_post_pred_dist_discrep0.png (PNG copy)> <./FIG_DCTO_KOHCTO_post_pred
-_dist_discrep1.png (PNG copy)> <./FIG_DCTO_KOHCTO_post_pred_dist_discrep2.png (
-PNG copy)>]
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png, id=96, 470.50781pt x 161.47829pt>
-
-File: FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png Graphic file (type png)
-<use FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png>
-Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png  used on i
-nput line 584.
-(pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf.png, id=97, 470.50781pt x 161.4782
-9pt>
-File: FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf.png Graphic file (type png)
-<use FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf.png>
-Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf.png  used 
-on input line 586.
-(pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
-<FIG_DCTO_KOHCTO_post_pred_dist_discrep6.png, id=98, 470.50781pt x 161.47829pt>
-
-File: FIG_DCTO_KOHCTO_post_pred_dist_discrep6.png Graphic file (type png)
-<use FIG_DCTO_KOHCTO_post_pred_dist_discrep6.png>
-Package pdftex.def Info: FIG_DCTO_KOHCTO_post_pred_dist_discrep6.png  used on i
-nput line 588.
-(pdftex.def)             Requested size: 399.93352pt x 137.25717pt.
- [21 <./FIG_DCTO_KOHCTO_post_pred_dist_discrep3.png (PNG copy)> <./FIG_DCTO_KOH
-CTO_post_pred_dist_discrep4.png (PNG copy)>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 601.
+               Default added (so using `tbp') on input line 437.
 
-[22] [23 <./FIG_DCTO_KOHCTO_post_pred_dist_discrep5.png (PNG copy)> <./FIG_DCTO
-_KOHCTO_post_pred_dist_discrep5_inf.png (PNG copy)> <./FIG_DCTO_KOHCTO_post_pre
-d_dist_discrep6.png (PNG copy)>] [24] (CTO_dual_calib.bbl) [25]
-(CTO_dual_calib.aux) ) 
+[14 <./FIG_dual_calib_post_theta1-d0-eps-converted-to.pdf> <./FIG_dual_calib_po
+st_theta2-d0-eps-converted-to.pdf>] [15]
+Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d0.eps>
+(epstopdf)                    date: 2019-11-21 16:10:08
+(epstopdf)                    size: 100752 bytes
+(epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta1-d0-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2019-11-21 16:15:42
+(epstopdf)                    size: 97465 bytes
+(epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
+eta1-d0-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d0.eps>
+(epstopdf)             \includegraphics on input line 496.
+Package epstopdf Info: Output file is already uptodate.
+<FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-to.pdf, id=117, 226.8475pt x 
+151.56625pt>
+File: FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-to.pdf Graphic file (typ
+e pdf)
+<use FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-to.pdf>
+Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-to.pd
+f  used on input line 496.
+(pdftex.def)             Requested size: 192.82127pt x 128.83191pt.
+Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d0.eps>
+(epstopdf)                    date: 2019-11-21 16:10:09
+(epstopdf)                    size: 101172 bytes
+(epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta2-d0-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2019-11-21 16:15:43
+(epstopdf)                    size: 96922 bytes
+(epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
+eta2-d0-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d0.eps>
+(epstopdf)             \includegraphics on input line 497.
+Package epstopdf Info: Output file is already uptodate.
+<FIG_dual_calib_SDOE_comp_theta2-d0-eps-converted-to.pdf, id=118, 226.8475pt x 
+151.56625pt>
+File: FIG_dual_calib_SDOE_comp_theta2-d0-eps-converted-to.pdf Graphic file (typ
+e pdf)
+<use FIG_dual_calib_SDOE_comp_theta2-d0-eps-converted-to.pdf>
+Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d0-eps-converted-to.pd
+f  used on input line 497.
+(pdftex.def)             Requested size: 192.82127pt x 128.83191pt.
+Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d1.eps>
+(epstopdf)                    date: 2019-11-21 16:10:16
+(epstopdf)                    size: 103621 bytes
+(epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta1-d1-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2019-11-21 16:15:45
+(epstopdf)                    size: 97753 bytes
+(epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
+eta1-d1-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d1.eps>
+(epstopdf)             \includegraphics on input line 498.
+Package epstopdf Info: Output file is already uptodate.
+<FIG_dual_calib_SDOE_comp_theta1-d1-eps-converted-to.pdf, id=119, 226.8475pt x 
+151.56625pt>
+File: FIG_dual_calib_SDOE_comp_theta1-d1-eps-converted-to.pdf Graphic file (typ
+e pdf)
+<use FIG_dual_calib_SDOE_comp_theta1-d1-eps-converted-to.pdf>
+Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d1-eps-converted-to.pd
+f  used on input line 498.
+(pdftex.def)             Requested size: 192.82127pt x 128.83191pt.
+Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d1.eps>
+(epstopdf)                    date: 2019-11-21 16:10:16
+(epstopdf)                    size: 102619 bytes
+(epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta2-d1-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2019-11-21 16:15:46
+(epstopdf)                    size: 97451 bytes
+(epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
+eta2-d1-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d1.eps>
+(epstopdf)             \includegraphics on input line 499.
+Package epstopdf Info: Output file is already uptodate.
+<FIG_dual_calib_SDOE_comp_theta2-d1-eps-converted-to.pdf, id=120, 226.8475pt x 
+151.56625pt>
+File: FIG_dual_calib_SDOE_comp_theta2-d1-eps-converted-to.pdf Graphic file (typ
+e pdf)
+<use FIG_dual_calib_SDOE_comp_theta2-d1-eps-converted-to.pdf>
+Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d1-eps-converted-to.pd
+f  used on input line 499.
+(pdftex.def)             Requested size: 192.82127pt x 128.83191pt.
+ (CTO_dual_calib.bbl [16 <./FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-to
+.pdf> <./FIG_dual_calib_SDOE_comp_theta2-d0-eps-converted-to.pdf> <./FIG_dual_c
+alib_SDOE_comp_theta1-d1-eps-converted-to.pdf> <./FIG_dual_calib_SDOE_comp_thet
+a2-d1-eps-converted-to.pdf>]) [17]
+(CTO_dual_calib.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4009 strings out of 493305
- 60841 string characters out of 3138875
- 123447 words of memory out of 3000000
- 7482 multiletter control sequences out of 15000+200000
- 16810 words of font info for 63 fonts, out of 3000000 for 9000
+ 3971 strings out of 493305
+ 58898 string characters out of 3138875
+ 122421 words of memory out of 3000000
+ 7441 multiletter control sequences out of 15000+200000
+ 18365 words of font info for 69 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,13n,39p,556b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8
-.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:
-/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program
- Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C
-:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program
- Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on CTO_dual_calib.pdf (25 pages, 988753 bytes).
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/P
+rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program F
+iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmti12.pfb>
+Output written on CTO_dual_calib.pdf (17 pages, 1100145 bytes).
 PDF statistics:
- 162 PDF objects out of 1000 (max. 8388607)
+ 270 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 96 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

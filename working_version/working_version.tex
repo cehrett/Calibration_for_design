@@ -194,7 +194,7 @@ Firstly, one's focus may be on finding solutions that are robust to small pertur
 %
 Alternatively, rather than seeking robust solutions, one could endeavor simply to quantify the resulting uncertainty in the model outputs, again through resampling around points of interest \citep{Zhou2011}.
 %
-Our focus is on the latter of these two goals, though the posterior distributions our method also provides include information about the sensitivity of the model output to the various model inputs, and thereby provides information about the robustness of the estimated optima.
+Our focus is on the latter of these two goals, though the posterior distributions our method provides include information about the sensitivity of the model output to the various model inputs, and thereby provides information about the robustness of the estimated optima.
 %
 Since we are concerned with computationally expensive objective functions, our method also avoids resampling, which can add prodigiously to the computational expense of an optimization procedure.
 %
@@ -226,9 +226,9 @@ The acceptance rate and the variance of the distribution depend upon a user-defi
 %
 The resulting posterior distribution includes uncertainty quantification.
 %
-The uncertainty quantified here is the uncertainty remaining in the distribution designed by the authors, which is not itself part of the modeled phenomenon.
+The uncertainty quantified in that approach is the uncertainty remaining in the distribution designed by the authors; this distribution does not itself come from the model of the phenomenon of interest.
 %
-By contrast, under our approach, the distribution explored via MCMC is dictated by the model itself (and by the GP surrogate thereof), and by the choice of performance/cost targets.
+By contrast, under our approach, the distribution explored via MCMC is dictated by the model itself (and by the GP surrogate thereof), by our prior knowledge about the appropriate design settings, and by the choice of performance/cost targets.
 %
 The approach we propose here also has somewhat greater flexibility -- while it may be used to explore the entire Pareto front as Olalotiti-Lawal and Datta-Gupta do, our approach also may be used as a form of ``goal programming" \citep{Miettinen2008}, targeting a particular region of the Pareto front in accordance with the preferences of the relevant decision-makers.
 %
@@ -249,7 +249,7 @@ Our material design goal is to reduce the cost per square meter of the composite
 %
 
 %
-In Section \ref{counterfactual_bayes}, we introduce the counterfactual Bayes methodology we rely on for learning about a real system by applying Bayesian reasoning in a hypothetical scenario with known linkages to the real system.
+In Section \ref{counterfactual_bayes}, we introduce the counterfactual Bayes methodology for learning about a real system by applying Bayesian reasoning in a hypothetical scenario with known linkages to the real system.
 %
 In Section \ref{calib_for_design}, we review the calibration framework grounding our design optimization approach. 
 %
@@ -265,7 +265,7 @@ Section \ref{conclusion} discusses the results and thoughts about future directi
 %
 Counterfactual Bayes relies on reasoning about counterfactual situations.
 %
-In this respect it is reminiscent of some statistical approaches, such as the Rubin framework \citep{Rubin1974}, to questions of causality.
+In this respect it is reminiscent of some statistical approaches, such as the framework of \cite{Rubin1974}, to questions of causality.
 %
 To elucidate the relevant notion of counterfactuality, 
 %%
@@ -319,7 +319,7 @@ To elucidate the relevant notion of counterfactuality,
 %To generalize David's reasoning, 
 we rely on the logician's conception of possible worlds, which are used to explain the semantics of modal sentences (sentences having to do with possibility and necessity, rather than what is merely actual). 
 %
-A possible world can be conceived of as an internally consistent description of a world, which may or may not match the actual world \citep[][though for an opposing perspective on modal ontology see \citealp{Lewis1986}]{Adams1974}. 
+A possible world can be conceived of as an internally consistent description of a world, which may or may not match the actual world \citep{Adams1974,Lewis1986}. 
 %
 So even though it is perhaps true that all dogs weigh under 350lbs \citep[the heaviest recorded dog weighed 343lbs;][]{Young1994}, there is a possible world in which some dogs weigh over 350lbs, since it is possible to describe such a world without contradicting oneself.
 %
@@ -477,18 +477,18 @@ $\eta\left(\mathbf x_i,\mathbf t_i\right)$ for $i=1,\ldots,n.$
 Define the GP prior for $\eta(\cdot,\cdot)$ as having mean function $\mu(\mathbf x,\mathbf t)=c$, where $c$ is a constant, and
 %
 set the covariance function in terms of the marginal precision $\lambda_\eta$ and a product power exponential correlation:
-%
+% 
 \begin{equation}\label{eq:Hig_cov}
 C((\mathbf x,\mathbf t),(\mathbf x',\mathbf t')) = \frac 1\lambda_\eta \prod_{k=1}^{p}
 \exp \left(-\beta^\eta_k|x_k-x_k'|^{\alpha_\eta}\right) \times
 \prod_{j=1}^{q}
 \exp \left(-\beta^\eta_{p+j}|t_j-t_j'|^{\alpha_\eta}\right) +
-\sigma^2_\eta \delta_{(\mathbf x,\mathbf t),(\mathbf x',\mathbf t')}^K
+\sigma^2_\eta \mathbf I_{(\mathbf x,\mathbf t)=(\mathbf x',\mathbf t')}
 \end{equation}
 %
 where each $\beta_k$ describes the strength of the GP's dependence on one of the elements of the input vectors $\mathbf x$ and $\mathbf t$, and $\alpha_\eta$ determines the smoothness of the GP. 
 %
-I.i.d. Gaussian observation error is captured by $\sigma^2$ and the Kronecker delta $\delta^K$.
+I.i.d. Gaussian observation error is captured by $\sigma^2$ and the indicator $\mathbf I$.
 %
 If $\eta(\cdot,\cdot)$ is a deterministic computer model, then $\sigma^2=0$.
 %
@@ -611,35 +611,37 @@ and $\mathcal D = (\boldsymbol \eta^T,\mathbf y^T)^T$.
 Then $\mathcal D | \boldsymbol \theta,\boldsymbol\sigma^2,\widehat{\lambda_\eta}, \widehat{\boldsymbol \rho^\eta}$ is multivariate normal with mean 0 and covariance $\mathbf C_\mathcal D$, a matrix with $i,j$ entry equal to 
 $
 C((\mathbf x_i,\mathbf t_i),(\mathbf x_j,\mathbf t_j)) + 
-\sigma^2 \delta_{ij}^K I(i>n).
+\sigma^2 \mathbf I_{i=j>n}
 $
 %where $C_{obs}(\cdot,\cdot)$ is the (known) observation error variance.
 %
-$I(\cdot)$ is the indicator function. 
+$\mathbf I(\cdot)$ is the indicator function. 
 %
-Gaussian error variance $\sigma^2$ and the Kronecker delta $\delta^K$ reflect our assumption that in $\omega$, the world in which the targets are observed, they are subject to observation error.
+Gaussian error variance $\sigma^2$ reflects our assumption that in $\omega$, the world in which the targets are observed, they are subject to observation error.
 %
 If $\boldsymbol\eta$ is subject to observation error, so that $C(\cdot,\cdot)$ itself includes nonzero observation error variance, then allowing $\sigma^2>0$ is not strictly necessary.
 %
 However, given that the targets may be extreme outliers, it is often computationally beneficial to include $\sigma^2$, thereby supposing that the target outcomes were observed with greater than usual observation error.
 %
-Whether this assumption is appropriate in a particular application will depend on the particulars of the phenomenon of interest.
+Whether this assumption is appropriate in a particular application will depend on the phenomenon of interest.
 %
 However, it is necessary to construct the model in such a way that the target outcomes are compossible with the model, and including $\sigma^2$ ensures that this requirement is satisfied even when $\boldsymbol\eta$ does not include observation error.
 %
-Even when $\boldsymbol\eta$ does not include observation error, it may be beneficial to include a small nugget into the covariance function $C(\cdot,\cdot)$.
+Whether or not $\sigma^2$ is included, it may be beneficial to include a small nugget into the covariance function $C(\cdot,\cdot)$.
 %
 This improves the conditioning of the covariance matrix, and the addition of such a nugget can furthermore improve the fit of the GP discrepancy $\delta$ \citep{Gramacy2012}.
 %
 
 %
-Where $\eta(\cdot,\cdot)$ has multiple outputs, in many cases it suffices to fit a separate GP to each output.
+Where $\eta(\cdot,\cdot)$ has $m>1$ outputs, in many cases it suffices to fit a separate GP to each output.
 %
-We take this approach here, letting $\sigma^2$ take on a separate value for each output.
+We take this approach here, letting $\sigma^2_i$ be the observation error variance for the $i^\text{th}$ output.
 %
 Whether this assumption of independence among the outputs is appropriate will depend on the application.
 %
-Setting a uniform prior on the design variables $\boldsymbol\theta$ and a gamma $(4,1/8)$ prior on each element of $\sigma^2$, the joint posterior density under the model is
+We set a Gamma $(4,\mathrm{scale }=1/8)$ prior on each element of $\boldsymbol\sigma^2=(\sigma^2_1,\cdots,\sigma^2_m)^T$, encouraging low values of observation error variance, since high values would allow non-optimal regions of the design space to enjoy likelihood near to that of the optimal region.
+%
+Setting a uniform prior on the design variables $\boldsymbol\theta$ and , the joint posterior density under the model is
 %
 \begin{equation} \label{eq:full_dist}
 \pi(\boldsymbol \theta,\boldsymbol \sigma^2|\mathcal D,\widehat{\lambda_\eta},\widehat{\boldsymbol \rho^\eta})
@@ -658,7 +660,7 @@ When one has access to a set of observations $\boldsymbol\eta$, the utopia point
 %
 However, another option in such cases is to perform a ``preliminary round'' of CTO to estimate the system's Pareto front.
 %
-In preliminary CTO, one performs the usual CTO routine with a target known to be less than or equal to the utopia point of the system in all objectives, and with $\boldsymbol\sigma^2$ set to a large constant for each objective---e.g. $\sigma^2_i =5\cdot10^7$ for $i=1,\ldots,m$ for $m$ objectives standardized to each have standard deviation 1 (under the uniform prior on $\boldsymbol\theta$).
+In preliminary CTO, one performs the usual CTO routine with a target known to be less than or equal to the utopia point of the system in all objectives, and with $\boldsymbol\sigma^2$ set to a large constant for each objective---e.g. approximate a flat prior on observation error by setting $\sigma^2_i =5\cdot10^7$ for $i=1,\ldots,m$ for $m$ objectives standardized to each have standard deviation 1 (under the uniform prior on $\boldsymbol\theta$).
 %
 This encourages CTO to explore broad regions of the feasible design space near the Pareto front.
 %
@@ -666,7 +668,7 @@ When the resulting posterior samples of $\boldsymbol\theta$ are filtered to reta
 %
 In addition to being only a rough estimate of the Pareto front, this preliminary estimate does not include quantification of uncertainties regarding its location.
 %
-Methods for estimating the system's Pareto front accurately with quantified uncertainties are explored below in Section \ref{removing_cal_pars}.
+Methods for estimating the system's Pareto front accurately with quantified uncertainties are explored in Section \ref{removing_cal_pars}.
 %
 The full CTO process, including preliminary Pareto front estimation, is given in Algorithm 1.
 
@@ -779,7 +781,7 @@ We initially set the target outcomes to $(0.7311, 0.6675, 15)$, the utopia point
 %This confidence is based on the observation that 
 %since $F(\mathbf x-(0.71,0.71,17.92)^T)>0.95$, where $\mathbf x$ is the nearest point of the estimated Pareto front and $F$ is the cdf of the tolerance $\boldsymbol\epsilon\sim N(\mathbf 0, 0.05I)$.
 %
-For comparison, we also performed CTO with target $(0.7506    0.7302   17.56)$, which lies close (one standard deviation away, under the uniform prior on $\theta$) to the feasible region, on the line connecting the original target utopia point to the nearest point in the feasible objective space.
+For comparison, we also performed CTO with target $(0.7506,\ 0.7302,\ 17.56)$, which lies close (one standard deviation away, under the uniform prior on $\theta$) to the feasible region, on the line connecting the original target utopia point to the nearest point in the feasible objective space.
 %
 The purpose of this comparison is to demonstrate the robustness of CTO to the distance separating the target outcome from the feasible objective space.
 %
@@ -787,9 +789,9 @@ Thus a target outcome can be selected even when little is known about the locati
 %
 Figure \ref{fig:toy_sim_results} shows the resulting posteriors. % of the two design procedures, including the marginal distributions of the design variables. 
 %
-In the lefthand plot, the Euclidean distance of the target from the objective space is 0.5, where the each objective is standardized to have variance 1
+In the lefthand plot, the target (the system's utopia point) is just over 1.6 units away from the objective space, where the each objective is standardized to have variance 1.
 %
-In the righthand plot, the target (the system's utopia point) is just over 1.6 units away from the objective space.
+In the righthand plot, the Euclidean distance of the target from the objective space is 0.5.
 %
 Use of the utopia point produces a slightly longer lower tail for $\theta_2$, so that the posterior standard deviation of $\theta_2$ is increased from 0.1175 to 0.2126.
 %
@@ -803,18 +805,18 @@ CTO successfully maps the contours of the optimal region in each case, peaking n
 %
 \begin{figure}
 \centering
-\includegraphics[scale=.8]{FIG_TS_results_withPCTO}
-\hfill
 \includegraphics[scale=.8]{FIG_TS_results_noPCTO}
+\hfill
+\includegraphics[scale=.8]{FIG_TS_results_withPCTO}
 %\captionsetup{width=.7\linewidth}
 \spacingset{1}
-\caption{Posterior draws from CTO in the simulated example without and with the use of preliminary CTO. The contours show, for each point in the design space, the Euclidean distance of the model output at that point from the original target outcome (0,0,0), averaged across the control input range $[1.95,2.05]$. The large dot shows the true optimum.}
+\caption{Posterior draws from CTO in the simulated example using the utopia point as a target (left) and using an updated target designed to lie one standard deviation from the Pareto front, in the direction of the utopia point (right). The contours show, for each point in the design space, the Euclidean distance of the model output at that point from the utopia point, averaged across the control input range $[1.95,2.05]$. The large dot shows the true optimum.}
 \label{fig:toy_sim_results}
 \end{figure}
 
 
 
-\section{Application}\label{application}
+\section{Wind turbine material design application}\label{application}
 
 In this section we use CTO to design a material for use in a wind turbine blade. % of fixed geometry. 
 %

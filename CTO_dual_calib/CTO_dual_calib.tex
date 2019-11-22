@@ -400,26 +400,27 @@ We modularized the analysis by drawing each of $\boldsymbol\theta_c,\boldsymbol\
 %
 
 %
-In order to evaluate the success of the calibration component of DCTO, we also carried out a two-step procedure of using traditional KOH calibration of $\theta_1$, followed by a second step using CTO to obtain a distribution of $\theta_2$. 
+In order to evaluate the success of the calibration component of DCTO, we also carried out a two-step procedure of using traditional KOH calibration of $\theta_c$, followed by a second step using CTO to obtain a distribution of $\theta_d$. 
 %In the first step of this KOH+CTO procedure, we re-running the procedure with $\mathbf{x_d},\mathbf{y_d}$ as empty (null) vectors, followed by CTO calibration of $\theta_2$ using the 
 %
-The first step is essentially DCTO with $\mathbf{x_d},\mathbf{y_d}$ as empty (null) vectors, and the second step uses the distribution obtained in the first step to estimate $\theta_2$.
+The first step is essentially DCTO with $\mathbf{x_d},\mathbf{y_d}$ as empty (null) vectors, and the second step uses the distributions obtained in the first step to estimate $\theta_d$.
 %
 Thus, the comparison between DCTO and KOH+CTO shows the difference between DCTO and performing CTO on a system which has been calibrated using traditional methods.
 %
 %In doing so, we would hope to find that DCTO and KOH give similar posterior distributions for $\theta_1$, and that DCTO gives a posterior distribution of $\theta_2$ peaked at its optimal value while KOH gives a posterior distribution that approximates the (uniform) prior.
 %
-Figure \ref{fig:no_discrep_results} shows the results for $g_0$, the case of no discrepancy.
+Figure \ref{fig:no_discrep_results} shows the results of DCTO and KOH+CTO for $f_0$, the case of no discrepancy.
 %
 \begin{figure}
 \centering
-\includegraphics[scale=0.85]{FIG_KOHCTO_DCTO_comp_discrep0_results}
+\includegraphics[scale=0.85]{FIG_dual_calib_post_theta1-d0}
+\includegraphics[scale=0.85]{FIG_dual_calib_post_theta2-d0}
 \captionsetup{width=.85\linewidth}
 \caption{Prior and posterior distributions of the calibration parameter $\theta_1$ and design parameter $\theta_2$, along with their true/optimal values, for DCTO and KOH+CTO carried out when there is no discrepancy between the true system and the computer model.}
 \label{fig:no_discrep_results}
 \end{figure}
 %
-The two methods deliver comparable results, showing that combining KOH calibration and CTO design into DCTO does not undermine the performance of either task.
+The two methods deliver comparable results, illustrating that combining KOH calibration and CTO design into DCTO does not undermine the performance of either task.
 %
 Strong Bayesian learning has occurred for both parameters, in that the posterior distributions of $\theta_1,\theta_2$ are peaked around their true and optimal values, respectively.
 %
@@ -429,226 +430,78 @@ The skewness apparent in the posterior distributions of $\theta_2$ occur in all 
 %
 
 %
-Figure \ref{fig:1_discrep_results} shows the results for $g_1$ at two settings of $c$, and Figure \ref{fig:2_discrep_results} shows the results for $g_2$ at two settings of $(c,d)$.
+We performed each procedure 30 times on each of the seven different discrepancy situations (no discrepancy, and a large and small version of each of three discrepancies).
 %
-\begin{figure}
-\centering
-\includegraphics[scale=0.85]{FIG_KOHCTO_DCTO_comp_discrep1_results}
-\includegraphics[scale=0.85]{FIG_KOHCTO_DCTO_comp_discrep2_results}
-\captionsetup{width=.85\linewidth}
-\caption{Prior and posterior distributions of the calibration parameter $\theta_1$ and design parameter $\theta_2$, along with their true/optimal values, for DCTO and KOH+CTO in the case of true systems $g_1$. The top row corresponds to a smaller discrepancy, with $c=1.5$; the bottom row corresponds to a larger discrepancy, with $c=3.5$.}
-\label{fig:1_discrep_results}
-\end{figure}
+The results are summarized in Table \ref{table:vars_and_rmses}.
 %
-\begin{figure}
-\centering
-\includegraphics[scale=0.85]{FIG_KOHCTO_DCTO_comp_discrep3_results}
-\includegraphics[scale=0.85]{FIG_KOHCTO_DCTO_comp_discrep4_results}
-\captionsetup{width=.85\linewidth}
-\caption{Prior and posterior distributions of the calibration parameter $\theta_1$ and design parameter $\theta_2$, along with their true/optimal values, for DCTO and KOH+CTO in the case of true systems $g_2$. The top row corresponds to a smaller discrepancy, with $(c,d)=(.15,.075)$; the bottom row corresponds to a larger discrepancy, with $(c,d)=(.65,.075)$.}
-\label{fig:2_discrep_results}
-\end{figure}
-%
-Somewhat counterintuitively, even stronger Bayesian learning occurs with respect to $\theta_1$ in the case of $g_1$ than in the case of $g_0$, in each of the two settings of $c$.
-%
-By contrast, and less surprisingly, the posterior distributions for $\theta_1$ are somewhat wider in the case of $g_2$, for each of the two settings of $(c,d)$.
-%
-Nonetheless, the posterior distributions for $g_2$, as for $g_0$ and $g_1$, still peak at the true value of $\theta_1$ and at the optimal value of $\theta_2$ under DCTO.
-%
-The case of $g_2$ with $(c,d)=(.65,.075)$ is the only case in which DCTO and KOH+CTO produce strikingly different results.
-%
-Here, DCTO supplies a posterior distribution for $\theta_2$ that peaks at the true optimum, while KOH+CTO produces a much wider distribution that fails to peak at the optimum.
-%
-The reason for this difference is unclear.
-%
-DCTO and KOH both have fairly high uncertainty in the posterior distribution of $\theta_1$, which propogates to uncertainty in the posterior distribution of $\theta_2$, since the optimal $\theta_2$ is dependent upon the true value of $\theta_1$.
-%
-It is possible that this affects KOH+CTO more than DCTO since DCTO is able to use the information contained in the true observations of $g_2$ to inform the design of $\theta_2$, whereas under KOH+CTO the true observations are used only in calibration of $\theta_1$ and not in the design of $\theta_2$.
-%
-
-%
-Matters change in the case of $g_3$, where the calibration procedure is somewhat unsuccessful for both DCTO and KOH+CTO.
-%
-Figure \ref{fig:3_discrep_results} (upper left) shows that the true value of $\theta_1$ is well into the tails of the posterior distributions.
-%
-\begin{figure}
-\centering
-\includegraphics[scale=0.85]{FIG_KOHCTO_DCTO_comp_discrep5_results}
-\includegraphics[scale=0.85]{FIG_KOHCTO_DCTO_comp_discrep6_results}
-\captionsetup{width=.85\linewidth}
-\caption{Prior and posterior distributions of the calibration parameter $\theta_1$ and design parameter $\theta_2$, along with their true/optimal values, for DCTO and KOH+CTO in the case of true systems $g_3$. The top row corresponds to a smaller discrepancy, with $(c,d)=(.055,0)$; the bottom row corresponds to a larger discrepancy, with $(c,d)=(.055,.1)$.}
-\label{fig:3_discrep_results}
-\end{figure}
-%
-Surprisingly, increasing $d$ from 0 to 0.1 and keeping $c=0.055$, the results are significantly better, even though the discrepancy in this case is larger.
-%
-In the lower left of Figure \ref{fig:3_discrep_results}, we see that the posterior distributions again peak sharply near the true value of $\theta_1$.
-%
-In all versions of the discrepancy function explored here, the posterior distribution under DCTO is roughly similar with respect to $\theta_2$; wider than the posteriors for $\theta_1$, but peaking near the optimal $\theta_2$ even when this is not true of $\theta_1$.
-%
-
-%
-In order to achieve better results in the case of $g_3$ with $d=0$, we attempted to place a more informative prior on the discrepancy function $\delta_1$.
-%
-We pursued two different strategies to do this.
-%
-Firstly, we integrated the discrepancy $g_3-f$ over the supports of $x$ and $t_2$, finding the average value of the discrepancy.
-%
-We then re-ran DCTO using $m_1(x,t_2)=\left(\int (g_3(z,\theta_1,w)-f(z,\theta_1,w))dzdw\right)/2.5$ as the (constant) mean of the GP prior on $\delta_1$.
-%
-This corresponds to a case in which one knows on average how far one's model tends to be from the true system.
-%
-The results, however, were not appreciably different from the original results using a mean of 0 for the GP prior on $\delta_1$.
-%
-Secondly, we again ran DCTO using $m_1(x,t_2) = g_3(x,\theta_1,t_2)-f(x,\theta_1,t_2)$, so that the GP prior mean on $\delta_1$ was the true discrepancy.
-%
-This corresponds to a case in which one has (e.g. through extensive experimentation) a more thorough understanding of the form of the model's discrepancy with the true system.
-%
-This second strategy proved fruitful, producing the results in Figure \ref{fig:3_informative_discrep_results}.
-%
-\begin{figure}
-\centering
-\includegraphics[scale=0.85]{FIG_KOHCTO_DCTO_comp_discrep5_inf_results}
-\captionsetup{width=.85\linewidth}
-\caption{Prior and posterior distributions of the calibration parameter $\theta_1$ and design parameter $\theta_2$, along with their true/optimal values, for DCTO ond KOH in the case of true systems $g_3$ with $(c,d)=(.055,0)$ and an informative prior for $\delta_1$.}
-\label{fig:3_informative_discrep_results}
-\end{figure}
-%
-KOH+CTO and DCTO were equally successful in calibration, but DCTO again outperforms KOH+CTO on design here, with a posterior which is both narrower and more centered on the true optimum.
-%
-Given that the two design procedures perform similarly with an uninformative prior on $\delta_1$, it's unclear why using an informative prior produces such different design results, especially since the informative prior has an almost identical effect in improving the calibration results in the two cases.
-%
-
-%
-The posterior predictive distributions under DCTO and KOH+CTO are very close under six of the eight discrepancies studied.
-%
-Nonetheless, in most of those six cases DCTO enjoys very slightly narrower posterior predictive distributions. 
-%
-In the two cases under which DCTO and KOH+CTO diverge appreciably, DCTO enjoys much better results, with sharper distributions that center nearer to the true optimal model output.
-%
-Figure \ref{fig:01_post_dist} shows the posterior predictive distributions for $g_0$, the case of no model discrepancy, and for two settings of $g_1$, the case of multiplicative model discrepancy.
-%
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep0}\\
-	\vspace{1em}
-	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep1}\\
-	\vspace{1em}
-	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep2}
-	\captionsetup{width=.85\linewidth}
-	\caption{Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$. The red KOH+CTO and blue DCTO distributions overlap almost perfectly, but in all cases except the bottom middle plot, DCTO peaks just slightly above KOH+CTO.}
-	\label{fig:01_post_dist}
-\end{figure}
-%
-Here, the posterior predictive distributions for DCTO and KOH+CTO overlap almost perfectly, except for the slightly higher peaks of DCTO.
-%
-
-%
-Figure \ref{fig:2_post_dist} shows the results for two settings of $g_2$, an additive discrepancy form.
-%
-For the smaller discrepancy setting of $g_2$, the results are similar to those for $g_0$ and $g_1$, with DCTO enjoying slightly less uncertainty.
-%
-The larger discrepancy setting for $g_2$ is the same case as that shown in Figure \ref{fig:2_discrep_results}, where KOH+CTO performs well with respect to calibration but poorly with respect to design.
-%
-Figure \ref{fig:2_post_dist} shows that this poor design corresponds to wildly different predictive performance between DCTO and KOH+CTO, with KOH+CTO suffering from high uncertainty and strange multimodal behavior for some levels of the control input $x$.
-%
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep3}\\
-	\vspace{1em}
-	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep4}
-	\captionsetup{width=.85\linewidth}
-	\caption{Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$.}
-	\label{fig:2_post_dist}
-\end{figure}
-%
-It is however notable that even here, the posterior predictive distribution's global mode still occurs at the same location as the global mode under DCTO, despite the fact that this is not true of the posterior distributions of the design parameter $t_2$ under the two techniques.
-%
-
-The additive discrepancy form of $g_3$ again has similar posterior predictive results under DCTO and KOH+CTO for both small and large versions of the discrepancy, except when an informative prior is supplied for the discrepancy function.
-%
-Recall that the small discrepancy version of $g_3$ is a case in which both DCTO and KOH performed poorly with respect to calibration, as shown in Figure \ref{fig:3_discrep_results}.
-%
-The top row of Figure \ref{fig:3_post_dist} shows that this poor calibration does not result in similarly poor predictive performance.
-%
-The improved calibration that results from applying an informative prior, as shown in Figure \ref{fig:3_informative_discrep_results}, inflates the posterior uncertainty surrounding the design variable $t_2$ for KOH+CTO, while slightly deflating the $t_2$ uncertainty for DCTO.
-%
-Figure \ref{fig:3_post_dist} (middle row) seems to show that this difference between KOH+CTO translates to similar differences in posterior predictive distributions when using the informative prior: slightly less uncertainty under DCTO, slightly more under KOH+CTO.
-%
-However, despite the fact that both techniques experience dramatically better calibration under the informative prior than without it, there is not a similarly dramatic difference between the posterior predictive distributions with and without the informative prior, under either technique.
-%
-The flexibility of the discrepancy term in CTO allows for accurate prediction even when the calibration is inaccurate.
-%
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep5}\\
-	\vspace{1em}
-	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep5_inf}\\
-	\vspace{1em}
-	\includegraphics[scale=0.85]{FIG_DCTO_KOHCTO_post_pred_dist_discrep6}
-	\captionsetup{width=.85\linewidth}
-	\caption{Prior (green) and posterior predictive distributions of the model output, along with the optimum, for DCTO and KOH+CTO at three values of the control input $x$.}
-	\label{fig:3_post_dist}
-\end{figure}
-%
-
-%
-The calibration, design, and predictive results for all seven cases (one case of zero discrepancy plus two versions each of three different forms of discrepancy) are summarized in Table \ref{table:vars_and_ads}.
-%
-The top table shows the posterior variances of the calibration parameter $t_1$, the design parameter $t_2$, and the predictive distribution $\tilde y$ at control setting $x=0.75$.
-%
-The bottom table shows the absolute deviation of the resulting posterior means $\widehat{\theta_1},\widehat{\theta_2},$ and $\hat{\tilde y}$ from their known true values.
 \begin{table}[]
-\centering
-\begin{tabular}{l|cc|cc}
-&\multicolumn{2}{c|}{$t_1$ variance}&
-\multicolumn{2}{c}{$t_2$ variance} \\ \hline
-Discrepancy    & DCTO   & KOH+CTO & DCTO    & KOH+CTO   \\ \hline
-0              & 0.0198 & 0.0179 & 0.6636 & 0.7066\\ \hline
-1, small       & 0.0181 & 0.0131 & 0.5881 & 0.7055\\ \hline
-1, large       & 0.0129 & 0.0096 & 0.7676 & 0.7465\\ \hline
-2, small       & 0.0233 & 0.0209 & 0.5849 & 0.7022\\ \hline
-2, large       & 0.0896 & 0.0872 & 0.2711 & 0.7992\\ \hline
-3, small       & 0.0108 & 0.0093 & 0.4903 & 0.6257\\ \hline
-3, large       & 0.0216 & 0.0207 & 0.5228 & 0.7009\\ \hline
-3, small, inf. & 0.0201 & 0.0179 & 0.3330 & 0.6787\\ \hline
-\end{tabular}\\
-\vspace{.25in}
-\begin{tabular}{l|cc|cc}
-&\multicolumn{2}{c|}{$|\theta_1-\widehat{\theta_1}|$} & \multicolumn{2}{c}{$|\theta_2-\widehat{\theta_2}|$}\\ \hline
-Discrepancy    & DCTO    & KOH+CTO & DCTO    & KOH+CTO \\ \hline
-0              & 0.0969 & 0.1124 & 0.2594 & 0.2838\\ \hline
-1, small       & 0.0007 & 0.0427 & 0.2720 & 0.3816\\ \hline
-1, large       & 0.0436 & 0.0001 & 0.3614 & 0.4361\\ \hline
-2, small       & 0.0686 & 0.0353 & 0.3365 & 0.4664\\ \hline
-2, large       & 0.2346 & 0.1808 & 0.1577 & 1.0270\\ \hline
-3, small       & 0.3393 & 0.3464 & 0.2304 & 0.3090\\ \hline
-3, large       & 0.1325 & 0.1403 & 0.3651 & 0.5781\\ \hline
-3, small, inf. & 0.1151 & 0.1157 & 0.1488 & 0.5921\\ \hline
-\end{tabular}
-\caption{Posterior variances and mean absolute deviations for the calibration variable $\theta_1$ and the design variable $\theta_2$. The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$. The final line in each table gives the results for the use of an informative prior for the discrepancy of $g_3$ with $(c,d)=(0,.055)$.} 
-\label{table:vars_and_ads}
+	\centering
+	\begin{tabular}{l|cc|cc}
+		&\multicolumn{2}{c|}{Posterior $\theta_c$ var.}&
+		\multicolumn{2}{c}{Posterior $\theta_d$ var.} \\ \hline
+		Discrepancy    & DCTO   & KOH+CTO & DCTO    & KOH+CTO   \\ \hline
+		0              & 0.00633 & 0.00619 & 0.145 & 0.129\\ \hline
+		1, small       & 0.0140 & 0.0137 & 0.149 & 0.129\\ \hline
+		1, large       & 0.0141 & 0.0140 & 0.149 & 0.131\\ \hline
+		2, small       & 0.0143 & 0.0141 & 0.135 & 0.116\\ \hline
+		2, large       & 0.0609 & 0.0608 & 0.0804 & 0.0731\\ \hline
+		3, small       & 0.0134 & 0.0135 & 0.0882 & 0.0743\\ \hline
+		3, large       & 0.0143 & 0.0142 & 0.0945 & 0.0814\\ \hline
+	\end{tabular}\\
+	\vspace{.25in}
+	\begin{tabular}{l|cc|cc}
+		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
+		\multicolumn{2}{c}{$\widehat\theta_d$ RMSE} \\ \hline
+		Discrepancy    & DCTO   & KOH+CTO & DCTO    & KOH+CTO   \\ \hline
+		0              & 0.0790 & 0.0795 & 0.120 & 0.121\\ \hline
+		1, small       & 0.0955 & 0.0956 & 0.149 & 0.144\\ \hline
+		1, large       & 0.137 & 0.139 & 0.209 & 0.209\\ \hline
+		2, small       & 0.109 & 0.106 & 0.130 & 0.127\\ \hline
+		2, large       & 0.158 & 0.155 & 0.123 & 0.121\\ \hline
+		3, small       & 0.294 & 0.292 & 0.0919 & 0.0919\\ \hline
+		3, large       & 0.279 & 0.281 & 0.0995 & 0.0990\\ \hline
+	\end{tabular}
+	\caption{Posterior variances and mean absolute deviations for the calibration variable $\theta_1$ and the design variable $\theta_2$. The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$. The final line in each table gives the results for the use of an informative prior for the discrepancy of $g_3$ with $(c,d)=(0,.055)$.} 
+	\label{table:vars_and_rmses}
 \end{table}
 %
-It appears that KOH produces narrower calibration posteriors than DCTO, as the variances for $\theta_1$ are uniformly lower for KOH, if usually only slightly.
+The upper table gives the sample mean, over the thirty runs, of the marginal posterior variance of each of $\theta_c$ and $\theta_d$.
 %
-However, when we instead look at $|\theta_1-\widehat{\theta_1}|$, matters are less clear.
+The two procedures generate extremely similar outcomes with respect to $\theta_c$.
 %
-DCTO has a lower calibration estimate absolute error in five of the eight cases studied here, and in general, the differences between the two procedures here is small.
+However, the posterior variance for $\theta_d$ under DCTO is slightly higher than that under CTO in each of the seven cases considered.
 %
-It thus appears that DCTO and KOH+CTO enjoy similar levels of success in calibration.
+This is due to the fact that DCTO includes remaining uncertainty about the values of the hyperparameters of the discrepancy GP $\delta()$.
 %
-Clearer differences emerge in looking at the performance of the two procedures with respect to the design variable.
+By contrast, CTO after KOH uses point estimates of those hyperparameters and thus achieves narrower posterior distributions due to excluding this source of uncertainty.
 %
-DCTO produces a smaller posterior variance in seven out of the eight cases, in two cases more than halving the variance produced under KOH+CTO.
+The lower table gives the root mean square errors (RMSEs) for the posterior means of $\theta_c$ and $\theta_d$, using their true value of 2 for $\theta_c$ and optimal value $4/3$ for $theta_d$ in discrepancy cases $0-2$ and $1$ for discrepancy 3.
 %
-The difference is even more pronounced for $|\theta_2-\widehat{\theta_2}|$ under the two procedures, as DCTO produces a lower absolute error in each of the eight cases, sometimes strikingly so.
+Again we see very similar outcomes in the two procedures for both parameters.
 %
-For example, in the large discrepancy version of $g_2$, DCTO produces an estimate with less than one sixth the absolute error of KOH+CTO.
+In all cases but one, DCTO has slightly higher RMSE for $\theta_d$ than does CTO.
 %
-It appears that DCTO and KOH+CTO perform similarly with respect to calibration, but that DCTO produces superior results with respect to design.
+This is to be expected given the above-mentioned wider posterior distributions of $\theta_d$ under DCTO.
 %
 
+%
+\section{Dependence of $\theta_c$ on $\theta_d$}
+%
+From the results 
+%
+
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d0}
+	\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d0}\\
+	\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d1}
+	\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d1}\\
+	\captionsetup{width=.85\linewidth}
+	\caption{Prior and posterior distributions of the calibration parameter $\theta_1$ and design parameter $\theta_2$, along with their true/optimal values, for SDOE and PDOE.}
+	\label{fig:sdoe_vs_pdoe}
+\end{figure}
+%
 
 \bigskip
 

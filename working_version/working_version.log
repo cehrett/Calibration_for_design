@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.2)  11 NOV 2019 10:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.2)  22 NOV 2019 14:39
 entering extended mode
 **./working_version.tex
 (working_version.tex
@@ -260,7 +260,7 @@ d-to.pdf>
 (epstopdf)                    size: 7353 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_des_obs_selection_examp
 le-eps-converted-to.pdf FIG_des_obs_selection_example.eps>
-(epstopdf)             \includegraphics on input line 699.
+(epstopdf)             \includegraphics on input line 701.
 Package epstopdf Info: Output file is already uptodate.
 <FIG_des_obs_selection_example-eps-converted-to.pdf, id=65, 360.34625pt x 172.6
 45pt>
@@ -268,7 +268,7 @@ File: FIG_des_obs_selection_example-eps-converted-to.pdf Graphic file (type pdf
 )
 <use FIG_des_obs_selection_example-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_des_obs_selection_example-eps-converted-to.pdf  us
-ed on input line 699.
+ed on input line 701.
 (pdftex.def)             Requested size: 288.27739pt x 138.11617pt.
  [15]
 Package epstopdf Info: Source file: <FIG_toy_sim_model_outputs.eps>
@@ -280,40 +280,23 @@ Package epstopdf Info: Source file: <FIG_toy_sim_model_outputs.eps>
 (epstopdf)                    size: 22707 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_toy_sim_model_outputs-e
 ps-converted-to.pdf FIG_toy_sim_model_outputs.eps>
-(epstopdf)             \includegraphics on input line 759.
+(epstopdf)             \includegraphics on input line 761.
 Package epstopdf Info: Output file is already uptodate.
 <FIG_toy_sim_model_outputs-eps-converted-to.pdf, id=69, 232.87pt x 153.57375pt>
 
 File: FIG_toy_sim_model_outputs-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_toy_sim_model_outputs-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_toy_sim_model_outputs-eps-converted-to.pdf  used o
-n input line 759.
+n input line 761.
 (pdftex.def)             Requested size: 186.29623pt x 122.85915pt.
 
-Overfull \hbox (7.4341pt too wide) in paragraph at lines 736--776
+Overfull \hbox (7.4341pt too wide) in paragraph at lines 738--778
 \OT1/cmr/m/n/12 Model out-puts are $\OML/cmm/m/it/12 y[] \OT1/cmr/m/n/12 = [][]
 $, $\OML/cmm/m/it/12 y[] \OT1/cmr/m/n/12 = [][]$,
  []
 
 [16 <./FIG_des_obs_selection_example-eps-converted-to.pdf>] [17 <./FIG_toy_sim_
 model_outputs-eps-converted-to.pdf>]
-Package epstopdf Info: Source file: <FIG_TS_results_withPCTO.eps>
-(epstopdf)                    date: 2019-11-07 14:10:57
-(epstopdf)                    size: 2469797 bytes
-(epstopdf)             Output file: <FIG_TS_results_withPCTO-eps-converted-to.p
-df>
-(epstopdf)                    date: 2019-11-07 14:11:21
-(epstopdf)                    size: 217032 bytes
-(epstopdf)             Command: <epstopdf --outfile=FIG_TS_results_withPCTO-eps
--converted-to.pdf FIG_TS_results_withPCTO.eps>
-(epstopdf)             \includegraphics on input line 806.
-Package epstopdf Info: Output file is already uptodate.
-<FIG_TS_results_withPCTO-eps-converted-to.pdf, id=82, 263.98625pt x 200.75pt>
-File: FIG_TS_results_withPCTO-eps-converted-to.pdf Graphic file (type pdf)
-<use FIG_TS_results_withPCTO-eps-converted-to.pdf>
-Package pdftex.def Info: FIG_TS_results_withPCTO-eps-converted-to.pdf  used on 
-input line 806.
-(pdftex.def)             Requested size: 211.18927pt x 160.6002pt.
 Package epstopdf Info: Source file: <FIG_TS_results_noPCTO.eps>
 (epstopdf)                    date: 2019-11-07 14:11:00
 (epstopdf)                    size: 2470294 bytes
@@ -325,13 +308,30 @@ Package epstopdf Info: Source file: <FIG_TS_results_noPCTO.eps>
 onverted-to.pdf FIG_TS_results_noPCTO.eps>
 (epstopdf)             \includegraphics on input line 808.
 Package epstopdf Info: Output file is already uptodate.
-<FIG_TS_results_noPCTO-eps-converted-to.pdf, id=83, 263.98625pt x 200.75pt>
+<FIG_TS_results_noPCTO-eps-converted-to.pdf, id=82, 263.98625pt x 200.75pt>
 File: FIG_TS_results_noPCTO-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_TS_results_noPCTO-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_TS_results_noPCTO-eps-converted-to.pdf  used on in
 put line 808.
 (pdftex.def)             Requested size: 211.18927pt x 160.6002pt.
- [18 <./FIG_TS_results_withPCTO-eps-converted-to.pdf> <./FIG_TS_results_noPCTO-
+Package epstopdf Info: Source file: <FIG_TS_results_withPCTO.eps>
+(epstopdf)                    date: 2019-11-07 14:10:57
+(epstopdf)                    size: 2469797 bytes
+(epstopdf)             Output file: <FIG_TS_results_withPCTO-eps-converted-to.p
+df>
+(epstopdf)                    date: 2019-11-07 14:11:21
+(epstopdf)                    size: 217032 bytes
+(epstopdf)             Command: <epstopdf --outfile=FIG_TS_results_withPCTO-eps
+-converted-to.pdf FIG_TS_results_withPCTO.eps>
+(epstopdf)             \includegraphics on input line 810.
+Package epstopdf Info: Output file is already uptodate.
+<FIG_TS_results_withPCTO-eps-converted-to.pdf, id=83, 263.98625pt x 200.75pt>
+File: FIG_TS_results_withPCTO-eps-converted-to.pdf Graphic file (type pdf)
+<use FIG_TS_results_withPCTO-eps-converted-to.pdf>
+Package pdftex.def Info: FIG_TS_results_withPCTO-eps-converted-to.pdf  used on 
+input line 810.
+(pdftex.def)             Requested size: 211.18927pt x 160.6002pt.
+ [18 <./FIG_TS_results_noPCTO-eps-converted-to.pdf> <./FIG_TS_results_withPCTO-
 eps-converted-to.pdf>] [19] [20]
 Package epstopdf Info: Source file: <FIG_est_PF_with_des_obs.eps>
 (epstopdf)                    date: 2019-03-06 11:03:35
@@ -342,15 +342,14 @@ df>
 (epstopdf)                    size: 14506 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_est_PF_with_des_obs-eps
 -converted-to.pdf FIG_est_PF_with_des_obs.eps>
-(epstopdf)             \includegraphics on input line 938.
+(epstopdf)             \includegraphics on input line 940.
 Package epstopdf Info: Output file is already uptodate.
 <FIG_est_PF_with_des_obs-eps-converted-to.pdf, id=112, 286.06876pt x 224.84pt>
 File: FIG_est_PF_with_des_obs-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_est_PF_with_des_obs-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_est_PF_with_des_obs-eps-converted-to.pdf  used on 
-input line 938.
+input line 940.
 (pdftex.def)             Requested size: 228.85532pt x 179.87224pt.
- [21 <./FIG_est_PF_with_des_obs-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <FIG_post_dist_hist2.eps>
 (epstopdf)                    date: 2019-11-07 14:59:25
 (epstopdf)                    size: 125795 bytes
@@ -359,13 +358,13 @@ Package epstopdf Info: Source file: <FIG_post_dist_hist2.eps>
 (epstopdf)                    size: 127073 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_post_dist_hist2-eps-con
 verted-to.pdf FIG_post_dist_hist2.eps>
-(epstopdf)             \includegraphics on input line 972.
+(epstopdf)             \includegraphics on input line 974.
 Package epstopdf Info: Output file is already uptodate.
-<FIG_post_dist_hist2-eps-converted-to.pdf, id=124, 272.01625pt x 181.67876pt>
+<FIG_post_dist_hist2-eps-converted-to.pdf, id=113, 272.01625pt x 181.67876pt>
 File: FIG_post_dist_hist2-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_post_dist_hist2-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_post_dist_hist2-eps-converted-to.pdf  used on inpu
-t line 972.
+t line 974.
 (pdftex.def)             Requested size: 217.61328pt x 145.34319pt.
 Package epstopdf Info: Source file: <FIG_prior_vs_posterior_dist.eps>
 (epstopdf)                    date: 2019-11-07 15:01:32
@@ -376,21 +375,21 @@ to.pdf>
 (epstopdf)                    size: 7564 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_prior_vs_posterior_dist
 -eps-converted-to.pdf FIG_prior_vs_posterior_dist.eps>
-(epstopdf)             \includegraphics on input line 986.
+(epstopdf)             \includegraphics on input line 988.
 Package epstopdf Info: Output file is already uptodate.
-<FIG_prior_vs_posterior_dist-eps-converted-to.pdf, id=125, 469.755pt x 136.51pt
+<FIG_prior_vs_posterior_dist-eps-converted-to.pdf, id=114, 469.755pt x 136.51pt
 >
 File: FIG_prior_vs_posterior_dist-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_prior_vs_posterior_dist-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_prior_vs_posterior_dist-eps-converted-to.pdf  used
- on input line 986.
+ on input line 988.
 (pdftex.def)             Requested size: 375.80452pt x 109.20813pt.
-
+ [21]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[22 <./FIG_post_dist_hist2-eps-converted-to.pdf>] [23 <./FIG_prior_vs_posterior
-_dist-eps-converted-to.pdf>]
+[22 <./FIG_est_PF_with_des_obs-eps-converted-to.pdf>] [23 <./FIG_post_dist_hist
+2-eps-converted-to.pdf> <./FIG_prior_vs_posterior_dist-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <FIG_cost_grid_pareto_bands.eps>
 (epstopdf)                    date: 2019-11-07 14:56:49
 (epstopdf)                    size: 47191 bytes
@@ -400,17 +399,21 @@ o.pdf>
 (epstopdf)                    size: 10442 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_cost_grid_pareto_bands-
 eps-converted-to.pdf FIG_cost_grid_pareto_bands.eps>
-(epstopdf)             \includegraphics on input line 1054.
+(epstopdf)             \includegraphics on input line 1056.
 Package epstopdf Info: Output file is already uptodate.
 <FIG_cost_grid_pareto_bands-eps-converted-to.pdf, id=160, 404.51125pt x 223.836
 24pt>
 File: FIG_cost_grid_pareto_bands-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_cost_grid_pareto_bands-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_cost_grid_pareto_bands-eps-converted-to.pdf  used 
-on input line 1054.
+on input line 1056.
 (pdftex.def)             Requested size: 323.60944pt x 179.06923pt.
- [24 <./FIG_cost_grid_pareto_bands-eps-converted-to.pdf>] [25]
-Overfull \hbox (0.59743pt too wide) in paragraph at lines 1101--1125
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[24] [25 <./FIG_cost_grid_pareto_bands-eps-converted-to.pdf>]
+Overfull \hbox (0.59743pt too wide) in paragraph at lines 1103--1127
 \OT1/cmr/m/n/12 We have de-scribed how the com-puter model cal-i-bra-tion frame
 -work of Kennedy and O'Hagan
  []
@@ -418,12 +421,12 @@ Overfull \hbox (0.59743pt too wide) in paragraph at lines 1101--1125
 [26]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
-(Font)              using `OT1/cmr/bx/n' instead on input line 1148.
+(Font)              using `OT1/cmr/bx/n' instead on input line 1150.
 
-(working_version.bbl
+(working_version.bbl [27]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 10.
- [27] [28] [29] [30] [31] [32]) [33] (working_version.aux)
+ [28] [29] [30] [31] [32]) [33] (working_version.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -456,7 +459,7 @@ sfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/P
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on working_version.pdf (33 pages, 953238 bytes).
+Output written on working_version.pdf (33 pages, 953798 bytes).
 PDF statistics:
  265 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
