@@ -1,5 +1,5 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: working_version.aux
-The style file: Chicago.bst
+The style file: asmems4.bst
 Database file #1: lit_review.bib
 Warning--entry type for "ansys" isn't style-file defined
 --line 1511 of file lit_review.bib
@@ -7,10 +7,6 @@ Repeated entry---line 1588 of file lit_review.bib
  : @article{Zhou2011
  :                  ,
 I'm skipping whatever remains of this entry
-Warning--no number and no volume in Atamturktur2015
-Warning--page numbers missing in Atamturktur2015
-Warning--page numbers missing in Brynjarsdottir2014
-Warning--page numbers missing in Chevalier2014
 Warning--empty institution in Jones1998
 Warning--can't use both author and editor fields in Miettinen2008
 (There was 1 error message)

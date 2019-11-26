@@ -1137,13 +1137,16 @@ set(gca,'ZTick',[]);
 grid off;
 ttlhist = title('Posterior distribution of \theta');
 ttlhist.FontSize = 11;
-xlabel('Vol. fraction'); ylabel('Thickness (mm)');
+xlbl = xlabel('Vol. fraction'); ylbl = ylabel('Thickness (mm)');
 set(fighist,'Color','w');
 % pause(1.5);
 
 % Save it
 figstr = 'FIG_post_dist_hist2';
 set(fighist,'PaperPositionMode','auto')
+ylbl.Units = 'pixels'; xlbl.Units='pixels';
+ylbl.Position = ylbl.Position + [-8.0 2 0];
+xlbl.Position = xlbl.Position + [8.0 2 0];
 % print(fighist,figstr,'-depsc','-r600')
 
 %% WTA prior predictive distribution vs posterior predictive distribution
@@ -1165,9 +1168,10 @@ prsamps = prior_model_output.means.* std_y + mean_y;
 
 
 %%% Make figure using histograms
-f=figure('pos',[10 10  780.0000  200]);
+f=figure('pos',[10 10  360.0000  200]);
+[subplts,pos] = tight_subplot(1,3,0.02,[ 0.08 0.01],0.03);
 % Deflection
-subplot(1,3,1);
+axes(subplts(1));
 [p,x,bw]=ksdensity(posamps(:,1),'Bandwidth',1e-03);
 plot(x,p/17,'LineWidth',2);
 set(gca,'YTick',[]);
@@ -1176,7 +1180,7 @@ hold on;
 [p,x]=ksdensity(prsamps(:,1));
 plot(x,p,'--','LineWidth',2);
 %histogram(prsamps(:,1),'Normalization','pdf','Edgecolor','none');
-text(0.05,.9,...
+text(0.005,.9,...
     'Deflection','VerticalAlignment','bottom','Units','normalized');
 text(1.715,102,'Rotation','VerticalAlignment','bottom');
 % xlim([0.6 0.85]);
@@ -1184,7 +1188,7 @@ text(1.715,102,'Rotation','VerticalAlignment','bottom');
 line([des_obs(1) des_obs(1)],ylim,'Color','black','Linestyle',':',...
     'linewidth',2);
 % Rotation
-subplot(1,3,2);
+axes(subplts(2));
 [p,x,bw]=ksdensity(posamps(:,2),'Bandwidth',2.6e-05);
 plot(x,p/7.4,'LineWidth',2);
 set(gca,'YTick',[]);
@@ -1193,7 +1197,7 @@ hold on;
 [p,x]=ksdensity(prsamps(:,2));
 plot(x,p,'--','LineWidth',2);
 %histogram(prsamps(:,2),'Normalization','pdf','Edgecolor','none');
-text(0.05,.9,...
+text(0.005,.9,...
     'Rotation','VerticalAlignment','bottom','Units','normalized');
 % xlim([0.075,0.105])
 % ylim([0 700]);
@@ -1202,7 +1206,7 @@ line([des_obs(2) des_obs(2)],ylim,'Color','black','Linestyle',':',...
     'linewidth',2);
 set(gca,'ylim',ylim);
 % Cost
-subplot(1,3,3);
+axes(subplts(3));
 [p,x,bw]=ksdensity(posamps(:,3),'Bandwidth',2.080754589271729e-02);
 plot(x,p/10,'LineWidth',2);
 set(gca,'YTick',[]);
@@ -1215,24 +1219,25 @@ text(0.05,.9,...
     'Cost','VerticalAlignment','bottom','Units','normalized');
 % ylim([0 .0700]);
 xlim([60 400]);
-ylim = get(gca,'ylim');
+ylim = [0 0.0145];%get(gca,'ylim');ylim
 line([des_obs(3) des_obs(3)],ylim,'Color','black','Linestyle',':',...
     'linewidth',2);
 set(gca,'ylim',ylim);
 % Add suptitle
 % st=suptitle('Prior and posterior predictive distributions');
 % st.Position=[0.5 -.1 0];
-lg=legend('Posterior','Prior','Target','Location','northeast');
-flushLegend(lg,'northeast');
+[lg,icons,~,~]=legend('Posterior','Prior','Target','Location','northeast');
+% flushLegend(lg,'northeast');
+resizeLegend();
 pos=lg.Position; 
-lg.Position = pos + [-0.001 -.002 -.001 -.002];
-
-%%% Save
+lg.Position = pos + [.0915 0.055 0 0];
+% 
+% %%% Save
 set(f, 'Color','white');
-% export_fig FIG_prior_vs_posterior_dist -eps -m3 -painters
+% % export_fig FIG_prior_vs_posterior_dist -eps -m3 -painters
 figstr = 'FIG_prior_vs_posterior_dist';
 set(f,'PaperPositionMode','auto')
-% print(f,figstr,'-depsc','-r600')
+print(f,figstr,'-depsc','-r600')
 
 %% WTA Pareto bands
 clc ; clearvars -except dpath ; close all ;
@@ -1290,11 +1295,12 @@ ylim_defl = [min(post_defl_lq_cu)/ylimrat max(post_defl_uq_cu)*ylimrat];
 % Set alphas for two types of uncertainty
 alpha_wcu = 0.5;  %with code uncertainty
 alpha_wocu= 0.15; %without
-h=figure('rend','painters','pos',[10 10 640 320]);
+h=figure('rend','painters','pos',[10 10 360 240]);
 x = 96:1:350; % x fills the cost domain
+[subplts , pos] = tight_subplot(1,2,0.175,[0.15 0.02],[0.11 0.01]);
 
 % Now begin plot 1/2
-subplot(1,2,1)
+axes(subplts(1));
 % Get main curve
 pdefl = pchip(cost,post_defl_median,x);
 % Get upper and lower 0.05 quantiles curves
@@ -1323,7 +1329,7 @@ figpos = get(h,'pos');
 % each upper quantile.
 % First, open the figure prior to calling suptitle.
 % h=openfig('tempfig');
-subplot(1,2,2);
+axes(subplts(2));
 pdefluq_code_uncert = pchip(cost,post_defl_uq_cu,x);
 pdefllq_code_uncert = pchip(cost,post_defl_lq_cu,x);
 f=fill([ x , fliplr(x) ], [pdefluq, fliplr(pdefllq)],'k');
@@ -1354,15 +1360,17 @@ set(h,'pos',figpos); % Just so we can reuse the positioning code from above
 % set(xl3,'position',p + [0 0.0002 0])
 
 % Now add a legend.
+ylim(ylim+[0 0.0007]);
 leg_gos = [median_line unc_wo_cu unc_w_cu];% go_plot_diag];
-lg=legend(leg_gos,'Posterior predictive median',...
-    'C.I. w/o code uncertainty',...
-    sprintf('C.I. with code uncertainty'),...
+lg=legend(leg_gos,sprintf('Posterior\npredictive median'),...
+    sprintf('C.I. w/o code\nuncertainty'),...
+    sprintf('C.I. with code\nuncertainty'),...
     'Location','northeast');
 % lg.Position(1:2)=[.623 .725];
 flushLegend(lg,'northeast');
-lgpos = lg.Position;
-lg.Position = lgpos + [-.004 -.002 -.004 -.002];
+lg.Box='off';
+% lgpos = lg.Position;
+% lg.Position = lgpos + [-.004 -.002 -.004 -.002];
 
     
 %%% Save
@@ -1372,3 +1380,80 @@ set(h,'Color','white');
 figstr = 'FIG_cost_grid_pareto_bands';
 set(h,'PaperPositionMode','auto')
 % print(h,figstr,'-depsc','-r600')
+
+%% Example of selecting performance target, v3
+clc ; clearvars -except dpath ; close all ;
+fig=figure('Position',[10 10 390 240]);
+
+% Define Pareto front
+x = linspace(1.03,2.39);
+xt = linspace(1.03,2.39,10);
+ytl = [1 .6 .4 .15 .09 .0675 .0525 .04 .025 0.015];
+yl = spline(xt,ytl,x);
+
+% Define upper model bound
+ytu = [1 1.1 1.12 1.14 1.1 .9 .7 .5 .4 .015];
+yu = spline(xt,ytu,fliplr(x));
+
+% Plot the model range
+p1 = fill([x fliplr(x)],[yl yu],[1 .175 .175]);
+% axis equal;
+%hold on; plot(xt,ytl,'o'); plot(xt,ytu,'o');
+xlim([0,2.4]);ylim([0,1.2]);
+
+% Get closest point to [0,0], and connect it to [0,0]
+dists = sqrt(sum([x(:) yl(:) ].^2,2)) ;
+[mnm,idx]=min(dists);
+fdists = sqrt(sum([x(:) yu(:) ].^2,2));
+hold on; 
+p2 = plot(x(idx),yl(idx),'ok','LineWidth',2,'MarkerSize',5);
+p3 = plot(0,0,'xk','LineWidth',2,'MarkerSize',7);
+p4 = plot([0 x(idx)],[0 yl(idx)],'-k','LineWidth',1);
+
+% Also plot elbow and nearby desired observation
+lbloc = 37 ; % elbow location index
+plot(x(lbloc),yl(lbloc),'ok','LineWidth',2,'MarkerSize',5);
+des_obs = [1.4825 0.065];
+plot(des_obs(1),des_obs(2),'xk','LineWidth',2,'MarkerSize',7);
+plot([des_obs(1) x(lbloc)],[des_obs(2) yl(lbloc)],'-k','LineWidth',1);
+dodist = norm([des_obs(1)-x(lbloc), des_obs(2)-yl(lbloc)]);
+
+% Get max distance from [0 0]
+dists_up = sqrt(sum([x(:) yu(:)].^2,2)) ;
+[mxm,idx] = max(dists_up);
+
+% Add partial circle showing region within 2 * dist from des_obs
+dist_ratio = mxm/mnm ; 
+x_idx = abs(x-des_obs(1))<=dist_ratio*dodist ;
+xr = x(x_idx) ; 
+yr = sin(acos((xr-des_obs(1))/dist_ratio/dodist)) ; 
+yrt=yr*dist_ratio*dodist+des_obs(2); % Similarly for y-vals
+in_mod_range_idx = yl(x_idx) <= yrt;
+xrr = xr( in_mod_range_idx );
+yrr = yrt( in_mod_range_idx );
+% p5 = plot(xrr,yrr,':k','LineWidth',2);
+
+% Resize
+% fig.Position = fig.Position + [ 0 0 0 -175];
+
+
+% Add labels and legend
+ylabel('y_2'); xlb = xlabel('y_1');
+lg = legend([p1 p3 p2],{sprintf('Feasible\ndesign space'),...
+    sprintf('Possible target\noutcome'),...
+    sprintf('Nearest point\nto target')},...
+    'Location','Northwest');
+flushLegend(lg,'northwest');
+pos = lg.Position;
+% lg.Position = 
+% ax=gca; ax.Position = ax.Position + [0 0.01 0 0];
+% xlb.Position = xlb.Position + [0 .08 0];
+
+
+% Save
+set(fig,'color','white');
+figstr = sprintf('FIG_des_obs_selection_example2');
+% export_fig(figstr,'-eps','-q0','-painters',fig);
+
+set(fig,'PaperPositionMode','auto')
+% print(fig,figstr,'-depsc','-r600')
