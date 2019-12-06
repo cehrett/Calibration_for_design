@@ -111,6 +111,10 @@ set(f2,'PaperPositionMode','auto')
 %% Compare SDOE and PDOE posteriors for theta1,theta2 (with prior)
 clc ; clearvars -except dpath ; close all ;
 
+% Figure height and width
+fh = 180;
+fw = 200;
+
 % Load results
 obs_initial_size = 0 ; obs_final_size = 20;
 locstr = sprintf(['C:\\Users\\carle\\Documents',...
@@ -121,14 +125,9 @@ locstr = sprintf(['C:\\Users\\carle\\Documents',...
     int2str(obs_final_size)]);
 load(locstr,'results');
 
-close all;
-% Figure height and width
-fh = 120;
-fw = 300;
-
 % Select discrepancy and specific calib run
 discrep = 0;
-for discrep = 0:6
+% discrep = discrep+1
 run = 10;
 
 % Define inputs mins and ranges 
@@ -170,12 +169,11 @@ theta1 = results{discrep+1,1}.true_theta1;
 plot([theta1 theta1],get(gca,'YLim'),'--','Color',[.85 .85 0],...
     'LineWidth',1.5);
 % Put a legend on it
-lg1 = legend('Prior dist.','SFD','AS','True value');
+lg1 = legend('Prior dist.','PDOE','SDOE','True value');
 % title('Prior and posterior distributions of \theta_1');
 xlabel('\theta_1');
 yticks([]);
 set(f1,'color','white');
-flushLegend(lg1,'ne');
 
 
 % First, get prior and posterior theta1
@@ -195,12 +193,11 @@ theta2 = results{discrep+1,1}.true_theta2;
 plot([theta2 theta2],get(gca,'YLim'),'--','Color',[.85 .85 0],...
     'LineWidth',1.5);
 % Put a legend on it
-lg2 = legend('Prior dist.','SFD','AS','Optimum');
+lg1 = legend('Prior dist.','PDOE','SDOE','Optimum');
 % title('Prior and posterior distributions of \theta_2');
 xlabel('\theta_2');
 yticks([]);
 set(f2,'color','white');
-flushLegend(lg2,'ne');
 
 
 % Save them
@@ -210,4 +207,3 @@ set(f1,'PaperPositionMode','auto')
 set(f2,'PaperPositionMode','auto')
 % print(f1,figstr1,'-depsc','-r600')
 % print(f2,figstr2,'-depsc','-r600')
-end % end of for loop used to run this section for multiple discreps

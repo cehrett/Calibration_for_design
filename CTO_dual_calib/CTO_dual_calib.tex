@@ -303,7 +303,7 @@ Such modularization ensures that all Bayesian learning of $\boldsymbol\theta_c$ 
 %
 
 %
-\section{Example with simulated data}
+\section{Example with simulated data}\label{sec:example}
 %
 Consider the function of three inputs $\eta(x,t_c,t_d) = x / (t_d^{t_c-1}\exp(-0.75t_d)+1)$. 
 %
@@ -461,7 +461,7 @@ The results are summarized in Table \ref{table:vars_and_rmses}.
 		3, small       & 0.294 & 0.292 & 0.0919 & 0.0919\\ \hline
 		3, large       & 0.279 & 0.281 & 0.0995 & 0.0990\\ \hline
 	\end{tabular}
-	\caption{Posterior variances and mean absolute deviations for the calibration variable $\theta_1$ and the design variable $\theta_2$. The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$. The final line in each table gives the results for the use of an informative prior for the discrepancy of $g_3$ with $(c,d)=(0,.055)$.} 
+	\caption{Posterior variance and root mean square error (RMSE) for the calibration variable $\theta_1$ and the design variable $\theta_2$ under both DCTO and KOH+CTO. The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$.} 
 	\label{table:vars_and_rmses}
 \end{table}
 %
@@ -485,22 +485,132 @@ This is to be expected given the above-mentioned wider posterior distributions o
 %
 
 %
-\section{Dependence of $\theta_c$ on $\theta_d$}
+\section{Dependence of $\theta_c$ on $\theta_d$}\label{sec:as}
 %
-From the results 
+In many cases of computer model calibration, it is known or suspected that the value of one or more calibration parameters are functionally dependent upon the values of other model inputs \citep{Atamturktur2015,Atamturktur2017,Ezzat2018}.
+%
+If one is interested to understand the functional form of the calibration parameter, then state-aware methods can be used to arrive at such an estimate \citep{Atamturktur2015,Atamturktur2017}.
+%
+However, in a case of simultaneous calibration and design in which the calibration parameter is functionally dependent upon the design settings, one might be interested only to know the value of the calibration parameter in the optimal design region.
+%
+In this case, the machinery of state-aware calibration is not needed, and effort is better spent focusing on estimating the fixed calibration parameter value in the region of interest.
+%
+In such a case, it is preferable that one's calibration be founded on observations for which the design settings are in the optimal design region.
+%
+This will allow one to calibrate the model using observations taken from the region of interest, so that the calibration takes on values from that region.
 %
 
 %
+Recall that when observations may be made adaptively, other RSM approaches such as EGO \citep{Jones1998,Brochu2010} or SUR \citep{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019} may be more efficient than CTO for estimating optimal design settings, though CTO offers more interpretable and model-driven uncertainty quantification.
+%
+However, RSM approaches in general do not include tools to accommodate the case in which a model stands in need of calibration as well as optimization.
+%
+DCTO provides such a framework for combined calibration and design.
+%
+Therefore we now consider under the lens of DCTO the case in which the design settings of the observations of the true system may be chosen adaptively.
+%
+
+%
+An obvious approach when both calibration and design are undertaken and the calibration parameter is suspected to be functionally dependent on the design settings is to perform the design optimization first, and then the calibration.
+%
+In this way, one would gather observations in service of finding the optimal design settings, and then use these observations to learn the value of the calibration parameter in the associated optimal design region.
+%
+For this purpose, any optimization method could be used to select the design settings for the observations.
+%
+If a limited budget of observations is available and quantification of remaining uncertainty surrounding the true and optimal values (respectively) of the calibration parameter and design settings is desired, then RSMs are a good choice.
+%
+In such a situation, CTO retains its advantage of interpretable and model-driven uncertainty quantification, and adds another advantage: namely, that DCTO constitutes a method for combining both the observations of the true system and the existing uncalibrated computer model to select new evaluation points.
+%
+
+%
+The use of DCTO with adaptive sampling is potentially of greatest use when it is known or suspected that the calibration parameter is a function $\theta_c(t_d)$ of the design setting $t_d$, and particularly when interest focuses on learning the optimal design setting $\theta_d$ and the corresponding value $\theta_c(\theta_d)$ of the calibration parameter.
+%
+To implement DCTO with adaptive sampling in such a case, we perform DCTO beginning with an empty vector of true observations $y_r$.
+%
+During the burn-in period, every (e.g.) 100 iterations of the MCMC, we sample draw a sample $\widehat\theta_d$ from the posterior distribution of the design settings $t_d$, as a means of estimating the optimal design settings $\theta_d$.
+%
+We then perform a new observation of the system at $(\mathbf x_i,\widehat\theta_d)$ where $i\in\{1,\cdots,m\}$ and $m$ is the total budget of observations to be made.
+%
+The non-design input settings $\mathbf x_i$ can be chosen to maximize distance from previous observations, or these locations can be predetermined according to a space-filling design over the domain $\mathcal X$ of non-design inputs.
+%
+This process is continued until the total budget of observations is reached, after which burn-in continues until the MCMC chains converge for all parameters of interest.
+%
+The result is that observations are concentrated around the design settings of interest, so that the unknown calibration parameter values in those observations are concentrated around the value $\theta_c(\theta_d)$.
+%
+
+%
+To demonstrate the use of DCTO with adaptive sampling in a case of functional dependence of the calibration parameter on design settings, we use the same objective function and discrepancy cases as described in Section \ref{sec:example}.
+%
+This time, instead of setting $\theta_c = 2$, we set 
+\[\theta_c(t)= 2.25 - .75 \frac{ \exp\left(40\left(\frac{t-1.5}{.75}-.5\right)\right)} {1 + \exp\left( 40\left(\frac{t-1.5}{.75}-.5\right) \right)}.\]
+%
+The resulting optimal design settings and calibration parameter value at the optimum vary in the discrepancy cases, though $\theta_c(\theta_d)$ is near 2.16 in each case.
+%
+Representative results from performing DCTO with adaptive sampling in each discrepancy case appear in Figure \ref{fig:sdoe_vs_pdoe}, along with results from applying DCTO non-adaptively (using a space-filling set of observations).
+%
+A summary of the results of thirty applications of DCTO both with and without adaptive sampling, for each of the discrepancy cases, appears in Table \ref{table:vars_and_rmses}
+%
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d0}
-	\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d0}\\
-	\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d1}
-	\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d1}\\
+	\begin{tabular}{c c c}
+	$g_0$ &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d0}} &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d0}}\\
+	$g_1$, small & 
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d1}} &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d1}}\\
+	$g_1$, large & 
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d2}} &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d2}}\\
+	$g_2$, small &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d3}} &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d3}}\\
+	$g_2$, large &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d4}} &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d4}}\\
+	$g_3$, small &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d5}} &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d5}}\\
+	$g_3$, large &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d6}} &
+	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d6}}
+	\end{tabular}
 	\captionsetup{width=.85\linewidth}
-	\caption{Prior and posterior distributions of the calibration parameter $\theta_1$ and design parameter $\theta_2$, along with their true/optimal values, for SDOE and PDOE.}
+	\caption{Prior and posterior distributions of the calibration parameter $\theta_1$ and design parameter $\theta_2$, along with their true/optimal values, for DCTO with adaptive sampling (AS) and with predetermined space-filling design (SFD).}
 	\label{fig:sdoe_vs_pdoe}
 \end{figure}
+%
+\begin{table}[]
+	\centering
+	\begin{tabular}{l|cc|cc}
+		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
+		\multicolumn{2}{c}{$\widehat\theta_d$ RMSE} \\ \hline
+		Discrepancy    & AS   & SFD & AS    & SFD   \\ \hline
+		0              & 0.188 & 0.433 & 0.163 & 0.479\\ \hline
+		1, small       & 0.233 & 0.32 & 0.243 & 0.414\\ \hline
+		1, large       & 0.188 & 0.247 & 0.213 & 0.393\\ \hline
+		2, small       & 0.221 & 0.263 & 0.187 & 0.348\\ \hline
+		2, large       & 0.228 & 0.16 & 0.183 & 0.206\\ \hline
+		3, small       & 0.452 & 0.506 & 0.182 & 0.329\\ \hline
+		3, large       & 0.448 & 0.468 & 0.167 & 0.292\\ \hline
+	\end{tabular}
+	\caption{Posterior root mean square error (RMSE) for the calibration variable $\theta_1$ and the design variable $\theta_2$, for DCTO with adaptive sampling (AS) and a predetermined space-filling design (SFD). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$.} 
+	\label{table:vars_and_rmses}
+\end{table}
+%
+
+%
+The results show superior performance for the adaptive sampling DCTO over DCTO using a space-filling design.
+%
+The adaptive DCTO posterior means have lower RMSEs in all cases for $\theta_d$, and in all cases except one for $\theta_c$.
+%
+This demonstrates a useful robustness of adaptive DCTO to model misspecification, specifically in the case that the model treats as constant a calibration parameter that is more properly understood as functionally dependent upon other model inputs.
+%
+By using the CTO-driven estimate $\widehat\theta_d$ to sample from the region of interest, DCTO learns from observations such that $\theta_c(\widehat\theta_d)$ is near to the value $\theta_c(\theta_d)$.
+%
+This promotes better calibration with respect to the region of interest, and thereby better estimation of the optimal design settings.
+%
+By relying on DCTO rather than on performing KOH using samples gathered using heuristic optimization methods, or other RSM approaches, we achieve these estimates with quantification of all relevant model-driven uncertainty with respect to the values of $\theta_c$ and $\theta_d$.
 %
 
 \bigskip
