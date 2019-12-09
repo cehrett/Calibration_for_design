@@ -1,0 +1,12 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: blinded_version.aux
+The style file: asmems4.bst
+Database file #1: lit_review.bib
+Warning--entry type for "ansys" isn't style-file defined
+--line 1511 of file lit_review.bib
+Repeated entry---line 1588 of file lit_review.bib
+ : @article{Zhou2011
+ :                  ,
+I'm skipping whatever remains of this entry
+Warning--empty institution in Jones1998
+Warning--can't use both author and editor fields in Miettinen2008
+(There was 1 error message)
