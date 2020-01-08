@@ -1,0 +1,26 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: working_version.aux
+The style file: Chicago.bst
+Database file #1: lit_review.bib
+Repeated entry---line 1662 of file lit_review.bib
+ : @article{Brochu2010
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1727 of file lit_review.bib
+ : @article{Deb2002
+ :                 ,
+I'm skipping whatever remains of this entry
+Warning--missing author in Branke2008
+Warning--no number and no volume in Atamturktur2015
+Warning--page numbers missing in Atamturktur2015
+Warning--no journal in Binois2019
+Warning--no number and no volume in Binois2019
+Warning--page numbers missing in Binois2019
+Warning--can't use both volume and number fields in Branke2008
+Warning--no journal in Brochu2010
+Warning--no number and no volume in Brochu2010
+Warning--page numbers missing in Brochu2010
+Warning--page numbers missing in Brynjarsdottir2014
+Warning--page numbers missing in Chevalier2014
+Warning--empty institution in Jones1998
+Warning--empty institution in MiguelHernandez-Lobato2016
+(There were 2 error messages)
