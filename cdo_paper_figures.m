@@ -5,7 +5,7 @@ clc; clear all; close all;
 
 direc = pwd; 
 if direc(1)=='C' 
-    dpath = 'C:\Users\carle\Documents\MATLAB\NSF DEMS\Phase 1\';
+    dpath = 'C:\Users\Carl\Documents\MATLAB\NSF_DEMS\NSF-DEMS_calibration\';
 else
     dpath = 'E:\Carl\Documents\MATLAB\NSF-DEMS_calibration\';
 end
@@ -16,6 +16,9 @@ addpath(dpath);
 addpath([dpath,'stored_data']);
 addpath([dpath,'Example']);
 addpath([dpath,'Example\Ex_results']);
+
+% Change dir
+cd(dpath);
 
 %% Toy sim Figure describing the problem
 clc ; clearvars -except dpath ; close all; 
@@ -963,6 +966,7 @@ figstr = sprintf('FIG_des_obs_selection_example2');
 set(fig,'PaperPositionMode','auto')
 % print(fig,figstr,'-depsc','-r600')
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Figures for revised version (post-Technometrics) %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1153,8 +1157,10 @@ xlbl.Position = xlbl.Position + [8.0 2 0];
 clc ; clearvars -except dpath ; close all ;
 
 %%% Load calib results
+% locstr = [dpath,'stored_data\'...
+%     '2019-11-05_CTO'];
 locstr = [dpath,'stored_data\'...
-    '2019-11-05_CTO'];
+    '2020-04-25_CTO_size500'];
 load(locstr);
 mean_y = res.settings.mean_y ; std_y = res.settings.std_y;
 posamps = res.model_output.means .* std_y + mean_y;
@@ -1309,7 +1315,7 @@ pdefllq = pchip(cost,post_defl_lq,x);
 unc_wo_cu = fill([ x , fliplr(x) ], [pdefluq, fliplr(pdefllq)],'k');
 set(unc_wo_cu,'facealpha',alpha_wocu,'EdgeAlpha',alpha_wocu);
 hold on;
-plot(x,pdefl,'-r','LineWidth',1.5); % Mean
+median_line = plot(x,pdefl,'-r','LineWidth',1.5); % Mean
 % plot(x,pdefluq,':k',...
 %      x,pdefllq,':k');
 xl2=xlabel('Target cost');
@@ -1318,6 +1324,26 @@ xlim([96,350]);
 ylim(ylim_defl);
 
 figpos = get(h,'pos');
+
+% Add NSGA-II results
+locstr = [dpath,'stored_data\'...
+    '2020-04-23_NSGA2_results'];
+load(locstr);
+nsga2_res = plot(result.final_obj(:,2),result.final_obj(:,1),'*');
+
+
+% Now add a legend.
+ylim(ylim+[0 0.03]);
+leg_gos = [nsga2_res median_line ];% go_plot_diag];
+lg=legend(leg_gos,sprintf('NSGA-II results'),...
+    sprintf('Posterior\npredictive median'),...
+    'Location','northeast');
+% lg.Position(1:2)=[.623 .725];
+flushLegend(lg,'northeast');
+lg.Box='off';
+% lgpos = lg.Position;
+% lg.Position = lgpos + [-.004 -.002 -.004 -.002];
+
 
 % saveas(h,'FIG_cost_grid_pareto.png');
 
@@ -1348,6 +1374,12 @@ xl2=xlabel('Target cost');
 xlim([183.7013 186.1534]);
 ylim([0.7255 0.7273]);
 
+% Add NSGA-II results
+locstr = [dpath,'stored_data\'...
+    '2020-04-23_NSGA2_results'];
+load(locstr);
+plot(result.final_obj(:,2),result.final_obj(:,1),'*');
+
 % Now add a main title and fix any infelicities
 % suptitle(['Posterior estimate vs. target cost,',...
 %     ' with ',num2str(cred_level),'% credible interval ']); 
@@ -1375,11 +1407,180 @@ lg.Box='off';
     
 %%% Save
 set(h,'Color','white');
-% export_fig FIG_cost_grid_pareto_bands -png -m3 -painters
+% export_fig 	 -png -m3 -painters
 % saveas(h,'FIG_cost_grid_pareto_with_code_uncert.png');
 figstr = 'FIG_cost_grid_pareto_bands';
 set(h,'PaperPositionMode','auto')
 % print(h,figstr,'-depsc','-r600')
+
+%% WTA Pareto bands (new 2020-04-23)
+clc ; clearvars -except dpath ; close all ;
+
+%%% Load the results
+locstr = [dpath,'stored_data\'...
+    '2019-11-05_CTO_costgrid'];
+load(locstr);
+mean_y = results{1}.settings.mean_y ; std_y = results{1}.settings.std_y ;
+
+% Collect Cost_lambdas, and posterior mean and sds for costs, defl, rot, as
+% well as upper and lower .05 quantiles
+m=length(results); % Store number of target cost_lambdas
+cost_lambda = zeros(m,1); % This will store cost_lambdas
+cred_level = 90; % Set desired level for credible bands (in %)
+alpha = (100-cred_level)/100; % Convert cred_level to alpha level
+pmo = zeros(m,2); % This will store posterior mean output of emulator
+pdo = zeros(m,2); % ``'' median output
+pso = zeros(m,2); % ``'' appropriate multiple of standard deviations
+plo = zeros(m,2); % ``'' lower (alpha/2) quantile
+puo = zeros(m,2); % ``'' upper (alpha/2) quantile
+for ii = 1:m % This loop populates the above arrays
+    output_means = results{ii}.model_output.means .* std_y + mean_y;
+    output_sds = sqrt(results{ii}.model_output.vars) .* std_y;
+    pmo(ii,:) = mean(output_means);
+    pdo(ii,:) = quantile(output_means,0.5);
+    pso(ii,:) = norminv(1-alpha/2) * ...
+        mean(output_sds);
+    plo(ii,:) = quantile(output_means,alpha/2);
+    puo(ii,:) = quantile(output_means,1-alpha/2);
+    cost(ii) = results{ii}.settings.obs_y(1,end) * std_y(2) + mean_y(2);
+end
+% Now we break the arrays up each into 2 vectors, one for each output
+post_cost_mean = pmo(:,2);
+post_defl_mean = pmo(:,1);
+post_cost_median = pdo(:,2);
+post_defl_median = pdo(:,1);
+post_cost_sd = pso(:,2);
+post_defl_sd = pso(:,1);
+post_cost_lq = plo(:,2);
+post_cost_uq = puo(:,2);
+post_defl_lq = plo(:,1);
+post_defl_uq = puo(:,1);
+% Get quantiles plus code uncertainty
+post_cost_uq_cu = post_cost_uq + post_cost_sd;
+post_cost_lq_cu = post_cost_lq - post_cost_sd;
+post_defl_uq_cu = post_defl_uq + post_defl_sd;
+post_defl_lq_cu = post_defl_lq - post_defl_sd;
+% Get ylims for the two sets of plots
+ylimrat=1.01;
+ylim_cost = [min(post_cost_lq_cu)/ylimrat max(post_cost_uq_cu)*ylimrat];
+ylim_defl = [min(post_defl_lq_cu)/ylimrat max(post_defl_uq_cu)*ylimrat];
+
+%%% Begin figures
+% Set alphas for two types of uncertainty
+alpha_wcu = 0.5;  %with code uncertainty
+alpha_wocu= 0.15; %without
+h=figure('rend','painters','pos',[10 10 360 240]);
+x = 96:1:350; % x fills the cost domain
+[subplts , pos] = tight_subplot(1,2,0.175,[0.15 0.02],[0.11 0.01]);
+
+% Now begin plot 1/2
+axes(subplts(1));
+% Get main curve
+pdefl = pchip(cost,post_defl_median,x);
+% Get upper and lower 0.05 quantiles curves
+pdefluq = pchip(cost,post_defl_uq,x);
+pdefllq = pchip(cost,post_defl_lq,x);
+unc_wo_cu = fill([ x , fliplr(x) ], [pdefluq, fliplr(pdefllq)],'k');
+set(unc_wo_cu,'facealpha',alpha_wocu,'EdgeAlpha',alpha_wocu);
+hold on;
+median_line = plot(x,pdefl,'-r','LineWidth',1.5); % Mean
+% plot(x,pdefluq,':k',...
+%      x,pdefllq,':k');
+xl2=xlabel('Target cost');
+ylabel('Deflection');
+xlim([96,350]);
+ylim(ylim_defl);
+
+figpos = get(h,'pos');
+
+% Add NSGA-II results
+locstr = [dpath,'stored_data\'...
+    '2020-04-23_NSGA2_results'];
+load(locstr);
+nsga2_res = plot(result.final_obj(:,2),result.final_obj(:,1),'*');
+
+
+% Now add a legend.
+ylim(ylim+[0 0.03]);
+leg_gos = [nsga2_res median_line ];% go_plot_diag];
+lg=legend(leg_gos,sprintf('NSGA-II results'),...
+    sprintf('Posterior\npredictive median'),...
+    'Location','northeast');
+% lg.Position(1:2)=[.623 .725];
+flushLegend(lg,'northeast');
+lg.Box='off';
+% lgpos = lg.Position;
+% lg.Position = lgpos + [-.004 -.002 -.004 -.002];
+
+
+% saveas(h,'FIG_cost_grid_pareto.png');
+
+% Now add in code uncertainty. That is, the above assumes that the GP
+% emulator nails the FE code precisely. But of course the GP emulator has
+% nonnegligible variance. That's the code uncertainty. So our confidence
+% bands should reflect it. So we add it in here, by dropping the
+% appropriate multiple of the sd from each lower quantile and adding it to
+% each upper quantile.
+% First, open the figure prior to calling suptitle.
+% h=openfig('tempfig');
+axes(subplts(2));
+pdefluq_code_uncert = pchip(cost,post_defl_uq_cu,x);
+pdefllq_code_uncert = pchip(cost,post_defl_lq_cu,x);
+f=fill([ x , fliplr(x) ], [pdefluq, fliplr(pdefllq)],'k');
+set(f,'facealpha',alpha_wocu,'EdgeAlpha',alpha_wocu);
+hold on;
+f=fill([ x , fliplr(x) ], [pdefluq_code_uncert,...
+    fliplr(pdefluq)],'k');
+unc_w_cu=fill([ x , fliplr(x) ], [pdefllq_code_uncert,...
+    fliplr(pdefllq)],'k');
+hold on;
+median_line = plot(x,pdefl,'-r','LineWidth',1.5); % Mean
+set(f,'facealpha',alpha_wcu,'EdgeAlpha',alpha_wcu);
+set(unc_w_cu,'facealpha',alpha_wcu,'EdgeAlpha',alpha_wcu);
+ylabel('Deflection');
+xl2=xlabel('Target cost');
+xlim([183.7013 186.1534]);
+ylim([0.7255 0.7273]);
+
+% Add NSGA-II results
+locstr = [dpath,'stored_data\'...
+    '2020-04-23_NSGA2_results'];
+load(locstr);
+plot(result.final_obj(:,2),result.final_obj(:,1),'*');
+
+% Now add a main title and fix any infelicities
+% suptitle(['Posterior estimate vs. target cost,',...
+%     ' with ',num2str(cred_level),'% credible interval ']); 
+set(h,'pos',figpos); % Just so we can reuse the positioning code from above
+% p = get(xl1,'position');
+% set(xl1,'position',p + [0 2.75 0]);
+% p = get(xl2,'position');
+% set(xl2,'position',p + [0 0.00125 0])
+% p = get(xl3,'position');
+% set(xl3,'position',p + [0 0.0002 0])
+
+% Now add a legend.
+ylim(ylim+[0 0.0007]);
+leg_gos = [median_line unc_wo_cu unc_w_cu];% go_plot_diag];
+lg=legend(leg_gos,sprintf('Posterior\npredictive median'),...
+    sprintf('C.I. w/o code\nuncertainty'),...
+    sprintf('C.I. with code\nuncertainty'),...
+    'Location','northeast');
+% lg.Position(1:2)=[.623 .725];
+flushLegend(lg,'northeast');
+lg.Box='off';
+% lgpos = lg.Position;
+% lg.Position = lgpos + [-.004 -.002 -.004 -.002];
+
+    
+%%% Save
+set(h,'Color','white');
+% export_fig 	 -png -m3 -painters
+% saveas(h,'FIG_cost_grid_pareto_with_code_uncert.png');
+figstr = 'FIG_cost_grid_pareto_bands';
+set(h,'PaperPositionMode','auto')
+% print(h,figstr,'-depsc','-r600')
+
 
 %% Example of selecting performance target, v3
 clc ; clearvars -except dpath ; close all ;
@@ -1457,3 +1658,362 @@ figstr = sprintf('FIG_des_obs_selection_example2');
 
 set(fig,'PaperPositionMode','auto')
 % print(fig,figstr,'-depsc','-r600')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figures for R&R to Journal of Mechanical Design %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% WTA Contour plot of highest density regions of posterior distribution 
+clc ; clearvars -except dpath ; close all ;
+
+%%% Load the calibration results
+% clearvars -except dpath res ; 
+samps = res.theta1;
+% load([dpath,'stored_data\'...
+%     '2018-07-27_discrepancy_d-elbow_d-p2'],...
+%     'results');
+% samps = results.samples_os(results.settings.burn_in+2:end,:) ;
+
+ff=figure('pos',[10 10  320.0000  240]);
+
+% Get the density
+[f,x,bw]=ksdensity(samps);
+
+% Correct it by enforcing the boundary conditions:
+f(x(:,1)>0.6 | x(:,2)<10) = 0 ;
+
+% Reshape for the contour plot
+X = reshape(x(:,1),30,30); Y = reshape(x(:,2),30,30); Z = reshape(f,30,30);
+
+% Convert Z to quantiles in posterior dist
+[f,x,bw]=ksdensity(samps,samps);
+Z = reshape(sum(f<Z(:)')/size(f,1),30,30);
+
+% Get contour plot and labels
+colormap HSV
+[C9,h9] = contour(X,Y,Z, [ .9 .9 ]); hold on;
+[C,h] = contour(X,Y,Z, [ .75 .75 ], 'k--');
+[C5,h5] = contour(X,Y,Z, [ .5 .5 ], '--');
+[C,h] = contour(X,Y,Z, [ .25 .25 ], 'k-.');
+[C1,h1] = contour(X,Y,Z, [ .1 .1 ], '-.');
+[C01,h01] = contour(X,Y,Z, [ .01 .01 ], ':');
+w=1.25; h9.LineWidth=w; h5.LineWidth=w; h1.LineWidth=w; h01.LineWidth=w;
+xlim([0,0.6]);ylim([10,25]);
+
+lg=legend(...
+    '0.1 HDR','0.5 HDR', '0.9 HDR','0.99 HDR','Location','northwest');
+title('Posterior distribution of \theta');
+xlabel('Volume fraction'); ylabel('Thickness (mm)');
+
+% Save
+set(ff,'Color','w');
+% export_fig 'FIG_post_dist_contourplot' -eps -m3;
+
+%% WTA Histogram2 of highest density regions of posterior distribution 
+clc ; clearvars -except dpath ; close all ;
+
+%%% Load the calibration results
+% clearvars -except dpath res ; 
+locstr = [dpath,'stored_data\'...
+    '2019-11-05_CTO'];
+load(locstr);
+samps = res.theta1(res.settings.burn_in:end,:) ;
+
+fighist = figure('pos',[10 10  360.0000  240]);
+binwidth = 1.5e-3*[0.002 1];
+h2=histogram2(samps(:,1),samps(:,2),...
+    'Normalization','pdf');
+set(gca,'View',[225 30]);
+set(gca,'ZTick',[]);
+grid off;
+ttlhist = title('Posterior distribution of \theta');
+ttlhist.FontSize = 11;
+xlbl = xlabel('Vol. fraction'); ylbl = ylabel('Thickness (mm)');
+set(fighist,'Color','w');
+xlim([0 0.6]);
+ylim([10 25]);
+% pause(1.5);
+
+% Save it
+figstr = 'FIG_post_dist_hist2';
+set(fighist,'PaperPositionMode','auto')
+ylbl.Units = 'pixels'; xlbl.Units='pixels';
+ylbl.Position = ylbl.Position + [-8.0 2 0];
+xlbl.Position = xlbl.Position + [8.0 2 0];
+% print(fighist,figstr,'-depsc','-r600')
+
+%% WTA prior predictive distribution vs posterior predictive distribution
+clc ; clearvars -except dpath ; close all ;
+
+%%% Load calib results
+% clearvars -except dpath res ; close all;
+% locstr = [dpath,'stored_data\'...
+%     '2019-11-05_CTO'];
+locstr = [dpath,'stored_data\'...
+    '2020-04-25_CTO_size500'];
+load(locstr);
+mean_y = res.settings.mean_y ; std_y = res.settings.std_y;
+posamps = res.model_output.means .* std_y + mean_y;
+des_obs = res.settings.obs_y(1,:).* std_y + mean_y;
+
+%%% Load prior predictive results
+locstr2 = [dpath,'stored_data\'...
+    '2019-11-06_prior_predictive_distributions'];
+load(locstr2);
+prsamps = prior_model_output.means.* std_y + mean_y;
+
+
+%%% Make figure using histograms
+f=figure('pos',[10 10  360.0000  200]);
+[subplts,pos] = tight_subplot(1,3,0.02,[ 0.08 0.01],0.03);
+% Deflection
+axes(subplts(1));
+[p,x,bw]=ksdensity(posamps(:,1));
+max_lim = max(p);
+plot(x,p,'LineWidth',2);
+set(gca,'YTick',[]);
+%histogram(posamps(:,1),'Normalization','pdf','Edgecolor','none'); 
+hold on;
+[p,x]=ksdensity(prsamps(:,1));
+max_lim = max([p(:);max_lim]);
+plot(x,p,'--','LineWidth',2);
+%histogram(prsamps(:,1),'Normalization','pdf','Edgecolor','none');
+text(0.005,.9,...
+    'Deflection','VerticalAlignment','bottom','Units','normalized');
+text(1.715,102,'Rotation','VerticalAlignment','bottom');
+% xlim([0.6 0.85]);
+% ylim([0 110]);
+line([des_obs(1) des_obs(1)],ylim,'Color','black','Linestyle',':',...
+    'linewidth',2);
+
+
+% Rotation
+axes(subplts(2));
+[p,x,bw]=ksdensity(posamps(:,2));
+max_lim = max(p);
+plot(x,p,'LineWidth',2);
+set(gca,'YTick',[]);
+%histogram(posamps(:,2),'Normalization','pdf','Edgecolor','none'); 
+hold on;
+[p,x]=ksdensity(prsamps(:,2));
+max_lim = max([p(:);max_lim]);
+plot(x,p,'--','LineWidth',2);
+%histogram(prsamps(:,2),'Normalization','pdf','Edgecolor','none');
+text(0.005,.9,...
+    'Rotation','VerticalAlignment','bottom','Units','normalized');
+% xlim([0.075,0.105])
+% ylim([0 700]);
+ylim = get(gca,'ylim');
+line([des_obs(2) des_obs(2)],ylim,'Color','black','Linestyle',':',...
+    'linewidth',2);
+set(gca,'ylim',ylim);
+
+
+% Cost
+axes(subplts(3));
+[p,x,bw]=ksdensity(posamps(:,3));
+max_lim = max(p);
+plot(x,p,'LineWidth',2);
+set(gca,'YTick',[]);
+%histogram(posamps(:,3),'Normalization','pdf','Edgecolor','none'); 
+hold on;
+[p,x]=ksdensity(prsamps(:,3));
+max_lim = max([p(:);max_lim]);
+plot(x,p,'--','LineWidth',2);
+%histogram(prsamps(:,3),'Normalization','pdf','Edgecolor','none');
+text(0.05,.9,...
+    'Cost','VerticalAlignment','bottom','Units','normalized');
+% ylim([0 .0700]);
+xlim([60 400]);
+ylim = [0 max_lim*1.15];%get(gca,'ylim');ylim
+line([des_obs(3) des_obs(3)],ylim,'Color','black','Linestyle',':',...
+    'linewidth',2);
+set(gca,'ylim',ylim);
+
+
+% Add suptitle
+% st=suptitle('Prior and posterior predictive distributions');
+% st.Position=[0.5 -.1 0];
+[lg,icons,~,~]=legend('Posterior','Prior','Target','Location','northeast');
+% flushLegend(lg,'northeast');
+resizeLegend();
+pos=lg.Position; 
+lg.Position = pos + [.0915 0.055 0 0];
+% 
+% %%% Save
+set(f, 'Color','white');
+% % export_fig FIG_prior_vs_posterior_dist -eps -m3 -painters
+figstr = 'FIG_prior_vs_posterior_dist';
+set(f,'PaperPositionMode','auto')
+print(f,figstr,'-depsc','-r600')
+
+%% WTA Pareto bands (new 2020-04-23)
+clc ; clearvars -except dpath ; close all ;
+
+%%% Load the results
+locstr = [dpath,'stored_data\'...
+    '2019-11-05_CTO_costgrid'];
+load(locstr);
+mean_y = results{1}.settings.mean_y ; std_y = results{1}.settings.std_y ;
+
+% Collect Cost_lambdas, and posterior mean and sds for costs, defl, rot, as
+% well as upper and lower .05 quantiles
+m=length(results); % Store number of target cost_lambdas
+cost_lambda = zeros(m,1); % This will store cost_lambdas
+cred_level = 90; % Set desired level for credible bands (in %)
+alpha = (100-cred_level)/100; % Convert cred_level to alpha level
+pmo = zeros(m,2); % This will store posterior mean output of emulator
+pdo = zeros(m,2); % ``'' median output
+pso = zeros(m,2); % ``'' appropriate multiple of standard deviations
+plo = zeros(m,2); % ``'' lower (alpha/2) quantile
+puo = zeros(m,2); % ``'' upper (alpha/2) quantile
+for ii = 1:m % This loop populates the above arrays
+    output_means = results{ii}.model_output.means .* std_y + mean_y;
+    output_sds = sqrt(results{ii}.model_output.vars) .* std_y;
+    pmo(ii,:) = mean(output_means);
+    pdo(ii,:) = quantile(output_means,0.5);
+    pso(ii,:) = norminv(1-alpha/2) * ...
+        mean(output_sds);
+    plo(ii,:) = quantile(output_means,alpha/2);
+    puo(ii,:) = quantile(output_means,1-alpha/2);
+    cost(ii) = results{ii}.settings.obs_y(1,end) * std_y(2) + mean_y(2);
+end
+% Now we break the arrays up each into 2 vectors, one for each output
+post_cost_mean = pmo(:,2);
+post_defl_mean = pmo(:,1);
+post_cost_median = pdo(:,2);
+post_defl_median = pdo(:,1);
+post_cost_sd = pso(:,2);
+post_defl_sd = pso(:,1);
+post_cost_lq = plo(:,2);
+post_cost_uq = puo(:,2);
+post_defl_lq = plo(:,1);
+post_defl_uq = puo(:,1);
+% Get quantiles plus code uncertainty
+post_cost_uq_cu = post_cost_uq + post_cost_sd;
+post_cost_lq_cu = post_cost_lq - post_cost_sd;
+post_defl_uq_cu = post_defl_uq + post_defl_sd;
+post_defl_lq_cu = post_defl_lq - post_defl_sd;
+% Get ylims for the two sets of plots
+ylimrat=1.01;
+ylim_cost = [min(post_cost_lq_cu)/ylimrat max(post_cost_uq_cu)*ylimrat];
+ylim_defl = [min(post_defl_lq_cu)/ylimrat max(post_defl_uq_cu)*ylimrat];
+
+%%% Begin figures
+% Set alphas for two types of uncertainty
+alpha_wcu = 0.5;  %with code uncertainty
+alpha_wocu= 0.15; %without
+h=figure('rend','painters','pos',[10 10 360 240]);
+x = 96:1:350; % x fills the cost domain
+[subplts , pos] = tight_subplot(1,2,0.175,[0.15 0.02],[0.11 0.01]);
+
+% Now begin plot 1/2
+axes(subplts(1));
+% Get main curve
+pdefl = pchip(cost,post_defl_median,x);
+% Get upper and lower 0.05 quantiles curves
+pdefluq = pchip(cost,post_defl_uq,x);
+pdefllq = pchip(cost,post_defl_lq,x);
+unc_wo_cu = fill([ x , fliplr(x) ], [pdefluq, fliplr(pdefllq)],'k');
+set(unc_wo_cu,'facealpha',alpha_wocu,'EdgeAlpha',alpha_wocu);
+hold on;
+median_line = plot(x,pdefl,'-r','LineWidth',1.5); % Mean
+% plot(x,pdefluq,':k',...
+%      x,pdefllq,':k');
+xl2=xlabel('Target cost');
+ylabel('Deflection');
+xlim([96,350]);
+ylim(ylim_defl);
+
+figpos = get(h,'pos');
+
+% Add NSGA-II results
+locstr = [dpath,'stored_data\'...
+    '2020-04-23_NSGA2_results'];
+load(locstr);
+nsga2_res = plot(result.final_obj(:,2),result.final_obj(:,1),'*');
+
+
+% Now add a legend.
+ylim(ylim+[0 0.03]);
+leg_gos = [nsga2_res median_line ];% go_plot_diag];
+lg=legend(leg_gos,sprintf('NSGA-II results'),...
+    sprintf('Posterior\npredictive median'),...
+    'Location','northeast');
+% lg.Position(1:2)=[.623 .725];
+flushLegend(lg,'northeast');
+lg.Box='off';
+% lgpos = lg.Position;
+% lg.Position = lgpos + [-.004 -.002 -.004 -.002];
+
+
+% saveas(h,'FIG_cost_grid_pareto.png');
+
+% Now add in code uncertainty. That is, the above assumes that the GP
+% emulator nails the FE code precisely. But of course the GP emulator has
+% nonnegligible variance. That's the code uncertainty. So our confidence
+% bands should reflect it. So we add it in here, by dropping the
+% appropriate multiple of the sd from each lower quantile and adding it to
+% each upper quantile.
+% First, open the figure prior to calling suptitle.
+% h=openfig('tempfig');
+axes(subplts(2));
+pdefluq_code_uncert = pchip(cost,post_defl_uq_cu,x);
+pdefllq_code_uncert = pchip(cost,post_defl_lq_cu,x);
+f=fill([ x , fliplr(x) ], [pdefluq, fliplr(pdefllq)],'k');
+set(f,'facealpha',alpha_wocu,'EdgeAlpha',alpha_wocu);
+hold on;
+f=fill([ x , fliplr(x) ], [pdefluq_code_uncert,...
+    fliplr(pdefluq)],'k');
+unc_w_cu=fill([ x , fliplr(x) ], [pdefllq_code_uncert,...
+    fliplr(pdefllq)],'k');
+hold on;
+median_line = plot(x,pdefl,'-r','LineWidth',1.5); % Mean
+set(f,'facealpha',alpha_wcu,'EdgeAlpha',alpha_wcu);
+set(unc_w_cu,'facealpha',alpha_wcu,'EdgeAlpha',alpha_wcu);
+ylabel('Deflection');
+xl2=xlabel('Target cost');
+xlim([183.7013 186.1534]);
+ylim([0.7255 0.7273]);
+
+% Add NSGA-II results
+locstr = [dpath,'stored_data\'...
+    '2020-04-23_NSGA2_results'];
+load(locstr);
+plot(result.final_obj(:,2),result.final_obj(:,1),'*');
+
+% Now add a main title and fix any infelicities
+% suptitle(['Posterior estimate vs. target cost,',...
+%     ' with ',num2str(cred_level),'% credible interval ']); 
+set(h,'pos',figpos); % Just so we can reuse the positioning code from above
+% p = get(xl1,'position');
+% set(xl1,'position',p + [0 2.75 0]);
+% p = get(xl2,'position');
+% set(xl2,'position',p + [0 0.00125 0])
+% p = get(xl3,'position');
+% set(xl3,'position',p + [0 0.0002 0])
+
+% Now add a legend.
+ylim(ylim+[0 0.0007]);
+leg_gos = [median_line unc_wo_cu unc_w_cu];% go_plot_diag];
+lg=legend(leg_gos,sprintf('Posterior\npredictive median'),...
+    sprintf('C.I. w/o code\nuncertainty'),...
+    sprintf('C.I. with code\nuncertainty'),...
+    'Location','northeast');
+% lg.Position(1:2)=[.623 .725];
+flushLegend(lg,'northeast');
+lg.Box='off';
+% lgpos = lg.Position;
+% lg.Position = lgpos + [-.004 -.002 -.004 -.002];
+
+    
+%%% Save
+set(h,'Color','white');
+% export_fig 	 -png -m3 -painters
+% saveas(h,'FIG_cost_grid_pareto_with_code_uncert.png');
+figstr = 'FIG_cost_grid_pareto_bands';
+set(h,'PaperPositionMode','auto')
+% print(h,figstr,'-depsc','-r600')
+
+
+

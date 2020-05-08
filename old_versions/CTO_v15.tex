@@ -1,0 +1,1460 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%% asme2ej.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template for producing ASME-format journal articles using LaTeX    %
+% Written by   Harry H. Cheng, Professor and Director                %
+%              Integration Engineering Laboratory                    %
+%              Department of Mechanical and Aeronautical Engineering %
+%              University of California                              %
+%              Davis, CA 95616                                       %
+%              Tel: (530) 752-5020 (office)                          %
+%                   (530) 752-1028 (lab)                             %
+%              Fax: (530) 752-4158                                   %
+%              Email: hhcheng@ucdavis.edu                            %
+%              WWW:   http://iel.ucdavis.edu/people/cheng.html       %
+%              May 7, 1994                                           %
+% Modified: February 16, 2001 by Harry H. Cheng                      %
+% Modified: January  01, 2003 by Geoffrey R. Shiflett                %
+% Use at your own risk, send complaints to /dev/null                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% use twocolumn and 10pt options with the asme2ej format
+\documentclass[twocolumn,10pt]{asme2ej}
+
+\usepackage{graphicx} %% for loading jpg figures
+\usepackage{amsmath, amssymb}
+\usepackage{bm}
+
+% Useful definitions
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+%% The class has several options
+%  onecolumn/twocolumn - format for one or two columns per page
+%  10pt/11pt/12pt - use 10, 11, or 12 point font
+%  oneside/twoside - format for oneside/twosided printing
+%  final/draft - format for final/draft copy
+%  cleanfoot - take out copyright info in footer leave page number
+%  cleanhead - take out the conference banner on the title page
+%  titlepage/notitlepage - put in titlepage or leave out titlepage
+%  
+%% The default is oneside, onecolumn, 10pt, final
+
+
+\title{Coupling material and mechanical design processes via computer model calibration}
+
+%%% first author
+\author{Carl Ehrett
+    \affiliation{
+	Graduate Research Assistant\\
+	School of Mathematical and \\Statistical Sciences\\
+	Clemson University\\
+	Clemson, South Carolina 29631\\
+    Email: cehrett@clemson.edu
+    }	
+}
+
+%%% second author
+%%% remove the following entry for single author papers
+%%% add more entries for additional authors
+\author{D. Andrew Brown\thanks{Corresponding author.} 
+    \affiliation{Associate Professor\\
+    School of Mathematical and \\Statistical Sciences\\
+	Clemson University\\
+	Clemson, South Carolina 29631\\
+	Email: ab7@clemson.edu
+	}	
+}
+%%% third author
+%%% remove the following entry for single author papers
+%%% add more entries for additional authors
+\author{Evan Chodora
+	\affiliation{
+        Graduate Research Assistant\\
+        Department of Mechanical Engineering\\
+        Clemson University\\
+        Clemson, South Carolina 29631\\
+        Email: dab7@clemson.edu
+    }}
+
+\author{Christopher Kitchens
+    \affiliation{Associate Professor\\
+        Department of Chemical\\and Biomolecular Engineering\\
+        Clemson University\\
+        Clemson, South Carolina 29631\\
+        Email: ckitche@clemson.edu
+    }}
+
+\author{Sez Atamturktur
+	\affiliation{Professor\\
+		Department of Architectural Engineering\\
+		The Pennsylvania State University\\
+		University Park, Pennsylvania 16802\\
+		Email: sez@psu.edu
+	}}
+
+
+\begin{document}
+
+\maketitle    
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+{\it 
+	%
+	Computer model calibration typically operates by choosing parameter values in a computer model so that the model output faithfully predicts reality. 
+	%
+	By using performance targets in place of observed data, we show that calibration techniques can be repurposed to wed engineering and material design, two processes that are traditionally carried out separately.
+	% 
+	This allows materials to be designed with specific engineering targets in mind while quantifying the associated sources of uncertainty. 
+	%
+	We demonstrate our proposed approach by ``calibrating'' material design settings to performance targets for a wind turbine blade.
+}
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{nomenclature}
+\entry{$c$}{Cost (USD)}
+\entry{$C$}{Covariance function of a Gaussian process}
+\entry{$\mathbf C_{D}$}{Covariance matrix formed using $C$ and $D$}
+\entry{$D$}{$(\boldsymbol\eta^T, \mathbf y_t^T )^T$}
+\entry{$d$}{Tip deflection distance (m)}
+\entry{$h$}{Temperature (Kelvin)}
+\entry{$k$}{Thickness (mm)}
+\entry{$f$}{Function describing a phenomenon of interest}
+\entry{$f_\gamma$}{Function describing a phenomenon of interest in world $\gamma$}
+\entry{$m$}{Number of outputs of $\eta$}
+\entry{$p$}{Dimensionality of $\mathbf x$}
+\entry{$r$}{Twist angle (radians)}
+\entry{$\mathbf t$}{Vector of model inputs such that the true/optimal value of $\mathbf t$ is $\boldsymbol\theta$}
+\entry{$v$}{Volume fraction of a composite material}
+\entry{$\mathbf x$}{Array of model inputs other than $\boldsymbol\theta$}
+\entry{$y$}{Function relating inputs $\mathbf x$ to outputs $\mathbf y$}
+\entry{$\mathbf y$}{Vector of model outputs}
+\entry{$\mathbf y_t$}{Vector of target model outputs}
+\entry{$\mathbf z$}{Vector of outputs of $\eta$ summed with error $\epsilon$}
+\entry{$\alpha$}{The actual world}
+\entry{$\beta^\gamma_j$}{Inverse correlation length for the $j^\text{th}$ input of the Gaussian process emulator of $\gamma$}
+\entry{$\delta$}{Systematic model bias}
+\entry{$\epsilon$}{Mean-zero error}
+\entry{$\zeta_\gamma$}{Smoothness hyperparameter for the Gaussian process emulator of $\gamma$}
+\entry{$\boldsymbol\theta$}{Vector of parameters for which unknown true or optimal values are sought}
+\entry{$\eta$}{Computer model simulator of $f$}
+\entry{$\boldsymbol\eta$}{Array of outputs from $\eta$}
+\entry{$\lambda_\gamma$}{Marginal precision of Gaussian process emulator of $\gamma$}
+\entry{$\mu$}{Mean function of a Gaussian process}
+\entry{$\pi$}{A probability distribution function}
+\entry{$\rho^\gamma_j$}{Reparameterization of $\beta^\gamma_j$}
+\entry{$\sigma^2$}{Variance of $\epsilon$}
+\entry{$\omega$}{A possible world}
+\entry{$\mathcal D$}{The domain of a Gaussian process}
+\entry{$\mathcal P$}{Pareto optimal solutions in a given solution set}
+\end{nomenclature}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{introduction}
+
+Real-world optimization problems typically involve multiple objectives. 
+%
+This is particularly true in the design of engineering systems, where multiple performance outcomes are balanced against budgetary constraints. 
+%
+Among the complexities of optimizing over multiple objectives is the effect of uncertainties in the problem. 
+%
+Design is guided by models known to be imperfect, systems are built using materials with uncertainty regarding their properties, variations occur in the construction of designed systems, and so on. 
+%
+These imperfections, uncertainties and errors cause uncertainty also in the solution to a design problem. 
+%
+
+%
+In traditional engineering design, one designs a system after choosing a material with appropriate properties for the project from a database of known materials. 
+%
+%These materials are themselves developed without a specific end-use in mind.
+%
+As a result, the design of the system is constrained by the initial material selection.
+%
+By coupling material discovery and engineering system design, we can combine these two traditionally separate processes under the umbrella of a unified multiple objective optimization problem.
+%
+
+%
+In this paper, we cast the engineering design problem in the framework of computer model calibration.
+%
+In traditional calibration, one aligns computer model output to observations of a real system by estimating unknown parameters in the model.
+%
+Here, we instead align the computer model to performance and cost targets by finding design variables that optimize the model output with respect to those targets.
+%
+
+%
+Our proposed methodology uses the Bayesian framework first established as a means for computer model calibration by Kennedy and O'Hagan \cite{Kennedy2001}.
+% 
+This area is furthered by Higdon et al., \cite{Higdon2004}, who undertake model calibration with quantified uncertainty. 
+%
+%They explicitly incorporate uncertainty regarding the computer model input, the bias of the computer model, and uncertainty due to observation error. 
+%
+Their approach is further refined and exemplified by Williams et al.\ \cite{Williams2006}.
+%
+Loeppky et al.\ \cite{Loeppky2006} offer a maximum-likelihood-based alternative to the Bayesian approach advocated by Kennedy and O'Hagan, intending thereby to improve the identifiability of the calibration parameters in the face of model discrepancy. 
+%
+Bayarri et al.\ \cite{Bayarri2007} extend the approach of Kennedy and O'Hagan, allowing for simultaneous validation and calibration of a computer model. % (using the same training data). 
+%
+Bayarri et al.\ \cite{Bayarri} apply this methodology to functional data using a hierarchical framework for the coefficients of a wavelet representation. 
+%
+Similarly, Paulo et al.\ \cite{Paulo2012} apply the approach of Ref.\ \cite{Bayarri2007} to computer models with multivariate output.
+%
+Brynsjarsd\'ottir et al.\ \cite{Brynjarsdottir2014} demonstrate the importance of strong priors on the model discrepancy term when undertaking calibration.
+%
+
+%
+Common to those approaches is a conception of calibration as using real observations to get a posterior distribution on unknown parameters $\boldsymbol\theta$ so that the posterior predictive distribution of the model approximates reality.
+%
+By contrast, using an approach we call counterfactual Bayes, our methodology uses artificial observations (representing design targets) to obtain a posterior distribution on design variables $\boldsymbol\theta$ so that the posterior predictive distribution approaches those targets.
+%
+In counterfactual Bayes, we apply Bayesian reasoning to a hypothetical scenario that bears certain known relationships to reality.
+%
+Those known relationships allow us to transfer knowledge gained about the hypothetical scenario to reality, thereby gaining valuable insights into the phenomenon of interest.
+%
+We describe how, with little added computational cost, the methodology provides an initial rough estimate of the {\em Pareto front} for the system, i.e., the set of points in the design space that are Pareto optimal. 
+%
+A point is Pareto optimal if and only if, in order to improve any one of its elements, some other element must be made worse off.
+%
+%For example, if a bivariate system in a minimization problem has exactly three output points $a=(2,0)$, $b=(2,1)$, and $c=(1,10)$ then $a$ and $c$ are each Pareto optimal, but $b$ is not, since there is a point (namely $a$) that is less than or equal to $b$ in every output and strictly less than $b$ in at least one output.
+%
+In a system in which there is a trade-off between cost and performance, for example, which region of the Pareto front is most desirable will depend upon budgetary constraints.
+%
+This initial rough estimate of the Pareto front can be used to select artificial observations closer to the design space and thereby promote stronger Bayesian learning about the optimal settings for the design variables $\boldsymbol\theta$.
+%
+Repeated applications of the procedure can be used to produce the more thorough ``Pareto bands'' which estimate the Pareto front with quantified uncertainties.
+%
+
+% Multi-objective lit
+Our approach is thus an example of Bayesian multi-objective optimization under uncertainty. Concerns about uncertainty in optimization may include uncertainty in the inputs (as when the inputs are not under perfect control), uncertainty in the outputs (as when the code or process of interest is not deterministic), and observation error \cite{Jin2005}. 
+%
+As a response to these sources of uncertainty, two different approaches are possible.
+%
+Firstly, one's focus may be on finding solutions that are robust to small perturbations in the inputs, e.g. by resampling in the design space around each candidate point considered during optimization \cite{Deb2006}.
+%
+Alternatively, rather than seeking robust solutions, one could endeavor simply to quantify the resulting uncertainty in the model outputs, again through resampling around points of interest \cite{Zhou2011}.
+%
+Our focus is on the latter of these two goals, though the posterior distributions our method provides include information about the sensitivity of the model output to the various model inputs, and thereby provides information about the robustness of the estimated optima.
+%
+Since we are concerned with computationally expensive objective functions, our method also avoids resampling, which can add prodigiously to the computational expense of an optimization procedure.
+%
+
+%
+Though a Bayesian means of optimization, our proposed methodology contrasts with what is typically referred to as ``Bayesian optimization" (BO). 
+%
+In traditional BO, a Gaussian process (GP) surrogate model is constructed based on a small set of training observations, and the resulting updated GP is used to define an ``acquisition function'' that is used sequentially to select new observation locations until a stopping condition is achieved \cite{Picheny2019}.
+%
+Acquisition functions are crafted to attempt to balance exploration with exploitation of the objective function.
+%
+Examples include the EGO (efficient global optimization) function of Jones et al.\ \cite{Jones1998}, and the EGO-inspired SUR (stepwise uncertainty reduction) function showcased for univariate BO by Chevalier et al.\ \cite{Chevalier2014}.
+%
+The SUR approach is applied to estimating the Pareto front of a multi-objective optimization problem by Picheny \cite{Picheny2015}.
+%
+The methodology we propose here differs from these forms of traditional BO by its avoidance of sequential sampling, which is desirable in cases where the computational budget is very small, or when the relevant observations are based on previously gathered data, or in general when the data-gathering process is not devoted exclusively to serving the ends of the optimization.
+%
+Our methodology also can be used to quantify all associated forms of uncertainty discussed above -- uncertainty due to the model inputs, due to the stochastic nature of the objective function, or due to observation error of the outputs (e.g. if the observations are of the phenomenon of interest itself rather than of a computer model thereof).
+%
+
+%
+Our approach thus has affinities with that of Olalotiti-Lawal and Datta-Gupta \cite{Olalotiti-Lawal2015}.
+%
+Both approaches use Markov chain Monte Carlo (MCMC, \cite{Gelfand1990}) to explore a posterior distribution on the design inputs.
+%
+Olalotiti-Lawal and Datta-Gupta construct a distribution that is designed to lie both on and near the Pareto front of the objective function.
+%
+The acceptance rate during MCMC and the variance of the distribution depend upon a user-defined temperature parameter.
+%
+The resulting posterior distribution includes uncertainty quantification.
+%
+The uncertainty quantified in that approach is the uncertainty remaining in the distribution designed by the authors; this distribution does not itself come from the model of the phenomenon of interest.
+%
+By contrast, under our approach, the distribution explored via MCMC is dictated by the model itself (and by the GP surrogate thereof), by our prior knowledge about the appropriate design settings, and by the choice of performance/cost targets.
+%
+The approach we propose here also has somewhat greater flexibility -- while it may be used to explore the entire Pareto front as Olalotiti-Lawal and Datta-Gupta do, our approach also may be used as a form of ``goal programming" \cite{Miettinen2008}, targeting a particular region of the Pareto front in accordance with the preferences of the relevant decision-makers.
+%
+%This goal programming can even be used sequentially, allowing a decision-maker to respond to the results of optimization and provide input on which new regions of the objective space to target for exploration.
+
+%
+We apply our proposed methodology both to a proof-of-concept example and to finding material design settings to optimize performance and cost for a wind turbine blade of fixed outer geometry.
+%
+The blade is to be constructed using a composite material, the properties of which are dependent upon design variables under our control.
+%
+%One design variable targeted for optimization is the \emph{volume fraction}, which is the ratio of the \emph{filler} to \emph{matrix} used in the composite material.
+%%
+%In a composite, the matrix holds the filler together; an example would be concrete, in which a filler of loose stones is combined with a matrix of cement.
+%%
+%Another design variable is the thickness (in mm) of the shear web used in the blade.
+%
+Our material design goal is to reduce the cost per square meter of the composite, the angle of twist (in radians) of the blade when under load, and the deflection (in meters) of the blade tip when under load.
+%
+
+%
+In Section \ref{counterfactual_bayes}, we introduce the counterfactual Bayes methodology for learning about a real system by applying Bayesian reasoning in a hypothetical scenario with known linkages to the real system.
+%
+In Section \ref{calib_for_design}, we review the calibration framework grounding our design optimization approach. 
+%
+In Sections \ref{example} and \ref{application}, we apply our methodology to simulated data and to wind turbine blade design.
+%
+%In Section \ref{application}, we show how our approach can produce an estimate of the Pareto front of the turbine blade system while quantifying associated uncertainty.
+%
+Section \ref{conclusion} discusses the results and thoughts about future directions.
+%
+
+%
+\section{Counterfactual Bayes}\label{counterfactual_bayes}
+%
+Counterfactual Bayes relies on reasoning about counterfactual situations.
+%
+In this respect it is reminiscent of some statistical approaches, such as the framework of Rubin \cite{Rubin1974}, to questions of causality.
+%
+To elucidate the relevant notion of counterfactuality, 
+%%
+%We introduce the approach used here using a simple thought experiment.
+%%
+%Consider a golfing enthusiast, David, who has been challenged to hit a ball on a long narrow fairway as far as possible in a given direction from a given starting point on the fairway. 
+%%
+%David has at his disposal not merely the usual set of clubs; David is a collector with a dizzying array of woods appropriate to this challenge.
+%%
+%They differ in loft angle (angle of the club head), in head material, in shaft material, in head volume, in shaft flexibility, shaft length, and so on. 
+%%
+%He knows that his drive distances are normally distributed with a common variance and a mean that varies based on the club, terrain and start point, but he does not know which club will produce the highest mean in this situation.
+%%
+%%Every time he considers choosing a particular club, he's able to think of several with e.g. a slightly better loft angle for this situation, or a slightly better shaft flexibility. 
+%%
+%However, David has a so-far untapped resource here.
+%%
+%David has a savant-like ability, given an observation of a player, terrain, ball start point and end point, to guess the club used in that instance. 
+%%
+%Of course, David has not made any relevant observation in this case, but he realizes that he can apply his ability to a \textit{hypothetical} observation of himself, the current terrain, his current start point and an end point of his choosing. 
+%%
+%He can reason as though he observed a particular extremely successful outcome, and thereby use his ability to identify which club would be most likely to have produced that outcome.
+%%
+%Since his drive distances are normally distributed with common variance, he can infer that the club producing this extreme outcome is also the club having the optimal expected outcome in the hypothetical scenario.
+%%
+%Finally, since the model governing his drive distance is the same in the hypothetical scenario as in reality, he can conclude that the club he used in his hypothetical scenario is also the best choice for him to use in reality.
+%%
+%
+%%
+%A potential concern is that whichever club he identifies in this way will not necessarily be the best choice for maximizing his drive distance.
+%%
+%E.g., if he identifies the club that is likeliest to get him a 200 yard outcome, perhaps he would be missing out on a club that could get him to 250 yards. 
+%%
+%David tackles this worry as follows. 
+%%
+%He knows that his drive distances are normally distributed with a common variance around a mean that depends upon the club, terrain and start point. 
+%%
+%He knows that he can reliably get 90-150 yards from a fairway drive, and that the most he's ever gotten is 175. 
+%%
+%Therefore, he is confident he will not reach 300 yards. 
+%%
+%So he selects 300 yards as the hypothetically observed displacement of his ball. 
+%%
+%Activating his knack for matching a club to an observed displacement, he identifies the club most likely to get him to 300 yards. 
+%%
+%Since he is confidence he will underperform this feat, and also knows that his drive distances are normally distributed with a common variance, he knows this is also the club that will produce an expected distance closest to 300 yards, and thus is the club which is likeliest to maximize his drive distance.
+%%
+%David has thus applied Bayesian reasoning to a hypothetical scenario, and used his knowledge of the relationship between that scenario and reality to learn which club is optimal for him to choose in reality.
+%
+%
+%To generalize David's reasoning, 
+we rely on the logician's conception of possible worlds, which are used to explain the semantics of modal sentences (sentences having to do with possibility and necessity, rather than what is merely actual). 
+%
+A possible world can be conceived of as an internally consistent description of a world, which may or may not match the actual world \cite{Adams1974,Lewis1986}. 
+%
+So even though it is perhaps true that all dogs weigh under 350lbs (the heaviest recorded dog weighed 343lbs \cite{Young1994}), there is a possible world in which some dogs weigh over 350lbs, since it is possible to describe such a world without contradicting oneself.
+%
+I.e., a 350lb dog \textit{could} exist.
+%
+%Describing such a world would require saying some things that are false, but would not require that one contradict oneself within the description. 
+%
+By contrast, there is no possible world in which some dogs are reptiles. 
+%
+Dogs are mammals by definition, and to describe any creature simultaneously as a reptile and as a dog is to contradict oneself. 
+%
+%Logicians rely upon the notion of possible worlds to explain that while ``All dogs are mammals'' and ``All dogs are under 350lbs'' are both true, nonetheless it is true that ``Necessarily, all dogs are mammals'' and false that ``Necessarily, all dogs are under 350lbs''.
+% 
+%In the case of David, the fact that his drive distances follow a normal distribution allows us to infer there is a possible world in which he manages to hit a 300 yard fairway drive, without thereby contradicting our assumption that in this possible world his drive distances follow the same distribution they do in the actual world.
+%
+%If the distribution had a finite upper bound, then we could not consistently describe a possible world sharing the same distribution on drive distances and in which an arbitrarily long drive is observed.
+%
+
+%
+Possible worlds give substance to the fundamental concepts of counterfactual approaches to causality.
+%
+For example, consider a case in which event $A$ occurs at time $t$, event $B$ occurs at time $t+1$, and one hypothesizes that $A$ caused $B$.
+%
+This causal claim, in the language of possible worlds, is equivalent to something like the following: In any possible world $\omega$ which is identical to our world $\alpha$ at all points up to time $t$, and which differs at time $t$ only in that $A$ did not occur, is also such that $B$ does not occur in $\omega$.
+%
+The causal claim is thus implicitly a claim about worlds other than our own, based on observations made in our own world.
+%
+Counterfactual Bayes, as described in this paper, essentially reverses this relationship.
+%
+The idea of counterfactual Bayes is to rely on observations made in other possible worlds in order to learn about features of our own world.
+%
+
+%Let $\alpha$ denote the actual world. Let $\omega$ denote the world in which David achieves a 300 yard fairway drive, and in which $p_\omega(d|h,t,s,c)=p_\alpha(d|h,t,s,c)$. We know that such an $\omega$ is a possible world because we know that $p_\alpha(d|h,t,s,c)=N(\mu,\sigma_2)$ for some $\mu$ and $\sigma^2$, and that thus $p_\alpha(300 yards|h,t,s,c)>0$. (If drive distances in $\alpha$ had finite support, then we could not consistently describe a world sharing the same distribution on drive distances and in which an arbitrarily large drive distance was observed.) Let $d$ be the distance achieved in a swing by player $h$ on terrain $t$ from start point $s$ using club $c$. Given $p(d|h,t,s,c)$ and an observation $(d,h,t,s)$, we can apply Bayes' rule to achieve a posterior distribution on clubs, $p(c|d,h,t,s)$. (David's knack for club identification can be though of as a knack for applying Bayes' rule in this way.) In $\omega$, we observe $(d,h,t,s)$, and straightforward application of Bayes' rule gives us a posterior distribution on clubs used in $\omega$. We can further infer that this is also a distribution on clubs maximizing David's drive distance in $\omega$. So far, we have learned nothing about reality, $\alpha$. But in addition to our knowledge about $\omega$, we have knowledge about the relationship between $\alpha$ and $\omega$ which allows us to transfer what we have learned about $\omega$ to $\alpha$. Namely, we know (by construction) that $\omega$ and $\alpha$ have the same relationship between club choice and drive distance. Thus, the club maximizing drive distance in $\omega$ is also the club maximizing drive distance in $\alpha$.
+
+%Let's try the previous paragraph again, but this time without David. More general.
+
+%
+We can summarize the methodology of counterfactual Bayes as follows.
+%
+Let $\alpha$ denote the actual world. 
+%
+Let $f_\alpha$ be a function relating inputs $\mathbf x,\boldsymbol \theta$ to some output $\mathbf y$, which describes some phenomenon of interest in the real world for which we wish to find optimal settings for $\boldsymbol\theta$. 
+%
+Suppose that $f_\alpha$ is such that the optimal outcome can be redescribed in terms of some target outcome $\mathbf y_t$, i.e., that $\argmin_{\boldsymbol\theta} f_\alpha(\mathbf x,\boldsymbol \theta)=\argmin_{\boldsymbol\theta} \lVert \mathbf y_{t} - f_\alpha(\mathbf x,\boldsymbol\theta)\rVert$. 
+%
+Then a distribution $\boldsymbol\theta|\mathbf x,\mathbf y_{t}$ \textit{de facto} approximates a distribution on $\boldsymbol\theta$ values producing the optimal achievable output of the system. 
+%
+%In the application considered in this paper, $\boldsymbol\theta$ describes design settings for the material composition of a wind turbine blade, $\mathbf x$ describes the operating temperature of the turbine, and $\mathbf y$ denotes performance metrics of interest as well as construction cost. 
+%
+Consider now a possible world $\omega$ in which the same phenomenon $f_\omega=f_\alpha$ holds true, and in which we observe $\mathbf y_{t}$. 
+%
+Then we can apply Bayes' rule to learn a posterior distribution $p(\boldsymbol\theta|\mathbf x,\mathbf y_{t})$ of $\boldsymbol \theta$ values in $\omega$. 
+%
+This is not directly applicable to the actual world, since we have not observed $\mathbf y_{t}$ here. 
+%
+But we have that $\boldsymbol\theta|\mathbf x,\mathbf y_{t}$ approximates a distribution on $\boldsymbol \theta$ values producing an optimal achievable outcome from the system $f_\omega$, and we furthermore have that $f_\alpha=f_\omega$ and thus that a distribution on $\boldsymbol \theta$ values optimal for $f_\omega$ is also a distribution on $\boldsymbol \theta$ values optimal for $f_\alpha$. 
+%
+Thus by relying on known connections between $\omega$ and $\alpha$, we use observations made only in $\omega$ to gain valuable insight into features of $\alpha$.
+%
+
+%
+In what follows, we apply this counterfactual Bayes approach to find distributions on optimal design settings.
+%
+In our approach, Kennedy-O'Hagan-style model calibration \cite{Kennedy2001} is what allows us to discover a posterior distribution on design settings $\boldsymbol\theta$ given an ``observation'' of a set of possible outcomes.
+%
+We will apply that model calibration framework in a hypothetical scenario involving artificial observations of idealized outcomes $\mathbf y_t$, using our knowledge of the true system to exploit the resulting posterior distribution $\boldsymbol\theta|\mathbf y_t$ and thereby discover a distribution on optimal design settings.
+%
+
+%
+\section{Calibration for design}\label{calib_for_design}
+%\subsection{Calibration framework} \label{calib_framework}
+
+%
+\subsection{Gaussian process emulators for calibration}
+%
+In this work, when an emulator is needed we use GP emulators.
+%
+As a multivariate Gaussian random variable is characterized by a mean vector and covariance matrix, a GP is characterized by a mean and covariance functions $\mu:\mathcal D\to \mathbb R$ and $C:\mathcal D\times \mathcal D\to \mathbb R$, where $\mathcal D$ is the domain of the process. 
+%
+For points $\mathbf x,\mathbf y\in \mathcal D$, $\mu(\mathbf x)$ is the GP mean at $\mathbf x$, and $C(\mathbf x, \mathbf y)$ is the covariance between the values of the GP at $\mathbf x$ and $\mathbf y$.
+%
+The distribution of the GP at any finite number of points is multivariate normal with mean vector and covariance matrix determined by $\mu(\cdot)$ and $C(\cdot,\cdot)$.
+%
+In principle, model calibration need not rely on emulators; one can complete a Bayesian analysis via MCMC by running the model at each iteration of the chain (see e.g. Ref.\  \cite{Hemez2011}). 
+%
+%\cite{Hemez2011} compare the use of Kennedy-O'Hagan-style calibration with and without an emulator. 
+%%
+In Section \ref{example} we assume fast-running computer code for the simulated example, but
+%
+computer models are often too computationally expensive to allow such expenditure \cite{VanBuren2013,VanBuren2014}.
+%
+Instead, a computationally tractable emulator can be trained using a sample of the computer model output. 
+%
+
+%
+GPs are popular prior distributions on computer model output for three reasons.
+%
+Firstly, their use does not require detailed foreknowledge of the model function's parametric form. 
+%
+Secondly, GPs easily interpolate the computer model output, which is attractive when the model is deterministic and hence free of measurement error. 
+%
+This is the usual case, although some attention has focused on calibrating stochastic computer models \cite{Pratola2018}. 
+%
+Thirdly, GPs facilitate uncertainty quantification through the variance of the posterior GP. 
+%
+This section provides brief background on GPs and their use in regression broadly, and in computer model calibration specifically.
+%
+
+%
+The use of GPs as a computationally efficient predictor of computer code given observations of code output is advocated by Sacks et al.\ \cite{Sacks1989} and explored at length by Santner et al.\ \cite{Santner2003a}.
+%
+Since computer code is typically deterministic, these applications differ from the focus of Ref.\ \cite{OHagan1978} in that the updated GP interpolates the computer output. 
+%
+Ref.\ \cite{Kennedy2001} uses GPs for computer model calibration. 
+%
+Kennedy et al.\ \cite{Kennedy2006} showcase this use of GP emulators for uncertainty and sensitivity analyses. 
+%
+Bastos and O'Hagan \cite{Bastos2009} describe numerical and graphical diagnostic techniques for assessing when a GP emulator is successful, as well as likely causes of poor diagnostic results. 
+%
+Though most work on GP emulation uses stationary covariance functions 
+%(in which $\mu(\cdot)$ is constant and $C(\mathbf x,\mathbf x' )\equiv C(\mathbf x-\mathbf x' )$ depends only on the difference between $\mathbf x$ and $\mathbf x'$, rather than on their location in the input domain) 
+and quantitative inputs, 
+%efforts have been made to branch away from these core assumptions. 
+%
+Gramacy and Lee \cite{Gramacy2008} use treed partitioning for a nonstationary computer model, and
+%
+Qian et al.\ \cite{Qian2008} explore methods that include both quantitative and qualitative inputs.
+%
+
+%
+Whether or not an emulator is used, one may consider a computer model to be of the form $\eta(\mathbf x,\boldsymbol \theta)$, where $(\mathbf x,\boldsymbol \theta)$ comprise all model inputs. 
+%
+The vectors $\boldsymbol \theta$ and $\mathbf x$ denote respectively the inputs to be calibrated and the \emph{control inputs}, which are all other model inputs that are known and/or under the researchers' control. 
+%
+%The vector $\mathbf x$ denotes all other inputs that are known and/or under the control of the researcher.
+%
+%We call $\mathbf x$ the \emph{control inputs}.
+%
+Thus, the model is
+%
+\begin{equation} \label{eq:model_gen}
+y(\mathbf x)=f(\mathbf x)+\epsilon(\mathbf x) = \eta(\mathbf x,\boldsymbol \theta) + \delta(\mathbf x)+\epsilon(\mathbf x),
+\end{equation} 
+%
+where $y(\mathbf x)$ is the observed response at control inputs $\mathbf x$, $f(\cdot)$ is the true system, $\delta(\cdot)$ is the model discrepancy (the systematic bias of the model) and $\epsilon(\cdot)$ is mean-zero error, often assumed to be i.i.d.\ Gaussian. 
+%
+
+%
+To use an emulator, suppose we have inputs $\{(\mathbf x_i,\mathbf t_i)\}_{i=1}^n\subseteq \mathbb R^p\times \mathbb R^q$ scaled to the 
+%Cartesian product of the $p-$ and $q-$dimensional 
+unit hypercube and completed model runs 
+%
+$\eta\left(\mathbf x_i,\mathbf t_i\right)$ for $i=1,\ldots,n.$
+%
+Define the GP prior for $\eta(\cdot,\cdot)$ as having mean function $\mu(\mathbf x,\mathbf t)=c$, where $c$ is a constant, and
+%
+set the covariance function in terms of the marginal precision $\lambda_\eta$ and a product power exponential correlation:
+% 
+\begin{equation}\label{eq:Hig_cov}
+\begin{split}
+C((\mathbf x,\mathbf t),(\mathbf x',\mathbf t')) = &\frac 1\lambda_\eta \prod_{k=1}^{p}
+\exp \left(-\beta^\eta_k|x_k-x_k'|^{\zeta_\eta}\right) \times\\
+& \prod_{j=1}^{q}
+\exp \left(-\beta^\eta_{p+j}|t_j-t_j'|^{\zeta_\eta}\right) +\\
+&\sigma^2 \mathbf I_{(\mathbf x,\mathbf t)=(\mathbf x',\mathbf t')}
+\end{split}
+\end{equation}
+%
+where each $\beta_k$ describes the strength of the GP's dependence on one of the elements of the input vectors $\mathbf x$ and $\mathbf t$, and $\zeta_\eta$ determines the smoothness of the GP. 
+%
+Independent Gaussian observation error is captured by $\sigma^2$ and the indicator $\mathbf I$.
+%
+If $\eta(\cdot,\cdot)$ is a deterministic computer model, then $\sigma^2=0$.
+%
+The model is completed by specifying priors for the hyperparameters $c,\lambda_\eta,\alpha_\eta,\beta^\eta_j$ and $\sigma^2$ for $j=1,\ldots,p+q$, though in practice these are often set to predetermined values.
+%
+
+%
+\subsection{Design to target outcomes}
+%
+
+%
+Call design targets treated as observations in the design procedure we propose below ``target outcomes'', and call that procedure, which pairs a Bayesian model calibration framework with target outcomes via counterfactual Bayes, ``calibration to target outcomes" (CTO). 
+%
+Thus target outcomes are a sort of artificial data, and the calibration procedure is carried out as if these artificial data had been observed in reality.
+%
+As in traditional calibration, in which the result is a distribution on the calibrated parameter $\boldsymbol\theta$ to approximate the observed data, in CTO the result is a distribution on the design parameter $\boldsymbol\theta$ which induces the model to approximate the performance and cost targets.
+%
+%The posterior predictive distribution is thereby pushed toward the target outcomes.
+%
+%Of course, computer models are more malleable than reality, and it is trivial to modify a computer model so that its output matches any given target. 
+%
+%The model used is assumed to yield accurate results within the design domain.
+%
+%Future work in this area will address the case of models that are known or suspected to suffer from systematic bias.
+%
+
+%
+%One might worry that calibrating a model to artificial ``target outcomes'' will undermine the model's accuracy, since the model is essentially being fed false data.
+%
+%It is both easy and pointless to create a model which is a computational ``yes man''. 
+%
+%In many cases, however, one is fortunate to have (perhaps after undertaking traditional model calibration, validation and verification) a computer model that is known to be faithful to reality over a given set $\mathcal T$ of user specified input settings.
+%uniformly valid over a given set $\mathcal T$ of controllable parameters $t$, i.e., the model is known to be faithful to reality over $\mathcal T$. 
+%
+%In such a circumstance, in searching for $\mathbf t\in\mathcal T$ so that the model output matches one's targets, one does not risk using making predictions at settings under which the model is unreliable. 
+%
+%Instead, one finds a distribution of the settings that achieve the most realistic approximation to the target outcomes.
+
+The tools of model calibration as based on the work of Ref.\ \cite{Kennedy2001} retain their advantages under our proposed methodology.
+%
+Most centrally, calibrating to target outcomes $\mathbf y$ produces not merely a point estimate $\mathbf t^*$, but rather a posterior distribution of $\mathbf t|\mathbf y$ reflective of remaining uncertainty about the optimal value of $\mathbf t^*$. 
+%
+Such uncertainty may come from parameter uncertainty (uncertainty about the values of model inputs other than the design variables), model form uncertainty (uncertainty about how closely the code approximates reality), and observation error. 
+%
+%Of course, targets are not observations, so the concept of observation error does not cleanly transfer. 
+%
+%However, a similar uncertainty would be over which specific target values best reflect one's design goals.
+%
+The Bayesian model calibration framework allows for quantification of all of these uncertainties. 
+%
+
+%
+In the Kennedy-O'Hagan framework, the goal is computer model calibration, so that $\eta(\cdot,\cdot)$ is a computer model representing some real phenomenon $f(\cdot)$. 
+%
+The framework is naturally suited to computer model calibration because $\boldsymbol\theta$ is an input for $\eta(\cdot,\cdot)$ but not for the real system of interest $f(\cdot)$.
+%
+By contrast, in CTO, $\boldsymbol\theta$ is an input for the real system of interest, since $\boldsymbol\theta$ is a design setting for the system.
+%
+Thus under CTO we may take $\eta(\cdot,\cdot)$ either to be a computer model as under KOH, or, alternatively, we may take $\eta(\cdot,\cdot)$ itself to be the real system of interest.
+%
+In either case, a set $\boldsymbol\eta$ of observations of $\eta(\cdot,\cdot)$ can be used to produce a GP model.
+%
+When $\eta(\cdot,\cdot)$ is the real system, we would have $\delta(\cdot)\equiv0$.
+%
+If $\eta(\cdot,\cdot)$ is a computer model, the process of calibrating that model takes place separately from CTO, and so for the purposes of CTO $\delta(\cdot)$ can be treated as known.
+%
+Equivalently, we can absorb the known discrepancy into the $\eta(\cdot,\cdot)$ term, again setting $\delta(\cdot)\equiv0$.
+%
+As a result, CTO is not afflicted by the identifiability concerns of the Kennedy-O'Hagan framework \cite{Bayarri2007,Tuo2016}.
+%
+
+%
+It is common to plug in the MLEs of the GP covariance hyperparameters $\lambda_\eta$ and $\boldsymbol \beta^\eta$ in \eqref{eq:Hig_cov} instead of including them in a full Bayesian analysis \cite{Kennedy2001,Santner2003a,Qian2008,Paulo2012}.
+%
+In our proposed methodology, that is not merely a convenience, but rather is essential 
+%
+%This is because in a full Bayesian analysis, the posterior distributions of $\lambda_\eta$ and $\boldsymbol\beta^\eta$ would depend upon target outcomes which are not real observations of the system.
+%
+%The resulting emulator would be trained not only on the simulator output, but also on our performance and cost targets, which will typically be (intentionally) unrealistic.
+%
+%As argued by \cite{Liu2009}, it is preferable 
+%
+to avoid training an emulator using the target outcomes, which by their nature are extreme outliers (see Ref.\ \cite{Liu2009} on the dangers that arise here).
+%
+We use values found by maximizing the log likelihood of the available simulation runs with respect to $\lambda_\eta$ and $\boldsymbol\beta^\eta$.
+%
+We set the GP to have constant mean $c=0$, which works well when (as here) responses are standardized with mean 0, and the GP is not used for extrapolation \cite{Bayarri2007}.
+%
+We set $\zeta_\eta = 2$, which assumes that the model output is infinitely differentiable.
+%
+
+%%
+%We similarly model the discrepancy term $\delta(\cdot)$ as a mean-zero GP, with covariance function
+%%
+%%\begin{equation}
+%$C_\delta(\mathbf x,\mathbf x') = \lambda_\delta^{-1} \prod_{k=1}^p
+%\exp\left( -\beta_k^\delta |x_k-x_k'|^{\alpha_\delta} \right).$
+%%\end{equation}
+%%
+%This is included to capture systematic model bias.
+%%
+%We use priors
+%%$\lambda_\delta \sim \mathrm{Gamma}(5,\mathrm{scale}=5)$ and 
+%$\rho^\delta_k \sim \mathrm{Beta}(1,0.3),$
+%where $\rho_k^\delta = \exp(-\beta_k^\delta/4)$ for $k=1,\ldots,p$. 
+%%
+%%A Gamma prior is appropriate for $\lambda_\delta$, with strength determined by the amount of prior information available. 
+%%
+%%With sufficient prior information, though, we can set $\lambda_\delta$ to be constant. 
+%%
+%Details of the prior for $\lambda_\delta$ are discussed below.
+%%
+%As with the covariance function of $\eta(\cdot,\cdot)$, we set $\alpha_\delta=2$.
+%%
+
+%
+Denote completed runs of the simulator $\boldsymbol \eta = (\eta(\mathbf x_1,\mathbf t_1),\cdots,\eta(\mathbf x_n,\mathbf t_n))^T$, target outcomes $\mathbf y_t = (y(\mathbf x_{n+1}),\cdots,y(\mathbf x_{n+m}))^T$, 
+and $D = (\boldsymbol \eta^T,\mathbf y_t^T)^T$.
+%
+Then $D | \boldsymbol \theta,\boldsymbol\sigma^2,\widehat{\lambda_\eta}, \widehat{\boldsymbol \rho^\eta}$ is multivariate normal with mean 0 and covariance $\mathbf C_D$, a matrix with $i,j$ entry equal to 
+$
+C((\mathbf x_i,\mathbf t_i),(\mathbf x_j,\mathbf t_j)) + 
+\sigma^2 \mathbf I_{i=j>n}
+$
+%where $C_{obs}(\cdot,\cdot)$ is the (known) observation error variance.
+%
+$\mathbf I(\cdot)$ is the indicator function. 
+%
+Gaussian error variance $\sigma^2$ reflects our assumption that in $\omega$, the world in which the targets are observed, they are subject to observation error.
+%
+If $\boldsymbol\eta$ is subject to observation error, so that $C(\cdot,\cdot)$ itself includes nonzero observation error variance, then allowing $\sigma^2>0$ is not strictly necessary.
+%
+However, given that the targets may be extreme outliers, it is often computationally beneficial to include $\sigma^2$, thereby supposing that the target outcomes were observed with greater than usual observation error.
+%
+Whether this assumption is appropriate in a particular application will depend on the phenomenon of interest.
+%
+However, it is necessary to construct the model in such a way that the target outcomes are compossible with the model, and including $\sigma^2$ ensures that this requirement is satisfied even when $\boldsymbol\eta$ does not include observation error.
+%
+Whether or not $\sigma^2$ is included, it may be beneficial to include a small nugget into the covariance function $C(\cdot,\cdot)$.
+%
+This improves the conditioning of the covariance matrix. %, and the addition of such a nugget can furthermore improve the fit of the GP discrepancy $\delta$ \cite{Gramacy2012}.
+%
+
+%
+Where $\eta(\cdot,\cdot)$ has $m>1$ outputs, in many cases it suffices to fit a separate GP to each output.
+%
+We take this approach here, letting $\sigma^2_i$ be the observation error variance for the $i^\text{th}$ output.
+%
+Whether this assumption of independence among the outputs is appropriate will depend on the application.
+%
+We set a Gamma $(4,\mathrm{scale }=1/8)$ prior on each element of $\boldsymbol\sigma^2=(\sigma^2_1,\cdots,\sigma^2_m)^T$, encouraging low values of observation error variance, since high values would allow non-optimal regions of the design space to enjoy likelihood near to that of the optimal region.
+%
+Setting a uniform prior on the design variables $\boldsymbol\theta$, the joint posterior density under the model is
+%
+\begin{equation} \label{eq:full_dist}
+\pi(\boldsymbol \theta,\boldsymbol \sigma^2| D,\widehat{\lambda_\eta},\widehat{\boldsymbol \rho^\eta})
+\propto \pi(D | \boldsymbol \theta,\widehat{\lambda_\eta}, \widehat{\boldsymbol \rho^\eta}) \times \pi(\boldsymbol \sigma^2).
+\end{equation}
+%
+MCMC methods are used to explore the posterior distribution.
+%
+
+%
+When one has little information about the location and shape of the system's Pareto front in a multiobjective system, it may not be obvious what target best accords with one's goals.
+%
+One common choice in such situations is to locate the portion of the Pareto front closest to the ``utopia point''---the global minimum of each objective function.
+%
+When one has access to a set of observations $\boldsymbol\eta$, the utopia point can be estimated by taking the minima of the observations of each objective.
+%
+However, another option in such cases is to perform a ``preliminary round'' of CTO to estimate the system's Pareto front.
+%
+In preliminary CTO, one performs the usual CTO routine with a target known to be less than or equal to the utopia point of the system in all objectives, and with $\boldsymbol\sigma^2$ set to a large constant for each objective---e.g. approximating a flat prior on observation error by setting $\sigma^2_i =5\cdot10^7$ for $i=1,\ldots,m$ for $m$ objectives standardized to each have standard deviation 1 (under the uniform prior on $\boldsymbol\theta$).
+%
+This encourages CTO to explore broad regions of the feasible design space near the Pareto front.
+%
+When the resulting posterior samples of $\boldsymbol\theta$ are filtered to retain only their Pareto dominant subset, this forms a rough estimate of the Pareto front that can be used to select target outcomes in an informed way.
+%
+In addition to being only a rough estimate of the Pareto front, this preliminary estimate does not include quantification of uncertainties regarding its location.
+%
+Methods for estimating the system's Pareto front accurately with quantified uncertainties are explored in Section \ref{removing_cal_pars}.
+%
+The full CTO process, including preliminary Pareto front estimation, is given in Algorithm 1.
+
+\begin{figure}[h]
+	\centering
+	%\renewcommand{\arraystretch}{}
+	\begin{tabular}{|p{.025\linewidth}|p{.85\linewidth}|}
+		\hline
+		\multicolumn{2}{|p{.9\linewidth}|}{Algorithm 1: Full CTO procedure including preliminary estimation of Pareto front}\\
+		\hline
+		1.& Set target outcomes $\mathbf y_t$ out of the feasible design space and $\sigma^2 = s\cdot(1, 1, \ldots, 1)$ for large constant $s$.\\
+		%2.&  Set a vague prior on $\lambda_\delta$.\\
+		%2.&  Perform MCMC and use the resulting posterior samples of $\boldsymbol\theta$ to draw from the posterior predictive distribution of the model output.\\
+		%2.&  Perform MCMC; use the posterior $\boldsymbol\theta$ samples to sample the posterior predictive distribution.\\
+		2.&  Use MCMC to sample $\boldsymbol\theta|\mathbf y_t$ and thereby the posterior predictive distribution.\\
+		3.&  Filter the predictions to retain only their Pareto optimal values $\mathcal P$. \\%The remaining set of values $\mathcal P$ estimates the Pareto front.\\
+		4.& Select new target outcomes $\mathbf y_t^*$ using $\mathcal P$ as an estimate of the model's Pareto front. \\%These may be entirely new targets chosen after examining $\mathcal P$, or may simply be updated automatically to set each target outcome to be the same (small) distance $1/\sqrt{\lambda}$ (for some $\lambda$) from $\mathcal P$.\\
+		5.& Setting $\sigma^2_i \sim \mathrm{gamma}(4,1/8)$ for $i=1,\ldots,m$, use MCMC to draw from $\boldsymbol\theta|\mathbf y_t^*$.\\
+		\hline
+	\end{tabular}
+	\label{alg:CDO_alg}
+\end{figure}
+
+
+Figure \ref{fig:do_selection_example} illustrates the benefits of preliminary CTO.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=.85]{FIG_des_obs_selection_example2}
+	%\captionsetup{width=.4\linewidth}
+	\caption{Two choices of target outcomes, drawing the posterior predictive distribution to two different regions of the feasible design space.}
+	\label{fig:do_selection_example}
+\end{figure}
+%
+Suppose that, prior to undertaking CTO, we know only that the model outputs are positive.
+%
+Then $(0,0)$ is a natural choice as a target outcome.
+%
+However, the optimal region determined by the choice of $(0,0)$ in this case is somewhat arbitrary.
+%
+%Notice that in this example the entire ``left'' and ``bottom''  edges of the design space comprise the Pareto front.
+%
+The point closest to $(0,0)$ is unique in the Pareto front solely in being nearest to the origin, and that choice of target outcome was itself driven merely by our ignorance of the feasible design space.
+%
+%Thirdly, since we don't know the range of the feasible design space, we are not able to set an informative prior for $\lambda_\delta$.
+%
+By contrast, suppose now that preliminary CTO has supplied us a rough estimate of the Pareto front, empowering us to choose a different target outcome -- for example, $(1.32,0.065)$ targets a point of diminishing returns in allowing $y_1$ to increase further in exchange for a reduced $y_2$.
+%
+%Firstly, each point is much closer to the design space, leading to greater identifiability.
+%
+%Secondly, these choices of target outcome and resulting optima are not arbitrary, but rather are driven by articulable goals informed by an estimate of the Pareto front.
+%
+%Thirdly, with a rough estimate of the Pareto front we can supply a strong (or even degenerate) prior for $\lambda_\delta$.
+%
+Note also that when an emulator is used, preliminary CTO can use the same model observations as the subsequent CTO to train the emulator.
+%
+So preliminary CTO does not add to the budget of model runs, and is thus a computationally cheap supplement to CTO.
+%
+
+%
+\section{Simulated Example}\label{example}
+%
+
+%
+To illustrate our proposed procedure, consider the following problem of minimizing a function with trivariate output. 
+%
+Let $(x,\boldsymbol \theta)$ be the inputs, with scalar control input $x\in[1.95,2.05]$ and design variables $\boldsymbol \theta = (\theta_1,\theta_2)\in[0,3]\times[0,6]$.
+%
+We seek optimal settings for $\boldsymbol\theta$.
+%
+Model outputs are
+%
+$
+y_1 = \left(\theta_1 \exp\left(-\left(\theta_1 + \lvert \theta_2-\frac{\pi x}2\rvert \right)\right)+1\right)^{-1}$, 
+$
+y_2 = \left(\theta_2^{x-1} \exp\left(-0.75 \theta_2\right) + 1 \right)^{-1}
+$, and
+$
+y_3 = 15 + 2 \theta_1 + {\theta_2^2}/4.
+$
+%
+We assume prior knowledge only that the outputs are positive.
+%
+Figure \ref{fig:toy_sim_outputs} displays the (normalized) outputs as functions of $\theta_1$ and $\theta_2$ at $x = 2$.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=.85]{FIG_toy_sim_model_outputs.eps}
+	%\captionsetup{width=.4\linewidth}
+	\caption{True outputs of the example model.}
+	\label{fig:toy_sim_outputs}
+\end{figure}
+%
+Assuming an easily evaluated model (so that an emulator is not needed), we have
+%
+$
+\mathbf z(x) = \eta(x,\boldsymbol \theta) + \boldsymbol\epsilon
+$
+%
+for target outcome $\mathbf z$, so that  $\boldsymbol\eta = (y_1,y_2,y_3)^T$ is the output and $\epsilon_i\sim N(\mathbf 0,\sigma_i^2)$ is the target observation error for $i=1,2,3$.
+%
+%Aside from easing matters computationally, $\boldsymbol \epsilon$ serves as ``observation error'' of our own target outcomes, since in a typical case one can at best identify a small region within which the choice of any particular point as a target outcome would be arbitrary due to our acceptable tolerance.
+%
+
+We initially set the target outcomes to $(0.7311, 0.6675, 15)$, the utopia point of the system, constant as a function of $x$. 
+%
+%This confidence is based on the observation that 
+%since $F(\mathbf x-(0.71,0.71,17.92)^T)>0.95$, where $\mathbf x$ is the nearest point of the estimated Pareto front and $F$ is the cdf of the tolerance $\boldsymbol\epsilon\sim N(\mathbf 0, 0.05I)$.
+%
+For comparison, we also performed CTO with target $(0.7506,\ 0.7302,\ 17.56)$, which lies close (one standard deviation away, under the uniform prior on $\theta$) to the feasible region, on the line connecting the original target utopia point to the nearest point in the feasible objective space.
+%
+The purpose of this comparison is to demonstrate the robustness of CTO to the distance separating the target outcome from the feasible objective space.
+%
+Thus a target outcome can be selected even when little is known about the location of the Pareto front.
+%
+Figure \ref{fig:toy_sim_results} shows the resulting posteriors. % of the two design procedures, including the marginal distributions of the design variables. 
+%
+In the top plot, the target (the system's utopia point) is just over 1.6 units away from the objective space, where the each objective is standardized to have variance 1.
+%
+In the bottom plot, the Euclidean distance of the target from the objective space is 0.5.
+%
+Use of the utopia point produces a slightly longer lower tail for $\theta_2$, so that the posterior standard deviation of $\theta_2$ is increased from 0.1175 to 0.2126.
+%
+To minimize uncertainty regarding the optimal value of the design parameter, it is preferable to use a rough estimate of the Pareto front to select a target that is on or near the front, but when this is not possible, the resulting degradation of the results is typically minor.
+%
+The marginals in each case show substantial Bayesian learning compared to the prior (uniform) distribution of the design variables. 
+%
+CTO successfully maps the contours of the optimal region in each case, peaking near the true optimum. 
+%
+
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=.85]{FIG_TS_results_noPCTO}\\
+	\vspace{1em}
+	\includegraphics[scale=.85]{FIG_TS_results_withPCTO}
+	%\captionsetup{width=.7\linewidth}
+	\caption{Posterior draws from CTO in the simulated example using the utopia point as a target (top) and using an updated target designed to lie one standard deviation from the Pareto front, in the direction of the utopia point (bottom). The contours show, for each point in the design space, the Euclidean distance of the model output at that point from the utopia point, averaged across the control input range $[1.95,2.05]$. The large dot shows the true optimum.}
+	\label{fig:toy_sim_results}
+\end{figure}
+
+
+
+\section{Wind turbine material design application}\label{application}
+
+In this section we use CTO to design a material for use in a wind turbine blade. % of fixed geometry. 
+%
+The goal is to wed the typically separate tasks of material design and material selection for a specific application, designing a composite to optimize performance in a blade.
+%
+Our model uses \texttt{ANSYS} finite element analysis software \cite{ansys}. 
+%HERE
+We assume the model accurately represents reality.
+
+\subsection{Wind turbine blade design}
+
+Two performance measures for blades are tip deflection and twist angle.
+%
+A goal of engineering design is to keep these measures and material cost low.
+%
+The blade is a composite of a given matrix and filler. 
+%
+%In a composite, the matrix holds the filler together; for example in concrete, a filler of loose stones combines with a cement matrix.
+%
+The material properties (and thus blade performance and cost) depend on the thickness of the shear web in the blade and on the \emph{volume fraction}, or ratio of filler to matrix.
+%
+%The resulting material properties impact the performance and cost of the blade. 
+%
+Temperature also affects the composite's properties and hence performance.
+%
+The model inputs are a triplet $(h,v,k)$, where $h$ is the temperature of the turbine (in kelvin), $v$ is the volume fraction, and $k$ is the thickness (in mm). 
+%
+The model output is a triplet $(d,r,c)$, where $d$ is tip deflection (in meters), $r$ is twist angle (in radians), and $c$ is cost per square meter (USD) of the material.
+%
+The turbine is deemed to operate over temperatures 230K-330K. 
+%
+%We used CTO to find a distribution on optimal settings for $v$ and $k$ given outputs from the finite element simulator and target outcomes.
+
+\subsection{Emulation of finite element model}\label{emulator} %HERE 
+The finite element simulator is too computationally expensive to be suitable for direct use in an MCMC routine. 
+%
+We employed a GP emulator in the manner of Ref.\ \cite{Williams2006}. 
+%
+For this purpose, we drew 500 (trivariate) observations from the finite element simulator according to a Latin hypercube sampling design \cite{McKay1979} based on plausible ranges for the three inputs as identified by subject matter experts: $[230\mathrm{K}, 330\mathrm{K}] \times [.2,.6]\times[10\mathrm{mm},25\mathrm{mm}]$.
+%
+We took the computer output to follow a GP with mean 0 and product power exponential covariance function as given in (\ref{eq:Hig_cov}).
+%
+
+%
+The hyperparameters $\lambda_\eta,\boldsymbol \beta^\eta$ are estimated %to plug in to the prior
+% 
+%To avoid our estimates being biased by the influence of the target outcomes, we estimated them prior to the design stage 
+via maximum likelihood using only the finite element model output.
+% 
+%Initially, a grid optimization method was used: a grid of $\boldsymbol \beta^\eta$ values was used, finding at each point of the grid the likelihood of the simulation observations integrated over the support of $\lambda_\eta$. 
+%
+%However, $\boldsymbol \beta^\eta$ is a five-dimensional vector, and a grid fine enough to be useful was too computationally burdensome to be feasible. Instead, a 
+We used \texttt{fmincon()} \cite{MATLAB2017} %\cite{Cauchy1847} 
+to maximize (with $D=\boldsymbol\eta$) over the joint (four-dimensional) support of $\boldsymbol \beta^\eta,\lambda_\eta$.  
+%
+\begin{table}[h]
+	\renewcommand{\arraystretch}{1.2}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|}
+			\hline 
+			& $d$ & $r$ & $c$ \\ 
+			\hline 
+			$\hat\rho^\eta_h$	&0.7239 & 0.7104  & 1 \\ 
+			\hline 
+			$\hat\rho^\eta_v$	&0.9788&  0.9723  & 0.9988 \\ 
+			\hline 
+			$\hat\rho^\eta_k$	& 0.9906 &0.9882  & 0.9986 \\ 
+			\hline 
+			$\lambda_\eta$	& 0.0177  & 0.0261 & 0.0009 \\ 
+			\hline 
+		\end{tabular} 
+	\end{center}
+	\caption{Covariance hyperparameter maximum likelihood estimates for each objective function. For each objective and each input $i$, $\rho_i^\eta = \exp(-\beta^\eta_i/4)$.}
+	\label{table:mles}
+\end{table}
+%
+The result, following the form of Equation \eqref{eq:Hig_cov} with $p=1$, $q=2$, and $(x,t_1,t_2)=(h,v,k)$ where for each objective $\rho^\eta_i = \exp(-\beta_i^\eta/4)$ for $i\in\{h,v,k\}$, appears in Table \ref{table:mles}.
+%
+%Following the form of Equation \eqref{eq:Hig_cov}, we have $p=3$, $q=2$, and $(x_1,\ldots,x_5)=(a_1,a_2,h,v,k)$.  
+
+\subsection{Design of the wind turbine blade system}\label{the_model}
+%
+All model inputs were rescaled to [0,1]. 
+%
+All model outputs were standardized so that each of the three responses has mean 0 and standard deviation 1.
+%
+The full joint posterior density of the design variables and discrepancy function hyperparameters is given in Equation \eqref{eq:full_dist}, using the MLEs given above.
+%
+Initial target outcomes were set to the estimated utopia point $(0.6551\mathrm{m},\ 0.0768\mathrm{rad},\ \$96.8)$ found by taking the minimum observed value of each objective from the 500 simulator observations. 
+%
+This target was set to be constant as a function of temperature, on an evenly-spaced grid of temperature values over the range [230K, 330K].
+%
+We carried out preliminary CTO with $\boldsymbol\sigma^2=5\cdot10^7\cdot(1,1,1)$ to estimate the Pareto front and locate a region of interest. % and thereby improve identifiability of the optimal region.
+%
+For this purpose, 6,000 realizations were drawn via Metropolis-Hastings-within-Gibbs MCMC \cite{Metropolis1953, Hastings1970, Geman1984} in each of three chains (with random starts), of which the first 3,000 were discarded as burn-in. 
+%
+During the burn-in period, the covariances of the proposal distributions were periodically adjusted to be the sample covariance of the preceding draws scaled for an optimal acceptance rate of around $23\%$ for the multivariate $\boldsymbol \theta$ \cite{Roberts1997,Gelman2013}. %HERE ref
+%
+%The adjustment took place every 100 iterations of the MCMC, at which point the relevant covariance matrix was set to be equal to the sample covariance of the previous draws, times a scalar multiplier. 
+%
+%The level of the scalar multiplier was adaptively adjusted to promote optimal acceptance rates of $\approx 30\%$ for $\boldsymbol\theta$ and $\boldsymbol\rho$, and $\approx 44\%$ for $\lambda_\delta$.
+%
+Convergence of the three chains was verified visually and by the Gelman-Rubin statistic ($\approx1.01$ \cite{Gelman1992a}).
+%
+
+%
+As expected for preliminary CTO, the posterior distribution of $\boldsymbol\theta$ was quite diffuse.
+%
+We used the GP emulator to predict the model output for each realization of $\boldsymbol \theta$.
+%
+Figure \ref{fig:elbow} displays the estimated Pareto front after filtering the posterior predictions to retain only non-dominated performance predictions.
+%
+Though the design space is three-dimensional, the Pareto front appears to be a roughly coplanar curve describing a trade-off between cost and deflection/twist.
+%
+A distinct point of maximum curvature appears in the Pareto front. 
+%
+This seems to be a point of diminishing returns in the trade-off between performance and cost, and thus we selected this point as the target for design.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_est_PF_with_des_obs.eps}
+	%\captionsetup{width=.7\linewidth}
+	\caption{Each x is a dominated design drawn from the predictive distribution through preliminary CTO. The dots indicate the estimated Pareto front. The plus sign is the target selected as the performance objective in our proposed design approach.}
+	\label{fig:elbow}
+\end{figure}
+%
+To do so, we set the point $(\mathrm{deflection}=0.743\mathrm m,\ 
+\mathrm{twist}=0.089\ \mathrm{rad},\ 
+\mathrm{cost}=\$71.11)$
+as the target outcome, constant as a function of temperature.
+%
+
+%
+In the subsequent CTO, we employed the same MCMC approach as in the preliminary round, except we now estimate $\boldsymbol\sigma^2$, using a gamma(4,1/8) prior.
+%
+The covariances of the proposal distributions for each $\sigma^2_i$ were periodically adjusted to be the sample covariance of the preceding draws scaled for an optimal acceptance rate of around $44\%$ for the scalar $\sigma^2_i$ \cite{Roberts1997,Gelman2013}.
+%
+The posterior distribution of $\boldsymbol\theta$ appears in Figure \ref{fig:wt_marg_post}, almost as a point mass on $(0.6, 10\mathrm{mm})$.
+%
+Indeed, from the analysis discussed in Section \ref{removing_cal_pars}, we find that the ``elbow'' in the Pareto front is precisely the point at which volume fraction has reached its upper limit at $0.6$, with further gains possible only by raising thickness from its lower limit of $10$mm.
+%
+The contrast of the posterior distribution with the prior, which is uniform over $[0.2,0.6]\times[10,25]$, indicates that strong Bayesian learning has occurred.
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=.7\linewidth]{FIG_posterior_marginals_with_priors}
+%\captionsetup{width=.7\linewidth}
+%\caption{The histograms show the marginal posterior of each calibration parameter. The dotted lines show the priors.}
+%\label{fig:wt_marg_post}
+%\end{figure}
+\begin{figure}
+	\centering
+	%\includegraphics[width=.4\linewidth]{FIG_post_dist_contourplot}
+	%\includegraphics[scale=0.8]{FIG_post_dist_contourplot}
+	\includegraphics[scale=0.85]{FIG_post_dist_hist2}
+	%\captionsetup{width=.7\linewidth}
+	\caption{Histogram showing the posterior distribution from CTO in the wind turbine blade system. The prior is uniform over $[0.2,0.6]\times[10,25]$.}
+	\label{fig:wt_marg_post}
+\end{figure}
+%
+The prior and posterior predictive distributions of the model outputs appear in Figure \ref{fig:prior_post_pred_comp}, where the prior predictive distributions are based on a uniform sampling of the model inputs.
+%
+The prior and posterior are not shown on the same scale, as the posterior is too sharp for both distributions to be visible on the same scale.
+%
+\begin{figure}[h]
+	\centering
+	%\includegraphics[width=.4\linewidth]{FIG_post_dist_contourplot}
+	\includegraphics[scale=0.85]{FIG_prior_vs_posterior_dist}
+	%\captionsetup{width=.7\linewidth}
+	\caption{Approximate prior and posterior marginal predictive densities for each of the three outputs.}
+	\label{fig:prior_post_pred_comp}
+\end{figure}
+% HERE
+The mean output under the prior is $(0.753\mathrm m,0.091\text{ rads},\$206.58/\mathrm m^2)$, and under the posterior it is $(0.748\mathrm m,0.090\ \mathrm{rad},\$141.14/\mathrm m^2)$.
+%
+Though the mean performance outcomes are approximately the same under the posterior and the prior, mean cost per square meter and the uncertainty of the outcomes are dramatically lower.
+%
+If one prefers to prioritize gains in performance over cost, this can be accomplished by selecting target outcomes that reflect those priorities.
+%
+
+%
+\subsection{Pareto front estimation with quantified uncertainties}\label{removing_cal_pars}
+
+%\subsubsection{Motivation}
+
+%Often in the case of a system with multivariate output, one might not antecedently have a clear goal for design.
+%
+%All else being equal, w
+When multiple design outputs are to be minimized, any point in the Pareto front is optimal relative to some set of priorities.
+%
+If those priorities have not been explicitly determined prior to the design process, then no particular outcome can be targeted.
+%
+%In determining one's priorities, it is helpful to know the Pareto front of the relevant system.
+%
+For example, in a system where performance is monotonically increasing in cost, depending on one's tolerance for high cost, any point in the design space might be optimal.
+%
+%In determining one's priorities and selecting a target outcome, it is valuable to have a clear and accurate understanding of the Pareto front of the system.
+%
+In low-dimensional cases, CTO may be used to achieve a holistic picture of the Pareto front by optimizing to each target outcome on a grid.
+%
+To do this, where the model output is $b-$dimensional, one may draw a grid over the range of $b-1$ of the model outputs and perform CTO to minimize the remaining output at each point of the grid.
+%
+The $b-1$ outputs, at each grid point, are treated as known up to small observation error (e.g. $\sigma^2=0.01$ for objectives standardized to have mean 0 and variance 1).
+%
+Allowing some small observation error is necessary because the set of solutions having any particular exact value typically has probability 0.
+%
+The resulting estimate of the Pareto front differs from the filtering method employed in preliminary CTO in that it allows for quantifying the uncertainty associated with the Pareto front.
+%
+
+%
+Our proposed procedure is illustrated here using the wind turbine blade application.
+%
+For simplicity, twist has been removed as a model output, leaving a system with 2-dimensional output of deflection and cost. 
+%
+The range of cost is known (via preliminary CTO) to be $[\$96,\$352]$.
+%
+A 20-point grid was drawn over this range of costs. 
+%
+%Using the rough estimate of the Pareto front from preliminary CDO, we found that to cover the Pareto front, the cost grid should cover the range $[\$96,\$352]$.
+%
+For each point $c$ in the cost grid, we used the point $(0\mathrm m,\$c)$ as the target outcome for calibration (constant with respect to temperature).
+%
+
+%
+The result is an estimate of the response surface with quantified uncertainty describing, for each point in the grid, the minimal achievable outcome for the output not included in the grid.
+%
+%This enables a decision-maker to visualize the space of desirable possibilities with associated uncertainties. 
+%
+%They can do so without the need for rigorously predetermining their exact priorities for weighing gains in each of the outputs against one another.
+%
+The result of applying this strategy to the wind turbine blade application is shown in Figure \ref{fig:known_cost}. 
+%
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=.85]{FIG_cost_grid_pareto_bands}
+	%\captionsetup{width=.7\linewidth}
+	\caption{The estimated Pareto front of the wind turbine blade system with quantified uncertainties.}
+	\label{fig:known_cost}
+\end{figure}
+%
+The lefthand plot shows the estimated Pareto front for the system.
+%
+The associated uncertainty bands are too small to be distinguished in the lefthand plot, and so the righthand plot zooms in to show the bands for a portion of the Pareto front.
+%
+%This plot visualizes a distribution on the optimal performance outcome for any cost that a decision-maker might select as a budget for production, which would be helpful when selecting a budget.
+%
+%For example, the point of maximum curvature around \$140 manifests itself as a potentially attractive choice, since it can be seen in the plot that prior to that point each dollar spent brings significant gains in reducing deflection.
+%
+%Spending above that level continues to reduce deflection, but less sharply.
+
+%
+The use of CTO in the wind turbine design illustrates how preliminary CTO may be used, not merely to improve the identifiability of a pre-determined optimal region as in Section \ref{example}, but rather to identify a desirable region of the design space and select target outcomes that design to that region.
+%
+In the wind turbine case, selecting the utopia point as one's target determines the optimal region to be the high-cost region toward the upper-left of Figure \ref{fig:elbow}, since (on the standardized scale of model outputs) that region happens to be closest to the target.
+%
+If one has substantive goals that drive one to select that target, then one is well-served by optimizing to that high-cost region.
+%
+But if the utopia point is chosen arbitrarily, then the resulting optimal region is itself determined arbitrarily.
+%
+The estimate of the Pareto front provided by preliminary CTO allows us to identify regions of special interest, and to select target outcomes that that lead to clearly defined designs, as illustrated in Figure \ref{fig:elbow}.
+%
+
+%
+The use of CTO in this case also demonstrates the value of obtaining a posterior distribution on the design variables, rather than just a point estimate.
+%
+For example, Figure \ref{fig:wt_marg_post} shows not just that a reasonable point estimate of the optimal $\boldsymbol\theta$ is at (0.6, 10mm)---respectively the upper and lower extrema of the supports for volume fraction and thickness---but also that if one input must deviate from its extremum it is better that the other one remain.
+%
+This tells against the idea that a reduction in volume fraction should be compensated by raising thickness.
+%
+More generally, CTO delivers an indication of the range of $\boldsymbol\theta$ values that achieve results near the target, which is potentially useful when one's goal is to set tolerances (rather than a specific value) for $\boldsymbol\theta$.
+%
+Finally, the use of CTO in the wind turbine case illustrates how the method can deliver ``Pareto bands'', providing not merely an estimate of the Pareto front (as in preliminary CTO) but also uncertainty associated with that estimate.
+%
+Such an estimate can be of use to decision-makers when deciding on performance goals subject to budgetary constraints.
+
+
+
+\section{Conclusion} \label{conclusion}
+% Discussion of the role of computer model validation as a potential methodology for design
+
+We have described how the 
+%theoretical background for the use of Gaussian processes to emulate computationally expensive computer model code, and the 
+computer model calibration framework of  \cite{Kennedy2001} can be adapted for engineering design. 
+%
+Calibration to target outcomes undertakes design by ``calibrating'' a model not to field observations, but rather to artificial data representing performance and cost targets. 
+%
+The procedure optionally includes a computationally cheap preliminary step that provides a rough estimate of the Pareto front, which may be used to select target outcomes that promote strong Bayesian learning.
+%
+The resulting posterior predictive distribution approximates the target outcomes, so that the posterior distribution of $\boldsymbol\theta$ constitutes a distribution on optimal design settings.
+%
+Repeated applications of this methodology could allow one to construct a thorough estimate of the Pareto front of the system with quantified uncertainties by selecting target outcomes that explore different portions of the Pareto front.
+%
+Unlike other methods of Bayesian optimization (a review of which is provided by \cite{Shahriari2016}), CTO does not require the ability to evaluate model output adaptively.
+%
+Instead, it can rely on a batch of observations gathered prior to (and independently of) the design process.
+%
+We described the implementation of this approach in an MCMC routine along with considerations to accommodate computational instability.
+%
+The use of this methodology is illustrated in the case of material design for a wind turbine blade. 
+%
+%We have shown thereby a variety of ways in which CTO can be used to guide decision-makers in the design process. 
+%
+By expropriating established tools of model calibration, CTO offers a method of optimization which is sensitive to, and quantifies, all sources of uncertainty.
+%
+
+%
+The methodology as described here treats the computer model as universally valid over the domain of the design variables. 
+%
+Future work in this area will include the use of a discrepancy term capturing model bias.
+%
+%That is, while CTO as presented above includes $\delta(\cdot)$ to capture systematic discrepancy between the target outcomes and the true system, it assumes that the computer model is an unbiased estimate of the true system.
+%%
+%The inclusion of a second discrepancy term to capture systematic differences between the model and the observed reality would avoid this idealizing assumption.
+%
+Other possible extensions of our proposed methodology include its application to so-called ``state-aware calibration'' \cite{Atamturktur2015,Stevens2018,Brown2016}, which would allow the optimal region of the design variables to vary as a function of the control inputs.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{acknowledgment}
+	\thanks{
+		The authors gratefully acknowledge grant CMMI-1934438 from the National Science Foundation (NSF). CE was supported by fellowships through Department of Education GAANN grant P200A150310 and NSF NRT grant 1633608. DAB is also supported by NSF grants EEC-1744497 and OIA-1826715.}
+\end{acknowledgment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The bibliography is stored in an external database file
+% in the BibTeX format (file_name.bib).  The bibliography is
+% created by the following command and it will appear in this
+% position in the document. You may, of course, create your
+% own bibliography by using thebibliography environment as in
+%
+% \begin{thebibliography}{12}
+% ...
+% \bibitem{itemreference} D. E. Knudsen.
+% {\em 1966 World Bnus Almanac.}
+% {Permafrost Press, Novosibirsk.}
+% ...
+% \end{thebibliography}
+
+% Here's where you specify the bibliography style file.
+% The full file name for the bibliography style file 
+% used for an ASME paper is asmems4.bst.
+\bibliographystyle{asmems4}
+
+% Here's where you specify the bibliography database file.
+% The full file name of the bibliography database for this
+% article is asme2e.bib. The name for your database is up
+% to you.
+\bibliography{lit_review}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Very Very Very Very Very Very Very Very Very Very Very Long Heading}
+
+The heading is boldface with upper and lower case letters. 
+If the heading should run into more than one line, the run-over is not left-flushed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Second-Level Heading}
+
+The next level of heading is also boldface with upper and lower case letters. 
+The heading is flushed left with the left margin. The spacing to the next heading is two line spaces.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Third-Level Heading.}
+
+The third-level of heading follows the style of the second-level heading.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Use of SI Units}
+
+An ASME paper should use SI units.  When preference is given to SI units, the U.S. customary units may be given in parentheses or omitted. When U.S. customary units are given preference, the SI equivalent {\em shall} be provided in parentheses or in a supplementary table. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Footnotes\protect\footnotemark}
+\footnotetext{Examine the input file, asme2ej.tex, to see how a footnote is given in a head.}
+
+Footnotes are referenced with superscript numerals and are numbered consecutively from 1 to the end of the paper\footnote{Avoid footnotes if at all possible.}. Footnotes should appear at the bottom of the column in which they are referenced.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mathematics}
+
+Equations should be numbered consecutively beginning with (1) to the end of the paper, including any appendices.  The number should be enclosed in parentheses and set flush right in the column on the same line as the equation.  An extra line of space should be left above and below a displayed equation or formula. \LaTeX\ can automatically keep track of equation numbers in the paper and format almost any equation imaginable. An example is shown in Eqn.~(\ref{eq_ASME}). The number of a referenced equation in the text should be preceded by Eqn.\ unless the reference starts a sentence in which case Eqn.\ should be expanded to Equation.
+
+\begin{equation}
+f(t) = \int_{0_+}^t F(t) dt + \frac{d g(t)}{d t}
+\label{eq_ASME}
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Figures}
+\label{sect_figure}
+
+All figures should be positioned at the top of the page where possible.  All figures should be numbered consecutively and centered under the figure as shown in Fig.~\ref{figure_ASME}. All text within the figure should be no smaller than 7~pt. There should be a minimum two line spaces between figures and text. The number of a referenced figure or table in the text should be preceded by Fig.\ or Tab.\ respectively unless the reference starts a sentence in which case Fig.\ or Tab.\ should be expanded to Figure or Table.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%%%
+\begin{figure}[t]
+\begin{center}
+\setlength{\unitlength}{0.012500in}%
+\begin{picture}(115,35)(255,545)
+\thicklines
+\put(255,545){\framebox(115,35){}}
+\put(275,560){Beautiful Figure}
+\end{picture}
+\end{center}
+\caption{The caption of a single sentence does not have period at the end}
+\label{figure_ASME} 
+\end{figure}
+%%%%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In the following subsections, I have inserted figures that have been provided by authors in order to demonstrate what to avoid.  In each case the authors provided figures that are 3.25in wide and 600dpi in the .tif graphics format.  The papers containing these figures have been held from production due to their poor quality. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The 1st Example of Bad Figure}
+
+%%%%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%%%
+%%% 3.34in is the maximum width you can have for a figure
+\begin{figure} 
+\centerline{\includegraphics[width=3.34in]{figure/FMANU_MD_05_1107_11.jpg}}
+\caption{Example taken from a paper that was held from production because the image quality is poor.  ASME sets figures captions in 8pt, Helvetica Bold.}
+\label{fig_example1.jpg}
+\end{figure}
+%%%%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
+
+In order to place the figure in this template using MSWord, select Insert Picture from File, and use wrapping that is top and bottom. Make sure the figure is 3.25in wide.
+ 
+Figure~`\ref{fig_example1.jpg}
+was taken from a recent paper that was held from publication, because the text is fuzzy and unreadable. It was probably obtained by taking a screen shot of the computer output of the authors software. This means the original figure was 72dpi (dots per inch) on a computer screen. There is no way to improve the quality such a low resolution figure.
+ 
+In order to understand how poor the quality of this figure is, please zoom in slightly, say to 200\%.  Notice that while the font of the paper is clear at this size, the font in the figures is fuzzy and blurred.  It is impossible to make out the small symbol beside the numbers along the abscissa of the graph.  Now consider the labels Time and Cost. They are clearly in fonts larger that the text of the article, yet the pixilation or rasterization, associated with low resolution is obvious. This figure must be regenerated at higher resolution to ensure quality presentation.
+
+The poor quality of this figure is immediately obvious on the printed page, and reduces the impact of the research contribution of the paper, and in fact detracts from the perceived quality of the journal itself.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The 2nd Example of Bad Figure}
+
+%%%%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%%%
+\begin{figure} 
+\centerline{\includegraphics[width=3.34in]{figure/FMANU_MD_05_1272_5.jpg}}
+\caption{While this figures is easily readable at a double column width of 6.5in, when it is shrunk to 3.25in column width the text is unreadable. This paper was held from production.}
+\label{fig_example2.jpg}
+\end{figure}
+%%%%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
+
+Figure~\ref{fig_example2.jpg}
+demonstrates a common problem that arises when a figure is scaled down fit a single column width of 3.25in.  The original figure had labels that were readable at full size, but become unreadable when scaled to half size.  This figure also suffers from poor resolution as is seen in the jagged lines the ovals that form the chain.
+
+This problem can be addressed by increasing the size of the figure to a double column width of 6.5in, so the text is readable.  But this will not improve the line pixilation, and a large low resolution figure is less desirable than a small one.  This also significantly expands the length of the paper, and may cause it to exceed the JMD nine page limit.  Additional pages require page charges of \$200 per page.  It is best to regenerate the figure at the resolution that ensures a quality presentation.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The 3rd Example of Bad Figure}
+%%%%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%%%
+\begin{figure} 
+\centerline{\includegraphics[width=3.25in]{figure/FMANU_MD_04_1274_13.jpg}}
+\caption{Another example of a figure with unreadable text.  Even when the paper was expanded to double column width the text as shown in Fig.~\ref{fig_example4.jpg} was of such low quality that the paper was held from production.}
+\label{fig_example3.jpg}
+\end{figure}
+%%%%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%%%
+%%% the maximum width in double column is 6.85in
+\begin{figure*} 
+\centerline{\includegraphics[width=6.85in]{figure/FMANU_MD_04_1274_13.jpg}}
+\caption{A figure expanded to double column width the text from Figure~\ref{fig_example3.jpg}}
+\label{fig_example4.jpg}
+\end{figure*}
+%%%%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
+An author provided the high resolution image 
+in Fig.~\ref{fig_example3.jpg}
+that was sized to a single column width of 3.25in.  Upon seeing the poor quality of the text, the publisher scaled the image to double column width as shown in Fig.~\ref{fig_example4.jpg} 
+at which point it took half of a page.  The publisher went on to do this for all eight figures generating four pages of figures that the author did not expect. ASME stopped production of the paper even with the larger figures due to the pixilation of the font.
+
+Clearly the text in this figure is unreadable, and it is doubtful that the author can print the output in a way that it is readable.  This is a problem that the author must solve, not the publisher. 
+
+As you might expect, I have many more examples, but in the end the author is the best judge of what is needed in each figure.  ASME simply requires that the image meet a minimum standard for font and line quality, specifically the font should be the appropriate size and not be blurred or pixilated, and that lines should be the appropriate weight and have minimal, preferably no, pixilation or rasterization.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tables}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% begin table   %%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[t]
+\caption{Figure and table captions do not end with a period}
+\begin{center}
+\label{table_ASME}
+\begin{tabular}{c l l}
+& & \\ % put some space after the caption
+\hline
+Example & Time & Cost \\
+\hline
+1 & 12.5 & \$1,000 \\
+2 & 24 & \$2,000 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%% end table %%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+All tables should be numbered consecutively  and centered above the table as shown in Table~\ref{table_ASME}. The body of the table should be no smaller than 7 pt.  There should be a minimum two line spaces between tables and text.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Citing References}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The ASME reference format is defined in the authors kit provided by the ASME.  The format is:
+
+\begin{quotation}
+{\em Text Citation}. Within the text, references should be cited in  numerical order according to their order of appearance.  The numbered reference citation should be enclosed in brackets.
+\end{quotation}
+
+The references must appear in the paper in the order that they were cited.  In addition, multiple citations (3 or more in the same brackets) must appear as a `` [1-3]''.  A complete definition of the ASME reference format can be found in the  ASME manual \cite{asmemanual}.
+
+The bibliography style required by the ASME is unsorted with entries appearing in the order in which the citations appear. If that were the only specification, the standard {\sc Bib}\TeX\ unsrt bibliography style could be used. Unfortunately, the bibliography style required by the ASME has additional requirements (last name followed by first name, periodical volume in boldface, periodical number inside parentheses, etc.) that are not part of the unsrt style. Therefore, to get ASME bibliography formatting, you must use the \verb+asmems4.bst+ bibliography style file with {\sc Bib}\TeX. This file is not part of the standard BibTeX distribution so you'll need to place the file someplace where LaTeX can find it (one possibility is in the same location as the file being typeset).
+
+With \LaTeX/{\sc Bib}\TeX, \LaTeX\ uses the citation format set by the class file and writes the citation information into the .aux file associated with the \LaTeX\ source. {\sc Bib}\TeX\ reads the .aux file and matches the citations to the entries in the bibliographic data base file specified in the \LaTeX\ source file by the \verb+\bibliography+ command. {\sc Bib}\TeX\ then writes the bibliography in accordance with the rules in the bibliography .bst style file to a .bbl file which \LaTeX\ merges with the source text.  A good description of the use of {\sc Bib}\TeX\ can be found in \cite{latex, goosens} (see how two references are handled?).  The following is an example of how three or more references \cite{latex, asmemanual,  goosens} show up using the \verb+asmems4.bst+ bibliography style file in conjunction with the \verb+asme2ej.cls+ class file. Here are some more \cite{art, blt, ibk, icn, ips, mts, mis, pro, pts, trt, upd} which can be used to describe almost any sort of reference.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+The only way to ensure that your figures are presented in the ASME Journal of Mechanical Design in the way you feel is appropriate and meets the requirement for quality presentation is for you to prepare a double column version of the paper in a form similar to that used by the Journal.
+
+This gives you the opportunity to ensure that the figures are sized appropriately, in particular that the labels are readable and match the size of the text in the journal, and that the line weights and resolutions have no pixilation or rasterization.  Poor quality figures are immediately obvious on the printed page, and this detracts from the perceived quality of the journal.
+
+I am pleased to provide advice on how to improve any figure, but this effort must start with a two-column version of the manuscript. Thank you in advance for your patience with this effort, it will ensure quality presentation of your research contributions.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussions}
+This template is not yet ASME journal paper format compliant at this point.
+More specifically, the following features are not ASME format compliant.
+\begin{enumerate}
+\item
+The format for the title, author, and abstract in the cover page.
+\item
+The font for title should be 24 pt Helvetica bold.
+\end{enumerate}
+
+\noindent
+If you can help to fix these problems, please send us an updated template.
+If you know there is any other non-compliant item, please let us know.
+We will add it to the above list.
+With your help, we shall make this template 
+compliant to the ASME journal paper format.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{acknowledgment}
+ASME Technical Publications provided the format specifications for the Journal of Mechanical Design, though they are not easy to reproduce.  It is their commitment to ensuring quality figures in every issue of JMD that motivates this effort to have authors review the presentation of their figures.  
+
+Thanks go to D. E. Knuth and L. Lamport for developing the wonderful word processing software packages \TeX\ and \LaTeX. We would like to thank Ken Sprott, Kirk van Katwyk, and Matt Campbell for fixing bugs in the ASME style file \verb+asme2ej.cls+, and Geoff Shiflett for creating 
+ASME bibliography stype file \verb+asmems4.bst+.
+\end{acknowledgment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The bibliography is stored in an external database file
+% in the BibTeX format (file_name.bib).  The bibliography is
+% created by the following command and it will appear in this
+% position in the document. You may, of course, create your
+% own bibliography by using thebibliography environment as in
+%
+% \begin{thebibliography}{12}
+% ...
+% \bibitem{itemreference} D. E. Knudsen.
+% {\em 1966 World Bnus Almanac.}
+% {Permafrost Press, Novosibirsk.}
+% ...
+% \end{thebibliography}
+
+% Here's where you specify the bibliography style file.
+% The full file name for the bibliography style file 
+% used for an ASME paper is asmems4.bst.
+\bibliographystyle{asmems4}
+
+% Here's where you specify the bibliography database file.
+% The full file name of the bibliography database for this
+% article is asme2e.bib. The name for your database is up
+% to you.
+\bibliography{asme2e}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix       %%% starting appendix
+\section*{Appendix A: Head of First Appendix}
+Avoid Appendices if possible.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Appendix B: Head of Second Appendix}
+\subsection*{Subsection head in appendix}
+The equation counter is not reset in an appendix and the numbers will
+follow one continual sequence from the beginning of the article to the very end as shown in the following example.
+\begin{equation}
+a = b + c.
+\end{equation}
+
+\end{document}

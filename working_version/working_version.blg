@@ -1,12 +1,49 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: working_version.aux
+This is BibTeX, Version 0.99d (MiKTeX 2.9.7380 64-bit)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: working_version.aux
 The style file: asmems4.bst
 Database file #1: lit_review.bib
-Warning--entry type for "ansys" isn't style-file defined
---line 1511 of file lit_review.bib
-Repeated entry---line 1588 of file lit_review.bib
- : @article{Zhou2011
- :                  ,
-I'm skipping whatever remains of this entry
-Warning--empty institution in Jones1998
-Warning--can't use both author and editor fields in Miettinen2008
+Name 2 in "Ding, L. and Mak, S., and Wu, C. F. J." has a comma at the end for entry DingEtAl19
+while executing---line 1268 of file asmems4.bst
+You've used 67 entries,
+            1984 wiz_defined-function locations,
+            959 strings with 16261 characters,
+and the built_in function-call counts, 19466 in all, are:
+= -- 1867
+> -- 652
+< -- 0
++ -- 262
+- -- 195
+* -- 1384
+:= -- 2615
+add.period$ -- 200
+call.type$ -- 67
+change.case$ -- 60
+chr.to.int$ -- 0
+cite$ -- 67
+duplicate$ -- 934
+empty$ -- 1847
+format.name$ -- 195
+if$ -- 4621
+int.to.chr$ -- 0
+int.to.str$ -- 67
+missing$ -- 68
+newline$ -- 337
+num.names$ -- 67
+pop$ -- 248
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 713
+stack$ -- 0
+substring$ -- 1493
+swap$ -- 501
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 207
+width$ -- 69
+write$ -- 729
 (There was 1 error message)

@@ -1,51 +1,52 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%% asme2ej.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Template for producing ASME-format journal articles using LaTeX    %
-% Written by   Harry H. Cheng, Professor and Director                %
-%              Integration Engineering Laboratory                    %
-%              Department of Mechanical and Aeronautical Engineering %
-%              University of California                              %
-%              Davis, CA 95616                                       %
-%              Tel: (530) 752-5020 (office)                          %
-%                   (530) 752-1028 (lab)                             %
-%              Fax: (530) 752-4158                                   %
-%              Email: hhcheng@ucdavis.edu                            %
-%              WWW:   http://iel.ucdavis.edu/people/cheng.html       %
-%              May 7, 1994                                           %
-% Modified: February 16, 2001 by Harry H. Cheng                      %
-% Modified: January  01, 2003 by Geoffrey R. Shiflett                %
-% Use at your own risk, send complaints to /dev/null                 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%% use twocolumn and 10pt options with the asme2ej format
-\documentclass[twocolumn,10pt]{asme2ej}
-
-\usepackage{graphicx} %% for loading jpg figures
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+%\usepackage{enumerate}
+\usepackage{natbib} %comment out if you do not have the package
+\usepackage{url} % not crucial - just used below for the URL
 \usepackage{amsmath, amssymb}
-\usepackage{bm}
-\usepackage{array}
 
 % Useful definitions
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
 
-%% The class has several options
-%  onecolumn/twocolumn - format for one or two columns per page
-%  10pt/11pt/12pt - use 10, 11, or 12 point font
-%  oneside/twoside - format for oneside/twosided printing
-%  final/draft - format for final/draft copy
-%  cleanfoot - take out copyright info in footer leave page number
-%  cleanhead - take out the conference banner on the title page
-%  titlepage/notitlepage - put in titlepage or leave out titlepage
-%  
-%% The default is oneside, onecolumn, 10pt, final
+
+%\pdfminorversion=4
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{0}
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-.5in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.3in}%
+\addtolength{\topmargin}{-.8in}%
+
+
+\begin{document}
+
+%\bibliographystyle{natbib}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
 
 
 \title{Multi-objective engineering design via computer model calibration}
 
-\author{Blinded version
-    \affiliation{
-	for review}
-    }	
+\author{Carl Ehrett\thanks{
+    The authors gratefully acknowledge grant CMMI-1934438 from the National Science Foundation (NSF). CE was supported by fellowships through Department of Education GAANN grant P200A150310 and NSF NRT grant 1633608. DAB is also supported by NSF grants EEC-1744497 and OIA-1826715.}\hspace{.2cm}\\
+    School of Mathematical and Statistical Sciences, Clemson University,\\
+    D. Andrew Brown \\
+    School of Mathematical and Statistical Sciences, Clemson University,\\
+    Evan Chodora \\
+    Department of Mechanical Engineering, Clemson University,\\
+%    Mingzhe Jiang \\
+%    Department of Chemical and Biomolecular Engineering, Clemson University,\\
+    Christopher Kitchens \\
+    Department of Chemical and Biomolecular Engineering, Clemson University,\\
+    and \\
+    Sez Atamturktur \\
+    Department of Architectural Engineering, Pennsylvania State University\\}
 
 % %%% first author
 % \author{Carl Ehrett
@@ -120,43 +121,43 @@
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{nomenclature}
-\entry{$c$}{Cost (USD)}
-\entry{$C$}{Covariance function of a Gaussian process}
-\entry{$\mathbf C_{D}$}{Covariance matrix formed with covariance function $C$ and data $D$}
-\entry{$D$}{concatenated vector of computer model runs and target values (=$(\boldsymbol\eta^T, \mathbf y_t^T )^T$)}
-\entry{$d$}{Tip deflection (m)}
-\entry{$h$}{Temperature (Kelvin)}
-\entry{$k$}{Thickness (mm)}
-\entry{$f$}{Function describing a phenomenon of interest}
-\entry{$f_\gamma$}{Function describing a phenomenon of interest in state $\gamma$}
-\entry{$m$}{Number of outputs of $\eta$}
-\entry{$p$}{Dimension of $\mathbf x$}
-\entry{$r$}{Twist angle (radians)}
-\entry{$\mathbf t$}{Vector of model inputs such that the true/optimal value of $\mathbf t$ is $\boldsymbol\theta$}
-\entry{$v$}{Volume fraction of a composite material}
-\entry{$\mathbf x$}{Array of model inputs other than $\boldsymbol\theta$}
-\entry{$y$}{Function relating inputs $\mathbf x$ to outputs $\mathbf y$}
-\entry{$\mathbf y$}{Vector of model outputs}
-\entry{$\mathbf y_t$}{Vector of target model outputs}
-\entry{$\mathbf z$}{Vector of outputs of $\eta$ summed with error $\epsilon$}
-\entry{$\alpha$}{The true state of a system}
-\entry{$\beta^\gamma_j$}{Inverse correlation length for the $j^\text{th}$ input of the Gaussian process emulator of $\gamma$}
-\entry{$\delta$}{Systematic model bias}
-\entry{$\epsilon$}{Mean-zero noise}
-\entry{$\zeta_\gamma$}{Smoothness hyperparameter for the Gaussian process emulator of $\gamma$}
-\entry{$\boldsymbol\theta$}{Optimal inputs to a given model}
-\entry{$\eta$}{Computer model simulator of $f$}
-\entry{$\boldsymbol\eta$}{Array of outputs from $\eta$}
-\entry{$\lambda_\gamma$}{Marginal precision of Gaussian process emulator of $\gamma$}
-\entry{$\mu$}{Mean function of a Gaussian process}
-\entry{$\pi$}{A probability density function (pdf)}
-\entry{$\rho^\gamma_j$}{Reparameterization of $\beta^\gamma_j$}
-\entry{$\sigma^2$}{Variance of $\epsilon$}
-\entry{$\omega$}{A possible system state}
-\entry{$\mathcal D$}{The domain of a Gaussian process}
-\entry{$\mathcal P$}{Pareto set for multiple objectives}
-\end{nomenclature}
+% \begin{nomenclature}
+% \entry{$c$}{Cost (USD)}
+% \entry{$C$}{Covariance function of a Gaussian process}
+% \entry{$\mathbf C_{D}$}{Covariance matrix formed with covariance function $C$ and data $D$}
+% \entry{$D$}{concatenated vector of computer model runs and target values (=$(\boldsymbol\eta^T, \mathbf y_t^T )^T$)}
+% \entry{$d$}{Tip deflection (m)}
+% \entry{$h$}{Temperature (Kelvin)}
+% \entry{$k$}{Thickness (mm)}
+% \entry{$f$}{Function describing a phenomenon of interest}
+% \entry{$f_\gamma$}{Function describing a phenomenon of interest in state $\gamma$}
+% \entry{$m$}{Number of outputs of $\eta$}
+% \entry{$p$}{Dimension of $\mathbf x$}
+% \entry{$r$}{Twist angle (radians)}
+% \entry{$\mathbf t$}{Vector of model inputs such that the true/optimal value of $\mathbf t$ is $\boldsymbol\theta$}
+% \entry{$v$}{Volume fraction of a composite material}
+% \entry{$\mathbf x$}{Array of model inputs other than $\boldsymbol\theta$}
+% \entry{$y$}{Function relating inputs $\mathbf x$ to outputs $\mathbf y$}
+% \entry{$\mathbf y$}{Vector of model outputs}
+% \entry{$\mathbf y_t$}{Vector of target model outputs}
+% \entry{$\mathbf z$}{Vector of outputs of $\eta$ summed with error $\epsilon$}
+% \entry{$\alpha$}{The true state of a system}
+% \entry{$\beta^\gamma_j$}{Inverse correlation length for the $j^\text{th}$ input of the Gaussian process emulator of $\gamma$}
+% \entry{$\delta$}{Systematic model bias}
+% \entry{$\epsilon$}{Mean-zero noise}
+% \entry{$\zeta_\gamma$}{Smoothness hyperparameter for the Gaussian process emulator of $\gamma$}
+% \entry{$\boldsymbol\theta$}{Optimal inputs to a given model}
+% \entry{$\eta$}{Computer model simulator of $f$}
+% \entry{$\boldsymbol\eta$}{Array of outputs from $\eta$}
+% \entry{$\lambda_\gamma$}{Marginal precision of Gaussian process emulator of $\gamma$}
+% \entry{$\mu$}{Mean function of a Gaussian process}
+% \entry{$\pi$}{A probability density function (pdf)}
+% \entry{$\rho^\gamma_j$}{Reparameterization of $\beta^\gamma_j$}
+% \entry{$\sigma^2$}{Variance of $\epsilon$}
+% \entry{$\omega$}{A possible system state}
+% \entry{$\mathcal D$}{The domain of a Gaussian process}
+% \entry{$\mathcal P$}{Pareto set for multiple objectives}
+% \end{nomenclature}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
@@ -1261,7 +1262,7 @@ Other possible extensions of our proposed methodology include its application to
 % Here's where you specify the bibliography style file.
 % The full file name for the bibliography style file 
 % used for an ASME paper is asmems4.bst.
-\bibliographystyle{asmems4}
+\bibliographystyle{abbrv}
 
 % Here's where you specify the bibliography database file.
 % The full file name of the bibliography database for this

@@ -49,6 +49,17 @@ Brynjarsd{\'{o}}ttir, J., and O'Hagan, A., 2014.
   discrepancy}''.
 \newblock {\em Inverse Problems, {\bf 30}}(11).
 
+\bibitem{Peitz2018}
+Peitz, S., and Dellnitz, M., 2018.
+\newblock {\em Gradient-Based Multiobjective Optimization with Uncertainties}.
+\newblock Springer International Publishing, Cham, pp.~159--182.
+
+\bibitem{Vasilopoulos2019}
+Vasilopoulos, I., Asouti, V.~G., Giannakoglou, K.~C., and Meyer, M., 2019.
+\newblock ``{Gradient-based Pareto front approximation applied to
+  turbomachinery shape optimization}''.
+\newblock {\em Engineering with Computers}, aug, pp.~1--11.
+
 \bibitem{Jin2005}
 Jin, Y., and Branke, J., 2005.
 \newblock ``{Evolutionary optimization in uncertain environments - A survey}''.
@@ -60,11 +71,13 @@ Deb, K., and Gupta, H., 2006.
 \newblock ``{Introducing robustness in multi-objective optimization}''.
 \newblock {\em Evolutionary Computation, {\bf 14}}(4), dec, pp.~463--494.
 
-\bibitem{Zhou2011}
-Zhou, Q., Qian, P. Z.~G., and Zhou, S., 2011.
-\newblock ``{A simple approach to emulation for computer models with
-  qualitative and quantitative factors}''.
-\newblock {\em Technometrics, {\bf 53}}(3), pp.~266--273.
+\bibitem{Zhou2011a}
+Zhou, A., Qu, B.-Y., Li, H., Zhao, S.-Z., Suganthan, P.~N., and Zhang, Q.,
+  2011.
+\newblock ``{Multiobjective evolutionary algorithms: A survey of the state of
+  the art}''.
+\newblock {\em Swarm and Evolutionary Computation, {\bf 1}}(1), mar,
+  pp.~32--49.
 
 \bibitem{Picheny2019}
 Picheny, V., Binois, M., and Habbal, A., 2019.
@@ -73,8 +86,8 @@ Picheny, V., Binois, M., and Habbal, A., 2019.
 
 \bibitem{Jones1998}
 Jones, D.~R., Schonlau, M., and Welch, W.~J., 1998.
-\newblock {Efficient Global Optimization of Expensive Black-Box Functions}.
-\newblock Tech. rep.
+\newblock ``{Efficient Global Optimization of Expensive Black-Box Functions}''.
+\newblock {\em Journal of Global Optimization, {\bf 13}}(4), pp.~455--492.
 
 \bibitem{Chevalier2014}
 Chevalier, C., Bect, J., Ginsbourger, D., Vazquez, E., Picheny, V., and Richet,
@@ -88,6 +101,19 @@ Picheny, V., 2015.
 \newblock ``{Multiobjective optimization using Gaussian process emulators via
   stepwise uncertainty reduction}''.
 \newblock {\em Statistics and Computing, {\bf 25}}(6), pp.~1265--1280.
+
+\bibitem{Tuo2020}
+Tuo, R., and Wang, W., 2020.
+\newblock Uncertainty quantification for bayesian optimization.
+\newblock arXiv preprint 2002.01569.
+
+\bibitem{Pandita2018}
+Pandita, P., Bilionis, I., Panchal, J., Gautham, B.~P., Joshi, A., and Zagade,
+  P., 2018.
+\newblock ``{Stochastic multiobjective optimization on a budget: Application to
+  multipass wire drawing with quantified uncertainties}''.
+\newblock {\em International Journal for Uncertainty Quantification, {\bf
+  8}}(3), pp.~233--249.
 
 \bibitem{Olalotiti-Lawal2015}
 Olalotiti-Lawal, F., and Datta-Gupta, A., 2015.
@@ -125,10 +151,11 @@ Lewis, D.~K., 1986.
 \newblock {\em {On the plurality of worlds}}.
 \newblock Blackwell.
 
-\bibitem{Young1994}
-Young, M., 1994.
-\newblock {\em {The Guinness book of records, 1995}}.
-\newblock Facts on File.
+\bibitem{JiangTanner08}
+Jiang, W., and Tanner, M.~A., 2008.
+\newblock ``{Gibbs posterior for variable selection in high-dimensional
+  classification and data mining}''.
+\newblock {\em The Annals of Statistics, {\bf 36}}(5), pp.~2207--2231.
 
 \bibitem{Hemez2011}
 Hemez, F., and Atamturktur, S., 2011.
@@ -150,11 +177,6 @@ Hemez, F., and Atamturktur, S., 2011.
 \newblock {\em Mechanical Systems and Signal Processing, {\bf 43}}(1-2),
   pp.~246--259.
 
-\bibitem{Pratola2018}
-Pratola, M., and Chkrebtii, O., 2018.
-\newblock ``{Bayesian calibration of multistate stochastic simulators}''.
-\newblock {\em Statistica Sinica, {\bf 28}}, pp.~693--719.
-
 \bibitem{Sacks1989}
 Sacks, J., Welch, W.~J., Mitchell, T.~J., and Wynn, H.~P., 1989.
 \newblock ``{Design and analysis of computer experiments}''.
@@ -164,6 +186,11 @@ Sacks, J., Welch, W.~J., Mitchell, T.~J., and Wynn, H.~P., 1989.
 Santner, T.~J., Williams, B.~J., and Notz, W.~I., 2003.
 \newblock {\em {The design and analysis of computer experiments}}.
 \newblock Springer, New York.
+
+\bibitem{Pratola2018}
+Pratola, M., and Chkrebtii, O., 2018.
+\newblock ``{Bayesian calibration of multistate stochastic simulators}''.
+\newblock {\em Statistica Sinica, {\bf 28}}, pp.~693--719.
 
 \bibitem{OHagan1978}
 O'Hagan, A., 1978.
@@ -208,21 +235,40 @@ Liu, F., Bayarri, M.~J., and Berger, J.~O., 2009.
   computer models}''.
 \newblock {\em Bayesian Analysis, {\bf 4}}(1), pp.~119--150.
 
+\bibitem{Deb2006a}
+Deb, K., and Sundar, J., 2006.
+\newblock ``{Reference point based multi-objective optimization using
+  evolutionary algorithms}''.
+\newblock In Proceedings of the 8th annual conference on Genetic and
+  evolutionary computation - GECCO '06, ACM Press, p.~635.
+
 \bibitem{ansys}
 {ANSYS, Inc.}, 2017.
 \newblock Ansys\textsuperscript{\textregistered} academic research mechanical,
   release 18.1.
+
+\bibitem{MATLAB2017}
+{\sc Matlab}, 2017.
+\newblock {\em Version 9.2.0 (R2017a)}.
+\newblock The MathWorks, Inc., Natick, Massachusetts.
+
+\bibitem{BergResor12}
+Berg, J.~C., and Resor, B.~R., 2012.
+\newblock {Numerical manufacturing and design tool (NuMAD v2.0) for wind
+  turbine blades: User's guide}.
+\newblock Sandia National Laboratories Report SAND2012-7028.
+
+\bibitem{Mori1973}
+Mori, T., and Tanaka, K., 1973.
+\newblock ``{Average stress in matrix and average elastic energy of materials
+  with misfitting inclusions}''.
+\newblock {\em Acta Metallurgica, {\bf 21}}(5), pp.~571--574.
 
 \bibitem{McKay1979}
 McKay, M.~D., Beckman, R.~J., and Conover, W.~J., 1979.
 \newblock ``{Comparison of three methods for selecting values of input
   variables in the analysis of output from a computer code}''.
 \newblock {\em Technometrics, {\bf 21}}(2), pp.~239--245.
-
-\bibitem{MATLAB2017}
-{\sc Matlab}, 2017.
-\newblock {\em Version 9.2.0 (R2017a)}.
-\newblock The MathWorks, Inc., Natick, Massachusetts.
 
 \bibitem{Metropolis1953}
 Metropolis, N., Rosenbluth, A.~W., Rosenbluth, M.~N., Teller, A.~H., and
@@ -260,11 +306,67 @@ Gelman, A., and Rubin, D.~B., 1992.
 \newblock ``{Inference from Iterative Simulation Using Multiple Sequences}''.
 \newblock {\em Statistical Science, {\bf 7}}(4), pp.~457--472.
 
+\bibitem{Deb2002}
+Deb, K., Pratap, A., Agarwal, S., and Meyarivan, T., 2002.
+\newblock ``{A fast and elitist multiobjective genetic algorithm: NSGA-II}''.
+\newblock {\em IEEE Transactions on Evolutionary Computation, {\bf 6}}(2),
+  pp.~182--197.
+
 \bibitem{Shahriari2016}
 Shahriari, B., Swersky, K., Wang, Z., Adams, R.~P., and de~Freitas, N., 2016.
 \newblock ``{Taking the human out of the loop: A review of Bayesian
   optimization}''.
 \newblock {\em Proceedings of the IEEE, {\bf 104}}(1), pp.~148--175.
+
+\bibitem{ContiOHagan10}
+Conti, S., and O'Hagan, A., 2010.
+\newblock ``{Bayesian emulation of complex multi-output and dynamic computer
+  models}''.
+\newblock {\em Journal of Statistical Planning and Inference, {\bf 140}}(3),
+  pp.~640--651.
+
+\bibitem{SaibabaEtAl19}
+Saibaba, A.~K., Bardsley, J., Brown, D.~A., and Alexanderian, A., 2019.
+\newblock ``{Efficient marginalization-based MCMC methods for hierarchical
+  Bayesian inverse problems}''.
+\newblock {\em SIAM/ASA Journal on Uncertainty Quantification, {\bf 7}}(3),
+  pp.~1105--1131.
+
+\bibitem{Constantine2015}
+Constantine, P.~G., 2015.
+\newblock {\em {Active subspaces : emerging ideas for dimension reduction in
+  parameter studies}}.
+\newblock SIAM, Philadelphia.
+
+\bibitem{Calvetti2014}
+Calvetti, D., Kaipio, J.~P., and Somersalo, E., 2014.
+\newblock ``{Inverse problems in the Bayesian framework}''.
+\newblock {\em Inverse Problems, {\bf 30}}(11).
+
+\bibitem{Golchi2015}
+Golchi, S., Bingham, D.~R., Chipman, H., and Campbell, D.~A., 2015.
+\newblock ``{Monotone emulation of computer experiments}''.
+\newblock {\em SIAM-ASA Journal on Uncertainty Quantification, {\bf 3}}(1),
+  may, pp.~370--392.
+
+\bibitem{Wang2016}
+Wang, X., and Berger, J.~O., 2016.
+\newblock ``{Estimating shape constrained functions using Gaussian
+  processes}''.
+\newblock {\em SIAM-ASA Journal on Uncertainty Quantification, {\bf 4}}(1),
+  jan, pp.~1--25.
+
+\bibitem{Maatouk2017}
+Maatouk, H., and Bay, X., 2017.
+\newblock ``{Gaussian Process Emulators for Computer Experiments with
+  Inequality Constraints}''.
+\newblock {\em Mathematical Geosciences, {\bf 49}}(5), jul, pp.~557--582.
+
+\bibitem{DingEtAl19}
+Ding, L., Mak, S., and Wu, C. F.~J., 2019.
+\newblock {BdryGP: A new Gaussian process model for incorporating boundary
+  information}.
+\newblock arXiv preprint 1908.08868.
 
 \bibitem{Atamturktur2015}
 Atamturktur, S., and Brown, D.~A., 2015.
@@ -283,5 +385,21 @@ Stevens, G.~N., Atamturktur, S., Brown, D.~A., Williams, B.~J., and Unal, C.,
 Brown, D.~A., and Atamturktur, S., 2018.
 \newblock ``{Nonparametric functional calibration of computer models}''.
 \newblock {\em Statistica Sinica, {\bf 28}}, pp.~721--742.
+
+\bibitem{Berry08}
+Berry, D.~S., 2008.
+\newblock {Blade System Design Studies Phase II: Final Project Report}.
+\newblock Sandia National Laboratories Report SAND2008-4648.
+
+\bibitem{BerryAshwill07}
+Berry, D.~S., and Ashwill, T., 2007.
+\newblock {Design of 9-Meter Carbon-Fiberglass Prototype Blades: CX-100 and
+  TX-100}.
+\newblock Sandia National Laboratories Report SAND2007-0201.
+
+\bibitem{ResorPaquette12}
+Resor, B.~R., and Paquette, J., 2012.
+\newblock {A NuMAD model of the Sandia CX-100 Blade}.
+\newblock Sandia National Laboratories Report SAND2012-9273.
 
 \end{thebibliography}

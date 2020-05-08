@@ -1508,7 +1508,7 @@ url = {https://www.sciencedirect.com/science/article/pii/S088832701300513X},
 volume = {43},
 year = {2014}
 }
-@software{ansys,
+@misc{ansys,
   author = {{ANSYS, Inc.}},
   title = {ANSYS\textsuperscript{\textregistered} Academic Research Mechanical, Release 18.1},
   year = {2017}
@@ -1585,7 +1585,7 @@ title = {{Evolutionary optimization in uncertain environments - A survey}},
 volume = {9},
 year = {2005}
 }
-@article{Zhou2011,
+@article{Zhou2011a,
 author = {Zhou, Aimin and Qu, Bo-Yang and Li, Hui and Zhao, Shi-Zheng and Suganthan, Ponnuthurai Nagaratnam and Zhang, Qingfu},
 doi = {10.1016/j.swevo.2011.03.001},
 file = {:C$\backslash$:/Users/carle/Documents/Mendeley/Zhou et al. - 2011 - Multiobjective evolutionary algorithms A survey of the state of the art.pdf:pdf},
@@ -1639,15 +1639,18 @@ url = {http://link.springer.com/10.1007/s10898-018-0688-0},
 volume = {73},
 year = {2019}
 }
-@techreport{Jones1998,
+@article{Jones1998,
 abstract = {In many engineering optimization problems, the number of function evaluations is severely limited by time or cost. These problems pose a special challenge to the field of global optimization, since existing methods often require more function evaluations than can be comfortably afforded. One way to address this challenge is to fit response surfaces to data collected by evaluating the objective and constraint functions at a few points. These surfaces can then be used for visualization, tradeoff analysis, and optimization. In this paper, we introduce the reader to a response surface methodology that is especially good at modeling the nonlinear, multimodal functions that often occur in engineering. We then show how these approximating functions can be used to construct an efficient global optimization algorithm with a credible stopping rule. The key to using response surfaces for global optimization lies in balancing the need to exploit the approximating surface (by sampling where it is minimized) with the need to improve the approximation (by sampling where prediction error may be high). Striking this balance requires solving certain auxiliary problems which have previously been considered intractable, but we show how these computational obstacles can be overcome.},
-author = {Jones, Donald R and Schonlau, Matthias and Welch, William J},
-booktitle = {Journal of Global Optimization},
-file = {:C$\backslash$:/Users/carle/Documents/Mendeley/Jones, Schonlau, Welch - 1998 - Efficient Global Optimization of Expensive Black-Box Functions.pdf:pdf},
+author = {Jones, Donald R. and Schonlau, Matthias and Welch, William J.},
+doi = {10.1023/A:1008306431147},
+file = {:C$\backslash$:/Users/Carl/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Jones, Schonlau, Welch - 1998 - Efficient Global Optimization of Expensive Black-Box Functions(2).pdf:pdf},
+issn = {09255001},
+journal = {Journal of Global Optimization},
 keywords = {Bayesian global optimization,Kriging,Random function,Response surface,Stochastic process,Visualization},
+number = {4},
 pages = {455--492},
+publisher = {Kluwer Academic Publishers},
 title = {{Efficient Global Optimization of Expensive Black-Box Functions}},
-url = {http://www.ressources-actuarielles.net/EXT/ISFA/1226.nsf/0/f84f7ac703bf5862c12576d8002f5259/{\$}FILE/Jones98.pdf},
 volume = {13},
 year = {1998}
 }
@@ -1702,10 +1705,6 @@ year = {2015}
 }
 @Inbook{Miettinen2008,
 author="Miettinen, Kaisa",
-editor="Branke, J{\"u}rgen
-and Deb, Kalyanmoy
-and Miettinen, Kaisa
-and S{\l}owi{\'{n}}ski, Roman",
 title="Introduction to Multiobjective Optimization: Noninteractive Approaches",
 bookTitle="Multiobjective Optimization: Interactive and Evolutionary Approaches",
 year="2008",
@@ -1731,4 +1730,247 @@ title = {{Estimating causal effects of treatments in randomized and nonrandomize
 volume = {66},
 year = {1974}
 }
+@inproceedings{Deb2006a,
+address = {New York, New York, USA},
+author = {Deb, Kalyanmoy and Sundar, J.},
+booktitle = {Proceedings of the 8th annual conference on Genetic and evolutionary computation  - GECCO '06},
+doi = {10.1145/1143997.1144112},
+file = {:C$\backslash$:/Users/Carl/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Deb, Sundar - 2006 - Reference point based multi-objective optimization using evolutionary algorithms.pdf:pdf},
+isbn = {1595931864},
+pages = {635},
+publisher = {ACM Press},
+title = {{Reference point based multi-objective optimization using evolutionary algorithms}},
+url = {http://portal.acm.org/citation.cfm?doid=1143997.1144112},
+year = {2006}
+}
+@Inbook{Peitz2018,
+author="Peitz, Sebastian
+and Dellnitz, Michael",
+title="Gradient-Based Multiobjective Optimization with Uncertainties",
+bookTitle="NEO 2016: Results of the Numerical and Evolutionary Optimization Workshop NEO 2016 and the NEO Cities 2016 Workshop held on September 20-24, 2016 in Tlalnepantla, Mexico",
+year="2018",
+publisher="Springer International Publishing",
+address="Cham",
+pages="159--182",
+abstract="In this article we develop a gradient-based algorithm for the solution of multiobjective optimization problems with uncertainties. To this end, an additional condition is derived for the descent direction in order to account for inaccuracies in the gradients and then incorporated into a subdivision algorithm for the computation of global solutions to multiobjective optimization problems. Convergence to a superset of the Pareto set is proved and an upper bound for the maximal distance to the set of substationary points is given. Besides the applicability to problems with uncertainties, the algorithm is developed with the intention to use it in combination with model order reduction techniques in order to efficiently solve PDE-constrained multiobjective optimization problems.",
+isbn="978-3-319-64063-1",
+doi="10.1007/978-3-319-64063-1_7",
+url="https://doi.org/10.1007/978-3-319-64063-1_7"
+}
+@article{Vasilopoulos2019,
+abstract = {Multi-objective optimization has been rising in popularity, especially within an industrial environment, where several cost functions often need to be considered during the design phase. Traditional gradient-free approaches, such as evolutionary algorithms, can be employed to compute a front of equally suitable solutions a designer can choose from, with a high computational cost though, particularly in high-dimensional design spaces. In this paper, a gradient-based algorithm is developed for efficiently tracing the Pareto front in bi-objective aerodynamic shape optimization problems, where an adjoint method is used for the computation of the objective functions' gradients with respect to the design variables. After obtaining a starting point on the front, a prediction–correction approach is employed to compute new Pareto points. Satisfying the Karush–Kuhn–Tucker conditions provides a prediction for the next point, which is, then, corrected by solving a minimum distance problem. The prediction step, though, requires the costly computation of the Hessian matrix. This is avoided here using the BFGS (Nocedal and Wright in Numerical optimization, Springer, New York, 2006) technique. The proposed method is first demonstrated in a less expensive lift/drag optimization of an isolated airfoil and then applied to the bi-objective optimization of a 3D compressor stator. The extension of the proposed method to cases with more than two objectives is straightforward, on condition that an algorithm is found to coordinate the way the Pareto front is swept.},
+author = {Vasilopoulos, Ilias and Asouti, Varvara G. and Giannakoglou, Kyriakos C. and Meyer, Marcus},
+doi = {10.1007/s00366-019-00832-y},
+file = {:C$\backslash$:/Users/Carl/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Vasilopoulos et al. - 2019 - Gradient-based Pareto front approximation applied to turbomachinery shape optimization.pdf:pdf},
+issn = {14355663},
+journal = {Engineering with Computers},
+keywords = {Adjoint method,CFD,Pareto front,Shape optimization,Turbomachinery},
+month = {aug},
+pages = {1--11},
+publisher = {Springer London},
+title = {{Gradient-based Pareto front approximation applied to turbomachinery shape optimization}},
+year = {2019}
+}
+@article{Pandita2018,
+abstract = {Design optimization of engineering systems with multiple competing objectives is a painstakingly tedious process especially when the objective functions are expensive-to-evaluate computer codes with parametric uncertainties. The effectiveness of the state-of-the-art techniques is greatly diminished because they require a large number of objective evaluations, which makes them impractical for problems of the above kind. Bayesian global optimization (BGO) has managed to deal with these challenges in solving single-objective optimization problems and has recently been extended to multiobjective optimization (MOO). BGO models the objectives via probabilistic surrogates and uses the epistemic uncertainty to define an information acquisition function (IAF) that quantifies the merit of evaluating the objective at new designs. This iterative data acquisition process continues until a stopping criterion is met. The most commonly used IAF for MOO is the expected improvement over the dominated hypervolume (EIHV) which in its original form is unable to deal with parametric uncertainties or measurement noise. In this work, we provide a systematic reformulation of EIHV to deal with stochastic MOO problems. The primary contribution of this paper lies in being able to filter out the noise and reformulate the EIHV without having to observe or estimate the stochastic parameters. An addendum of the probabilistic nature of our methodology is that it enables us to characterize our confidence about the predicted Pareto front. We verify and validate the proposed methodology by applying it to synthetic test problems with known solutions. We demonstrate our approach on an industrial problem of die pass design for a steel-wire drawing process.},
+archivePrefix = {arXiv},
+arxivId = {1706.01665},
+author = {Pandita, Piyush and Bilionis, Ilias and Panchal, Jitesh and Gautham, B. P. and Joshi, Amol and Zagade, Pramod},
+doi = {10.1615/Int.J.UncertaintyQuantification.2018021315},
+eprint = {1706.01665},
+issn = {21525099},
+journal = {International Journal for Uncertainty Quantification},
+keywords = {Bayesian optimization,Expected improvement over dominated hypervolume,Gaussian processes,Information acquisition,Stochastic optimization,Uncertainty quantification,Vorob'ev expectation},
+number = {3},
+pages = {233--249},
+publisher = {Begell House Inc.},
+title = {{Stochastic multiobjective optimization on a budget: Application to multipass wire drawing with quantified uncertainties}},
+volume = {8},
+year = {2018}
+}
+@article{Ding2019,
+abstract = {Gaussian processes (GPs) are widely used as surrogate models for emulating computer code, which simulate complex physical phenomena. In many problems, additional boundary information (i.e., the behavior of the phenomena along input boundaries) is known beforehand, either from governing physics or scientific knowledge. While there has been recent work on incorporating boundary information within GPs, such models do not provide theoretical insights on improved convergence rates. To this end, we propose a new GP model, called BdryGP, for incorporating boundary information. We show that BdryGP not only has improved convergence rates over existing GP models (which do not incorporate boundaries), but is also more resistant to the "curse-of-dimensionality" in nonparametric regression. Our proofs make use of a novel connection between GP interpolation and finite-element modeling.},
+archivePrefix = {arXiv},
+arxivId = {1908.08868},
+author = {Ding, Liang and Mak, Simon and Wu, C. F. Jeff},
+eprint = {1908.08868},
+file = {:C$\backslash$:/Users/Carl/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Ding, Mak, Wu - 2019 - BdryGP a new Gaussian process model for incorporating boundary information.pdf:pdf},
+keywords = {and phrases,computer experi-,finite-element modeling,gaussian process,high-dimensional,kriging,ment,uncertainty quantification},
+month = {aug},
+title = {{BdryGP: a new Gaussian process model for incorporating boundary information}},
+url = {http://arxiv.org/abs/1908.08868},
+year = {2019}
+}
+@article{Ding2019,
+abstract = {Gaussian processes (GPs) are widely used as surrogate models for emulating computer code, which simulate complex physical phenomena. In many problems, additional boundary information (i.e., the behavior of the phenomena along input boundaries) is known beforehand, either from governing physics or scientific knowledge. While there has been recent work on incorporating boundary information within GPs, such models do not provide theoretical insights on improved convergence rates. To this end, we propose a new GP model, called BdryGP, for incorporating boundary information. We show that BdryGP not only has improved convergence rates over existing GP models (which do not incorporate boundaries), but is also more resistant to the "curse-of-dimensionality" in nonparametric regression. Our proofs make use of a novel connection between GP interpolation and finite-element modeling.},
+archivePrefix = {arXiv},
+arxivId = {1908.08868},
+author = {Ding, Liang and Mak, Simon and Wu, C. F. Jeff},
+eprint = {1908.08868},
+file = {:C$\backslash$:/Users/Carl/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Ding, Mak, Wu - 2019 - BdryGP a new Gaussian process model for incorporating boundary information.pdf:pdf},
+keywords = {and phrases,computer experi-,finite-element modeling,gaussian process,high-dimensional,kriging,ment,uncertainty quantification},
+month = {aug},
+title = {{BdryGP: a new Gaussian process model for incorporating boundary information}},
+url = {http://arxiv.org/abs/1908.08868},
+year = {2019}
+}
+@book{Constantine2015,
+abstract = {"Scientists and engineers use computer simulations to study relationships between a model's input parameters and its outputs. However, thorough parameter studies are challenging, if not impossible, when the simulation is expensive and the model has several inputs. To enable studies in these instances, the engineer may attempt to reduce the dimension of the model's input parameter space. Active subspaces are an emerging set of dimension reduction tools that identify important directions in the parameter space. This book describes techniques for discovering a model's active subspace and proposes methods for exploiting the reduced dimension to enable otherwise infeasible parameter studies. Readers will find new ideas for dimension reduction; easy-to-implement algorithms; and several examples of active subspaces in action"--The publisher. Quick start -- Parameterized models in physics and engineering -- Discover the active subspace -- Exploit the active subspace -- Active subspaces in action -- Summary and future directions.},
+address = {Philadelphia},
+author = {Constantine, Paul G.},
+isbn = {978-1-611973-85-3},
+title = {{Active subspaces : emerging ideas for dimension reduction in parameter studies}},
+publisher = {SIAM},
+year = {2015}
+}
+@article{Wang2016,
+abstract = {Gaussian processes are a popular tool for nonparametric function estimation because of their flexibility and the fact that much of the ensuing computation is parametric Gaussian computation. Often, the function is known to be in a shape-constrained class, such as the class of monotonic or convex functions. Such shape constraints can be incorporated through the use of derivative processes, which are joint Gaussian processes with the original process, as long as the conditions of mean square differentiability in Theorem 2.2.2 of Adler [The Geometry of Random Fields, Vol. 62, SIAM, Philadelphia, 1981] hold. The possibilities and challenges of introducing shape constraints through this device are explored and illustrated through simulations and two real data examples. The first example involves emulating a computer model of vehicle crashworthiness and the second involves emulating a computer model that predicts dissolving of ingredients in a mixing tank for a product. Computation is carried out through a Gibbs sampling scheme.},
+author = {Wang, Xiaojing and Berger, James O.},
+doi = {10.1137/140955033},
+file = {:C$\backslash$:/Users/Carl/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Wang, Berger - 2016 - Estimating shape constrained functions using Gaussian processes.pdf:pdf},
+issn = {21662525},
+journal = {SIAM-ASA Journal on Uncertainty Quantification},
+keywords = {Convex function,Derivatives,Gaussian processes,Gibbs sampling,Monotone function,Shape constraints},
+month = {jan},
+number = {1},
+pages = {1--25},
+publisher = {Society for Industrial and Applied Mathematics Publications},
+title = {{Estimating shape constrained functions using Gaussian processes}},
+volume = {4},
+year = {2016}
+}
+@article{Maatouk2017,
+abstract = {Physical phenomena are observed in many fields (science and engineering) and are often studied by time-consuming computer codes. These codes are analyzed with statistical models, often called emulators. In many situations, the physical system (computer model output) may be known to satisfy inequality constraints with respect to some or all input variables. The aim is to build a model capable of incorporating both data interpolation and inequality constraints into a Gaussian process emulator. By using a functional decomposition, a finite-dimensional approximation of Gaussian processes such that all conditional simulations satisfy the inequality constraints in the entire domain is proposed. To show the performance of the proposed model, some conditional simulations with inequality constraints such as boundedness, monotonicity or convexity conditions in one and two dimensions are given. A simulation study to investigate the efficiency of the method in terms of prediction is included.},
+archivePrefix = {arXiv},
+arxivId = {1606.01265},
+author = {Maatouk, Hassan and Bay, Xavier},
+doi = {10.1007/s11004-017-9673-2},
+eprint = {1606.01265},
+file = {:C$\backslash$:/Users/Carl/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Maatouk, Bay - 2017 - Gaussian Process Emulators for Computer Experiments with Inequality Constraints.pdf:pdf},
+issn = {18748953},
+journal = {Mathematical Geosciences},
+keywords = {Design and modeling of computer experiments,Finite-dimensional approximation,Gaussian process emulator,Inequality constraints,Uncertainty quantification},
+month = {jul},
+number = {5},
+pages = {557--582},
+publisher = {Springer Verlag},
+title = {{Gaussian Process Emulators for Computer Experiments with Inequality Constraints}},
+volume = {49},
+year = {2017}
+}
+@article{Golchi2015,
+abstract = {In statistical modeling of computer experiments, prior information is sometimes available about the underlying function. For example, the physical system simulated by the computer code may be known to be monotone with respect to some or all inputs. We develop a Bayesian approach to Gaussian process modeling capable of incorporating monotonicity information for computer model emulation. Markov chain Monte Carlo methods are used to sample from the posterior distribution of the process given the simulator output and monotonicity information. The performance of the proposed approach in terms of predictive accuracy and uncertainty quantification is demonstrated in a number of simulated examples as well as a real queuing system application.},
+author = {Golchi, S. and Bingham, D. R. and Chipman, H. and Campbell, D. A.},
+doi = {10.1137/140976741},
+file = {:C$\backslash$:/Users/Carl/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Golchi et al. - 2015 - Monotone emulation of computer experiments.pdf:pdf},
+issn = {21662525},
+journal = {SIAM-ASA Journal on Uncertainty Quantification},
+keywords = {Bayesian,Derivative,Emulator,Gaussian process,Prior information},
+month = {may},
+number = {1},
+pages = {370--392},
+publisher = {Society for Industrial and Applied Mathematics Publications},
+title = {{Monotone emulation of computer experiments}},
+volume = {3},
+year = {2015}
+}
+@misc{Tuo2020,
+    title={Uncertainty Quantification for Bayesian Optimization},
+    author={Rui Tuo and Wenjia Wang},
+    year={2020},
+    eprint={2002.01569},
+    archivePrefix={arXiv},
+    primaryClass={math.ST},
+    note= {arXiv preprint 2002.01569}
+}
+@article{ContiOHagan10,
+author = {Conti, S. and O'Hagan, A.},
+journal = {Journal of Statistical Planning and Inference},
+number = {3},
+pages = {640-651},
+title = {{Bayesian emulation of complex multi-output
+and dynamic computer models}},
+volume = {140},
+year = {2010}
+}
+@article{SaibabaEtAl19,
+author = {Saibaba, A. K. and Bardsley, J. and Brown, D. A. and Alexanderian, A.},
+journal = {SIAM/ASA Journal on Uncertainty Quantification},
+number = {3},
+pages = {1105--1131},
+title = {{Efficient marginalization-based MCMC methods for hierarchical Bayesian inverse problems}},
+volume = {7},
+year = {2019}
+}
 
+@misc{Berry08,
+    title={{Blade System Design Studies Phase II: Final Project Report}},
+    author={Berry, D. S.},
+    year={2008},
+    eprint={},
+    archivePrefix={},
+    primaryClass={},
+    note= {Sandia National Laboratories Report SAND2008-4648}
+}
+
+@misc{BerryAshwill07,
+    title={{Design of 9-Meter Carbon-Fiberglass Prototype Blades: CX-100 and TX-100}},
+    author={Berry, D. S. and Ashwill, T.},
+    year={2007},
+    eprint={},
+    archivePrefix={},
+    primaryClass={},
+    note= {Sandia National Laboratories Report SAND2007-0201}
+}
+
+
+@misc{BergResor12,
+    title={{Numerical manufacturing and design tool (NuMAD v2.0) for wind turbine blades: User's guide}},
+    author={Berg, J. C. and Resor, B. R.},
+    year={2012},
+    eprint={},
+    archivePrefix={},
+    primaryClass={},
+    note= {Sandia National Laboratories Report SAND2012-7028}
+}
+
+@misc{ResorPaquette12,
+    title={{A NuMAD model of the Sandia CX-100 Blade}},
+    author={Resor, B. R. and Paquette, J.},
+    year={2012},
+    eprint={},
+    archivePrefix={},
+    primaryClass={},
+    note= {Sandia National Laboratories Report SAND2012-9273}
+}
+
+@misc{DingEtAl19,
+    title={{BdryGP: A new Gaussian process model
+for incorporating boundary information}},
+    author={Ding, L. and Mak, S., and Wu, C. F. J.},
+    year={2019},
+    eprint={1908.08868},
+    archivePrefix={arXiv},
+    primaryClass={math.ST},
+    note= {arXiv preprint 1908.08868}
+}
+
+
+@article{Calvetti2014,
+  title = {{Inverse problems in the Bayesian framework}},
+  author = {Calvetti, D. and Kaipio, J. P. and Somersalo, E.},
+  journal = {Inverse Problems},
+  volume = {30},
+  number = {11},
+  year = {2014}
+}
+
+@article{JiangTanner08,
+author = {Jiang, W. and Tanner, M. A.},
+journal = {The Annals of Statistics},
+number = {5},
+pages = {2207--2231},
+title = {{Gibbs posterior for variable selection in high-dimensional classification and data mining}},
+volume = {36},
+year = {2008}
+}
