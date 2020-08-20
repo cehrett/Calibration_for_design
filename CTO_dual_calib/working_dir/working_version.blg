@@ -1,4 +1,6 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: working_version.aux
+This is BibTeX, Version 0.99d (MiKTeX 2.9.7380 64-bit)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: working_version.aux
 The style file: Chicago.bst
 Database file #1: lit_review.bib
 Repeated entry---line 1662 of file lit_review.bib
@@ -23,4 +25,45 @@ Warning--page numbers missing in Brynjarsdottir2014
 Warning--page numbers missing in Chevalier2014
 Warning--empty institution in Jones1998
 Warning--empty institution in MiguelHernandez-Lobato2016
+You've used 36 entries,
+            2861 wiz_defined-function locations,
+            875 strings with 12504 characters,
+and the built_in function-call counts, 28560 in all, are:
+= -- 2268
+> -- 2555
+< -- 4
++ -- 792
+- -- 846
+* -- 2871
+:= -- 5225
+add.period$ -- 107
+call.type$ -- 36
+change.case$ -- 301
+chr.to.int$ -- 36
+cite$ -- 50
+duplicate$ -- 656
+empty$ -- 1498
+format.name$ -- 986
+if$ -- 5275
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 36
+newline$ -- 180
+num.names$ -- 361
+pop$ -- 229
+preamble$ -- 1
+purify$ -- 519
+quote$ -- 0
+skip$ -- 704
+stack$ -- 0
+substring$ -- 1317
+swap$ -- 216
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 680
+warning$ -- 14
+while$ -- 321
+width$ -- 0
+write$ -- 471
 (There were 2 error messages)

@@ -5,7 +5,7 @@ clc; clear all; close all;
 
 direc = pwd; 
 if direc(1)=='C' 
-    dpath = 'C:\Users\carle\Documents\MATLAB\NSF DEMS\Phase 1\';
+    dpath = 'C:\Users\Carl\Documents\MATLAB\NSF_DEMS\NSF-DEMS_calibration\';
 else
     dpath = 'E:\Carl\Documents\MATLAB\NSF-DEMS_calibration\';
 end
@@ -15,7 +15,10 @@ clear direc;
 addpath(dpath);
 addpath([dpath,'stored_data']);
 addpath([dpath,'Example']);
-addpath([dpath,'Example\Ex_results']);
+addpath([dpath,'dual_calib']);
+
+% Change dir
+cd(dpath);
 
 %% Get example computer model output
 clc ; clearvars -except dpath ; close all ; 
@@ -62,10 +65,7 @@ clc ; clearvars -except dpath ; close all ;
 discrep = 0;
 
 % Load results
-locstr = sprintf(['C:\\Users\\carle\\Documents',...
-    '\\MATLAB\\NSF DEMS\\Phase 1\\',...
-    'dual_calib\\dual_calib_stored_data\\'...
-    '2019-11-20_DCTO_vs_KOHCTO_results']);
+locstr=[dpath,'\dual_calib\dual_calib_stored_data\2019-11-20_DCTO_vs_KOHCTO_results'];
 load(locstr);
 
 % Define inputs mins and ranges 
@@ -151,12 +151,10 @@ clc ; clearvars -except dpath ; close all ;
 
 % Load results
 obs_initial_size = 0 ; obs_final_size = 20;
-locstr = sprintf(['C:\\Users\\carle\\Documents',...
-    '\\MATLAB\\NSF DEMS\\Phase 1\\',...
-    'dual_calib\\dual_calib_stored_data\\'...
+locstr = [dpath,'dual_calib\dual_calib_stored_data\'...
     '2019-10-31_SDOE_results_desvarest_nobs' ...
     int2str(obs_initial_size) '-'...
-    int2str(obs_final_size)]);
+    int2str(obs_final_size)];
 load(locstr,'results');
 
 close all;
@@ -249,3 +247,86 @@ set(f2,'PaperPositionMode','auto')
 print(f1,figstr1,'-depsc','-r600')
 print(f2,figstr2,'-depsc','-r600')
 end % end of for loop used to run this section for multiple discreps
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% New figures for version 2.0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Show data used in KOH+CTO vs DCTO comparison (including added "noise")
+clc ; clearvars -except dpath ; close all ;
+
+% Select discrepancy
+discrep = 0;
+
+% Load results
+locstr=[dpath,...
+    '\dual_calib\dual_calib_stored_data\',...
+    '2019-11-20_DCTO_vs_KOHCTO_results'];
+load(locstr);
+
+% For convenience
+% clc ; clearvars -except dpath discrep results ; close all ;
+
+fig=figure('Position',[10 10 400 300]);
+
+% Define inputs
+xmin = .5;
+xrange = .5;
+x = linspace(0,1);
+t1min = 1.5;
+t1range = 3;
+t2min = 0;
+t2range = 5;
+t2 = linspace(0,1);
+
+[X,T2] = meshgrid(x,t2) ; 
+T1 = ones(size(T2)) * (2-t1min)/(t1range) ;
+Y = reshape(dual_calib_example_fn(X(:),xmin,xrange,...
+    T1(:),t1min,t1range,...
+    T2(:),t2min,t2range,...
+    0,1,... % rescale output using this mean and sd
+    0,... % discrep
+    true),... % rescale_inputs
+    length(x),length(t2));
+
+% Take a look
+xx=reshape(X,100,100);
+tt1=reshape(T1,100,100);
+tt2=reshape(T2,100,100);
+surfax = ...
+    surf(xx*xrange+xmin,tt2*t2range+t2min,...
+    reshape(Y,100,100),...
+    'EdgeAlpha',.4);
+xlabel('x');ylabel('t_d');zlabel('f(x,2,t_d)');
+
+% Add "real" data points
+hold on;
+obs_x = results{discrep+1,1}.settings{1}.obs_x * xrange + xmin;
+obs_t2 = results{discrep+1,1}.settings{1}.obs_t2 * t2range + t2min;
+ymean = results{discrep+1,1}.settings{1}.mean_y;
+ystd = results{discrep+1,1}.settings{1}.std_y;
+obs_y = results{discrep+1,1}.settings{1}.obs_y * ystd + ymean;
+plot3(obs_x,obs_t2,obs_y,'.','color','red','MarkerSize',25);
+% Get "true" values at observation points
+true_y = dual_calib_example_fn(obs_x,xmin,xrange,...
+    ones(size(obs_x))*2,t1min,t1range,...
+    obs_t2,t2min,t2range,...
+    0,1,...
+    0,...
+    false);
+for ii = 1 : length(true_y)
+   
+    line([obs_x(ii),obs_x(ii)],...
+        [obs_t2(ii),obs_t2(ii)],...
+        [obs_y(ii),true_y(ii)],...
+        'color','red',...
+        'linewidth',2)
+    
+end
+
+fig.Children.View = [-40 15];
+set(fig,'color','w');
+
+figstr = 'FIG_observed_data';
+set(fig,'PaperPositionMode','auto')
+print(fig,figstr,'-depsc','-r600')

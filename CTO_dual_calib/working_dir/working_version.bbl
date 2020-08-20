@@ -55,6 +55,12 @@ Brochu, E., V.~M. Cora, and N.~de~Freitas (2010).
   with application to active user modeling and hierarchical reinforcement
   learning}.
 
+\bibitem[\protect\citeauthoryear{Brown and Atamturktur}{Brown and
+  Atamturktur}{2018}]{Brown2018}
+Brown, D.~A. and S.~Atamturktur (2018).
+\newblock Nonparametric functional calibration of computer models.
+\newblock {\em Statistica Sinica\/}~{\em 28\/}(2), 721--742.
+
 \bibitem[\protect\citeauthoryear{Brynjarsd{\'{o}}ttir and
   O'Hagan}{Brynjarsd{\'{o}}ttir and O'Hagan}{2014}]{Brynjarsdottir2014}
 Brynjarsd{\'{o}}ttir, J. and A.~O'Hagan (2014).
@@ -87,12 +93,6 @@ Deb, K., A.~Pratap, S.~Agarwal, and T.~Meyarivan (2002).
 \newblock {A fast and elitist multiobjective genetic algorithm: NSGA-II}.
 \newblock {\em IEEE Transactions on Evolutionary Computation\/}~{\em 6\/}(2),
   182--197.
-
-\bibitem[\protect\citeauthoryear{Ehrett, Brown, Chodora, Kitchens, and
-  Atamturktur}{Ehrett et~al.}{2019}]{Ehrett2019}
-Ehrett, C., D.~A. Brown, E.~Chodora, C.~Kitchens, and S.~Atamturktur (2019).
-\newblock Coupling material and mechanical design processes via computer model
-  calibration.
 
 \bibitem[\protect\citeauthoryear{Ezzat, Pourhabib, and Ding}{Ezzat
   et~al.}{2018}]{Ezzat2018}
