@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (MiKTeX 2.9.7380 64-bit)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: introduction.aux
+The style file: apalike.bst
+Database file #1: lit_review.bib
+Repeated entry---line 2106 of file lit_review.bib
+ : @techreport{Snoek2012
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2159 of file lit_review.bib
+ : @inproceedings{Sahinidis2004
+ :                             ,
+I'm skipping whatever remains of this entry
+Warning--empty booktitle in Craig1997
+Warning--empty journal in Frazier2018
+Warning--can't use both volume and number fields in Goh2013
+Warning--can't use both volume and number fields in Higdon2013
+Warning--empty institution in Jones1998
+Warning--empty booktitle in Pelikan2005
+You've used 57 entries,
+            1935 wiz_defined-function locations,
+            872 strings with 15287 characters,
+and the built_in function-call counts, 25941 in all, are:
+= -- 2549
+> -- 1219
+< -- 34
++ -- 422
+- -- 416
+* -- 2294
+:= -- 4429
+add.period$ -- 178
+call.type$ -- 57
+change.case$ -- 480
+chr.to.int$ -- 55
+cite$ -- 63
+duplicate$ -- 927
+empty$ -- 1725
+format.name$ -- 501
+if$ -- 5094
+int.to.chr$ -- 3
+int.to.str$ -- 0
+missing$ -- 60
+newline$ -- 286
+num.names$ -- 177
+pop$ -- 433
+preamble$ -- 1
+purify$ -- 484
+quote$ -- 0
+skip$ -- 714
+stack$ -- 0
+substring$ -- 1868
+swap$ -- 160
+text.length$ -- 14
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 332
+warning$ -- 6
+while$ -- 217
+width$ -- 0
+write$ -- 743
+(There were 2 error messages)

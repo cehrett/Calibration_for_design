@@ -1,0 +1,199 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{natbib}
+\author{Carl Ehrett}
+\title{Introduction}
+
+
+%	Outline:
+%	1. Introduction to computer model calibration (Aug. 21)
+%		1. Example or two of computer model calibration
+%		2. Alternative: ad hoc plug in approach that does not acknowledge uncertainty in resulting model predictions
+%	2. Lit review of computer model calibration (Aug. 22-23)
+%		1. Situate Bayesian calibration in wider context
+%	3. Comparison of calibration and design (Aug. 24)
+%	4. Introduction to model-assisted design (Aug. 24)
+%		1. Broad lit review of optimization
+%		2. Place Bayesian optimization in context of other optimization methods
+%	5. Lit review for model-assisted design (Aug. 25)
+%		1. Lit review for Bayesian optimizationDAte
+%	6. Introduction to Gaussian process meta-models (Aug. 26)
+%	7. Lit review for GP meta-models (Aug. 26)
+%	8. Elucidation of the Kennedy-O'Hagan framework for calibration (Aug. 27)
+%	9. Introduction to Wind Turbine System (Aug. 28)
+%	10. Introduction to Dynamic Vibration System (Aug. 28)
+%	11. Description of the two chapters (Aug. 28)
+
+
+\begin{document}
+	
+\maketitle
+
+\section{Computer model calibration}
+
+Computer models are often imperfect reflections of the phenomena they purport to represent.
+Among their imperfections is the need for calibration.
+That is, the performance of a computer model is often dependent upon certain settings or assignments of values in the model. %
+For example, in a model designed to estimate the height-time curve of a ball in free fall from a given height, the model output will depend on (among other things) the drag coefficient $C$ of the ball. % REF: GPMSA TOWER TUTORIAL
+Given experimental data describing some observed height-time curves of the ball in question, one can use some calibration methodology to attempt to estimate $C$.
+
+Though the above example relates to a case of estimating the true value of some parameter, calibration need not take this form.
+Calibration can also take the form of setting values which optimize the model's faithfulness to reality, even when the values being set do not correspond to any particular real features.
+For example, a classification model may return scores which constitute some measure of confidence of category membership.
+A probability calibration of the model would involve mapping these confidence scores to values in the interval $[0,1]$ such that the resulting transformed values are plausible estimates of the probability of category membership.
+
+Given a set of data which may be used for calibration, the available calibration methods are diverse. 
+Often, calibration is approached in an \textit{ad hoc} manner, by manually searching for a set of values for the parameters of interest that cause the model output to come acceptably close to the observed data.
+This manual approach is often improved by automating it as a grid search or stochastic search, where some measure of model performance is optimized in a brute force manner. % REF GRID SEARCH, STOCHASTIC SEARCH?
+
+Even among more sophisticated approaches, calibration methods often yield a point estimate of the appropriate value(s) for the calibration parameter(s).
+Such approaches fail to capture resulting uncertainty regarding those estimates.
+The successful quantification of uncertainty in model calibration, and the propagation of that uncertainty to yield model estimates with similarly quantified uncertainty, is a major goal of this and other contemporary works in the area of computer model calibration.
+
+% Lit review of computer model calibration
+
+\citet{Trucano2006} provide a high-level overview of the relationship of model calibration to both model validation and sensitivity analysis.
+Much of the field of computer model calibration takes place either within the framework of, or as a response to, the work of \citet{Kennedy2001}.
+This work established the dominant paradigm for Bayesian computer model calibration.
+In this dissertation I refer to that paradigm as the KOH framework.
+
+Of course, not all work in computer model calibration derives from the KOH framework.
+For example, \citet{Craig1997} provide an influential demonstration using Bayes linear methods to calibrate a model through a combination of expert judgments (about means and variances of model parameters) and information from runs of low-fidelity versions of the model.
+Contemporaneously to \citet{Kennedy2001}, \citet{Cox2001} offer a similar calibration framework from a frequentist perspective, including the use of Gaussian processes (GPs) as meta-models for computational efficiency. 
+The authors use maximum likelihood estimates (MLEs) of calibration parameters and GP hyperparameters.
+Similarly, and more in response to the KOH framework, \citet{Loeppky2006} also provide an MLE-based alternative to KOH that is designed to improve the identifiability of the calibration parameters when model discrepancy is present (i.e., when the model is a systematically biased representation of the target phenomenon).
+More recently, \citet{Wong2014} describe general framework for a semi-parametric frequentist approach to model calibration, using bootstrapping to provide uncertainty quantification.
+
+Far more common in the field of computer model calibration are extensions and refinements of the KOH framework.
+\citet{Higdon2004} provide such an extension, adding uncertainty quantification to KOH calibration, to estimate remaining uncertainty regarding the values of the calibration parameter(s).
+\citet{Williams2006} further refines and exemplifies this approach.
+\citet{Bayarri2007a} extends KOH to effect simultaneous validation and calibration of a computer model, while \citet{Bayarri2007b} applies this approach to functional data, using a hierarchical representation of coefficients of a wavelet basis.
+\citet{Paulo2012} further extend the work of \citet{Bayarri2007a} to the case of multivariate model output.
+While most work in this area assumes that the computer model is deterministic, \citet{Pratola2018} provide an example of non-deterministic model calibration.
+
+\citet{Paulo2012} thus are part of a diverse array of projects aiming to shore up a weakness of the KOH framework: its difficulty in accommodating high-dimensional data and/or large data sets in a computationally efficient way.
+\citet{Higdon2008a} focus on meeting the computational challenges of high-dimensional, large data sets by using principal components basis representations for dimensionality reduction.
+Whereas that work is concerned with the dimensionality of model outputs, \citet{Drignei2012} are concerned rather with the model inputs.
+They increase the numerical stability of model calibration by using a global sensitivity analysis to reduce the model inputs' dimensionality.
+\citet{Bhat2010} demonstrate the application of the KOH framework to multivariate spatial output, and \citet{Pratola2013} apply KOH to nonstationary spatial-temporal field output.
+\citet{Higdon2013} adapt KOH to employ an ensemble Kalman filter rather than GPs, for improved computational efficiency.
+\citet{Yuan2013} offer a sequential approach to model calibration, in which each evaluation of the high-fidelity model is selected using the previous evaluations to minimize the resulting calibration uncertainty. 
+Such an approach reduces the total number of required model evaluations and thereby the total computational cost of the calibration procedure.
+
+Other works have endeavored to address another known weakness of KOH: poor identifiability of the calibration parameters in the face of model discrepancy.
+With respect to this problem, \citet{Brynjarsdottir2014} emphasize the importance of strong priors on the model discrepancy term when performing model calibration.
+And for the purpose of improving identifiability over previous approaches, \citet{Gu2018} propose a novel stochastic process that combines elements of GPs with $L_2$ calibration (in which the calibration parameter is chosen so as the minimize the $L_2$ norm of the discrepancy term).
+
+Some works in the area of computer model calibration are premised upon broadening the conception of calibration as relating experimental data to a computer model of the experimental phenomenon.
+Model calibration can be seen more generally as a method for relating two or more different sources of data with varying costs and varying levels of fidelity.
+In this vein \citet{Qian2006} explore a method for integrating ``high'' and ``low'' models to build a computationally efficient surrogate.
+\citet{Goh2013} extend KOH to cases of more than two different levels of fidelity.
+
+%	3. Comparison of calibration and design (Aug. 24)
+
+\section{Calibration versus model-assisted design}
+
+``Design'' used here means not experimental design, but rather refers to making engineering choices to try to effect a desired outcome.
+Thus the sort of design considered here is related to the mathematical field of optimization.
+Where calibration involves setting input parameters to induce the model to approximate reality, design involves choosing input parameters to induce an engineered system to behave in some desired way.
+To understand the way the present work applies methods from the field of computer model calibration, it is helpful to consider the relationship between the two tasks of calibration and design.
+
+At the highest level, calibration can be conceived as follows.
+One has a model $\eta: \mathbb{R}^{p+q} \to \mathbb{R}^m$, as well as a set of data $\mathbf{y}$ and corresponding $p-$dimensional inputs $\mathbf{x_y}$.
+We can thus consider $\eta$ to be a function of two vectors, $\mathbf x\in\mathbb R^p$ and $\mathbf t\in\mathbb R^q$
+Often (but not exclusively) $\mathbf y$ is a set of observed experimental outcomes from a real phenomenon $f:\mathbb{R}^p\to\mathbb{R}^m$ where $\eta$ is a model of $f$.
+One wishes to use $\mathbf y$ to select values $\boldsymbol{\theta}$ such that settings $\mathbf t=\boldsymbol{\theta}$ induces the output of $\eta(\mathbf {x_y},\boldsymbol{\theta})$ to approximate $\mathbf y$.
+The selection of these values is the calibration of $\eta$.
+
+Similarly, model-assisted design can be conceived as follows.
+One has a model $\eta: \mathbb{R}^{p+q} \to \mathbb{R}^m$, as well as a set of data $\mathbf{y}$ and corresponding $p-$dimensional inputs $\mathbf{x_y}$.
+We can thus consider $\eta$ to be a function of two vectors, $\mathbf x\in\mathbb R^p$ and $\mathbf t\in\mathbb R^q$
+Often (but not exclusively) $\mathbf y$ is a set of target outcomes one wishes to achieve in some system $f:\mathbb{R}^p\to\mathbb{R}^m$ where $\eta$ is a model of $f$.
+One wishes to use $\mathbf y$ to select values $\boldsymbol{\theta}$ such that settings $\mathbf t=\boldsymbol{\theta}$ induces the output of $\eta(\mathbf {x_y},\boldsymbol{\theta})$ to approximate $\mathbf y$.
+The selection of these values is model-assisted design using $\eta$.
+
+Seen in this way, calibration and design are surprisingly similar undertakings. 
+This raises the possibility of applying tools from one domain to problems in the other.
+One of the primary goals of the present work is to adapt the KOH framework for model-assisted design, and to demonstrate its utility and flexibility in that context.
+
+%	4. Introduction to model-assisted design (Aug. 24)
+
+\section{Model-assisted design}
+
+The present work thus must be situated in the context of model-assisted design.
+In model-assisted design, one optimizes a model of the system of interest with respect to some objective function.
+The resulting optimal model inputs are treated as estimates of the optimal design settings for the system.
+The present work is intended to be applicable to problems of multi-objective design.
+
+A primary strength of the present work is its success in quantifying uncertainty while undertaking calibration and design.
+This is an area on which much recent innovation in optimization/design has focused.
+\citeauthor{Rockafellar1991}'s \citeyearpar{Rockafellar1991} is an influential work describing an algorithm for using a limited set of observations (and hence under uncertainty as to appropriate stochastic model for the system) to solve a multiperiod optimization problem.
+\citet{Sahinidis2004} offer a comprehensive overview of optimization under uncertainty, analyzing the strengths and weaknesses of a diverse array of approaches.
+\citet{Jin2003} provide a comparative analysis of a variety of metamodeling techniques with respect to their performance when optimizing under uncertainty.
+\citet{Peherstorfer2018} offer a survey of methods for optimization under uncertainty that take advantage of multiple models with varying levels of fidelity and computational expense.
+
+Approaches to optimization and design vary enormously, but most methods can be classed as either gradient-based, evolutionary, or as a form of Bayesian optimization (BO).
+\citet{Ruder2016} offers a brief but comprehensive overview of gradient descent optimization algorithms.
+\citet{Peitz2018} propose a gradient-based approach for multi-objective optimization under uncertainty in which descent directions are chosen so as to account for approximation error in the available information about the gradient of the objective function.
+This leads one to identify a collection of subsets of the design space which contain the Pareto set for the objective function.
+\citet{Vasilopoulos2019} demonstrate a method for using gradients to locate an approximate point along the Pareto front and then ``trace'' the Pareto front to explore it efficiently.
+
+Evolutionary algorithms have become popular methods for optimization in recent times, partly due to their ability to treat the objective function as a black box, without requiring gradient information.
+This is a feature shared with many forms of BO and with the present work.
+\citet{Jin2003} provide a survey of work on the use of evolutionary optimization under uncertainty.
+\citet{Zhou2011b} provide a similar survey, focusing on multiobjective evolutionary algorithms.
+\citet{Deb2006} describe two approaches for achieving multi-objective optimization solutions that are robust to small perturbations in the input space.
+
+The present work is a Bayesian approach to optimization problems, and thus might be considered a form of BO.
+However, this is misleading, as the term BO is widely used to refer more specifically to a set of techniques loosely following in the footsteps of \citet{Jones1998}.
+In the present work, ``BO'' refers more specifically to this subset of Bayesian approaches to optimization.
+Other Bayesian approaches that do not fall within that umbrella include the work of \citet{Pelikan1999} and \citet{Pelikan2005}, who describe an application of a Bayesian framework to evolutionary optimization.
+
+\citeauthor{Jones1998}'s \citeyearpar{Jones1998} influential work uses a GP-based response surface approximation to define an acquisition function for sequential selection of evaluation points of the objective function.
+\citet{Vazquez2009}, \citet{Bect2012}, and \citet{Chevalier2014} extend the approach of Jones, developing a stepwise uncertainty reduction methodology for sequential evaluation of the objective function to minimize resulting uncertainty regarding the optimum.
+This approaches, when applicable (i.e. when it is possible to evaluate the objective function adaptively), can significantly reduce the total number of objective function evaluations required for optimization.
+
+BO's utility has been enhanced by a number of works aimed at practitioners and researchers seeking to apply BO in diverse areas.
+\citet{Shahriari2016} helpfully introduces the core concepts of BO, and demonstrates its usage in a variety of applications, while \citet{Frazier2018} offers a practical tutorial on the use of BO techniques.
+\citet{Snoek2012} demonstrate the application of BO to optimization of the hyperparameters of machine learning models.
+\citet{Calandra2016} provide a demonstrative evaluation of Bayesian optimization methodologies as applied to optimization under uncertainty in the specific domain of robot locomotion parametrization.
+\citet{Picheny2019} demonstrate how Bayesian optimization methods can be used to identify Nash equilibria in a game theoretic context.
+
+In addition, many efforts have been made to extend the capabilities of BO and to address its shortcomings.
+\citet{Lizotte2008} reviews the weaknesses of BO -- high computational complexity, poorly understood approximation of the response surface to the objective function, and failure to take advantage of the differentiability of objective functions -- and demonstrates how to overcome or mitigate these weaknesses.
+\citet{Letham2019} develop strategies for applying BO in contexts that suffer from high levels of noise, and \citet{Snoek2015} use neural networks for basis function regression of the objective function in place of GPs, to improve the computational efficiency of BO.
+
+\section{Gaussian process metamodels}
+
+The present work shares with many KOH-based, BO-based, and other approaches a reliance on GP metamodels as surrogates for computationally expensive models.
+Long popular in geostatistics (where GP regression is referred to as \textit{kriging}; \cite{Cressie2015}), the use of GPs as computer model surrogates was popularized by \citet{Sacks1989}.
+GPs are attractive in this context due to their flexibility, and the ease with which they can interpolate observations of deterministic computer model output while providing closed-form expressions for uncertainty quantification.
+The application of GPs in this domain is further explored by \citet{Santner2003a}, who include discussion of the choice of correlation function to suit the desired smoothness properties, and also include a discussion of hierarchical Gaussian random field models for cases when the user is not prepared to specify the desired smoothness.
+Diagnostic methods for validating a GP surrogate model are explored by \citet{Bastos2009}.
+Looking at broader applications than metamodeling, \citeauthor{Rasmussen2006}'s \citeyearpar{Rasmussen2006} work is a seminal text for practitioners seeking to employ GPs in a machine learning context.
+
+Particularly relevant to the area of model calibration are explorations of the use of GPs to integrate multiple models with varying degrees of fidelity and computational complexity.
+\citet{Qian2008a} propose a set of Bayesian hierarchical GP models to accommodate a case when low- and high-accuracy data is available.
+With similar aims, \citet{Cumming2009} describe methods for combining low- and high-accuracy information into a multiscale emulator, as well as providing a design strategy for using the low-fidelity model to select the points at which to evaluate the high-fidelity model.
+Expanding beyond the paradigm of two levels of fidelity, \citet{Goh2013} use GPs to build a model based on the results of models with several different degrees of fidelity.
+
+Researchers have endeavored to expand the applicability of GP metamodels in numerous ways.
+To accommodate models that cannot be represented by stationary GPs, \cite{Gramacy2008} implement a nonstationary GP metamodel using treed partitioning.
+\citet{Qian2008} discuss the application of GP metamodels to discrete input spaces.
+\citet{Gratiet2016} provide a comparative analysis of GPs and polynomial chaos expansions as metamodels in the context of global sensitivity analysis.
+Other work has focused on a primary weakness of GPs -- their poor scalability for large or high-dimensional data sets.
+\citet{Snelson2006} provide an influential method for generating sparse GPs to accommodate large data sets.
+\citet{Liu2020} review a variety of methods for producing scalable GPs, divided broadly into the categories of global approximations that are based on the full data set, and local approximations that achieve scalability by relying on only a subset of the data at each point in the domain.
+
+
+
+\bibliographystyle{apalike}
+
+\bibliography{lit_review}
+	
+\end{document}

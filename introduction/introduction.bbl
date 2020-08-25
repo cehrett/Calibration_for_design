@@ -1,0 +1,338 @@
+\begin{thebibliography}{}
+
+\bibitem[Bastos and O'Hagan, 2009]{Bastos2009}
+Bastos, L.~S. and O'Hagan, A. (2009).
+\newblock {Diagnostics for Gaussian process emulators}.
+\newblock {\em Technometrics}, 51(4):425--438.
+
+\bibitem[Bayarri et~al., 2007a]{Bayarri2007b}
+Bayarri, M.~J., Berger, J.~O., and Cafeo, J. (2007a).
+\newblock {Computer model validation with functional output}.
+\newblock {\em The Annals of Statistics}, 35:1874--1906.
+
+\bibitem[Bayarri et~al., 2007b]{Bayarri2007a}
+Bayarri, M.~J., Berger, J.~O., Paulo, R., Sacks, J., Cafeo, J.~A., Cavendish,
+  J., Lin, C.-H., and Tu, J. (2007b).
+\newblock {A framework for validation of computer models}.
+\newblock {\em Technometrics}, 49(2):138--154.
+
+\bibitem[Bect et~al., 2012]{Bect2012}
+Bect, J., Ginsbourger, D., Li, L., Picheny, V., and Vazquez, E. (2012).
+\newblock Sequential design of computer experiments for the estimation of a
+  probability of failure.
+\newblock {\em Statistics and Computing}, 22(3):773--793.
+
+\bibitem[Bhat et~al., 2010]{Bhat2010}
+Bhat, K., Haran, M., and Goes, M. (2010).
+\newblock {Computer model calibration with multivariate spatial output}.
+\newblock In Chen, M.-H., Dey, D., M{\"{u}}ller, P., Sun, D., and Ye, K.,
+  editors, {\em Frontiers of Statistical Decision Making and Bayesian Analysis:
+  in Honor of James O. Berger}, pages 168--184. Springer, New York.
+
+\bibitem[Brynjarsd{\'{o}}ttir and O'Hagan, 2014]{Brynjarsdottir2014}
+Brynjarsd{\'{o}}ttir, J. and O'Hagan, A. (2014).
+\newblock {Learning about physical parameters: The importance of model
+  discrepancy}.
+\newblock {\em Inverse Problems}, 30(11).
+
+\bibitem[Calandra et~al., 2016]{Calandra2016}
+Calandra, R., Seyfarth, A., Peters, J., and Deisenroth, M.~P. (2016).
+\newblock Bayesian optimization for learning gaits under uncertainty.
+\newblock {\em Annals of Mathematics and Artificial Intelligence}, 76(1):5--23.
+
+\bibitem[Chevalier et~al., 2014]{Chevalier2014}
+Chevalier, C., Bect, J., Ginsbourger, D., Vazquez, E., Picheny, V., and Richet,
+  Y. (2014).
+\newblock {Fast Parallel Kriging-Based Stepwise Uncertainty Reduction With
+  Application to the Identification of an Excursion Set}.
+\newblock {\em Technometrics}, 56(4).
+
+\bibitem[Cox et~al., 2001]{Cox2001}
+Cox, D.~D., Park, J.~S., and Singer, C.~E. (2001).
+\newblock {A statistical method for tuning a computer code to a data base}.
+\newblock {\em Computational Statistics and Data Analysis}, 37(1):77--92.
+
+\bibitem[Craig et~al., 1997]{Craig1997}
+Craig, P.~S., Goldstein, M., Seheult, A.~H., and Smith, J.~A. (1997).
+\newblock {Pressure Matching for Hydrocarbon Reservoirs: A Case Study in the
+  Use of Bayes Linear Strategies for Large Computer Experiments}.
+\newblock pages 37--93. Springer, New York, NY.
+
+\bibitem[Cressie, 2015]{Cressie2015}
+Cressie, N. (2015).
+\newblock {\em Statistics for Spatial Data}.
+\newblock Wiley Series in Probability and Statistics. Wiley.
+
+\bibitem[Cumming and Goldstein, 2009]{Cumming2009}
+Cumming, J.~A. and Goldstein, M. (2009).
+\newblock Small sample bayesian designs for complex high-dimensional models
+  based on information gained using fast approximations.
+\newblock {\em Technometrics}, 51(4):377--388.
+
+\bibitem[Deb and Gupta, 2006]{Deb2006}
+Deb, K. and Gupta, H. (2006).
+\newblock {Introducing robustness in multi-objective optimization}.
+\newblock {\em Evolutionary Computation}, 14(4):463--494.
+
+\bibitem[Drignei and Mourelatos, 2012]{Drignei2012}
+Drignei, D. and Mourelatos, Z.~P. (2012).
+\newblock {Parameter screening in statistical dynamic computer model
+  calibration using global sensitivities}.
+\newblock {\em Journal of Mechanical Design, Transactions of the ASME}, 134(8).
+
+\bibitem[Frazier, 2018]{Frazier2018}
+Frazier, P.~I. (2018).
+\newblock {A Tutorial on Bayesian Optimization}.
+
+\bibitem[Goh et~al., 2013]{Goh2013}
+Goh, J., Bingham, D., Holloway, J.~P., Grosskopf, M.~J., Kuranz, C.~C., and
+  Rutter, E. (2013).
+\newblock {Prediction and computer model calibration using outputs from
+  multifidelity simulators}.
+\newblock In {\em Technometrics}, volume~55, pages 501--512. Taylor {\&}
+  Francis Group.
+
+\bibitem[Gramacy and Lee, 2008]{Gramacy2008}
+Gramacy, R.~B. and Lee, H. K.~H. (2008).
+\newblock {Bayesian treed Gaussian process models with an application to
+  computer modeling}.
+\newblock {\em Journal of the American Statistical Association},
+  103(483):1119--1130.
+
+\bibitem[Gratiet et~al., 2016]{Gratiet2016}
+Gratiet, L.~L., Marelli, S., and Sudret, B. (2016).
+\newblock Metamodel-based sensitivity analysis: polynomial chaos expansions and
+  gaussian processes.
+\newblock {\em arXiv preprint arXiv:1606.04273}.
+
+\bibitem[Gu and Wang, 2018]{Gu2018}
+Gu, M. and Wang, L. (2018).
+\newblock {Scaled Gaussian stochastic process for computer model calibration
+  and prediction}.
+\newblock {\em SIAM-ASA Journal on Uncertainty Quantification},
+  6(4):1555--1583.
+
+\bibitem[Higdon et~al., 2013]{Higdon2013}
+Higdon, D., Gattiker, J., Lawrence, E., Jackson, C., Tobis, M., Pratola, M.,
+  Habib, S., Heitmann, K., and Price, S. (2013).
+\newblock {Computer model calibration using the ensemble kalman filter}.
+\newblock In {\em Technometrics}, volume~55, pages 488--500. Taylor {\&}
+  Francis Group.
+
+\bibitem[Higdon et~al., 2008]{Higdon2008a}
+Higdon, D., Gattiker, J., Williams, B., and Rightley, M. (2008).
+\newblock {Computer model calibration using high-dimensional output}.
+\newblock {\em Journal of the American Statistical Association},
+  103(482):570--583.
+
+\bibitem[Higdon et~al., 2004]{Higdon2004}
+Higdon, D., Kennedy, M., Cavendish, J.~C., Cafeo, J.~A., and Ryne, R.~D.
+  (2004).
+\newblock {Combining field data and computer simulations for calibration and
+  prediction}.
+\newblock {\em SIAM Journal on Scientific Computing}, 26(2):448--466.
+
+\bibitem[Jin et~al., 2003]{Jin2003}
+Jin, R., Du, X., and Chen, W. (2003).
+\newblock {The use of metamodeling techniques for optimization under
+  uncertainty}.
+\newblock {\em Structural and Multidisciplinary Optimization}, 25(2):99--116.
+
+\bibitem[Jones et~al., 1998]{Jones1998}
+Jones, D.~R., Schonlau, M., and Welch, W.~J. (1998).
+\newblock {Efficient Global Optimization of Expensive Black-Box Functions}.
+\newblock Technical report.
+
+\bibitem[Kennedy and O'Hagan, 2001]{Kennedy2001}
+Kennedy, M.~C. and O'Hagan, A. (2001).
+\newblock {Bayesian calibration of computer models}.
+\newblock {\em Journal of the Royal Statistical Society: Series B},
+  63(3):425--464.
+
+\bibitem[Letham et~al., 2019]{Letham2019}
+Letham, B., Karrer, B., Ottoni, G., Bakshy, E., et~al. (2019).
+\newblock Constrained bayesian optimization with noisy experiments.
+\newblock {\em Bayesian Analysis}, 14(2):495--519.
+
+\bibitem[Liu et~al., 2020]{Liu2020}
+Liu, H., Ong, Y.-S., Shen, X., and Cai, J. (2020).
+\newblock {When Gaussian Process Meets Big Data: A Review of Scalable GPs}.
+\newblock {\em IEEE Transactions on Neural Networks and Learning Systems},
+  pages 1--19.
+
+\bibitem[Lizotte, 2008]{Lizotte2008}
+Lizotte, D.~J. (2008).
+\newblock {\em Practical bayesian optimization}.
+\newblock University of Alberta.
+
+\bibitem[Loeppky et~al., 2006]{Loeppky2006}
+Loeppky, J.~L., Bingham, D., and Welch, W.~J. (2006).
+\newblock {\em {Computer model calibration or tuning in practice}}.
+\newblock Department of Statistics, University of British Columbia.
+
+\bibitem[Paulo et~al., 2012]{Paulo2012}
+Paulo, R., Garc{\'{i}}a-Donato, G., and Palomo, J. (2012).
+\newblock {Calibration of computer models with multivariate output}.
+\newblock {\em Computational Statistics and Data Analysis}, 56:3959--3974.
+
+\bibitem[Peherstorfer et~al., 2018]{Peherstorfer2018}
+Peherstorfer, B., Willcox, K., and Gunzburger, M. (2018).
+\newblock {Survey of multifidelity methods in uncertainty propagation,
+  inference, and optimization}.
+
+\bibitem[Peitz and Dellnitz, 2018]{Peitz2018}
+Peitz, S. and Dellnitz, M. (2018).
+\newblock Gradient-based multiobjective optimization with uncertainties.
+\newblock In {\em NEO 2016}, pages 159--182. Springer.
+
+\bibitem[Pelikan, 2005]{Pelikan2005}
+Pelikan, M. (2005).
+\newblock {Hierarchical Bayesian Optimization Algorithm}.
+\newblock pages 105--129. Springer, Berlin, Heidelberg.
+
+\bibitem[Pelikan et~al., 1999]{Pelikan1999}
+Pelikan, M., Goldberg, D.~E., and Cant{\'{u}}-Paz, E. (1999).
+\newblock {BOA: The Bayesian Optimization Algorithm}.
+\newblock In Banzhaf, W., Daida, J., Eiben, A., Garzon, M., Honavar, V.,
+  Jakiela, M., and Smith, R., editors, {\em Proceedings of the Genetic and
+  Evolutionary Computation Conference GECCO99}, pages 525--532, Orlando,
+  Florida. Morgan-Kaufmann.
+
+\bibitem[Picheny et~al., 2019]{Picheny2019}
+Picheny, V., Binois, M., and Habbal, A. (2019).
+\newblock {A Bayesian optimization approach to find Nash equilibria}.
+\newblock {\em Journal of Global Optimization}, 73(1):171--192.
+
+\bibitem[Pratola and Chkrebtii, 2018]{Pratola2018}
+Pratola, M. and Chkrebtii, O. (2018).
+\newblock {Bayesian calibration of multistate stochastic simulators}.
+\newblock {\em Statistica Sinica}, 28:693--719.
+
+\bibitem[Pratola et~al., 2013]{Pratola2013}
+Pratola, M.~T., Sain, S.~R., Bingham, D., Wiltberger, M., and Rigler, E.~J.
+  (2013).
+\newblock {Fast sequential computer model calibration of large nonstationary
+  spatial-temporal processes}.
+\newblock {\em Technometrics}, 55(2):232--242.
+
+\bibitem[Qian et~al., 2008a]{Qian2008a}
+Qian, P. Z.~G., Jeff, C.~F., and Stewart, W. H.~M. (2008a).
+\newblock {Bayesian hierarchical modeling for integrating low-accuracy and
+  high-accuracy experiments}.
+\newblock {\em Technometrics}, 50(2):192--204.
+
+\bibitem[Qian et~al., 2008b]{Qian2008}
+Qian, P. Z.~G., Wu, H., and Wu, C. F.~J. (2008b).
+\newblock {Gaussian process models for computer experiments with qualitative
+  and quantitative factors}.
+\newblock {\em Technometrics}, 50(3):383--396.
+
+\bibitem[Qian et~al., 2006]{Qian2006}
+Qian, Z., Seepersad, C.~C., Joseph, V.~R., Allen, J.~K., and Wu, C.~F. (2006).
+\newblock {Building surrogate models based on detailed and approximate
+  simulations}.
+\newblock {\em Journal of Mechanical Design, Transactions of the ASME},
+  128(4):668--677.
+
+\bibitem[Rasmussen et~al., 2006]{Rasmussen2006}
+Rasmussen, C.~E., Williams, C. K.~I., Sutton, R.~S., Barto, A.~G., Spirtes, P.,
+  Glymour, C., Scheines, R., Sch{\"{o}}lkopf, B., and Smola, A.~J. (2006).
+\newblock {\em {Gaussian processes for machine learning}}.
+\newblock MIT Press, Cambridge.
+
+\bibitem[Rockafellar and Wets, 1991]{Rockafellar1991}
+Rockafellar, R.~T. and Wets, R. J.-B. (1991).
+\newblock {Scenarios and Policy Aggregation in Optimization Under Uncertainty}.
+\newblock {\em Mathematics of Operations Research}, 16(1):119--147.
+
+\bibitem[Ruder, 2016]{Ruder2016}
+Ruder, S. (2016).
+\newblock An overview of gradient descent optimization algorithms.
+\newblock {\em arXiv preprint arXiv:1609.04747}.
+
+\bibitem[Sacks et~al., 1989]{Sacks1989}
+Sacks, J., Welch, W.~J., Mitchell, T.~J., and Wynn, H.~P. (1989).
+\newblock {Design and analysis of computer experiments}.
+\newblock {\em Statistical Science}, 4(4):409--423.
+
+\bibitem[Sahinidis, 2004]{Sahinidis2004}
+Sahinidis, N.~V. (2004).
+\newblock {Optimization under uncertainty: state-of-the-art and opportunities}.
+\newblock {\em Computers {\&} Chemical Engineering}, 28(6-7):971--983.
+
+\bibitem[Santner et~al., 2003]{Santner2003a}
+Santner, T.~J., Williams, B.~J., and Notz, W.~I. (2003).
+\newblock {\em {The design and analysis of computer experiments}}.
+\newblock Springer, New York.
+
+\bibitem[Shahriari et~al., 2016]{Shahriari2016}
+Shahriari, B., Swersky, K., Wang, Z., Adams, R.~P., and de~Freitas, N. (2016).
+\newblock {Taking the human out of the loop: A review of Bayesian
+  optimization}.
+\newblock {\em Proceedings of the IEEE}, 104(1):148--175.
+
+\bibitem[Snelson and Ghahramani, 2006]{Snelson2006}
+Snelson, E. and Ghahramani, Z. (2006).
+\newblock Sparse gaussian processes using pseudo-inputs.
+\newblock In {\em Advances in neural information processing systems}, pages
+  1257--1264.
+
+\bibitem[Snoek et~al., 2012]{Snoek2012}
+Snoek, J., Larochelle, H., and Adams, R.~P. (2012).
+\newblock Practical bayesian optimization of machine learning algorithms.
+\newblock In Pereira, F., Burges, C. J.~C., Bottou, L., and Weinberger, K.~Q.,
+  editors, {\em Advances in Neural Information Processing Systems 25}, pages
+  2951--2959. Curran Associates, Inc.
+
+\bibitem[Snoek et~al., 2015]{Snoek2015}
+Snoek, J., Rippel, O., Swersky, K., Kiros, R., Satish, N., Sundaram, N.,
+  Patwary, M., Prabhat, M., and Adams, R. (2015).
+\newblock Scalable bayesian optimization using deep neural networks.
+\newblock In {\em International conference on machine learning}, pages
+  2171--2180.
+
+\bibitem[Trucano et~al., 2006]{Trucano2006}
+Trucano, T.~G., Swiler, L.~P., Igusa, T., Oberkampf, W.~L., and Pilch, M.
+  (2006).
+\newblock {Calibration, validation, and sensitivity analysis: What's what}.
+\newblock {\em Reliability Engineering and System Safety},
+  91(10-11):1331--1357.
+
+\bibitem[Vasilopoulos et~al., 2019]{Vasilopoulos2019}
+Vasilopoulos, I., Asouti, V.~G., Giannakoglou, K.~C., and Meyer, M. (2019).
+\newblock Gradient-based pareto front approximation applied to turbomachinery
+  shape optimization.
+\newblock {\em Engineering with Computers}, pages 1--11.
+
+\bibitem[Vazquez and Bect, 2009]{Vazquez2009}
+Vazquez, E. and Bect, J. (2009).
+\newblock A sequential bayesian algorithm to estimate a probability of failure.
+\newblock {\em IFAC Proceedings Volumes}, 42(10):546--550.
+
+\bibitem[Williams et~al., 2006]{Williams2006}
+Williams, B., Higdon, D., Gattiker, J., Moore, L., McKay, M., and
+  Keller-McNulty, S. (2006).
+\newblock {Combining experimental data and computer simulations, with an
+  application to flyer plate experiments}.
+\newblock {\em Bayesian Analysis}, 1(4):765--792.
+
+\bibitem[Wong et~al., 2014]{Wong2014}
+Wong, R. K.~W., Storlie, C.~B., and Lee, T. C.~M. (2014).
+\newblock {A frequentist approach to computer model calibration}.
+\newblock {\em Journal of the Royal Statistical Society: Series B)},
+  79(2):635--648.
+
+\bibitem[Yuan and Ng, 2013]{Yuan2013}
+Yuan, J. and Ng, S.~H. (2013).
+\newblock {A sequential approach for stochastic computer model calibration and
+  prediction}.
+\newblock {\em Reliability Engineering and System Safety}, 111:273--286.
+
+\bibitem[Zhou et~al., 2011]{Zhou2011b}
+Zhou, A., Qu, B.-Y., Li, H., Zhao, S.-Z., Suganthan, P.~N., and Zhang, Q.
+  (2011).
+\newblock {Multiobjective evolutionary algorithms: A survey of the state of the
+  art}.
+\newblock {\em Swarm and Evolutionary Computation}, 1(1):32--49.
+
+\end{thebibliography}
