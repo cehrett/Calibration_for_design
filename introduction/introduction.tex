@@ -61,11 +61,15 @@ The successful quantification of uncertainty in model calibration, and the propa
 Much of the field of computer model calibration takes place either within the framework of, or as a response to, the work of \citet{Kennedy2001}.
 This work established the dominant paradigm for Bayesian computer model calibration.
 In this dissertation I refer to that paradigm as the KOH framework.
+In KOH, one weds a set of experimental data to a computer model that stands in need of calibration, often mediated through a Gaussian process (GP) surrogate model when the original model is of high computational complexity.
+Systematic discrepancy between the model and the true system can also be represented by a GP, and priors are placed on the calibration parameters.
+GP hyperparameters are either estimated via maximum likelihood estimation (MLE) or else are also assigned prior distributions.
+Via integration or some form of Markov-chain Monte Carlo (MCMC, \cite{Gelfand1990}), a posterior distribution on the calibration parameters is obtained.
 
 Of course, not all work in computer model calibration derives from the KOH framework.
 For example, \citet{Craig1997} provide an influential demonstration using Bayes linear methods to calibrate a model through a combination of expert judgments (about means and variances of model parameters) and information from runs of low-fidelity versions of the model.
-Contemporaneously to \citet{Kennedy2001}, \citet{Cox2001} offer a similar calibration framework from a frequentist perspective, including the use of Gaussian processes (GPs) as meta-models for computational efficiency. 
-The authors use maximum likelihood estimates (MLEs) of calibration parameters and GP hyperparameters.
+Contemporaneously to \citet{Kennedy2001}, \citet{Cox2001} offer a similar calibration framework from a frequentist perspective, including the use of GPs as meta-models for computational efficiency. 
+The authors use MLEs of calibration parameters and GP hyperparameters.
 Similarly, and more in response to the KOH framework, \citet{Loeppky2006} also provide an MLE-based alternative to KOH that is designed to improve the identifiability of the calibration parameters when model discrepancy is present (i.e., when the model is a systematically biased representation of the target phenomenon).
 More recently, \citet{Wong2014} describe general framework for a semi-parametric frequentist approach to model calibration, using bootstrapping to provide uncertainty quantification.
 
@@ -130,6 +134,40 @@ In model-assisted design, one optimizes a model of the system of interest with r
 The resulting optimal model inputs are treated as estimates of the optimal design settings for the system.
 The present work is intended to be applicable to problems of multi-objective design.
 
+In the field of model- and metamodel-assisted design, \citet{Sacks1989} provide a very influential discussion of strategies to accommodate computer models of high computational complexity with GP surrogates.
+Following in this vein, \citeauthor{Santner2003a}'s \citeyearpar{Santner2003a} foundational work serves as a focal point for much subsequent discussion of how best to learn from computer models in conjunction with physical experiments, for purposes including but not limited to engineering design.
+\citet{Currin1988} and \citet{Currin1991} develop a similar approach to that of Sacks et al 1989, but with a Bayesian interpretation.
+\citet{Mitchell1992} demonstrate the resulting methodology.
+\citet{Craig2001} discuss Bayesian methods for forecasting using a computer model under uncertainty.
+\citet{Simpson2008} provide an overview and retrospective of progress in the area of model- and metamodel-assisted design optimization since the work of \citet{Sacks1989}, and highlight the value of employing multiple models with varying degrees of fidelity.
+\citeauthor{Bartz2017}'s \citeyearpar{Bartz2017} is a similar, more up-to-date discussion, focusing on discrete optimization problems.
+\cite{Westermann2019} offer a comprehensive and illustrative discussion of the use of metamodels for optimal design of sustainable buildings, including a focus on sensitivity analysis and uncertainty quantification.
+
+\section{Gaussian process metamodels}
+
+The present work shares with many KOH-based, BO-based, and other approaches a reliance on GP metamodels as surrogates for computationally expensive models.
+Long popular in geostatistics (where GP regression is referred to as \textit{kriging}; \cite{Cressie2015}), the use of GPs as computer model surrogates was popularized by \citet{Sacks1989}.
+GPs are attractive in this context due to their flexibility, and the ease with which they can interpolate observations of deterministic computer model output while providing closed-form expressions for uncertainty quantification.
+The application of GPs in this domain is further explored by \citet{Santner2003a}, who include discussion of the choice of correlation function to suit the desired smoothness properties, and also include a discussion of hierarchical Gaussian random field models for cases when the user is not prepared to specify the desired smoothness.
+Diagnostic methods for validating a GP surrogate model are explored by \citet{Bastos2009}.
+Looking at broader applications than metamodeling, \citeauthor{Rasmussen2006}'s \citeyearpar{Rasmussen2006} work is a seminal text for practitioners seeking to employ GPs in a machine learning context.
+
+Particularly relevant to the area of model calibration are explorations of the use of GPs to integrate multiple models with varying degrees of fidelity and computational complexity.
+\citet{Qian2008a} propose a set of Bayesian hierarchical GP models to accommodate a case when low- and high-accuracy data is available.
+With similar aims, \citet{Cumming2009} describe methods for combining low- and high-accuracy information into a multiscale emulator, as well as providing a design strategy for using the low-fidelity model to select the points at which to evaluate the high-fidelity model.
+Expanding beyond the paradigm of two levels of fidelity, \citet{Goh2013} use GPs to build a model based on the results of models with several different degrees of fidelity.
+
+Researchers have endeavored to expand the applicability of GP metamodels in numerous ways.
+To accommodate models that cannot be represented by stationary GPs, \cite{Gramacy2008} implement a nonstationary GP metamodel using treed partitioning.
+\citet{Qian2008} discuss the application of GP metamodels to discrete input spaces.
+\citet{Gratiet2016} provide a comparative analysis of GPs and polynomial chaos expansions as metamodels in the context of global sensitivity analysis.
+Other work has focused on a primary weakness of GPs -- their poor scalability for large or high-dimensional data sets.
+\citet{Snelson2006} provide an influential method for generating sparse GPs to accommodate large data sets.
+\citet{Liu2020} review a variety of methods for producing scalable GPs, divided broadly into the categories of global approximations that are based on the full data set, and local approximations that achieve scalability by relying on only a subset of the data at each point in the domain.
+
+\section{Optimization}
+
+The mathematical underpinnings of model-assisted engineering design are found in the field of optimization.
 A primary strength of the present work is its success in quantifying uncertainty while undertaking calibration and design.
 This is an area on which much recent innovation in optimization/design has focused.
 \citeauthor{Rockafellar1991}'s \citeyearpar{Rockafellar1991} is an influential work describing an algorithm for using a limited set of observations (and hence under uncertainty as to appropriate stochastic model for the system) to solve a multiperiod optimization problem.
@@ -168,27 +206,6 @@ In addition, many efforts have been made to extend the capabilities of BO and to
 \citet{Lizotte2008} reviews the weaknesses of BO -- high computational complexity, poorly understood approximation of the response surface to the objective function, and failure to take advantage of the differentiability of objective functions -- and demonstrates how to overcome or mitigate these weaknesses.
 \citet{Letham2019} develop strategies for applying BO in contexts that suffer from high levels of noise, and \citet{Snoek2015} use neural networks for basis function regression of the objective function in place of GPs, to improve the computational efficiency of BO.
 
-\section{Gaussian process metamodels}
-
-The present work shares with many KOH-based, BO-based, and other approaches a reliance on GP metamodels as surrogates for computationally expensive models.
-Long popular in geostatistics (where GP regression is referred to as \textit{kriging}; \cite{Cressie2015}), the use of GPs as computer model surrogates was popularized by \citet{Sacks1989}.
-GPs are attractive in this context due to their flexibility, and the ease with which they can interpolate observations of deterministic computer model output while providing closed-form expressions for uncertainty quantification.
-The application of GPs in this domain is further explored by \citet{Santner2003a}, who include discussion of the choice of correlation function to suit the desired smoothness properties, and also include a discussion of hierarchical Gaussian random field models for cases when the user is not prepared to specify the desired smoothness.
-Diagnostic methods for validating a GP surrogate model are explored by \citet{Bastos2009}.
-Looking at broader applications than metamodeling, \citeauthor{Rasmussen2006}'s \citeyearpar{Rasmussen2006} work is a seminal text for practitioners seeking to employ GPs in a machine learning context.
-
-Particularly relevant to the area of model calibration are explorations of the use of GPs to integrate multiple models with varying degrees of fidelity and computational complexity.
-\citet{Qian2008a} propose a set of Bayesian hierarchical GP models to accommodate a case when low- and high-accuracy data is available.
-With similar aims, \citet{Cumming2009} describe methods for combining low- and high-accuracy information into a multiscale emulator, as well as providing a design strategy for using the low-fidelity model to select the points at which to evaluate the high-fidelity model.
-Expanding beyond the paradigm of two levels of fidelity, \citet{Goh2013} use GPs to build a model based on the results of models with several different degrees of fidelity.
-
-Researchers have endeavored to expand the applicability of GP metamodels in numerous ways.
-To accommodate models that cannot be represented by stationary GPs, \cite{Gramacy2008} implement a nonstationary GP metamodel using treed partitioning.
-\citet{Qian2008} discuss the application of GP metamodels to discrete input spaces.
-\citet{Gratiet2016} provide a comparative analysis of GPs and polynomial chaos expansions as metamodels in the context of global sensitivity analysis.
-Other work has focused on a primary weakness of GPs -- their poor scalability for large or high-dimensional data sets.
-\citet{Snelson2006} provide an influential method for generating sparse GPs to accommodate large data sets.
-\citet{Liu2020} review a variety of methods for producing scalable GPs, divided broadly into the categories of global approximations that are based on the full data set, and local approximations that achieve scalability by relying on only a subset of the data at each point in the domain.
 
 
 

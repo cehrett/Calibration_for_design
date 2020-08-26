@@ -17,45 +17,45 @@ Warning--can't use both volume and number fields in Goh2013
 Warning--can't use both volume and number fields in Higdon2013
 Warning--empty institution in Jones1998
 Warning--empty booktitle in Pelikan2005
-You've used 57 entries,
+You've used 65 entries,
             1935 wiz_defined-function locations,
-            872 strings with 15287 characters,
-and the built_in function-call counts, 25941 in all, are:
-= -- 2549
-> -- 1219
-< -- 34
-+ -- 422
-- -- 416
-* -- 2294
-:= -- 4429
-add.period$ -- 178
-call.type$ -- 57
-change.case$ -- 480
-chr.to.int$ -- 55
-cite$ -- 63
-duplicate$ -- 927
-empty$ -- 1725
-format.name$ -- 501
-if$ -- 5094
+            926 strings with 16710 characters,
+and the built_in function-call counts, 29420 in all, are:
+= -- 2901
+> -- 1363
+< -- 40
++ -- 472
+- -- 464
+* -- 2588
+:= -- 5016
+add.period$ -- 202
+call.type$ -- 65
+change.case$ -- 545
+chr.to.int$ -- 63
+cite$ -- 71
+duplicate$ -- 1058
+empty$ -- 1960
+format.name$ -- 565
+if$ -- 5784
 int.to.chr$ -- 3
 int.to.str$ -- 0
-missing$ -- 60
-newline$ -- 286
-num.names$ -- 177
-pop$ -- 433
+missing$ -- 67
+newline$ -- 326
+num.names$ -- 201
+pop$ -- 487
 preamble$ -- 1
-purify$ -- 484
+purify$ -- 548
 quote$ -- 0
-skip$ -- 714
+skip$ -- 818
 stack$ -- 0
-substring$ -- 1868
-swap$ -- 160
-text.length$ -- 14
+substring$ -- 2131
+swap$ -- 185
+text.length$ -- 16
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 332
+type$ -- 380
 warning$ -- 6
-while$ -- 217
+while$ -- 247
 width$ -- 0
-write$ -- 743
+write$ -- 847
 (There were 2 error messages)

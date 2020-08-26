@@ -1,5 +1,10 @@
 \begin{thebibliography}{}
 
+\bibitem[Bartz-Beielstein and Zaefferer, 2017]{Bartz2017}
+Bartz-Beielstein, T. and Zaefferer, M. (2017).
+\newblock Model-based methods for continuous and discrete global optimization.
+\newblock {\em Applied Soft Computing}, 55:154--167.
+
 \bibitem[Bastos and O'Hagan, 2009]{Bastos2009}
 Bastos, L.~S. and O'Hagan, A. (2009).
 \newblock {Diagnostics for Gaussian process emulators}.
@@ -52,6 +57,12 @@ Cox, D.~D., Park, J.~S., and Singer, C.~E. (2001).
 \newblock {A statistical method for tuning a computer code to a data base}.
 \newblock {\em Computational Statistics and Data Analysis}, 37(1):77--92.
 
+\bibitem[Craig et~al., 2001]{Craig2001}
+Craig, P.~S., Goldstein, M., Rougier, J.~C., and Seheult, A.~H. (2001).
+\newblock Bayesian forecasting for complex systems using computer simulators.
+\newblock {\em Journal of the American Statistical Association},
+  96(454):717--729.
+
 \bibitem[Craig et~al., 1997]{Craig1997}
 Craig, P.~S., Goldstein, M., Seheult, A.~H., and Smith, J.~A. (1997).
 \newblock {Pressure Matching for Hydrocarbon Reservoirs: A Case Study in the
@@ -69,6 +80,19 @@ Cumming, J.~A. and Goldstein, M. (2009).
   based on information gained using fast approximations.
 \newblock {\em Technometrics}, 51(4):377--388.
 
+\bibitem[Currin et~al., 1988]{Currin1988}
+Currin, C., Mitchell, T., Morris, M., and Ylvisaker, D. (1988).
+\newblock A bayesian approach to the design and analysis of computer
+  experiments.
+\newblock Technical report, Oak Ridge National Lab., TN (USA).
+
+\bibitem[Currin et~al., 1991]{Currin1991}
+Currin, C., Mitchell, T., Morris, M., and Ylvisaker, D. (1991).
+\newblock {Bayesian prediction of deterministic functions, with applications to
+  the design and analysis of computer experiments}.
+\newblock {\em Journal of the American Statistical Association},
+  86(416):953--963.
+
 \bibitem[Deb and Gupta, 2006]{Deb2006}
 Deb, K. and Gupta, H. (2006).
 \newblock {Introducing robustness in multi-objective optimization}.
@@ -83,6 +107,12 @@ Drignei, D. and Mourelatos, Z.~P. (2012).
 \bibitem[Frazier, 2018]{Frazier2018}
 Frazier, P.~I. (2018).
 \newblock {A Tutorial on Bayesian Optimization}.
+
+\bibitem[Gelfand and Smith, 1990]{Gelfand1990}
+Gelfand, A.~E. and Smith, A. F.~M. (1990).
+\newblock {Sampling-based approaches to calculating marginal densities}.
+\newblock {\em Journal of the American Statistical Association},
+  85(410):398--409.
 
 \bibitem[Goh et~al., 2013]{Goh2013}
 Goh, J., Bingham, D., Holloway, J.~P., Grosskopf, M.~J., Kuranz, C.~C., and
@@ -169,6 +199,11 @@ Lizotte, D.~J. (2008).
 Loeppky, J.~L., Bingham, D., and Welch, W.~J. (2006).
 \newblock {\em {Computer model calibration or tuning in practice}}.
 \newblock Department of Statistics, University of British Columbia.
+
+\bibitem[Mitchell and Morris, 1992]{Mitchell1992}
+Mitchell, T.~J. and Morris, M.~D. (1992).
+\newblock Bayesian design and analysis of computer experiments: two examples.
+\newblock {\em Statistica Sinica}, pages 359--379.
 
 \bibitem[Paulo et~al., 2012]{Paulo2012}
 Paulo, R., Garc{\'{i}}a-Donato, G., and Palomo, J. (2012).
@@ -271,6 +306,13 @@ Shahriari, B., Swersky, K., Wang, Z., Adams, R.~P., and de~Freitas, N. (2016).
   optimization}.
 \newblock {\em Proceedings of the IEEE}, 104(1):148--175.
 
+\bibitem[Simpson et~al., 2008]{Simpson2008}
+Simpson, T., Toropov, V., Balabanov, V., and Viana, F. (2008).
+\newblock Design and analysis of computer experiments in multidisciplinary
+  design optimization: a review of how far we have come-or not.
+\newblock In {\em 12th AIAA/ISSMO multidisciplinary analysis and optimization
+  conference}, page 5802.
+
 \bibitem[Snelson and Ghahramani, 2006]{Snelson2006}
 Snelson, E. and Ghahramani, Z. (2006).
 \newblock Sparse gaussian processes using pseudo-inputs.
@@ -308,6 +350,11 @@ Vasilopoulos, I., Asouti, V.~G., Giannakoglou, K.~C., and Meyer, M. (2019).
 Vazquez, E. and Bect, J. (2009).
 \newblock A sequential bayesian algorithm to estimate a probability of failure.
 \newblock {\em IFAC Proceedings Volumes}, 42(10):546--550.
+
+\bibitem[Westermann and Evins, 2019]{Westermann2019}
+Westermann, P. and Evins, R. (2019).
+\newblock Surrogate modelling for sustainable building design--a review.
+\newblock {\em Energy and Buildings}, 198:170--186.
 
 \bibitem[Williams et~al., 2006]{Williams2006}
 Williams, B., Higdon, D., Gattiker, J., Moore, L., McKay, M., and
