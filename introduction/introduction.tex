@@ -206,8 +206,34 @@ In addition, many efforts have been made to extend the capabilities of BO and to
 \citet{Lizotte2008} reviews the weaknesses of BO -- high computational complexity, poorly understood approximation of the response surface to the objective function, and failure to take advantage of the differentiability of objective functions -- and demonstrates how to overcome or mitigate these weaknesses.
 \citet{Letham2019} develop strategies for applying BO in contexts that suffer from high levels of noise, and \citet{Snoek2015} use neural networks for basis function regression of the objective function in place of GPs, to improve the computational efficiency of BO.
 
+\section{Applications}
 
+In the present work I apply our methodology to two practical applications.
+One involves the engineering design of a wind turbine blade of fixed outer geometry.
+The blade is a constructed using a composite material, with a fixed choice of matrix and filler materials.
+Other properties of the composite may be varied to achieve performance and cost goals for the system.
+Specifically, we assist in the selection of the \textit{volume fraction} of the material (the ratio of filler to matrix, by volume) as well as the thickness (in millimeters) of the blade material.
+This sort of material selection would traditionally be performed in an \textit{ad hoc} manner, satisficing using a list of available materials that are designed separate from this or any particular application.
+We wed the material design with the goals of the engineering design application, so that our search space is not limited to pre-existing or previously studied composites.
+The engineering goals for our application are the simultaneous minimization of the tip deflection of the blade (in meters) when under load, the twist angle (in radians) of the blade under load, and the cost (in USD) of the composite used for the blade.
+This application is thus an example of multiobjective optimization. 
 
+The other practical application considered in the present work is a dynamic vibration system.
+This is a system in which a one mass oscillator is anchored by two leaf springs.
+The oscillator induces vibration in the system.
+The behavior of the resulting system may be measured via its vertical displacement over time, as well as its amplitude response over frequencies.
+The finite element model of the system must be calibrated, and the calibrated system must be used for engineering design.
+As concerns calibration, we seek to find appropriate values for [VAR].
+As concerns engineering design, we seek to minimize [MEASURE].
+
+The following chapters are organized as follows.
+In chapter two, I adapt the KOH framework and demonstrate its potential as a technique for model-assisted design.
+I apply the resulting methodology to the wind turbine blade application.
+As that system involves multiobjective optimization, it provides an opportunity to demonstrate our method's ability to explore the Pareto front of a system while providing uncertainty quantification of the resulting estimates.
+In chapter three, I expand the framework developed in chapter two, in order to effect both calibration and engineering design simultaneously.
+The ability to perform both of these tasks simultaneously, within a single model and with a single set of experimental observations, is a novel benefit of our approach.
+I demonstrate the resulting methodology using the dynamic vibration system.
+Chapter four concludes with a discussion of the results of chapters two and three, and thoughts about future directions for research in this area.
 
 \bibliographystyle{apalike}
 
