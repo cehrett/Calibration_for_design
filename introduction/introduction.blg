@@ -13,49 +13,50 @@ Repeated entry---line 2159 of file lit_review.bib
 I'm skipping whatever remains of this entry
 Warning--empty booktitle in Craig1997
 Warning--empty journal in Frazier2018
+Warning--can't use both author and editor fields in Gattiker2017
 Warning--can't use both volume and number fields in Goh2013
 Warning--can't use both volume and number fields in Higdon2013
 Warning--empty institution in Jones1998
 Warning--empty booktitle in Pelikan2005
-You've used 65 entries,
+You've used 67 entries,
             1935 wiz_defined-function locations,
-            926 strings with 16710 characters,
-and the built_in function-call counts, 29420 in all, are:
-= -- 2901
-> -- 1363
-< -- 40
-+ -- 472
-- -- 464
-* -- 2588
-:= -- 5016
-add.period$ -- 202
-call.type$ -- 65
-change.case$ -- 545
-chr.to.int$ -- 63
-cite$ -- 71
-duplicate$ -- 1058
-empty$ -- 1960
-format.name$ -- 565
-if$ -- 5784
+            941 strings with 17264 characters,
+and the built_in function-call counts, 30611 in all, are:
+= -- 3023
+> -- 1409
+< -- 43
++ -- 488
+- -- 480
+* -- 2679
+:= -- 5193
+add.period$ -- 208
+call.type$ -- 67
+change.case$ -- 562
+chr.to.int$ -- 65
+cite$ -- 74
+duplicate$ -- 1111
+empty$ -- 2044
+format.name$ -- 585
+if$ -- 6042
 int.to.chr$ -- 3
 int.to.str$ -- 0
-missing$ -- 67
-newline$ -- 326
-num.names$ -- 201
-pop$ -- 487
+missing$ -- 70
+newline$ -- 336
+num.names$ -- 207
+pop$ -- 511
 preamble$ -- 1
-purify$ -- 548
+purify$ -- 566
 quote$ -- 0
-skip$ -- 818
+skip$ -- 863
 stack$ -- 0
-substring$ -- 2131
-swap$ -- 185
-text.length$ -- 16
+substring$ -- 2227
+swap$ -- 208
+text.length$ -- 18
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 380
-warning$ -- 6
-while$ -- 247
+type$ -- 390
+warning$ -- 7
+while$ -- 257
 width$ -- 0
-write$ -- 847
+write$ -- 874
 (There were 2 error messages)

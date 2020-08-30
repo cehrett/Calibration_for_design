@@ -108,6 +108,13 @@ Drignei, D. and Mourelatos, Z.~P. (2012).
 Frazier, P.~I. (2018).
 \newblock {A Tutorial on Bayesian Optimization}.
 
+\bibitem[Gattiker et~al., 2017]{Gattiker2017}
+Gattiker, J., Myers, K., Williams, B.~J., Higdon, D., Carzolio, M., and Hoegh,
+  A. (2017).
+\newblock {\em Gaussian Process-Based Sensitivity Analysis and Bayesian Model
+  Calibration with GPMSA}, pages 1867--1907.
+\newblock Springer International Publishing, Cham.
+
 \bibitem[Gelfand and Smith, 1990]{Gelfand1990}
 Gelfand, A.~E. and Smith, A. F.~M. (1990).
 \newblock {Sampling-based approaches to calculating marginal densities}.
@@ -204,6 +211,12 @@ Loeppky, J.~L., Bingham, D., and Welch, W.~J. (2006).
 Mitchell, T.~J. and Morris, M.~D. (1992).
 \newblock Bayesian design and analysis of computer experiments: two examples.
 \newblock {\em Statistica Sinica}, pages 359--379.
+
+\bibitem[Niculescu-Mizil and Caruana, 2005]{Niculescu2005}
+Niculescu-Mizil, A. and Caruana, R. (2005).
+\newblock Predicting good probabilities with supervised learning.
+\newblock In {\em Proceedings of the 22nd international conference on Machine
+  learning}, pages 625--632.
 
 \bibitem[Paulo et~al., 2012]{Paulo2012}
 Paulo, R., Garc{\'{i}}a-Donato, G., and Palomo, J. (2012).

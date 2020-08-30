@@ -37,21 +37,21 @@
 \section{Computer model calibration}
 
 Computer models are often imperfect reflections of the phenomena they purport to represent.
-Among their imperfections is the need for calibration.
-That is, the performance of a computer model is often dependent upon certain settings or assignments of values in the model. %
-For example, in a model designed to estimate the height-time curve of a ball in free fall from a given height, the model output will depend on (among other things) the drag coefficient $C$ of the ball. % REF: GPMSA TOWER TUTORIAL
+Often these imperfections take the form of a need for \textit{calibration}.
+That is, the performance of a computer model is often dependent upon certain settings or assignments of values in the model, which we may call calibration parameters. %
+For example, in a model designed to estimate the height-time curve of a ball in free fall from a given height, the model output will depend on (among other things) the drag coefficient $C$ of the ball \citep{Gattiker2017}.
 Given experimental data describing some observed height-time curves of the ball in question, one can use some calibration methodology to attempt to estimate $C$.
 
 Though the above example relates to a case of estimating the true value of some parameter, calibration need not take this form.
 Calibration can also take the form of setting values which optimize the model's faithfulness to reality, even when the values being set do not correspond to any particular real features.
 For example, a classification model may return scores which constitute some measure of confidence of category membership.
-A probability calibration of the model would involve mapping these confidence scores to values in the interval $[0,1]$ such that the resulting transformed values are plausible estimates of the probability of category membership.
+A probability calibration of the model would involve mapping these confidence scores to values in the interval $[0,1]$ such that the resulting transformed values are plausible estimates of the probability of category membership \citep{Niculescu2005}.
 
 Given a set of data which may be used for calibration, the available calibration methods are diverse. 
 Often, calibration is approached in an \textit{ad hoc} manner, by manually searching for a set of values for the parameters of interest that cause the model output to come acceptably close to the observed data.
 This manual approach is often improved by automating it as a grid search or stochastic search, where some measure of model performance is optimized in a brute force manner. % REF GRID SEARCH, STOCHASTIC SEARCH?
 
-Even among more sophisticated approaches, calibration methods often yield a point estimate of the appropriate value(s) for the calibration parameter(s).
+Even among more sophisticated approaches, calibration methods often yield only a point estimate of the appropriate value(s) for the calibration parameter(s).
 Such approaches fail to capture resulting uncertainty regarding those estimates.
 The successful quantification of uncertainty in model calibration, and the propagation of that uncertainty to yield model estimates with similarly quantified uncertainty, is a major goal of this and other contemporary works in the area of computer model calibration.
 
@@ -80,7 +80,7 @@ Far more common in the field of computer model calibration are extensions and re
 \citet{Paulo2012} further extend the work of \citet{Bayarri2007a} to the case of multivariate model output.
 While most work in this area assumes that the computer model is deterministic, \citet{Pratola2018} provide an example of non-deterministic model calibration.
 
-\citet{Paulo2012} thus are part of a diverse array of projects aiming to shore up a weakness of the KOH framework: its difficulty in accommodating high-dimensional data and/or large data sets in a computationally efficient way.
+\citet{Paulo2012} are part of a diverse array of projects aiming to shore up a weakness of the KOH framework: its difficulty in accommodating high-dimensional data and/or large data sets in a computationally efficient way.
 \citet{Higdon2008a} focus on meeting the computational challenges of high-dimensional, large data sets by using principal components basis representations for dimensionality reduction.
 Whereas that work is concerned with the dimensionality of model outputs, \citet{Drignei2012} are concerned rather with the model inputs.
 They increase the numerical stability of model calibration by using a global sensitivity analysis to reduce the model inputs' dimensionality.
@@ -93,7 +93,7 @@ Other works have endeavored to address another known weakness of KOH: poor ident
 With respect to this problem, \citet{Brynjarsdottir2014} emphasize the importance of strong priors on the model discrepancy term when performing model calibration.
 And for the purpose of improving identifiability over previous approaches, \citet{Gu2018} propose a novel stochastic process that combines elements of GPs with $L_2$ calibration (in which the calibration parameter is chosen so as the minimize the $L_2$ norm of the discrepancy term).
 
-Some works in the area of computer model calibration are premised upon broadening the conception of calibration as relating experimental data to a computer model of the experimental phenomenon.
+Some works in the area of computer model calibration are premised upon broadening the conception of calibration beyond the idea of relating experimental data to a computer model of the experimental phenomenon.
 Model calibration can be seen more generally as a method for relating two or more different sources of data with varying costs and varying levels of fidelity.
 In this vein \citet{Qian2006} explore a method for integrating ``high'' and ``low'' models to build a computationally efficient surrogate.
 \citet{Goh2013} extend KOH to cases of more than two different levels of fidelity.
@@ -109,16 +109,16 @@ To understand the way the present work applies methods from the field of compute
 
 At the highest level, calibration can be conceived as follows.
 One has a model $\eta: \mathbb{R}^{p+q} \to \mathbb{R}^m$, as well as a set of data $\mathbf{y}$ and corresponding $p-$dimensional inputs $\mathbf{x_y}$.
-We can thus consider $\eta$ to be a function of two vectors, $\mathbf x\in\mathbb R^p$ and $\mathbf t\in\mathbb R^q$
+We can thus consider $\eta$ to be a function of two vectors, $\mathbf x\in\mathbb R^p$ and $\mathbf t\in\mathbb R^q$.
 Often (but not exclusively) $\mathbf y$ is a set of observed experimental outcomes from a real phenomenon $f:\mathbb{R}^p\to\mathbb{R}^m$ where $\eta$ is a model of $f$.
-One wishes to use $\mathbf y$ to select values $\boldsymbol{\theta}$ such that settings $\mathbf t=\boldsymbol{\theta}$ induces the output of $\eta(\mathbf {x_y},\boldsymbol{\theta})$ to approximate $\mathbf y$.
+One wishes to use $\mathbf y$ to select values $\boldsymbol{\theta}$ such that setting $\mathbf t=\boldsymbol{\theta}$ induces the output of $\eta(\mathbf {x_y},\boldsymbol{\theta})$ to approximate $\mathbf y$.
 The selection of these values is the calibration of $\eta$.
 
 Similarly, model-assisted design can be conceived as follows.
 One has a model $\eta: \mathbb{R}^{p+q} \to \mathbb{R}^m$, as well as a set of data $\mathbf{y}$ and corresponding $p-$dimensional inputs $\mathbf{x_y}$.
-We can thus consider $\eta$ to be a function of two vectors, $\mathbf x\in\mathbb R^p$ and $\mathbf t\in\mathbb R^q$
+We can thus consider $\eta$ to be a function of two vectors, $\mathbf x\in\mathbb R^p$ and $\mathbf t\in\mathbb R^q$.
 Often (but not exclusively) $\mathbf y$ is a set of target outcomes one wishes to achieve in some system $f:\mathbb{R}^p\to\mathbb{R}^m$ where $\eta$ is a model of $f$.
-One wishes to use $\mathbf y$ to select values $\boldsymbol{\theta}$ such that settings $\mathbf t=\boldsymbol{\theta}$ induces the output of $\eta(\mathbf {x_y},\boldsymbol{\theta})$ to approximate $\mathbf y$.
+One wishes to use $\mathbf y$ to select values $\boldsymbol{\theta}$ such that setting $\mathbf t=\boldsymbol{\theta}$ induces the output of $\eta(\mathbf {x_y},\boldsymbol{\theta})$ to approximate $\mathbf y$.
 The selection of these values is model-assisted design using $\eta$.
 
 Seen in this way, calibration and design are surprisingly similar undertakings. 
@@ -154,7 +154,7 @@ Looking at broader applications than metamodeling, \citeauthor{Rasmussen2006}'s 
 
 Particularly relevant to the area of model calibration are explorations of the use of GPs to integrate multiple models with varying degrees of fidelity and computational complexity.
 \citet{Qian2008a} propose a set of Bayesian hierarchical GP models to accommodate a case when low- and high-accuracy data is available.
-With similar aims, \citet{Cumming2009} describe methods for combining low- and high-accuracy information into a multiscale emulator, as well as providing a design strategy for using the low-fidelity model to select the points at which to evaluate the high-fidelity model.
+With similar aims, \citet{Cumming2009} describe methods for combining low-\ and high-accuracy information into a multiscale emulator, as well as providing a design strategy for using the low-fidelity model to select the points at which to evaluate the high-fidelity model.
 Expanding beyond the paradigm of two levels of fidelity, \citet{Goh2013} use GPs to build a model based on the results of models with several different degrees of fidelity.
 
 Researchers have endeavored to expand the applicability of GP metamodels in numerous ways.
@@ -194,7 +194,7 @@ Other Bayesian approaches that do not fall within that umbrella include the work
 
 \citeauthor{Jones1998}'s \citeyearpar{Jones1998} influential work uses a GP-based response surface approximation to define an acquisition function for sequential selection of evaluation points of the objective function.
 \citet{Vazquez2009}, \citet{Bect2012}, and \citet{Chevalier2014} extend the approach of Jones, developing a stepwise uncertainty reduction methodology for sequential evaluation of the objective function to minimize resulting uncertainty regarding the optimum.
-This approaches, when applicable (i.e. when it is possible to evaluate the objective function adaptively), can significantly reduce the total number of objective function evaluations required for optimization.
+This approach, when applicable (i.e. when it is possible to evaluate the objective function adaptively), can significantly reduce the total number of objective function evaluations required for optimization.
 
 BO's utility has been enhanced by a number of works aimed at practitioners and researchers seeking to apply BO in diverse areas.
 \citet{Shahriari2016} helpfully introduces the core concepts of BO, and demonstrates its usage in a variety of applications, while \citet{Frazier2018} offers a practical tutorial on the use of BO techniques.
@@ -214,7 +214,7 @@ The blade is a constructed using a composite material, with a fixed choice of ma
 Other properties of the composite may be varied to achieve performance and cost goals for the system.
 Specifically, we assist in the selection of the \textit{volume fraction} of the material (the ratio of filler to matrix, by volume) as well as the thickness (in millimeters) of the blade material.
 This sort of material selection would traditionally be performed in an \textit{ad hoc} manner, satisficing using a list of available materials that are designed separate from this or any particular application.
-We wed the material design with the goals of the engineering design application, so that our search space is not limited to pre-existing or previously studied composites.
+We wed material design with the goals of the engineering design application, so that our search space is not limited to pre-existing or previously studied composites.
 The engineering goals for our application are the simultaneous minimization of the tip deflection of the blade (in meters) when under load, the twist angle (in radians) of the blade under load, and the cost (in USD) of the composite used for the blade.
 This application is thus an example of multiobjective optimization. 
 
