@@ -1,0 +1,41 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{natbib}
+\author{Carl Ehrett}
+\title{Conclusion}
+
+
+
+\begin{document}
+	
+\maketitle
+
+\section{Benefits}
+
+The research presented in the previous chapters addresses two distinct desiderata related to model-assisted design.
+Firstly, there is the desideratum of undertaking model-assisted design in a way that accounts for all forms of uncertainty -- uncertainty due to the model inputs, uncertainty due to the stochastic nature of the objective function, and/or uncertainty due to observation error of the outputs.
+All of these sources of uncertainty can be modeled and included in the Bayesian framework used to employ our methodology.
+The resulting posterior distribution of the design inputs quantifies uncertainty as to what inputs could lead to optimal system behavior.
+The corresponding posterior predictive distributions quantifies uncertainty as to that resulting system behavior, including uncertainty of the entire Pareto front of the system.
+In contrast with approaches such as that of \citet{Olalotiti-Lawal2015}, who provide similar uncertainty quantification of design input settings using a distribution they contrive, our method provides the uncertainty in a posterior distribution that is directly dictated by what is known about the computer model itself, by one's prior knowledge about the appropriate design settings, and by the priorities of decision-makers.
+
+Our method furthermore evades the need to be able to evaluate the objective function adaptively.
+This requirement is a limitation shared by most other Bayesian optimization (BO) methods.
+In this way, our method may be employed in scenarios where researchers are confined to the usage of pre-existing data sets, or in scenarios where the experimental design used for data-gathering must satisfy priorities other than that of engineering design.
+
+Secondly, there is the desideratum of unifying procedures for calibration and design.
+Typically these two tasks are undertaken separately; a model would be calibrated and then the calibrated model would be put to use for model-assisted design.
+However, design priorities arise for models that stand in need of calibration, and wedding the frameworks for calibration and design allows for a single use of a dataset to satisfy both sets of goals.
+
+
+
+\bibliographystyle{apalike}
+
+\bibliography{lit_review}
+	
+\end{document}
