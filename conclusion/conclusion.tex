@@ -32,6 +32,34 @@ Secondly, there is the desideratum of unifying procedures for calibration and de
 Typically these two tasks are undertaken separately; a model would be calibrated and then the calibrated model would be put to use for model-assisted design.
 However, design priorities arise for models that stand in need of calibration, and wedding the frameworks for calibration and design allows for a single use of a dataset to satisfy both sets of goals.
 
+\section{Summary of chapter two}
+
+In chapter 2, we focused on model-assisted design, assuming there the possession of an already-calibrated computer model.
+We there considered the problem of engineering design from the perspective of, and using tools from the field of, computer model calibration under uncertainty.
+Specifically, we approached model-assisted design from the Bayesian framework for model calibration developed by \citet{Kennedy2001}, which we here refer to as KOH.
+We used this approach to undertake model-assisted design on a multi-objective system, quantifying remaining uncertainty regarding the optimal values of the design inputs and the resulting model output.
+
+To do this, we relied on a method we call Counterfactual Bayes.
+Ordinarily, under KOH, one has access to a set of experimental observations that one uses to calibrate a model, so that the model output approximates those observations well.
+In the case of design, we wish to induce the model output to be \textit{optimal}; we do not have access to any particular set of real experimental observations that are relevant to that goal.
+However, we argued, we may apply the KOH framework to design by reasoning using hypothetical -- i.e.\ counterfactual -- observations which would only occur if the design settings \textit{were} optimal.
+By selecting such \textit{target outcomes}, we are able to apply KOH and thereby discover distributions of design inputs that induce the model to approximate the hypothetical target outcomes.
+Since the target outcomes could be observed only when the design settings are optimal, our posterior distributions of design inputs achieving the target outcomes are \textit{de facto} distributions of \textit{optimal} design inputs.
+Thus we showed that KOH can be enlisted through Counterfactual Bayes as a powerful methodology for model-assisted design with quantification of all relevant uncertainty.
+In our discussion we included guidance as to the appropriate choice of target outcomes.
+Specifically, we demonstrated how, with little added computational cost, an initial ``rough estimate'' of the system Pareto front can be generated and used to select effective target outcomes.
+
+To accommodate models of high computational expense, we employed GP surrogate models.
+We offered guidance on the selection of prior distributions for model inputs and for GP hyperparameters, as there are some aspects of these choices that are particular to the use of KOH with target outcomes.
+We then described an algorithm for the repeated application of our methodology in order to estimate not merely the optimal design settings with respect to some one goal, but instead to estimate the entire Pareto front for the system of interest.
+This allows decision-makers full flexibility in selecting a design to meet any set of priorities.
+
+We demonstrated our methodology on a simulated example, where we were able to display the results of the procedure using the known optimum of the system.
+We also demonstrated our methodology, including the algorithm for full Pareto front estimation, on an application of material design for a wind turbine blade.
+We included a comparison showing that our resulting estimated Pareto front agrees with an estimate provided by NSGA-II \citep{Deb2002}, and that our estimate (unlike that of NSGA-II) is able to provide credible bands quantifying uncertainty remaining in the Pareto front location.
+
+We concluded that our method captures much of what is attractive in other BO methods, without requiring the ability to sample the objective function adaptively.
+Our method thus is a useful addition to the set of tools available to a researcher wishing to undertake model-assisted multi-objective design under uncertainty.
 
 
 \bibliographystyle{apalike}

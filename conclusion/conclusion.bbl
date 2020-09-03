@@ -1,5 +1,16 @@
 \begin{thebibliography}{}
 
+\bibitem[Deb et~al., 2002]{Deb2002}
+Deb, K., Pratap, A., Agarwal, S., and Meyarivan, T. (2002).
+\newblock {A fast and elitist multiobjective genetic algorithm: NSGA-II}.
+\newblock {\em IEEE Transactions on Evolutionary Computation}, 6(2):182--197.
+
+\bibitem[Kennedy and O'Hagan, 2001]{Kennedy2001}
+Kennedy, M.~C. and O'Hagan, A. (2001).
+\newblock {Bayesian calibration of computer models}.
+\newblock {\em Journal of the Royal Statistical Society: Series B},
+  63(3):425--464.
+
 \bibitem[Olalotiti-Lawal and Datta-Gupta, 2015]{Olalotiti-Lawal2015}
 Olalotiti-Lawal, F. and Datta-Gupta, A. (2015).
 \newblock {A Multi-Objective Markov Chain Monte Carlo Approach for History
