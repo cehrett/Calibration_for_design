@@ -61,6 +61,37 @@ We included a comparison showing that our resulting estimated Pareto front agree
 We concluded that our method captures much of what is attractive in other BO methods, without requiring the ability to sample the objective function adaptively.
 Our method thus is a useful addition to the set of tools available to a researcher wishing to undertake model-assisted multi-objective design under uncertainty.
 
+\section{Summary of chapter three}
+
+In chapter three, we broadened our methodology to include simultaneous calibration and design.
+Whereas these two procedures are typically carried out separately, we show that our adaptation of the Bayesian KOH framework is able to accommodate both tasks in a unified framework.
+This unified framework is a computationally efficient method of undertaking calibration and design with quantification of relevant uncertainties.
+
+In KOH, one calibrates a model using a set of experimental observations.
+If the model is computationally expensive, then one also uses a set of ``observations'' of the model instead of evaluating the model as part of the calibration procedure.
+Thus KOH weds experimental observations and model observations for the purpose of calibration.
+In chapter two, we replaced the model observations with target outcomes for the purpose of model-assisted design.
+In chapter three, we expand the KOH framework so that it weds all three of these: experimental observations, model observations, and target outcomes.
+We described the joint distribution of the concatenation of these three vectors, allowing for the exploration of the joint posterior distribution of the calibration and design parameters.
+We made clear in what way the resulting framework successfully separates calibration from design -- so that, e.g., the posterior distribution of the calibration parameters would be drawn to their \textit{true} values (rather than values that would optimally yield the target outcomes) and the posterior distribution of the design inputs would similarly be drawn to their optimal values.
+We furthermore described the modularization \citep{Liu2009} that we employ in order to prevent the calibration parameters from being unduly influenced by the target outcomes.
+
+Having established our methodology for dual calibration and design, we demonstrated using a simulated data set, in which the ``true'' calibration parameter and optimal design input were known.
+In order to demonstrate the flexibility of the method and its robustness to model bias, we considered seven different versions of the simulated system: a version without model bias, and a small and large version of each of three different discrepancies of different forms.
+Using MCMC to explore the posterior distributions of the calibration and design inputs, we showed the resulting success of the methodology in each of these cases, while also noting the (expected) degradation in performance as model bias grows large.
+
+To further demonstrate the usefulness of the method, we showed how it may be of special value when the calibration parameter is known or suspected to be functionally dependent upon the design input, when adaptive sampling of the high-fidelity model is possible.
+Toward this end, we considered another simulated system, in which such dependence occurs.
+We described an algorithm for wedding our dual calibration and design to an adaptive sampling strategy that induces the high-cost observations to be clustered in the region of greatest interest from the perspective of design.
+The result is that the model calibration is grounded on observations that occur when the value of the calibration parameter is near to its value at the optimal state of the system.
+We again demonstrated the results of this approach using seven different discrepancy cases.
+
+Finally, in addition to the simulated systems described above, we applied our methodology to the dynamic vibration application.
+We demonstrated the ability of our framework to identify plausible posterior distributions on the calibration parameter [CALIB PARAM] and the design parameter [DESIGN PARAM].
+Having demonstrated the results of our methodology, we concluded that our expanded alteration of the KOH framework is able to provide unified calibration and design with similarly unified uncertainty quantification.
+In this way the researcher sees not merely the marginal uncertainty of the calibration parameters and that of the design inputs, but also sees their joint posterior distribution and the associated uncertainty.
+The uncertainty of the posterior predictive distribution of model behavior is thus captured as well.
+
 
 \bibliographystyle{apalike}
 
