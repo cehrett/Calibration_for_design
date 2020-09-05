@@ -93,6 +93,26 @@ In this way the researcher sees not merely the marginal uncertainty of the calib
 The uncertainty of the posterior predictive distribution of model behavior is thus captured as well.
 
 
+\section{Recommendations}
+
+We have demonstrated the novel benefits of the present work's method.
+However, it is worthwhile to note the areas in which the method may have limited applicability.
+In general, the weaknesses of the present approach are the weaknesses shared with the KOH framework generally.
+Specifically, when relying on GP surrogates, the computational infelicities of GPs apply.
+GPs may struggle with high-dimensional data, and also with large data sets.
+In general, to use a data set of size $n$ for a GP, one must invert a matrix of size $n$.
+Happily, while the present approach shares the challenges of KOH in this area, it can similarly partake in the large body of work devoted to alleviating or mitigating these problems.
+Works described in Chapter 1 such as that of  \citet{Higdon2008a}, \citet{Bhat2010}, \citet{Paulo2012}, \citet{Drignei2012}, \citet{Pratola2013}, and \citet{Higdon2013} are all applicable to the present work to improve computational efficiency and stability.
+
+A benefit of the present approach is that, in contrast with many other Bayesian approaches to model-assisted design, it does not require the ability to sample adaptively from the objective function.
+Conversely, however, when adaptive sampling is possible, it has appreciable benefits in reducing the total number of objective function evaluations needed for design \citep{Jones1998,Vazquez2009,Bect2012,Chevalier2014}.
+Nonetheless, as described in Chapter 3, these BO approaches do not accommodate the case in which simultaneous calibration and design are undertaken.
+The present approach may still be advantageous here, especially when, as in Chapter 3, there is a known or suspected functional dependency of the calibration parameters upon the design inputs.
+
+When one's data allows for a GP surrogate of reasonable computational efficiency (or when one's objective function is of low enough computational efficiency that a surrogate is not required), and when one either wishes to undertake simultaneous calibration and design (either for efficiency or because of a suspected functional relationship of calibration parameters on design inputs) or else one is constrained not to employ adaptive sampling of the objective function, then we recommend the application of the method presented in this work.
+
+\section{Future directions}
+
 \bibliographystyle{apalike}
 
 \bibliography{lit_review}

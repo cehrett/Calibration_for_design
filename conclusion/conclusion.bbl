@@ -1,9 +1,53 @@
 \begin{thebibliography}{}
 
+\bibitem[Bect et~al., 2012]{Bect2012}
+Bect, J., Ginsbourger, D., Li, L., Picheny, V., and Vazquez, E. (2012).
+\newblock Sequential design of computer experiments for the estimation of a
+  probability of failure.
+\newblock {\em Statistics and Computing}, 22(3):773--793.
+
+\bibitem[Bhat et~al., 2010]{Bhat2010}
+Bhat, K., Haran, M., and Goes, M. (2010).
+\newblock {Computer model calibration with multivariate spatial output}.
+\newblock In Chen, M.-H., Dey, D., M{\"{u}}ller, P., Sun, D., and Ye, K.,
+  editors, {\em Frontiers of Statistical Decision Making and Bayesian Analysis:
+  in Honor of James O. Berger}, pages 168--184. Springer, New York.
+
+\bibitem[Chevalier et~al., 2014]{Chevalier2014}
+Chevalier, C., Bect, J., Ginsbourger, D., Vazquez, E., Picheny, V., and Richet,
+  Y. (2014).
+\newblock {Fast Parallel Kriging-Based Stepwise Uncertainty Reduction With
+  Application to the Identification of an Excursion Set}.
+\newblock {\em Technometrics}, 56(4).
+
 \bibitem[Deb et~al., 2002]{Deb2002}
 Deb, K., Pratap, A., Agarwal, S., and Meyarivan, T. (2002).
 \newblock {A fast and elitist multiobjective genetic algorithm: NSGA-II}.
 \newblock {\em IEEE Transactions on Evolutionary Computation}, 6(2):182--197.
+
+\bibitem[Drignei and Mourelatos, 2012]{Drignei2012}
+Drignei, D. and Mourelatos, Z.~P. (2012).
+\newblock {Parameter screening in statistical dynamic computer model
+  calibration using global sensitivities}.
+\newblock {\em Journal of Mechanical Design, Transactions of the ASME}, 134(8).
+
+\bibitem[Higdon et~al., 2013]{Higdon2013}
+Higdon, D., Gattiker, J., Lawrence, E., Jackson, C., Tobis, M., Pratola, M.,
+  Habib, S., Heitmann, K., and Price, S. (2013).
+\newblock {Computer model calibration using the ensemble kalman filter}.
+\newblock In {\em Technometrics}, volume~55, pages 488--500. Taylor {\&}
+  Francis Group.
+
+\bibitem[Higdon et~al., 2008]{Higdon2008a}
+Higdon, D., Gattiker, J., Williams, B., and Rightley, M. (2008).
+\newblock {Computer model calibration using high-dimensional output}.
+\newblock {\em Journal of the American Statistical Association},
+  103(482):570--583.
+
+\bibitem[Jones et~al., 1998]{Jones1998}
+Jones, D.~R., Schonlau, M., and Welch, W.~J. (1998).
+\newblock {Efficient Global Optimization of Expensive Black-Box Functions}.
+\newblock Technical report.
 
 \bibitem[Kennedy and O'Hagan, 2001]{Kennedy2001}
 Kennedy, M.~C. and O'Hagan, A. (2001).
@@ -23,5 +67,22 @@ Olalotiti-Lawal, F. and Datta-Gupta, A. (2015).
   Matching and Uncertainty Quantification}.
 \newblock In {\em SPE Annual Technical Conference and Exhibition}. Society of
   Petroleum Engineers.
+
+\bibitem[Paulo et~al., 2012]{Paulo2012}
+Paulo, R., Garc{\'{i}}a-Donato, G., and Palomo, J. (2012).
+\newblock {Calibration of computer models with multivariate output}.
+\newblock {\em Computational Statistics and Data Analysis}, 56:3959--3974.
+
+\bibitem[Pratola et~al., 2013]{Pratola2013}
+Pratola, M.~T., Sain, S.~R., Bingham, D., Wiltberger, M., and Rigler, E.~J.
+  (2013).
+\newblock {Fast sequential computer model calibration of large nonstationary
+  spatial-temporal processes}.
+\newblock {\em Technometrics}, 55(2):232--242.
+
+\bibitem[Vazquez and Bect, 2009]{Vazquez2009}
+Vazquez, E. and Bect, J. (2009).
+\newblock A sequential bayesian algorithm to estimate a probability of failure.
+\newblock {\em IFAC Proceedings Volumes}, 42(10):546--550.
 
 \end{thebibliography}
