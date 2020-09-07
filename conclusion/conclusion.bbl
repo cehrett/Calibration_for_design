@@ -13,6 +13,11 @@ Bhat, K., Haran, M., and Goes, M. (2010).
   editors, {\em Frontiers of Statistical Decision Making and Bayesian Analysis:
   in Honor of James O. Berger}, pages 168--184. Springer, New York.
 
+\bibitem[Calvetti et~al., 2014]{Calvetti2014}
+Calvetti, D., Kaipio, J.~P., and Somersalo, E. (2014).
+\newblock {Inverse problems in the Bayesian framework}.
+\newblock {\em Inverse Problems}, 30(11).
+
 \bibitem[Chevalier et~al., 2014]{Chevalier2014}
 Chevalier, C., Bect, J., Ginsbourger, D., Vazquez, E., Picheny, V., and Richet,
   Y. (2014).
@@ -25,11 +30,21 @@ Deb, K., Pratap, A., Agarwal, S., and Meyarivan, T. (2002).
 \newblock {A fast and elitist multiobjective genetic algorithm: NSGA-II}.
 \newblock {\em IEEE Transactions on Evolutionary Computation}, 6(2):182--197.
 
+\bibitem[Ding et~al., 2019]{Ding2019}
+Ding, L., Mak, S., and Wu, C. F.~J. (2019).
+\newblock {BdryGP: a new Gaussian process model for incorporating boundary
+  information}.
+
 \bibitem[Drignei and Mourelatos, 2012]{Drignei2012}
 Drignei, D. and Mourelatos, Z.~P. (2012).
 \newblock {Parameter screening in statistical dynamic computer model
   calibration using global sensitivities}.
 \newblock {\em Journal of Mechanical Design, Transactions of the ASME}, 134(8).
+
+\bibitem[Golchi et~al., 2015]{Golchi2015}
+Golchi, S., Bingham, D.~R., Chipman, H., and Campbell, D.~A. (2015).
+\newblock {Monotone emulation of computer experiments}.
+\newblock {\em SIAM-ASA Journal on Uncertainty Quantification}, 3(1):370--392.
 
 \bibitem[Higdon et~al., 2013]{Higdon2013}
 Higdon, D., Gattiker, J., Lawrence, E., Jackson, C., Tobis, M., Pratola, M.,
@@ -61,6 +76,12 @@ Liu, F., Bayarri, M.~J., and Berger, J.~O. (2009).
   computer models}.
 \newblock {\em Bayesian Analysis}, 4(1):119--150.
 
+\bibitem[Maatouk and Bay, 2017]{Maatouk2017}
+Maatouk, H. and Bay, X. (2017).
+\newblock {Gaussian Process Emulators for Computer Experiments with Inequality
+  Constraints}.
+\newblock {\em Mathematical Geosciences}, 49(5):557--582.
+
 \bibitem[Olalotiti-Lawal and Datta-Gupta, 2015]{Olalotiti-Lawal2015}
 Olalotiti-Lawal, F. and Datta-Gupta, A. (2015).
 \newblock {A Multi-Objective Markov Chain Monte Carlo Approach for History
@@ -84,5 +105,10 @@ Pratola, M.~T., Sain, S.~R., Bingham, D., Wiltberger, M., and Rigler, E.~J.
 Vazquez, E. and Bect, J. (2009).
 \newblock A sequential bayesian algorithm to estimate a probability of failure.
 \newblock {\em IFAC Proceedings Volumes}, 42(10):546--550.
+
+\bibitem[Wang and Berger, 2016]{Wang2016}
+Wang, X. and Berger, J.~O. (2016).
+\newblock {Estimating shape constrained functions using Gaussian processes}.
+\newblock {\em SIAM-ASA Journal on Uncertainty Quantification}, 4(1):1--25.
 
 \end{thebibliography}

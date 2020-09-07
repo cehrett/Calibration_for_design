@@ -113,6 +113,13 @@ When one's data allows for a GP surrogate of reasonable computational efficiency
 
 \section{Future directions}
 
+We remarked above that the framework advocated here is compatible with broad efforts to increase the scalability of MCMC and of GPs.
+A fruitful next step for research in this area would be to effect such integration and to explore its effectiveness in relevant applications.
+This can take a number of forms, as there exist a wide array of strategies for improving the computational feasibility and stability of MCMC and of GPs in high-dimensional and large-data contexts.
+It would also be fruitful to apply the present approach to cases in which the design space contains proper subsets that are infeasible, by imposing regularization to constrain the solution space (e.g. as in \cite{Calvetti2014}).
+Similarly, whereas in the present work we focus on unconstrained problems, it would be instructive to combine our approach with available methods for applying GPs that respect known constraints \citep{Golchi2015,Wang2016,Maatouk2017,Ding2019}.
+Another potential area for future research is the union of our dual calibration and design approach with existing BO methods for selecting new sampling locations, such as the EGO approach of \citet{Jones1998} or the SUR approach of \citet{Vazquez2009}, \citet{Bect2012} and \citet{Chevalier2014}.
+
 \bibliographystyle{apalike}
 
 \bibliography{lit_review}

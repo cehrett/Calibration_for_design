@@ -7,47 +7,48 @@ Repeated entry---line 1727 of file lit_review.bib
  : @article{Deb2002
  :                 ,
 I'm skipping whatever remains of this entry
+Warning--empty journal in Ding2019
 Warning--can't use both volume and number fields in Higdon2013
 Warning--empty institution in Jones1998
-You've used 14 entries,
+You've used 19 entries,
             1935 wiz_defined-function locations,
-            582 strings with 6939 characters,
-and the built_in function-call counts, 6448 in all, are:
-= -- 626
-> -- 324
-< -- 7
-+ -- 113
-- -- 111
-* -- 589
-:= -- 1116
-add.period$ -- 45
-call.type$ -- 14
-change.case$ -- 124
-chr.to.int$ -- 14
-cite$ -- 16
-duplicate$ -- 221
-empty$ -- 418
-format.name$ -- 133
-if$ -- 1250
+            617 strings with 7772 characters,
+and the built_in function-call counts, 8364 in all, are:
+= -- 813
+> -- 409
+< -- 9
++ -- 141
+- -- 139
+* -- 764
+:= -- 1456
+add.period$ -- 59
+call.type$ -- 19
+change.case$ -- 163
+chr.to.int$ -- 19
+cite$ -- 22
+duplicate$ -- 289
+empty$ -- 546
+format.name$ -- 170
+if$ -- 1613
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 13
-newline$ -- 73
-num.names$ -- 44
-pop$ -- 106
+missing$ -- 18
+newline$ -- 97
+num.names$ -- 59
+pop$ -- 137
 preamble$ -- 1
-purify$ -- 123
+purify$ -- 162
 quote$ -- 0
-skip$ -- 166
+skip$ -- 219
 stack$ -- 0
-substring$ -- 440
-swap$ -- 33
+substring$ -- 566
+swap$ -- 37
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 84
-warning$ -- 2
-while$ -- 51
+type$ -- 114
+warning$ -- 3
+while$ -- 67
 width$ -- 0
-write$ -- 187
+write$ -- 249
 (There was 1 error message)
