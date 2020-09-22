@@ -766,7 +766,46 @@ By relying on DCTO rather than on performing KOH using samples gathered using he
 %
 \section{Application: dynamic vibration system}
 %
+The dynamic vibration system (DVS) to which we apply DCTO is represented in Figure \ref{fig:dvs}.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_dvs_illustration}
+	\captionsetup{width=.85\linewidth}
+	\caption{The dynamic vibration system. (1) The frame, (2) the beam, (3) the mass oscillator, (4) the spring, (5) the damper, and (6) the gain.}
+	\label{fig:dvs}
+\end{figure}
+%
+In the DVS, an impulse force is applied to the frame of the system, causing the frame and the mass oscillator to accelerate.
+%
+From the resulting acceleration over time of the mass oscillator, we can calculate the damping ratio $\zeta$ of the system as
+\[
+\delta = \frac1n \log\frac{x(t)}{x(t+nT)},\quad \zeta = \frac1{\sqrt{1+\left(\frac{2\pi}{\delta}\right)^2}}
+\]
+%
+where $n$ is the total number of time steps TODO MEANING WHAT?, $t$ is the time in seconds and $T$ is TODO WHAT?.
+%
+We use a finite element (FE) model of the system in conjunction with a set of 12 experimental observations in order to calibrate the elastic modulus of the spring.
+%
+Due to the high computational cost of the FE model (roughly TODO HOW MANY seconds per model evaluation), we rely on a set of 98 runs for the calibration.
+%
+In addition to the calibration, we undertake simultaneous design using these model runs and experimental observations in order to minimize the damping ratio of the system by tuning the value of the gain.
+%
 
+%
+Thus in our application, the inputs of the FE system are the mass $m$ of the oscillator (in kilograms), the elastic modulus $k$ of the spring (in Newtons per meter), and the gain $g$ (in Newtons per meter per second).
+%
+The relevant output of the system is the damping ratio (in TODO WHAT UNIT?).
+%
+The FE system is implemented in TODO HOW?.
+%
+The experimental design for the simulator runs is a latin hypercube over a range of the inputs that covers those of the available experimental data for the known inputs $m$ and $g$, and that covers a plausible range of values for the calibration input $k$.
+%
+The experimental data comes from TODO WHAT SOURCE?
+%
+The experimental design is TODO WHAT?
+%
+The expected elastic modulus for the system is 6.2e+10, TODO WHY?.
 %
 
 %
