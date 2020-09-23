@@ -809,6 +809,20 @@ The expected elastic modulus for the system is 6.2e+10, TODO WHY?.
 %
 
 %
+Since our goal is to minimize the damping ratio, we set our target outcomes $y_t$ to be 0 across a range of oscillator masses.
+%
+Specifically, we set a grid of size 8 over the range of oscillator masses present in the simulation and experimental data, with target outcome 0 for each point in that grid.
+%
+We define our prior GP surrogate for the FE model using a mean function found via degree-2 polynomial regression on the available FE runs.
+%
+For the hyperparameters of the surrogate's covariance function, we estimate them as MLEs using the quasi-Newton BFGS method \citep{Fletcher2013}.
+%
+We perform TODO HOW MANY? MCMC using this surrogate and set of target observations, of which the first TODO HOW MANY? are discarded as burn-in.
+%
+The convergence of the resulting MCMC chains is assessed both visually and using the Gelman-Rubin statistic ($\approx1.001$; \citeauthor{Gelman1992a}, \citeyear{Gelman1992a}).
+%
+
+%
 \section{Conclusion}\label{sec:conclusion}
 %
 DCTO provides a method for generalizing the KOH framework for model calibration to include design.

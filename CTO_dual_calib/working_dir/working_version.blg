@@ -11,6 +11,7 @@ Repeated entry---line 1727 of file lit_review.bib
  : @article{Deb2002
  :                 ,
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "Gelfand1992"
 Warning--missing author in Branke2008
 Warning--no number and no volume in Atamturktur2015
 Warning--page numbers missing in Atamturktur2015
@@ -25,45 +26,45 @@ Warning--page numbers missing in Brynjarsdottir2014
 Warning--page numbers missing in Chevalier2014
 Warning--empty institution in Jones1998
 Warning--empty institution in MiguelHernandez-Lobato2016
-You've used 36 entries,
+You've used 38 entries,
             2861 wiz_defined-function locations,
-            875 strings with 12504 characters,
-and the built_in function-call counts, 28560 in all, are:
-= -- 2268
-> -- 2555
+            891 strings with 12771 characters,
+and the built_in function-call counts, 29770 in all, are:
+= -- 2368
+> -- 2633
 < -- 4
-+ -- 792
-- -- 846
-* -- 2871
-:= -- 5225
-add.period$ -- 107
-call.type$ -- 36
-change.case$ -- 301
-chr.to.int$ -- 36
-cite$ -- 50
-duplicate$ -- 656
-empty$ -- 1498
-format.name$ -- 986
-if$ -- 5275
++ -- 814
+- -- 876
+* -- 2968
+:= -- 5454
+add.period$ -- 113
+call.type$ -- 38
+change.case$ -- 313
+chr.to.int$ -- 38
+cite$ -- 52
+duplicate$ -- 692
+empty$ -- 1578
+format.name$ -- 1020
+if$ -- 5492
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 36
-newline$ -- 180
-num.names$ -- 361
-pop$ -- 229
+missing$ -- 39
+newline$ -- 190
+num.names$ -- 381
+pop$ -- 240
 preamble$ -- 1
-purify$ -- 519
+purify$ -- 544
 quote$ -- 0
-skip$ -- 704
+skip$ -- 744
 stack$ -- 0
-substring$ -- 1317
-swap$ -- 216
+substring$ -- 1382
+swap$ -- 227
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 680
+type$ -- 710
 warning$ -- 14
-while$ -- 321
+while$ -- 343
 width$ -- 0
-write$ -- 471
+write$ -- 497
 (There were 2 error messages)
