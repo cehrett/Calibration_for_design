@@ -26,45 +26,46 @@ Warning--page numbers missing in Brynjarsdottir2014
 Warning--page numbers missing in Chevalier2014
 Warning--empty institution in Jones1998
 Warning--empty institution in MiguelHernandez-Lobato2016
-You've used 38 entries,
+Warning--page numbers missing in Abaqus2012
+You've used 39 entries,
             2861 wiz_defined-function locations,
-            891 strings with 12771 characters,
-and the built_in function-call counts, 29770 in all, are:
-= -- 2368
-> -- 2633
+            897 strings with 12873 characters,
+and the built_in function-call counts, 30261 in all, are:
+= -- 2409
+> -- 2659
 < -- 4
-+ -- 814
-- -- 876
-* -- 2968
-:= -- 5454
-add.period$ -- 113
-call.type$ -- 38
-change.case$ -- 313
-chr.to.int$ -- 38
-cite$ -- 52
-duplicate$ -- 692
-empty$ -- 1578
-format.name$ -- 1020
-if$ -- 5492
++ -- 820
+- -- 886
+* -- 3003
+:= -- 5551
+add.period$ -- 116
+call.type$ -- 39
+change.case$ -- 319
+chr.to.int$ -- 39
+cite$ -- 54
+duplicate$ -- 708
+empty$ -- 1612
+format.name$ -- 1030
+if$ -- 5578
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 39
-newline$ -- 190
-num.names$ -- 381
-pop$ -- 240
+missing$ -- 40
+newline$ -- 195
+num.names$ -- 391
+pop$ -- 243
 preamble$ -- 1
-purify$ -- 544
+purify$ -- 556
 quote$ -- 0
-skip$ -- 744
+skip$ -- 761
 stack$ -- 0
-substring$ -- 1382
-swap$ -- 227
+substring$ -- 1402
+swap$ -- 232
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 710
-warning$ -- 14
-while$ -- 343
+type$ -- 730
+warning$ -- 15
+while$ -- 353
 width$ -- 0
-write$ -- 497
+write$ -- 510
 (There were 2 error messages)

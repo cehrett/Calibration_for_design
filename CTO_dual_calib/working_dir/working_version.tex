@@ -783,9 +783,11 @@ From the resulting acceleration over time of the mass oscillator, we can calcula
 \delta = \frac1n \log\frac{x(t)}{x(t+nT)},\quad \zeta = \frac1{\sqrt{1+\left(\frac{2\pi}{\delta}\right)^2}}
 \]
 %
-where $n$ is the total number of time steps TODO MEANING WHAT?, $t$ is the time in seconds and $T$ is TODO WHAT?.
+where $t$ is the time in seconds of the first peak value of mass acceleration, $T$ is the time period of one oscillation, and $n$ is the total number of time steps -- i.e. the number of periods of the oscillation -- used in the calculation.
 %
 We use a finite element (FE) model of the system in conjunction with a set of 12 experimental observations in order to calibrate the elastic modulus of the spring.
+%
+For the simulation data, $n=1$, whereas for the experimental data we use $n=4$ in order to account for measurement error TODO VERIFY THIS EXPLANATION.
 %
 Due to the high computational cost of the FE model (roughly TODO HOW MANY seconds per model evaluation), we rely on a set of 98 runs for the calibration.
 %
@@ -795,17 +797,15 @@ In addition to the calibration, we undertake simultaneous design using these mod
 %
 Thus in our application, the inputs of the FE system are the mass $m$ of the oscillator (in kilograms), the elastic modulus $k$ of the spring (in Newtons per meter), and the gain $g$ (in Newtons per meter per second).
 %
-The relevant output of the system is the damping ratio (in TODO WHAT UNIT?).
+The relevant output of the system is the damping ratio.
 %
-The FE system is implemented in TODO HOW?.
+The simulator is implemented in the commercial finite element software ABAQUS \citep{Abaqus2012} TODO VERIFY CORRECT VERSION.
 %
 The experimental design for the simulator runs is a latin hypercube over a range of the inputs that covers those of the available experimental data for the known inputs $m$ and $g$, and that covers a plausible range of values for the calibration input $k$.
 %
-The experimental data comes from TODO WHAT SOURCE?
+The experimental design is a full factorial design over three different mass levels (0.7853, 0.9653, and 1.1493kg) and four different gain levels (0, 8, 41, and 95 Ns/m).
 %
-The experimental design is TODO WHAT?
-%
-The expected elastic modulus for the system is 6.2e+10, TODO WHY?.
+The expected elastic modulus for the system is 6.2e+10, as estimated by the leaf spring manufacturer.
 %
 
 %
@@ -817,17 +817,19 @@ We define our prior GP surrogate for the FE model using a mean function found vi
 %
 For the hyperparameters of the surrogate's covariance function, we estimate them as MLEs using the quasi-Newton BFGS method \citep{Fletcher2013}.
 %
-We perform TODO HOW MANY? MCMC using this surrogate and set of target observations, of which the first TODO HOW MANY? are discarded as burn-in.
+We perform 10,000 iterations of MCMC using this surrogate and set of target observations, of which the first half are discarded as burn-in.
 %
-The convergence of the resulting MCMC chains is assessed both visually and using the Gelman-Rubin statistic ($\approx1.001$; \citeauthor{Gelman1992a}, \citeyear{Gelman1992a}).
+The convergence of the resulting MCMC chains is assessed both visually and using the Gelman-Rubin statistic ($\approx1.01$ and $1.001$ for calibration and design respectively); \citeauthor{Gelman1992a}, \citeyear{Gelman1992a}).
 %
 
 %
-The total wall time required for the MCMC to complete DCTO in this case was TODO HOW LONG? (on a laptop with an Intel Core i7-9750H CPU and 16GB of RAM).
+The total wall time required for the MCMC to complete DCTO in this case was 94 seconds (on a laptop with an Intel Core i7-9750H CPU and 16GB of RAM).
 %
 The posterior distributions of the calibration and design inputs are are shown in Figure \ref{fig:dvs_calib_and_design}.
 %
-The posterior distribution of the elastic modulus for the system assigns high likelihood to the expected value of 6.2e10.
+In comparison with the uniform prior distributions of the inputs, strong Bayesian learning has occurred, particularly for the design input.
+%
+The posterior distribution of the elastic modulus for the system assigns high likelihood to the expected value of 6.2e10, with a posterior mean of 6.188e10.
 %
 We use the surrogate model to estimate also the posterior predictive distribution of the system after DCTO.
 %

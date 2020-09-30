@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  24 SEP 2020 08:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  30 SEP 2020 08:55
 entering extended mode
 **./working_version.tex
 (working_version.tex
@@ -738,13 +738,13 @@ ut line 828.
 
 
 LaTeX Warning: Reference `fig:dvs_output' on page 26 undefined on input line 83
-4.
+6.
 
-[26] (working_version.bbl [27] [28] [29] [30] [31])
+[26] [27] (working_version.bbl [28] [29] [30] [31] [32])
 
 Package natbib Warning: There were undefined citations.
 
-[32] (working_version.aux)
+[33] (working_version.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -753,10 +753,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4419 strings out of 480930
- 74281 string characters out of 2909550
- 302765 words of memory out of 3000000
- 20245 multiletter control sequences out of 15000+200000
+ 4422 strings out of 480930
+ 74335 string characters out of 2909550
+ 302799 words of memory out of 3000000
+ 20248 multiletter control sequences out of 15000+200000
  547699 words of font info for 81 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,14n,43p,559b,339s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -775,9 +775,9 @@ s/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8
 .pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
 /Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program 
 Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on working_version.pdf (32 pages, 2872213 bytes).
+Output written on working_version.pdf (33 pages, 2873893 bytes).
 PDF statistics:
- 597 PDF objects out of 1000 (max. 8388607)
+ 600 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  106 words of extra memory for PDF output out of 10000 (max. 10000000)
 

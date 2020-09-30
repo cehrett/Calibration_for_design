@@ -240,6 +240,11 @@ Robert, C.~P. and G.~Casella (2004).
 \newblock In {\em Monte Carlo Statistical Methods\/} (2 ed.)., Chapter~5, pp.\
   157--204. New York, NY: Springer New York.
 
+\bibitem[\protect\citeauthoryear{Simulia}{Simulia}{2012}]{Abaqus2012}
+Simulia, D.~S. (2012).
+\newblock Abaqus 6.12 documentation.
+\newblock {\em Providence, Rhode Island, US\/}~{\em 261}.
+
 \bibitem[\protect\citeauthoryear{Villemonteix, Vazquez, and
   Walter}{Villemonteix et~al.}{2009}]{Villemonteix2009}
 Villemonteix, J., E.~Vazquez, and E.~Walter (2009, aug).
