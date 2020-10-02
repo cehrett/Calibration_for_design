@@ -430,105 +430,12 @@ Such modularization ensures that all Bayesian learning of $\boldsymbol\theta_c$ 
 %
 \section{Example with simulated data}\label{sec:example}
 %
-Consider the function of three inputs $\eta(x,t_c,t_d) = x / (t_d^{t_c-1}\exp(-0.75t_d)+1)$. 
-%
-Figure \ref{fig:example_output} shows the output of this function for $x=1$ over the range $(t_c,t_d)\in[1.5,4.5]\times[0,5]$.
-%
-\begin{figure}
-\centering
-\includegraphics[scale=0.85]{FIG_obj_fn.eps}
-\captionsetup{width=.85\linewidth}
-\caption{Example computer model output over the support of the calibration parameter $t_c$ and the design parameter $t_d$.}
-\label{fig:example_output}
-\end{figure}
-%
-We arbitrarily set $\theta_c=2$ to be the ``true'' value of $t_c$.
-%
-For any value of $x$ and $t_c$, the optimal (minimizing) value of $t_d$ is $(4/3)(t_c-1)$, so we have $\theta_d=4/3.$
-%
-Figure \ref{fig:true_vals} shows the locations of the true and optimal values (respectively) of $\theta_c$ and $\theta_d$.
-%
-\begin{figure}
-\centering
-\includegraphics[scale=0.85]{FIG_true_optimal_theta1_theta2.eps}
- 	\captionsetup{width=.85\linewidth}
-\caption{The lefthand plot shows the computer model output at $x=1$ and optimal $\theta_d$ for each value of the calibration parameter $t_c$. The righthand plot show the model output at $x=1,t_c=\theta_c$ for each value of the design parameter $t_d$.}
-\label{fig:true_vals}
-\end{figure}
-%
-There it is clear that the true value of $\theta_c$ is far from optimal -- if this value were within our control, its optimal value would be at the upper end of its support, at 4.5.
-%
-Thus $\eta$ showcases the ability of DCTO to perform simultaneously both calibration and design in the case when our ``truth-seeking'' goals and our design goals are in tension.
-%
+Consider the 
 
 %
 \subsection{Results}
-% 
-We used DCTO on four versions of the problem.
-%
-First, we assumed that $\eta$ is free from discrepancy -- i.e. that $\eta(x,\theta_c,t_d)$ is an unbiased estimator of the ``true'' system $f(x,t_d)$.
-%
-The other three versions each assume that $\eta$ suffers from some form of discrepancy.
-%
-Let $f_1,f_2,f_3$ denote the ``true'' systems in these three cases.
-%
-We set 
-\begin{align*}
-f_1(x,t_d) &= \eta(x,\theta_c,t_d) \left(1-a(x-.5)(x-1)/x) \right) \\
-f_2(x,t_d)&= \eta(x,\theta_c,t_d) - a(x-.5)(x-1)\left(t_d-\frac43\right)^2 + b\\
-f_3(x,t_d)&=\eta(x,\theta_c,t_d) + axt_d+b
-\end{align*}
-%
-where $a,b$ are constants which determine how severe the discrepancy is in each case. 
-%
-The function $f_1$ has a multiplicative discrepancy dependent only on $x$ and $a$. 
-%
-This discrepancy does not affect the optimal value of $t_d$.  
-%
-The discrepancies of $f_2$ and $f_3$ are both additive.
-%
-They are designed so that $f_2$ does not affect the optimal value of $t_d$ (when $\theta_c=2$, which is the value we set for it), whereas $f_3$ does change the optimal value of $t_d$.
-%
-Thus under $f_1$ and $f_2$, it remains the case that the optimal value of $t_d$ is $\theta_d=4/3$. 
-%
-By contrast, under $f_3$ the optimal value of $t_d$ depends upon both the true value of $\theta_c$ and upon the value of $a$. 
-%
-For example, for $\theta_c=2$ and $a=0.055$, the optimal $t_d$ is $\theta_d\approx1$.
-%
-Figure \ref{fig:discrepancies} shows the discrepancies for two different versions (corresponding to different settings of $(a,b)$) of each $f_i$.
-%
-\begin{figure}
-\centering
-\includegraphics[scale=0.85]{FIG_six_discrepancies.eps}
-\captionsetup{width=.85\linewidth}
-\caption{The $i^{\text{th}}$ row shows $f_i$ (the objective function with discrepancy), $\eta$ (the computer model), and the discrepancy $f_i-\eta$, all at $x=0.75$. In each row, a less aggressive version of the discrepancy appears on the left, and a more aggressive on the right. In each plot, the topmost surface is $f_i$, the middle surface is $\eta$, and the bottom surface is the discrepancy $f_i-\eta$.}
-\label{fig:discrepancies}
-\end{figure}
-%
 
-%
-We applied DCTO to each of seven cases, without using an emulator: the non-discrepancy case, and the two different versions of each $f_i$ shown in Figure \ref{fig:discrepancies}.
-%
-In each case, we gathered 30 ``observations'' of $f_i$ on a latin hypercube design over the supports of $x$ and $\theta_d$, setting $\theta_c$ equal to its ``true'' value of 2.
-%
-After standardizing the response to have mean 0 and standard deviation 1, we added i.i.d.\ N(0,0.05) noise to the response.
-%
-An example of the resulting ``observations'', with noise, appears in Figure \ref{fig:observed_data}.
-%
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.85]{FIG_observed_data}
-	\captionsetup{width=.85\linewidth}
-	\caption{Noisy observations of the system, and the true system mean.}
-	\label{fig:observed_data}
-\end{figure}
-%
-We then carried out DCTO using Metropolis-Hastings-within-Gibbs MCMC, drawing 8000 realizations each (discarding the first 4000 as burn-in) of $t_c,t_d,\boldsymbol\rho_{\delta},\lambda_{\delta},\sigma^2_d$, where $\boldsymbol\phi_\delta = (\boldsymbol\rho_\delta^T,\lambda_\delta)^T$.
-%
-We modularized the analysis by drawing each of $\boldsymbol\theta_c,\boldsymbol\rho_\delta,\lambda_\delta$ using the likelihood based only on $(\mathbf y_s^T,\mathbf y_r^T)^T$ rather than on $(\mathbf y_s^T,\mathbf y_r^T,\mathbf y_t^T)^T$.
-%
-Convergence was verified visually and by the Gelman-Rubin statistic ($\approx 1.01$ \cite{Gelfand1992}).
-%
+
 
 %
 In order to evaluate the success of the calibration component of DCTO, we also carried out a two-step procedure of using traditional KOH calibration of $\theta_c$, followed by a second step using the KOH framework for design, obtaining a distribution of $\theta_d$. 
@@ -638,19 +545,6 @@ DCTO provides such a framework for combined calibration and design.
 Therefore we now consider under the lens of DCTO the case in which the design settings of the observations of the true system may be chosen adaptively.
 %
 
-% Honestly not sure what I'm on about here
-%%
-%An obvious approach when both calibration and design are undertaken and the calibration parameter is suspected to be functionally dependent on the design settings is to perform the design optimization first over some range of the calibration parameters known to contain their true values, and then the calibration.
-%%
-%In this way, one would gather observations in service of finding the optimal design settings, and then use these observations to learn the value of the calibration parameter in the associated optimal design region.
-%%
-%For this purpose, any optimization method could be used to select the design settings for the observations.
-%%
-%If a limited budget of observations is available and quantification of remaining uncertainty surrounding the true and optimal values (respectively) of the calibration parameter and design settings is desired, then RSMs are a good choice.
-%%
-%In such a situation, the KOH framework for design retains its advantage of interpretable and model-driven uncertainty quantification, and adds another advantage: namely, that DCTO constitutes a method for combining both the observations of the true system and the existing uncalibrated computer model to select new evaluation points.
-%%
-
 %
 The use of DCTO with adaptive sampling is potentially of greatest use when it is known or suspected that the calibration parameter is a function $\theta_c(t_d)$ of the design setting $t_d$, and particularly when interest focuses on learning the optimal design setting $\theta_d$ and the corresponding value $\theta_c(\theta_d)$ of the calibration parameter.
 %
@@ -689,10 +583,102 @@ The result of applying this algorithm is that observations are concentrated arou
 %
 
 %
-To demonstrate the use of DCTO with adaptive sampling in a case of functional dependence of the calibration parameter on design settings, we use the same objective function and discrepancy cases as described in Section \ref{sec:example}.
+To demonstrate the use of DCTO with adaptive sampling in a case of functional dependence of the calibration parameter on design settings, we use the function of three inputs $\eta(x,t_c,t_d) = x / (t_d^{t_c-1}\exp(-0.75t_d)+1)$. 
 %
-This time, instead of setting $\theta_c = 2$, we set 
+Figure \ref{fig:example_output} shows the output of this function for $x=1$ over the range $(t_c,t_d)\in[1.5,4.5]\times[0,5]$.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_obj_fn.eps}
+	\captionsetup{width=.85\linewidth}
+	\caption{Example computer model output over the support of the calibration parameter $t_c$ and the design parameter $t_d$.}
+	\label{fig:example_output}
+\end{figure}
+%
+For any value of $x$ and $t_c$, the optimal (minimizing) value of $t_d$ is $(4/3)(t_c-1)$.
+%
+Suppose that the calibration parameter's ``true'' value is functionally dependent on the design input, with the relationship:
+%
 \[\theta_c(t_d)= 2.25 - .75 \frac{ \exp\left(40\left(\frac{t_d-1.5}{.75}-.5\right)\right)} {1 + \exp\left( 40\left(\frac{t_d-1.5}{.75}-.5\right) \right)}.\]
+%
+Figure \ref{fig:SA_relationship} shows this relationship.
+%
+Figure \ref{fig:true_vals} shows the locations of the true and optimal values (respectively) of $\theta_c$ and $\theta_d$.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_true_optimal_theta1_theta2.eps}
+	\captionsetup{width=.85\linewidth}
+	\caption{The lefthand plot shows the computer model output at $x=1$ and optimal $\theta_d$ for each value of the calibration parameter $t_c$. The righthand plot show the model output at $x=1,t_c=\theta_c$ for each value of the design parameter $t_d$.}
+	\label{fig:true_vals}
+\end{figure}
+%
+There it is clear that the true value of $\theta_c$ is far from optimal -- if this value were within our control, its optimal value would be at the upper end of its support, at 4.5.
+%
+Thus $\eta$ showcases the ability of DCTO to perform simultaneously both calibration and design in the case when our ``truth-seeking'' goals and our design goals are in tension.
+%
+
+% 
+We apply DCTO to four versions of the problem.
+%
+First, we assume that $\eta$ is free from discrepancy -- i.e. that $\eta(x,\theta_c,t_d)$ is an unbiased estimator of the ``true'' system $f(x,t_d)$.
+%
+The other three versions each assume that $\eta$ suffers from some form of discrepancy.
+%
+Let $f_1,f_2,f_3$ denote the ``true'' systems in these three cases.
+%
+We set 
+\begin{align*}
+	f_1(x,t_d) &= \eta(x,\theta_c,t_d) \left(1-a(x-.5)(x-1)/x) \right) \\
+	f_2(x,t_d)&= \eta(x,\theta_c,t_d) - a(x-.5)(x-1)\left(t_d-\frac43\right)^2 + b\\
+	f_3(x,t_d)&=\eta(x,\theta_c,t_d) + axt_d+b
+\end{align*}
+%
+where $a,b$ are constants which determine how severe the discrepancy is in each case. 
+%
+The function $f_1$ has a multiplicative discrepancy dependent only on $x$ and $a$. 
+%
+This discrepancy does not affect the optimal value of $t_d$.  
+%
+The discrepancies of $f_2$ and $f_3$ are both additive.
+%
+Figure \ref{fig:discrepancies} shows the discrepancies for two different versions (corresponding to different settings of $(a,b)$) of each $f_i$.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_six_discrepancies.eps}
+	\captionsetup{width=.85\linewidth}
+	\caption{The $i^{\text{th}}$ row shows $f_i$ (the objective function with discrepancy), $\eta$ (the computer model), and the discrepancy $f_i-\eta$, all at $x=0.75$. In each row, a less aggressive version of the discrepancy appears on the left, and a more aggressive on the right. In each plot, the topmost surface is $f_i$, the middle surface is $\eta$, and the bottom surface is the discrepancy $f_i-\eta$.}
+	\label{fig:discrepancies}
+\end{figure}
+%
+
+%
+We apply DCTO with and without adaptive sampling to each of seven cases, without using an emulator: the non-discrepancy case, and the two different versions of each $f_i$ shown in Figure \ref{fig:discrepancies}.
+%
+In each case, we gather 30 ``observations'' of $f_i$ on a latin hypercube design over the supports of $x$ and $t_d$, setting $\theta_c$ equal to its ``true'' value of $\theta_c(t_d)$.
+%
+After standardizing the response to have mean 0 and standard deviation 1, we add i.i.d.\ N(0,0.05) noise to the response.
+%
+An example of the resulting ``observations'' from non-adaptive DCTO, with noise, appears in Figure \ref{fig:observed_data}.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_observed_data}
+	\captionsetup{width=.85\linewidth}
+	\caption{Noisy observations of the system, and the true system mean.}
+	\label{fig:observed_data}
+\end{figure}
+%
+We carry out DCTO using Metropolis-Hastings-within-Gibbs MCMC, drawing 8000 realizations each (discarding the first 4000 as burn-in) of $t_c,t_d,\boldsymbol\rho_{\delta},\lambda_{\delta},\sigma^2_d$, where $\boldsymbol\phi_\delta = (\boldsymbol\rho_\delta^T,\lambda_\delta)^T$.
+%
+For the adaptive sampling application of DCTO, we begin the MCMC with only TODO HOW MANY observations of $f_i$, making a new observation after every TODO HOW MANY steps of MCMC until we reached the total budget of 30.
+%
+In both versions of DCTO, we modularize the analysis by drawing each of $\boldsymbol\theta_c,\boldsymbol\rho_\delta,\lambda_\delta$ using the likelihood based only on $(\mathbf y_s^T,\mathbf y_r^T)^T$ rather than on $(\mathbf y_s^T,\mathbf y_r^T,\mathbf y_t^T)^T$.
+%
+Convergence was verified visually and by the Gelman-Rubin statistic ($\approx 1.01$ \cite{Gelfand1992}).
+%
+
 %
 The resulting optimal design settings and calibration parameter value at the optimum vary in the discrepancy cases, though $\theta_c(\theta_d)$ is near 2.16 in each case.
 %
