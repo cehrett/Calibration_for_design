@@ -38,7 +38,7 @@
   \title{\bf A unified framework for computer model calibration and engineering design}
   \author{Carl Ehrett\thanks{
   		The authors gratefully acknowledge grant CMMI-1934438 from the National Science Foundation (NSF). CE was supported by fellowships through Department of Education GAANN grant P200A150310 and NSF NRT grant 1633608. DAB is also supported by NSF grants EEC-1744497 and OIA-1826715.}\hspace{.2cm}\\
-    School of Mathematical and Statistical Sciences, Clemson University,\\
+    Watt Family Innovation Center, Clemson University,\\
     D. Andrew Brown \\
     School of Mathematical and Statistical Sciences, Clemson University,\\
     Christopher Kitchens \\
@@ -64,17 +64,19 @@
   \medskip
 } \fi
 
-\bigskip
+%\bigskip
 \begin{abstract}
-The calibration of computer models and the use of those computer models for design are two activities that are traditionally carried out separately.
+Calibration of computer models and the use of those models for design are two activities that are traditionally carried out separately.
 %
-This paper generalizes existing Bayesian inverse analysis approaches for computer model calibration to present a methodology that combines calibration and design under a unified Bayesian framework.
+This paper generalizes existing Bayesian inverse analysis approaches for computer model calibration to present a methodology combining calibration and design under a unified Bayesian framework.
 %
-This unified framework provides a computationally efficient means for undertaking both tasks in a way that quantifies all relevant sources of uncertainty.
+This provides a computationally efficient means to undertake both tasks in a way that quantifies all relevant sources of uncertainty.
 %
-Specifically, compared with the traditional approach of undertaking design using parameter estimates made during previously completed model calibration, this generalized framework inherently includes uncertainty from the calibration process in the design procedure.
+Specifically, compared with the traditional approach of design using parameter estimates made during previously completed model calibration, this generalized framework inherently includes uncertainty from the calibration process in the design procedure.
 %
-In addition, we demonstrate how, when adaptive sampling of the phenomenon of interest is possible, the proposed framework is able to select new sampling locations using both the observations made so far of the real phenomenon and the information contained in the computer model.
+We demonstrate our approach for simultaneous calibration and design in a dynamic vibration system.
+%
+We also demonstrate how, when adaptive sampling of the phenomenon of interest is possible, the proposed framework may select new sampling locations using both the available real observations and the computer model.
 %
 This is especially useful when the model is misspecified in failing to reflect that the parameter to be calibrated is functionally dependent upon the design inputs that are to be optimized.
 %
