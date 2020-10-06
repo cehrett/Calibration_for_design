@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  6 OCT 2020 08:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  6 OCT 2020 08:54
 entering extended mode
 **./working_version.tex
 (working_version.tex
@@ -727,25 +727,17 @@ File: FIG_dvs_illustration.png Graphic file (type png)
 Package pdftex.def Info: FIG_dvs_illustration.png  used on input line 772.
 (pdftex.def)             Requested size: 178.317pt x 156.13402pt.
  [24] [25 <./FIG_dvs_illustration.png>]
-
-LaTeX Warning: Reference `fig:dvs_calib_and_design' on page 26 undefined on inp
-ut line 827.
-
 Package epstopdf Info: Source file: <FIG_DVS_DCTO_input_posteriors.eps>
 (epstopdf)                    date: 2020-10-06 08:44:49
 (epstopdf)                    size: 202576 bytes
 (epstopdf)             Output file: <FIG_DVS_DCTO_input_posteriors-eps-converte
 d-to.pdf>
+(epstopdf)                    date: 2020-10-06 08:48:00
+(epstopdf)                    size: 137144 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_DVS_DCTO_input_posterio
 rs-eps-converted-to.pdf FIG_DVS_DCTO_input_posteriors.eps>
 (epstopdf)             \includegraphics on input line 831.
-runsystem(epstopdf --outfile=FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf
- FIG_DVS_DCTO_input_posteriors.eps)...executed (allowed).
-
-Package epstopdf Info: Result file: <FIG_DVS_DCTO_input_posteriors-eps-converte
-d-to.pdf>
-(epstopdf)                    date: 2020-10-06 08:48:00
-(epstopdf)                    size: 137144 bytes.
+Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_DVS_DCTO_input_posteriors-eps-converte
@@ -763,8 +755,43 @@ ed on input line 831.
 LaTeX Warning: Reference `fig:dvs_output' on page 26 undefined on input line 84
 3.
 
-[26] [27 <./FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf>]
-(working_version.bbl [28] [29] [30] [31] [32]) [33] (working_version.aux)
+Package epstopdf Info: Source file: <FIG_DVS_DCTO_prior_and_posterior_output.ep
+s>
+(epstopdf)                    date: 2020-10-06 08:51:54
+(epstopdf)                    size: 203770 bytes
+(epstopdf)             Output file: <FIG_DVS_DCTO_prior_and_posterior_output-ep
+s-converted-to.pdf>
+(epstopdf)             Command: <epstopdf --outfile=FIG_DVS_DCTO_prior_and_post
+erior_output-eps-converted-to.pdf FIG_DVS_DCTO_prior_and_posterior_output.eps>
+(epstopdf)             \includegraphics on input line 847.
+runsystem(epstopdf --outfile=FIG_DVS_DCTO_prior_and_posterior_output-eps-conver
+ted-to.pdf FIG_DVS_DCTO_prior_and_posterior_output.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_DVS_DCTO_prior_and_posterior_output-ep
+s-converted-to.pdf>
+(epstopdf)                    date: 2020-10-06 08:54:36
+(epstopdf)                    size: 163948 bytes.
+
+
+pdfTeX warning: pdflatex.exe (file ./FIG_DVS_DCTO_prior_and_posterior_output-ep
+s-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most versio
+n <1.5> allowed
+<FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf, id=525, 603.2537
+5pt x 162.6075pt>
+File: FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf Graphic file
+ (type pdf)
+<use FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf>
+Package pdftex.def Info: FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-
+to.pdf  used on input line 847.
+(pdftex.def)             Requested size: 512.76811pt x 138.21703pt.
+
+Overfull \hbox (50.49812pt too wide) in paragraph at lines 847--849
+ [][] 
+ []
+
+[26] [27 <./FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf>] [28 <./FIG_DVS
+_DCTO_prior_and_posterior_output-eps-converted-to.pdf>] (working_version.bbl
+[29] [30] [31] [32] [33]) [34] (working_version.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -773,10 +800,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4443 strings out of 480930
- 75109 string characters out of 2909550
- 302808 words of memory out of 3000000
- 20269 multiletter control sequences out of 15000+200000
+ 4462 strings out of 480930
+ 76043 string characters out of 2909550
+ 302817 words of memory out of 3000000
+ 20288 multiletter control sequences out of 15000+200000
  547699 words of font info for 81 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,14n,43p,559b,339s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -796,9 +823,9 @@ s/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKT
 eX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on working_version.pdf (33 pages, 3020307 bytes).
+Output written on working_version.pdf (34 pages, 3183217 bytes).
 PDF statistics:
- 616 PDF objects out of 1000 (max. 8388607)
+ 631 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 111 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 116 words of extra memory for PDF output out of 10000 (max. 10000000)
 
