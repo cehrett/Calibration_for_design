@@ -205,15 +205,17 @@ The rest of the paper is organized as follows.
 %
 Section \ref{sec:dcto} describes the difficulties involved in extending KOH into a framework that incorporates both design and calibration, illustrating this by considering the failings of a na\"ive method for combining the two procedures, followed by a description of the proposed DCTO framework for extending KOH.
 %
-Section \ref{sec:example} showcases the methodology using a synthetic example, demonstrating its thorough quantification of the relevant uncertainties.
+%Section \ref{sec:example} showcases the methodology using a synthetic example, demonstrating its thorough quantification of the relevant uncertainties.
 %
 Section \ref{sec:as} considers how DCTO may be useful in the case where sequential sampling is possible.
 %
 In particular, sequential sampling with DCTO is attractive when the calibration parameter is known or suspected to be functionally dependent upon the design settings.
 %
-Section \ref{sec:conclusion} concludes with discussion of the results and thoughts about future directions.
+We showcase the application of DCTO with sequential sampling using a synthetic example, comparing its results to that of a more traditional approach of design following calibration.
 %
-\footnote{
+In Section \ref{sec:dvs} we apply DCTO to a dynamic vibration system, using a set of experimental observations simultaneously to calibrate a finite element model and to select optimal gain settings to minimize the system's damping ratio, and demonstrating DCTO's thorough quantification of the relevant uncertainties.
+%
+Section \ref{sec:conclusion} concludes with discussion of the results and thoughts about future directions.\footnote{
 %
 Note that KOH is usually conceived of as a means of calibrating a computer model with respect to a set of experimental observations.
 %
@@ -226,6 +228,7 @@ For ease of exposition, we follow the common convention, and present DCTO in ter
 Nonetheless, in some cases (such as in our discussion of sequential sampling in Section \ref{sec:as}), the methods discussed may apply more naturally in the context of employing two computer models of varying fidelity.
 %
 }
+%
 
 %
 \section{Dual calibration to target outcomes}\label{sec:dcto}
@@ -760,7 +763,7 @@ By relying on DCTO rather than on performing KOH using samples gathered using he
 %
 
 %
-\section{Application: Dynamic vibration system}
+\section{Application: Dynamic vibration system}\label{sec:dvs}
 %
 The dynamic vibration system (DVS) to which we apply DCTO is represented in Figure \ref{fig:dvs}.
 %
@@ -843,11 +846,11 @@ The result secures the benefits of KOH both for calibration and for design.
 %
 This includes the ability to quantify uncertainty remaining in the true value of the calibration parameter, the optimal settings for the design input, and the resulting model output.
 %
-DCTO achieves similar results to performing KOH calibration followed by design optimization, but provides a computationally efficient method of propagating the uncertainties remaining from KOH calibration through the design procedure.
+DCTO provides a computationally efficient method of propagating the uncertainties remaining from KOH calibration through the design procedure.
 %
-In the case when observations of the real system can be carried out sequentially at adaptively chosen locations, DCTO is robust to model misspecification where the calibration parameter is functionally dependent on the value of the design input, and the model fails to reflect this.
+In the case when observations of the real system can be carried out sequentially at adaptively chosen locations, DCTO is robust to model misspecification where the calibration parameter is functionally dependent on the value of the design input and the model fails to reflect this.
 %
-In such a case, if the functional form of  the dependence of $\boldsymbol\theta_c$ on $\boldsymbol\theta_d$ is of interest, then state-aware calibration should be used.
+In such a case, if the functional form of the dependence of $\boldsymbol\theta_c$ on $\boldsymbol\theta_d$ is of interest, then state-aware calibration should be used.
 %
 However, if one only wishes to estimate the calibration parameter at the optimal design settings, then DCTO provides a means of doing so.
 %
@@ -855,7 +858,6 @@ In this application, DCTO with adaptive sampling uses information from both the 
 %
 Future work on this subject will include pairing adaptive sampling DCTO with other methodologies for selecting new sampling locations, such as EGO and SUR.
 %
-
 
 \bigskip
 
