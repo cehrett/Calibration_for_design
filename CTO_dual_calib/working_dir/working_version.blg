@@ -11,7 +11,6 @@ Repeated entry---line 1727 of file lit_review.bib
  : @article{Deb2002
  :                 ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "Gelfand1992"
 Warning--missing author in Branke2008
 Warning--no number and no volume in Atamturktur2015
 Warning--page numbers missing in Atamturktur2015
@@ -29,7 +28,7 @@ Warning--empty institution in MiguelHernandez-Lobato2016
 Warning--page numbers missing in Abaqus2012
 You've used 39 entries,
             2861 wiz_defined-function locations,
-            897 strings with 12873 characters,
+            895 strings with 12851 characters,
 and the built_in function-call counts, 30261 in all, are:
 = -- 2409
 > -- 2659

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  7 OCT 2020 08:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  9 OCT 2020 11:34
 entering extended mode
 **./working_version.tex
 (working_version.tex
@@ -153,9 +153,6 @@ File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
 )
 (working_version.aux
 
-LaTeX Warning: Label `fig:true_vals' multiply defined.
-
-
 LaTeX Warning: Label `table:vars_and_rmses' multiply defined.
 
 )
@@ -296,10 +293,6 @@ Package pdftex.def Info: FIG_obj_fn-eps-converted-to.pdf  used on input line 60
 5.
 (pdftex.def)             Requested size: 256.81064pt x 256.81064pt.
 [18 <./FIG_obj_fn-eps-converted-to.pdf>]
-
-LaTeX Warning: Reference `fig:SA_relationship' on page 19 undefined on input li
-ne 617.
-
 Package epstopdf Info: Source file: <FIG_theta_1_dependence_on_t2.eps>
 (epstopdf)                    date: 2020-10-07 08:34:11
 (epstopdf)                    size: 189350 bytes
@@ -325,12 +318,12 @@ Package pdftex.def Info: FIG_theta_1_dependence_on_t2-eps-converted-to.pdf  use
 d on input line 621.
 (pdftex.def)             Requested size: 174.05106pt x 122.85956pt.
 Package epstopdf Info: Source file: <FIG_true_optimal_theta1_theta2.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 29840 bytes
+(epstopdf)                    date: 2020-10-09 08:54:20
+(epstopdf)                    size: 31299 bytes
 (epstopdf)             Output file: <FIG_true_optimal_theta1_theta2-eps-convert
 ed-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:42
-(epstopdf)                    size: 11341 bytes
+(epstopdf)                    date: 2020-10-09 11:28:59
+(epstopdf)                    size: 12383 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_true_optimal_theta1_the
 ta2-eps-converted-to.pdf FIG_true_optimal_theta1_theta2.eps>
 (epstopdf)             \includegraphics on input line 631.
@@ -355,18 +348,12 @@ Package epstopdf Info: Source file: <FIG_six_discrepancies.eps>
 (epstopdf)                    size: 2629932 bytes
 (epstopdf)             Output file: <FIG_six_discrepancies-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2020-05-30 11:05:44
-(epstopdf)                    size: 675398 bytes
+(epstopdf)                    date: 2020-10-07 08:49:22
+(epstopdf)                    size: 934095 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_six_discrepancies-eps-c
 onverted-to.pdf FIG_six_discrepancies.eps>
 (epstopdf)             \includegraphics on input line 670.
-runsystem(epstopdf --outfile=FIG_six_discrepancies-eps-converted-to.pdf FIG_six
-_discrepancies.eps)...executed (allowed).
-
-Package epstopdf Info: Result file: <FIG_six_discrepancies-eps-converted-to.pdf
->
-(epstopdf)                    date: 2020-10-07 08:49:22
-(epstopdf)                    size: 934095 bytes.
+Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_six_discrepancies-eps-converted-to.pdf
@@ -819,16 +806,13 @@ Overfull \hbox (50.49812pt too wide) in paragraph at lines 855--857
 _prior_and_posterior_output-eps-converted-to.pdf>] (working_version.bbl
 [29] [30] [31] [32] [33]) [34] (working_version.aux)
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
  4481 strings out of 480930
  76768 string characters out of 2909550
- 302827 words of memory out of 3000000
+ 302836 words of memory out of 3000000
  20307 multiletter control sequences out of 15000+200000
  547699 words of font info for 81 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -849,7 +833,7 @@ s/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKT
 eX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on working_version.pdf (34 pages, 3482674 bytes).
+Output written on working_version.pdf (34 pages, 3483487 bytes).
 PDF statistics:
  627 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
