@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  9 OCT 2020 11:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  10 OCT 2020 08:53
 entering extended mode
 **./working_version.tex
 (working_version.tex
@@ -386,16 +386,22 @@ line 688.
 (pdftex.def)             Requested size: 256.81064pt x 192.82127pt.
 [20] [21 <./FIG_six_discrepancies-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d0.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 62331 bytes
+(epstopdf)                    date: 2020-10-10 08:52:48
+(epstopdf)                    size: 56576 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta1-d0-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:46
-(epstopdf)                    size: 40696 bytes
+(epstopdf)                    date: 2020-10-10 08:51:33
+(epstopdf)                    size: 44544 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d0-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d0.eps>
 (epstopdf)             \includegraphics on input line 714.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta1-d0.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta1-d0-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:25
+(epstopdf)                    size: 44109 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta1-d0-eps-con
@@ -410,16 +416,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-to.pd
 f  used on input line 714.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d0.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 61826 bytes
+(epstopdf)                    date: 2020-10-10 08:52:49
+(epstopdf)                    size: 60878 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta2-d0-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:47
-(epstopdf)                    size: 38626 bytes
+(epstopdf)                    date: 2020-10-10 08:51:33
+(epstopdf)                    size: 47767 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d0-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d0.eps>
 (epstopdf)             \includegraphics on input line 715.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta2-d0-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta2-d0.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta2-d0-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:25
+(epstopdf)                    size: 46249 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta2-d0-eps-con
@@ -434,16 +446,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d0-eps-converted-to.pd
 f  used on input line 715.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d1.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 63986 bytes
+(epstopdf)                    date: 2020-10-10 08:52:49
+(epstopdf)                    size: 58212 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta1-d1-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:48
-(epstopdf)                    size: 41495 bytes
+(epstopdf)                    date: 2020-10-10 08:51:34
+(epstopdf)                    size: 46481 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d1-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d1.eps>
 (epstopdf)             \includegraphics on input line 717.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta1-d1-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta1-d1.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta1-d1-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:26
+(epstopdf)                    size: 45364 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta1-d1-eps-con
@@ -458,16 +476,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d1-eps-converted-to.pd
 f  used on input line 717.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d1.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 64051 bytes
+(epstopdf)                    date: 2020-10-10 08:52:50
+(epstopdf)                    size: 63524 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta2-d1-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:48
-(epstopdf)                    size: 40155 bytes
+(epstopdf)                    date: 2020-10-10 08:51:35
+(epstopdf)                    size: 49807 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d1-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d1.eps>
 (epstopdf)             \includegraphics on input line 718.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta2-d1-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta2-d1.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta2-d1-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:27
+(epstopdf)                    size: 48959 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta2-d1-eps-con
@@ -482,16 +506,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d1-eps-converted-to.pd
 f  used on input line 718.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d2.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 64109 bytes
+(epstopdf)                    date: 2020-10-10 08:52:51
+(epstopdf)                    size: 57657 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta1-d2-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:49
-(epstopdf)                    size: 41260 bytes
+(epstopdf)                    date: 2020-10-10 08:51:35
+(epstopdf)                    size: 46356 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d2-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d2.eps>
 (epstopdf)             \includegraphics on input line 720.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta1-d2-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta1-d2.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta1-d2-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:27
+(epstopdf)                    size: 45455 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta1-d2-eps-con
@@ -506,16 +536,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d2-eps-converted-to.pd
 f  used on input line 720.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d2.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 61604 bytes
+(epstopdf)                    date: 2020-10-10 08:52:51
+(epstopdf)                    size: 61353 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta2-d2-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:50
-(epstopdf)                    size: 38863 bytes
+(epstopdf)                    date: 2020-10-10 08:51:36
+(epstopdf)                    size: 47587 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d2-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d2.eps>
 (epstopdf)             \includegraphics on input line 721.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta2-d2-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta2-d2.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta2-d2-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:28
+(epstopdf)                    size: 46353 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta2-d2-eps-con
@@ -530,16 +566,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d2-eps-converted-to.pd
 f  used on input line 721.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d3.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 65366 bytes
+(epstopdf)                    date: 2020-10-10 08:52:52
+(epstopdf)                    size: 60272 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta1-d3-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:50
-(epstopdf)                    size: 42365 bytes
+(epstopdf)                    date: 2020-10-10 08:51:37
+(epstopdf)                    size: 47507 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d3-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d3.eps>
 (epstopdf)             \includegraphics on input line 723.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta1-d3-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta1-d3.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta1-d3-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:29
+(epstopdf)                    size: 46459 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta1-d3-eps-con
@@ -554,16 +596,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d3-eps-converted-to.pd
 f  used on input line 723.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d3.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 62249 bytes
+(epstopdf)                    date: 2020-10-10 08:52:52
+(epstopdf)                    size: 62620 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta2-d3-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:51
-(epstopdf)                    size: 39429 bytes
+(epstopdf)                    date: 2020-10-10 08:51:37
+(epstopdf)                    size: 48211 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d3-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d3.eps>
 (epstopdf)             \includegraphics on input line 724.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta2-d3-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta2-d3.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta2-d3-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:29
+(epstopdf)                    size: 47294 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta2-d3-eps-con
@@ -578,16 +626,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d3-eps-converted-to.pd
 f  used on input line 724.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d4.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 65626 bytes
+(epstopdf)                    date: 2020-10-10 08:52:53
+(epstopdf)                    size: 60452 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta1-d4-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:52
-(epstopdf)                    size: 41899 bytes
+(epstopdf)                    date: 2020-10-10 08:51:38
+(epstopdf)                    size: 47524 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d4-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d4.eps>
 (epstopdf)             \includegraphics on input line 726.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta1-d4-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta1-d4.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta1-d4-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:30
+(epstopdf)                    size: 48278 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta1-d4-eps-con
@@ -602,16 +656,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d4-eps-converted-to.pd
 f  used on input line 726.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d4.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 61780 bytes
+(epstopdf)                    date: 2020-10-10 08:52:53
+(epstopdf)                    size: 61173 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta2-d4-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:52
-(epstopdf)                    size: 38741 bytes
+(epstopdf)                    date: 2020-10-10 08:51:39
+(epstopdf)                    size: 46229 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d4-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d4.eps>
 (epstopdf)             \includegraphics on input line 727.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta2-d4-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta2-d4.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta2-d4-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:31
+(epstopdf)                    size: 45436 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta2-d4-eps-con
@@ -626,16 +686,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d4-eps-converted-to.pd
 f  used on input line 727.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d5.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 59431 bytes
+(epstopdf)                    date: 2020-10-10 08:52:54
+(epstopdf)                    size: 52900 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta1-d5-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:53
-(epstopdf)                    size: 38721 bytes
+(epstopdf)                    date: 2020-10-10 08:51:40
+(epstopdf)                    size: 41292 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d5-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d5.eps>
 (epstopdf)             \includegraphics on input line 729.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta1-d5-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta1-d5.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta1-d5-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:31
+(epstopdf)                    size: 40981 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta1-d5-eps-con
@@ -650,16 +716,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d5-eps-converted-to.pd
 f  used on input line 729.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d5.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 62574 bytes
+(epstopdf)                    date: 2020-10-10 08:52:55
+(epstopdf)                    size: 58059 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta2-d5-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:54
-(epstopdf)                    size: 38216 bytes
+(epstopdf)                    date: 2020-10-10 08:51:40
+(epstopdf)                    size: 44385 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d5-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d5.eps>
 (epstopdf)             \includegraphics on input line 730.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta2-d5-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta2-d5.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta2-d5-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:32
+(epstopdf)                    size: 43944 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta2-d5-eps-con
@@ -674,16 +746,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d5-eps-converted-to.pd
 f  used on input line 730.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d6.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 64264 bytes
+(epstopdf)                    date: 2020-10-10 08:52:55
+(epstopdf)                    size: 58157 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta1-d6-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:54
-(epstopdf)                    size: 41789 bytes
+(epstopdf)                    date: 2020-10-10 08:51:41
+(epstopdf)                    size: 46389 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d6-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d6.eps>
 (epstopdf)             \includegraphics on input line 732.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta1-d6-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta1-d6.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta1-d6-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:33
+(epstopdf)                    size: 46135 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta1-d6-eps-con
@@ -698,16 +776,22 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d6-eps-converted-to.pd
 f  used on input line 732.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d6.eps>
-(epstopdf)                    date: 2020-04-18 13:43:49
-(epstopdf)                    size: 64242 bytes
+(epstopdf)                    date: 2020-10-10 08:52:56
+(epstopdf)                    size: 60333 bytes
 (epstopdf)             Output file: <FIG_dual_calib_SDOE_comp_theta2-d6-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2020-05-30 11:05:55
-(epstopdf)                    size: 39354 bytes
+(epstopdf)                    date: 2020-10-10 08:51:42
+(epstopdf)                    size: 47060 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d6-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d6.eps>
 (epstopdf)             \includegraphics on input line 733.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_dual_calib_SDOE_comp_theta2-d6-eps-converted-t
+o.pdf FIG_dual_calib_SDOE_comp_theta2-d6.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_dual_calib_SDOE_comp_theta2-d6-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2020-10-10 08:53:33
+(epstopdf)                    size: 46281 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_dual_calib_SDOE_comp_theta2-d6-eps-con
@@ -742,7 +826,7 @@ s-converted-to.pdf> <./FIG_dual_calib_SDOE_comp_theta1-d5-eps-converted-to.pdf>
  <./FIG_dual_calib_SDOE_comp_theta2-d5-eps-converted-to.pdf> <./FIG_dual_calib_
 SDOE_comp_theta1-d6-eps-converted-to.pdf> <./FIG_dual_calib_SDOE_comp_theta2-d6
 -eps-converted-to.pdf>]
-<FIG_dvs_illustration.png, id=510, 209.78375pt x 183.68625pt>
+<FIG_dvs_illustration.png, id=370, 209.78375pt x 183.68625pt>
 File: FIG_dvs_illustration.png Graphic file (type png)
 <use FIG_dvs_illustration.png>
 Package pdftex.def Info: FIG_dvs_illustration.png  used on input line 780.
@@ -764,7 +848,7 @@ Package epstopdf Info: Output file is already uptodate.
 pdfTeX warning: pdflatex.exe (file ./FIG_DVS_DCTO_input_posteriors-eps-converte
 d-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
 lowed
-<FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf, id=523, 489.83pt x 188.705
+<FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf, id=383, 489.83pt x 188.705
 pt>
 File: FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf Graphic file (type pdf
 )
@@ -789,7 +873,7 @@ Package epstopdf Info: Output file is already uptodate.
 pdfTeX warning: pdflatex.exe (file ./FIG_DVS_DCTO_prior_and_posterior_output-ep
 s-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most versio
 n <1.5> allowed
-<FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf, id=524, 603.2537
+<FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf, id=384, 603.2537
 5pt x 162.6075pt>
 File: FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf Graphic file
  (type pdf)
@@ -833,9 +917,9 @@ s/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKT
 eX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on working_version.pdf (34 pages, 3483487 bytes).
+Output written on working_version.pdf (34 pages, 3561481 bytes).
 PDF statistics:
- 627 PDF objects out of 1000 (max. 8388607)
+ 487 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  121 words of extra memory for PDF output out of 10000 (max. 10000000)
 
