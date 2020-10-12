@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  10 OCT 2020 09:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  12 OCT 2020 09:08
 entering extended mode
 **./working_version.tex
 (working_version.tex
@@ -772,45 +772,39 @@ File: FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf Graphic file (type pdf
 Package pdftex.def Info: FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf  us
 ed on input line 839.
 (pdftex.def)             Requested size: 416.35745pt x 160.4pt.
+[27 <./FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <FIG_DVS_DCTO_prior_and_posterior_output.ep
 s>
-(epstopdf)                    date: 2020-10-10 09:46:24
-(epstopdf)                    size: 188787 bytes
+(epstopdf)                    date: 2020-10-12 09:07:32
+(epstopdf)                    size: 196172 bytes
 (epstopdf)             Output file: <FIG_DVS_DCTO_prior_and_posterior_output-ep
 s-converted-to.pdf>
-(epstopdf)                    date: 2020-10-06 08:54:36
-(epstopdf)                    size: 163948 bytes
+(epstopdf)                    date: 2020-10-12 09:07:59
+(epstopdf)                    size: 163585 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_DVS_DCTO_prior_and_post
 erior_output-eps-converted-to.pdf FIG_DVS_DCTO_prior_and_posterior_output.eps>
-(epstopdf)             \includegraphics on input line 855.
-runsystem(epstopdf --outfile=FIG_DVS_DCTO_prior_and_posterior_output-eps-conver
-ted-to.pdf FIG_DVS_DCTO_prior_and_posterior_output.eps)...executed (allowed).
-
-Package epstopdf Info: Result file: <FIG_DVS_DCTO_prior_and_posterior_output-ep
-s-converted-to.pdf>
-(epstopdf)                    date: 2020-10-10 09:46:41
-(epstopdf)                    size: 157546 bytes.
+(epstopdf)             \includegraphics on input line 865.
+Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_DVS_DCTO_prior_and_posterior_output-ep
 s-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most versio
 n <1.5> allowed
-<FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf, id=384, 603.2537
+<FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf, id=398, 603.2537
 5pt x 162.6075pt>
 File: FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf Graphic file
  (type pdf)
 <use FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-
-to.pdf  used on input line 855.
+to.pdf  used on input line 865.
 (pdftex.def)             Requested size: 512.76811pt x 138.21703pt.
 
-Overfull \hbox (50.49812pt too wide) in paragraph at lines 855--857
+Overfull \hbox (50.49812pt too wide) in paragraph at lines 865--867
  [][] 
  []
 
-[27 <./FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf>] [28 <./FIG_DVS_DCTO
-_prior_and_posterior_output-eps-converted-to.pdf>] (working_version.bbl
-[29] [30] [31] [32] [33]) [34] (working_version.aux)
+[28 <./FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf>]
+(working_version.bbl [29] [30] [31] [32] [33]) [34] (working_version.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -839,7 +833,7 @@ s/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKT
 eX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on working_version.pdf (34 pages, 3575756 bytes).
+Output written on working_version.pdf (34 pages, 3582479 bytes).
 PDF statistics:
  487 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

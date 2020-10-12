@@ -842,11 +842,21 @@ The posterior distributions of the calibration and design inputs are are shown i
 	\label{fig:dvs_calib_and_design}
 \end{figure}
 %
-In comparison with the uniform prior distributions of the inputs, strong Bayesian learning has occurred, particularly for the design input.
+Strong Bayesian learning has occurred, particularly for the design input.
 %
 The posterior distribution of the elastic modulus for the system assigns high likelihood to the expected value of 6.2e10, with a posterior mean of 6.188e10.
 %
-We use the surrogate model to estimate also the posterior predictive distribution of the system after DCTO.
+For comparison with our design results, we also apply the NSGA-II algorithm \citep{Deb2002}, a gradient-free genetic algorithm, to the trained GP model surrogate.
+%
+We use 100 generations and a population size 50, taking a total of 48 seconds of computation (wall time).
+%
+Whereas our method performs both calibration and design, NSGA-II cannot be used for calibration, and so we apply it to a model calibrated with a point estimate (the posterior mean) of elastic modulus from our method's results.
+%
+The results of NSGA-II agree with our own, in finding the optimal gain setting to be 0.
+%
+
+%
+We also use the surrogate model to estimate also the posterior predictive distribution of the system after DCTO.
 %
 Figure \ref{fig:dvs_output} shows the resulting posterior distributions of model output at various levels of oscillator mass, along with the distributions of both experimental and simulator system output.
 %
@@ -857,6 +867,8 @@ Figure \ref{fig:dvs_output} shows the resulting posterior distributions of model
 	\caption{The posterior distributions of the model output at three different levels of the operational domain, along with their prior distributions. The posteriors constitute a notable performance increase over the priors.}
 	\label{fig:dvs_output}
 \end{figure}
+%
+For comparison, the figure also includes the output of the surrogate model using the posterior mean of elastic modulus along with the NSGA-II estimate of optimal gain.
 %
 Note that the predicted model outputs fall at the bottom of the ranges of observed model outputs across the domain of oscillator masses, implying a successful design outcome for the system has been achieved.
 %
