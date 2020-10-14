@@ -244,8 +244,8 @@ figstr1 = ['FIG_dual_calib_SDOE_comp_theta1-d',int2str(discrep)];
 figstr2 = ['FIG_dual_calib_SDOE_comp_theta2-d',int2str(discrep)];
 set(f1,'PaperPositionMode','auto')
 set(f2,'PaperPositionMode','auto')
-print(f1,figstr1,'-depsc','-r600')
-print(f2,figstr2,'-depsc','-r600')
+% print(f1,figstr1,'-depsc','-r600')
+% print(f2,figstr2,'-depsc','-r600')
 end % end of for loop used to run this section for multiple discreps
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -329,4 +329,242 @@ set(fig,'color','w');
 
 figstr = 'FIG_observed_data';
 set(fig,'PaperPositionMode','auto')
-print(fig,figstr,'-depsc','-r600')
+% print(fig,figstr,'-depsc','-r600')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Version 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% See objective function output as f'n of tc, td when tc depends on td
+clc ; clearvars -except dpath ; close all ;
+
+% Define inputs mins and ranges 
+xmin = .5;
+xrange = .5;
+t1min = 1.5;
+t1range = 3;
+t2min = 0;
+t2range = 5;
+
+% Set discrepancy
+discrep = 0;
+
+% Set base theta1
+low_theta1 = 1.5
+high_theta1 = 2.25
+
+% The function
+t1_fn = @(x) high_theta1 - ...
+    (high_theta1-low_theta1) * ...
+    exp(40*((x-t2min)/t2range)-20)./...
+    (1+exp(40*((x-t2min)/t2range)-20));
+
+% Let's take a look at the objective function values for set x, using true
+% t1 function as well as just base theta1
+x = 1;
+t2 = linspace(t2min,t2min+t2range,100)';
+t1 = t1_fn(t2);
+all_t1 = linspace(t1min,t2min+t2range,100)';
+% Get optimal theta2 for each t1
+fmfn_t = @(z,t) dual_calib_example_fn(x,xmin,xrange,...
+    t,t2min,t1range,...
+    z,t2min,t2range,...
+    0,1,...
+    0,...
+    false);
+theta2 = nan(size(all_t1));
+for ii = 1:length(all_t1)
+    fmfn = @(z) fmfn_t(z,all_t1(ii));
+    theta2(ii) = fmincon(fmfn,2,[],[],[],[],t2min,t2range);
+end
+y_all = dual_calib_example_fn(x,xmin,xrange,all_t1,t1min,t1range,...
+    theta2,t2min,t2range,0,1,discrep,false);
+
+y = dual_calib_example_fn(x,xmin,xrange,t1,t1min,t1range,...
+    t2,t2min,t2range,0,1,discrep,false);
+
+f = figure('pos',[20 20 650 250]);
+[m,i] = min(y) ; 
+t2opt = t2(i)
+t1opt = t1(i)
+
+subplot(1,2,1);
+plot(all_t1,y_all,'-','LineWidth',2);
+xlabel('t_c');
+ylabel('f(1, t_c, \theta_d(t_c))');
+xline(t1opt,'r','LineWidth',2);
+xlim([min(all_t1),max(all_t1)]);
+label = 'True \theta_c value at t_d = \theta_d ';
+text(t1opt+.1,0.075,label,'Interpreter','tex');
+
+subplot(1,2,2);
+plot(t2,y,'LineWidth',2);
+xlabel('t_d');
+ylabel('f(1, \theta_c(t_d), t_d)');
+hold on;
+% plot(t2,y_wrong);
+% plot(t2,y_wrong2);
+xline(t2opt,'r','LineWidth',2);
+label = sprintf('Optimal\n\\theta_d value');
+text(t2opt+.1,.9,label);
+
+% Save it
+set(f,'Color','w');
+savestr = 'FIG_true_optimal_theta1_theta2';
+set(f,'PaperPositionMode','auto')
+% print(f,savestr,'-depsc','-r600')
+
+%% Compare SDOE and PDOE posteriors for theta1,theta2 (with prior), B&W ver
+clc ; clearvars -except dpath ; close all ;
+
+% Load results
+obs_initial_size = 0 ; obs_final_size = 20;
+locstr = [dpath,'dual_calib\dual_calib_stored_data\'...
+    '2019-10-31_SDOE_results_desvarest_nobs' ...
+    int2str(obs_initial_size) '-'...
+    int2str(obs_final_size)];
+load(locstr,'results');
+
+close all;
+% Figure height and width
+fh = 120;
+fw = 300;
+
+% Select discrepancy and specific calib run
+discrep = 0;
+for discrep = 0:6
+run = 10;
+
+% Define inputs mins and ranges 
+xmin = .5  ;
+xrange = .5;
+t1min = 1.5;
+t1range = 3;
+t2min = 0  ;
+t2range = 5;
+
+
+% Get SDOE and PDOE results
+burn_in = results{1}.settings{1}.burn_in;
+sdoe_t1 = results{discrep+1,1}.theta1(burn_in:end,run);
+sdoe_t2 = results{discrep+1,1}.theta2(burn_in:end,run);
+pdoe_t1 = results{discrep+1,2}.theta1(burn_in:end,run);
+pdoe_t2 = results{discrep+1,2}.theta2(burn_in:end,run);
+
+
+% Help function
+fillunder = @(x,y,color,falpha) ...
+    fill([x(1) x x(end) fliplr(x) 0],...
+        [0 y 0 0*y 0],color,'EdgeColor','none','FaceAlpha',falpha);
+    
+% First, get prior and posterior theta1
+f1 = figure('pos',[10 10 fw fh]);
+% Plot prior
+falpha=0.1; % face alpha for posteriors
+fillunder([t1min t1min+t1range],[1/t1range 1/t1range],'g',1);
+xlim([t1min t1min + t1range]);
+hold on;
+% Get kernel estimate of theta1 with true value marked
+[ps1,xs1,bws1] = ksdensity(sdoe_t1);
+[pp1,xp1,bwp1] = ksdensity(pdoe_t1);
+plot(xp1,pp1,'color','r','LineStyle',':','linewidth',2);
+plot(xs1,ps1,'color','b','linewidth',2);
+% Plot true theta1
+theta1 = results{discrep+1,1}.true_theta1;
+plot([theta1 theta1],get(gca,'YLim'),'--','Color','k',...
+    'LineWidth',1.5);
+fillunder(xp1,pp1,'r',falpha);
+fillunder(xs1,ps1,'b',falpha);
+% Put a legend on it
+lg1 = legend('Prior dist.','SFD','AS','True value');
+% title('Prior and posterior distributions of \theta_1');
+xlabel('\theta_c');
+yticks([]);
+set(f1,'color','white');
+flushLegend(lg1,'ne');
+
+
+% First, get prior and posterior theta1
+f2 = figure('pos',[fw+20 10 fw fh]);
+% Plot prior
+fillunder([t2min t2min+t2range],[1/t2range 1/t2range],'g',1);
+xlim([t2min t2min + t2range]);
+hold on;
+% Get kernel estimate of theta1 with true value marked
+[ps2,xs2,bws2] = ksdensity(sdoe_t2);
+[pp2,xp2,bwp2] = ksdensity(pdoe_t2);
+plot(xp2,pp2,'color','r','linestyle',':','linewidth',2);
+plot(xs2,ps2,'color','b','linewidth',2);
+% Plot true theta1
+theta2 = results{discrep+1,1}.true_theta2;
+plot([theta2 theta2],get(gca,'YLim'),'--','Color','k',...
+    'LineWidth',1.5);
+fillunder(xp2,pp2,'r',falpha);
+fillunder(xs2,ps2,'b',falpha);
+% Put a legend on it
+lg2 = legend('Prior dist.','SFD','AS','Optimum');
+% title('Prior and posterior distributions of \theta_2');
+xlabel('\theta_d');
+yticks([]);
+set(f2,'color','white');
+flushLegend(lg2,'ne');
+
+
+% Save them
+figstr1 = ['FIG_dual_calib_SDOE_comp_theta1-d',int2str(discrep)];
+figstr2 = ['FIG_dual_calib_SDOE_comp_theta2-d',int2str(discrep)];
+set(f1,'PaperPositionMode','auto')
+set(f2,'PaperPositionMode','auto')
+% print(f1,figstr1,'-depsc','-r600')
+% print(f2,figstr2,'-depsc','-r600')
+end % end of for loop used to run this section for multiple discreps
+
+%% Show distribution of obj fn observations under AS and SFD
+clc ; clearvars -except dpath ; close all ;
+
+% Load results
+obs_initial_size = 0 ; obs_final_size = 20;
+locstr = [dpath,'dual_calib\dual_calib_stored_data\'...
+    '2020-10-13_SDOE_results_desvarest_nobs' ...
+    int2str(obs_initial_size) '-'...
+    int2str(obs_final_size)];
+load(locstr,'results');
+
+% Pull out the discrep=0 results for AS and for SFD
+results_as = results{2,1};
+results_sfd = results{2,2};
+
+% Pull out mins, ranges
+t2min = results_as.settings{1}.min_t2;
+t2range = results_as.settings{1}.range_t2;
+xmin = results_as.settings{1}.min_x;
+xrange = results_as.settings{1}.range_x;
+
+% Pull out the observation locations
+obs_t2_as = results_as.settings{1}.obs_t2 * t2range + t2min;
+obs_t2_sfd = results_sfd.settings{1}.obs_t2 * t2range + t2min;
+obs_x_as = results_as.settings{1}.obs_x * xrange + xmin;
+obs_x_sfd = results_sfd.settings{1}.obs_x * xrange + xmin;
+
+% Plot
+f = figure('pos',[50 50 275 250]);
+fa=.2 ; % facealpha
+histogram(obs_t2_as,'BinWidth',1,'DisplayStyle','stairs','linewidth',3,'EdgeColor','b');
+hold on;
+histogram(obs_t2_sfd,'BinWidth',1,'DisplayStyle','stairs','linewidth',3,'linestyle',':','EdgeColor','r');
+xline(results_as.true_theta2,'color','g','linewidth',2);
+histogram(obs_t2_as,'BinWidth',1,'FaceAlpha',fa,'FaceColor','b');
+histogram(obs_t2_sfd,'BinWidth',1,'FaceAlpha',fa,'FaceColor','r','EdgeColor','none');
+ylim([0,8]);
+leg = legend('AS','SFD','\theta_d');
+xlabel('t_d');
+ylabel('Observations');
+legend boxoff
+title('Observation locations');
+flushLegend(leg,'ne');
+set(f,'color','white');
+
+% Save
+figstr = ['FIG_AS_vs_SFD_obs_locs'];
+set(f,'PaperPositionMode','auto')
+print(f,figstr,'-depsc','-r600')
