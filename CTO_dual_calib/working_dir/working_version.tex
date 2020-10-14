@@ -687,13 +687,31 @@ An example of the resulting ``observations'' from non-adaptive DCTO, with noise,
 	\centering
 	\includegraphics[scale=0.85]{FIG_observed_data}
 	\captionsetup{width=.85\linewidth}
-	\caption{Noisy observations of the system, and the true system mean.}
+	\caption{Noisy observations of the system, and the true system mean, for $f=f_0$ (no discrepancy).}
 	\label{fig:observed_data}
 \end{figure}
 %
 We carry out DCTO using Metropolis-Hastings-within-Gibbs MCMC, drawing 8000 realizations each (discarding the first 4000 as burn-in) of $t_c,t_d,\boldsymbol\rho_{\delta},\lambda_{\delta},\sigma^2_d$, where $\boldsymbol\phi_\delta = (\boldsymbol\rho_\delta^T,\lambda_\delta)^T$.
 %
 For the adaptive sampling application of DCTO, we begin the MCMC with only TODO HOW MANY observations of $f_i$, making a new observation after every TODO HOW MANY steps of MCMC until we reached the total budget of 30.
+%
+An example of the resulting difference between the adaptive sampling approach and relying on a space filling design, with regard to the sampling distribution of our observations of the objective function, appears in Figure \ref{fig:AS_distribution}.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_AS_vs_SFD_obs_locs}
+	\captionsetup{width=.85\linewidth}
+	\caption{Design input values for observations made under the adaptive sampling approach (AS) and under a space-filling design (SFD), along with the optimal value $\theta_d$ of the design input.}
+	\label{fig:observed_data}
+\end{figure}
+%
+There, one can see that the adaptive sampling approach manages to expend its budget on observations that are near to the region of design interest.
+%
+This explains the superior performance of adaptive sampling (discussed below) in both design and in calibration (since the value of the calibration parameter is dependent upon that of the design input).
+%
+This ameliorative effect would likely be even greater in a higher-dimensional case, in which a space-filling design would (due to the curse of dimensionality) tend to generate observations even farther from the region of design interest.
+%
+
 %
 In both versions of DCTO, we modularize the analysis by drawing each of $\boldsymbol\theta_c,\boldsymbol\rho_\delta,\lambda_\delta$ using the likelihood based only on $(\mathbf y_s^T,\mathbf y_r^T)^T$ rather than on $(\mathbf y_s^T,\mathbf y_r^T,\mathbf y_t^T)^T$.
 %
