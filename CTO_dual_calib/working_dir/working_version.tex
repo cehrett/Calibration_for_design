@@ -760,16 +760,16 @@ A summary of the results of thirty applications of DCTO both with and without ad
 	\begin{tabular}{l|cc|cc}
 		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
 		\multicolumn{2}{c}{$\widehat\theta_d$ RMSE} \\ \hline
-		Discrepancy    & AS   & SFD & AS    & SFD   \\ \hline
-		0              & 0.188 & 0.433 & 0.163 & 0.479\\ \hline
-		1, small       & 0.233 & 0.32 & 0.243 & 0.414\\ \hline
-		1, large       & 0.188 & 0.247 & 0.213 & 0.393\\ \hline
-		2, small       & 0.221 & 0.263 & 0.187 & 0.348\\ \hline
-		2, large       & 0.228 & 0.16 & 0.183 & 0.206\\ \hline
-		3, small       & 0.452 & 0.506 & 0.182 & 0.329\\ \hline
-		3, large       & 0.448 & 0.468 & 0.167 & 0.292\\ \hline
+		Objective    & AS   & SFD & AS    & SFD   \\ \hline
+		$f_0$ (no discrepancy)             & 0.188 & 0.433 & 0.163 & 0.479\\ \hline
+		$f_1,\ a=1.5$       & 0.233 & 0.32 & 0.243 & 0.414\\ \hline
+		$f_1,\ a=3.5$       & 0.188 & 0.247 & 0.213 & 0.393\\ \hline
+		$f_2$, $a=.15$, $b=.075$       & 0.221 & 0.263 & 0.187 & 0.348\\ \hline
+		$f_2$, $a=.65$, $b=.075$       & 0.228 & 0.16 & 0.183 & 0.206\\ \hline
+		$f_3$, $a=.055$, $b=0$       & 0.452 & 0.506 & 0.182 & 0.329\\ \hline
+		$f_3$, $a=.055$, $b=.1$       & 0.448 & 0.468 & 0.167 & 0.292\\ \hline
 	\end{tabular}
-	\caption{Posterior root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$, for DCTO with adaptive sampling (AS) and a predetermined space-filling design (SFD). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$.} 
+	\caption{Posterior root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$, for DCTO with adaptive sampling (AS) and a predetermined space-filling design (SFD). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
 	\label{table:vars_and_rmses}
 \end{table}
 %
