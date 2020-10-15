@@ -649,11 +649,11 @@ The other three versions each assume that $\eta$ suffers from some form of discr
 Let $f_1,f_2,f_3$ denote the ``true'' systems in these three cases.
 %
 We set 
-\begin{align*}
-	f_1(x,t_d) &= \eta(x,\theta_c,t_d) \left(1-a(x-.5)(x-1)/x) \right) \\
-	f_2(x,t_d)&= \eta(x,\theta_c,t_d) - a(x-.5)(x-1)\left(t_d-\frac43\right)^2 + b\\
-	f_3(x,t_d)&=\eta(x,\theta_c,t_d) + axt_d+b
-\end{align*}
+\begin{align}
+	f_1(x,t_d) &= \eta(x,\theta_c,t_d) \left(1-a(x-.5)(x-1)/x) \right)\label{eq:objs1} \\
+	f_2(x,t_d)&= \eta(x,\theta_c,t_d) - a(x-.5)(x-1)\left(t_d-\frac43\right)^2 + b\label{eq:objs2}\\
+	f_3(x,t_d)&=\eta(x,\theta_c,t_d) + axt_d+b\label{eq:objs3}
+\end{align}
 %
 where $a,b$ are constants which determine how severe the discrepancy is in each case. 
 %
@@ -751,7 +751,7 @@ A summary of the results of thirty applications of DCTO both with and without ad
 	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d6}}
 	\end{tabular}
 	\captionsetup{width=.85\linewidth}
-	\caption{Prior and posterior distributions of the calibration parameter $\theta_c$ and design parameter $\theta_d$, along with their true/optimal values, for DCTO with adaptive sampling (AS) and with predetermined space-filling design (SFD) in each of the cases studied. For each $f_i$, $a$ and $b$ control the size of the discrepancy.}
+	\caption{Prior and posterior distributions of the calibration parameter $\theta_c$ and design parameter $\theta_d$, along with their true/optimal values, for DCTO with adaptive sampling (AS) and with predetermined space-filling design (SFD) in each of the cases studied. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).}
 	\label{fig:sdoe_vs_pdoe}
 \end{figure}
 %
