@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  14 OCT 2020 08:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  15 OCT 2020 08:17
 entering extended mode
 **./working_version.tex
 (working_version.tex
@@ -654,6 +654,12 @@ e pdf)
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d4-eps-converted-to.pd
 f  used on input line 745.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
+
+Underfull \hbox (badness 6910) in paragraph at lines 746--746
+[]$\OML/cmm/m/it/12 f[]$\OT1/cmr/m/n/12 , $\OML/cmm/m/it/12 a \OT1/cmr/m/n/12 =
+
+ []
+
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d5.eps>
 (epstopdf)                    date: 2020-10-10 08:52:54
 (epstopdf)                    size: 52900 bytes
@@ -702,6 +708,12 @@ e pdf)
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d5-eps-converted-to.pd
 f  used on input line 748.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
+
+Underfull \hbox (badness 6910) in paragraph at lines 749--749
+[]$\OML/cmm/m/it/12 f[]$\OT1/cmr/m/n/12 , $\OML/cmm/m/it/12 a \OT1/cmr/m/n/12 =
+
+ []
+
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d6.eps>
 (epstopdf)                    date: 2020-10-10 08:52:55
 (epstopdf)                    size: 58157 bytes
@@ -751,7 +763,7 @@ Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d6-eps-converted-to.pd
 f  used on input line 751.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 
-Overfull \hbox (3.92366pt too wide) in paragraph at lines 730--754
+Overfull \hbox (19.46994pt too wide) in paragraph at lines 730--754
  [][] 
  []
 
@@ -848,7 +860,7 @@ Here is how much of TeX's memory you used:
  20327 multiletter control sequences out of 15000+200000
  547699 words of font info for 81 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,14n,43p,559b,339s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,14n,43p,559b,341s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Carl\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\t
 crm0700.pk> <C:\Users\Carl\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec
 /dpi600\tcrm1000.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
@@ -865,7 +877,7 @@ s/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKT
 eX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on working_version.pdf (35 pages, 3644237 bytes).
+Output written on working_version.pdf (35 pages, 3644551 bytes).
 PDF statistics:
  502 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
