@@ -504,7 +504,11 @@ The result of applying this algorithm is that observations are concentrated arou
 %
 
 %
-To demonstrate the use of DCTO with adaptive sampling in a case of functional dependence of the calibration parameter on design settings, we use the function of three inputs $\eta(x,t_c,t_d) = x / (t_d^{t_c-1}\exp(-0.75t_d)+1)$. 
+To demonstrate the use of DCTO with adaptive sampling in a case of functional dependence of the calibration parameter on design settings, we use the function of three inputs 
+%
+\begin{align}
+	f_0(x,t_c,t_d) = x / (t_d^{t_c-1}\exp(-0.75t_d)+1). \label{eq:f0}
+\end{align}
 %
 Figure \ref{fig:example_output} shows the output of this function for $x=1$ over the range $(t_c,t_d)\in[1.5,4.5]\times[0,5]$.
 %
@@ -557,6 +561,7 @@ The other three versions each assume that $\eta$ suffers from some form of discr
 Let $f_1,f_2,f_3$ denote the ``true'' systems in these three cases.
 %
 We set 
+%
 \begin{align}
 	f_1(x,t_d) &= \eta(x,\theta_c,t_d) \left(1-a(x-.5)(x-1)/x) \right)\label{eq:objs1} \\
 	f_2(x,t_d)&= \eta(x,\theta_c,t_d) - a(x-.5)(x-1)\left(t_d-\frac43\right)^2 + b\label{eq:objs2}\\
@@ -863,7 +868,7 @@ Figure \ref{fig:no_discrep_results} shows the results of DCTO and two-step calib
 	\includegraphics[scale=0.85]{FIG_dual_calib_post_theta1-d0}
 	\includegraphics[scale=0.85]{FIG_dual_calib_post_theta2-d0}
 	\captionsetup{width=.85\linewidth}
-	\caption{Prior and posterior distributions of the calibration parameter $\theta_c$ and design parameter $\theta_d$, along with their true/optimal values, for DCTO and two-step calibration and design carried out when there is no discrepancy between the true system and the computer model. TODO WHICH DISCREP VERSION?}
+	\caption{Prior and posterior distributions of the calibration parameter $\theta_c$ and design parameter $\theta_d$, along with their true/optimal values, for DCTO and two-step calibration and design carried out when there is no discrepancy between the true system described by Equation (\ref{eq:f0}) (the case of no discrepancy) and the computer model.}
 	\label{fig:no_discrep_results}
 \end{figure}
 %
@@ -887,28 +892,28 @@ The results are summarized in Table \ref{table:vars_and_rmses}.
 		&\multicolumn{2}{c|}{Posterior $\theta_c$ var.}&
 		\multicolumn{2}{c}{Posterior $\theta_d$ var.} \\ \hline
 		Discrepancy    & DCTO   & KOH+design & DCTO    & KOH+design   \\ \hline
-		0              & 0.00633 & 0.00619 & 0.145 & 0.129\\ \hline
-		1, small       & 0.0140 & 0.0137 & 0.149 & 0.129\\ \hline
-		1, large       & 0.0141 & 0.0140 & 0.149 & 0.131\\ \hline
-		2, small       & 0.0143 & 0.0141 & 0.135 & 0.116\\ \hline
-		2, large       & 0.0609 & 0.0608 & 0.0804 & 0.0731\\ \hline
-		3, small       & 0.0134 & 0.0135 & 0.0882 & 0.0743\\ \hline
-		3, large       & 0.0143 & 0.0142 & 0.0945 & 0.0814\\ \hline
+		$f_0$ (no discrepancy)              & 0.00633 & 0.00619 & 0.145 & 0.129\\ \hline
+		$f_1$, $a=1.5$       & 0.0140 & 0.0137 & 0.149 & 0.129\\ \hline
+		$f_1$, $a=3.5$       & 0.0141 & 0.0140 & 0.149 & 0.131\\ \hline
+		$f_2$, $a=.15$, $b=.075$       & 0.0143 & 0.0141 & 0.135 & 0.116\\ \hline
+		$f_2$, $a=.65$, $b=.075$       & 0.0609 & 0.0608 & 0.0804 & 0.0731\\ \hline
+		$f_3$, $a=.055$, $b=0$       & 0.0134 & 0.0135 & 0.0882 & 0.0743\\ \hline
+		$f_3$, $a=.055$, $b=.1$       & 0.0143 & 0.0142 & 0.0945 & 0.0814\\ \hline
 	\end{tabular}\\
 	\vspace{.25in}
 	\begin{tabular}{l|cc|cc}
 		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
 		\multicolumn{2}{c}{$\widehat\theta_d$ RMSE} \\ \hline
 		Discrepancy    & DCTO   & KOH+CTO & DCTO    & KOH+CTO   \\ \hline
-		0              & 0.0790 & 0.0795 & 0.120 & 0.121\\ \hline
-		1, small       & 0.0955 & 0.0956 & 0.149 & 0.144\\ \hline
-		1, large       & 0.137 & 0.139 & 0.209 & 0.209\\ \hline
-		2, small       & 0.109 & 0.106 & 0.130 & 0.127\\ \hline
-		2, large       & 0.158 & 0.155 & 0.123 & 0.121\\ \hline
-		3, small       & 0.294 & 0.292 & 0.0919 & 0.0919\\ \hline
-		3, large       & 0.279 & 0.281 & 0.0995 & 0.0990\\ \hline
+		$f_0$ (no discrepancy)              & 0.0790 & 0.0795 & 0.120 & 0.121\\ \hline
+		$f_1$, $a=1.5$       & 0.0955 & 0.0956 & 0.149 & 0.144\\ \hline
+		$f_1$, $a=3.5$       & 0.137 & 0.139 & 0.209 & 0.209\\ \hline
+		$f_2$, $a=.15$, $b=.075$       & 0.109 & 0.106 & 0.130 & 0.127\\ \hline
+		$f_2$, $a=.65$, $b=.075$       & 0.158 & 0.155 & 0.123 & 0.121\\ \hline
+		$f_3$, $a=.055$, $b=0$       & 0.294 & 0.292 & 0.0919 & 0.0919\\ \hline
+		$f_3$, $a=.055$, $b=.1$       & 0.279 & 0.281 & 0.0995 & 0.0990\\ \hline
 	\end{tabular}
-	\caption{Posterior variance and root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$ under both DCTO and two-step calibration and design (KOH+design). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$.} 
+	\caption{Posterior variance and root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$ under both DCTO and two-step calibration and design (KOH+design). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
 	\label{table:vars_and_rmses}
 \end{table}
 %
