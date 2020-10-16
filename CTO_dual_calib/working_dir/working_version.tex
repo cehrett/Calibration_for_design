@@ -439,100 +439,6 @@ Such modularization ensures that all Bayesian learning of $\boldsymbol\theta_c$ 
 %
 
 %
-\section{Example with simulated data}\label{sec:example}
-%
-Consider the 
-
-%
-\subsection{Results}
-
-
-
-%
-In order to evaluate the success of the calibration component of DCTO, we also carried out a two-step procedure of using traditional KOH calibration of $\theta_c$, followed by a second step using the KOH framework for design, obtaining a distribution of $\theta_d$. 
-%
-The first step is essentially DCTO with $\mathbf{x_t},\mathbf{y_t}$ as empty (null) vectors, and the second step uses the distributions obtained in the first step to estimate $\theta_d$.
-%
-Thus, the comparison between the unified approach, i.e. DCTO, and the two-step calibration and design approach shows the difference between DCTO and performing design on a system which has been calibrated using traditional methods and serves as validation of the former.
-%
-Figure \ref{fig:no_discrep_results} shows the results of DCTO and two-step calibration and design for $f_0$, the case of no discrepancy.
-%
-\begin{figure}
-\centering
-\includegraphics[scale=0.85]{FIG_dual_calib_post_theta1-d0}
-\includegraphics[scale=0.85]{FIG_dual_calib_post_theta2-d0}
-\captionsetup{width=.85\linewidth}
-\caption{Prior and posterior distributions of the calibration parameter $\theta_c$ and design parameter $\theta_d$, along with their true/optimal values, for DCTO and two-step calibration and design carried out when there is no discrepancy between the true system and the computer model. TODO WHICH DISCREP VERSION?}
-\label{fig:no_discrep_results}
-\end{figure}
-%
-The two methods deliver comparable results, illustrating that extending calibration to include design does not undermine the performance of either task.
-%
-Strong Bayesian learning has occurred for both parameters, in that the posterior distributions of $\theta_c,\theta_d$ are peaked around their true and optimal values, respectively.
-%
-KOH gives a similar posterior for $\theta_c$, showing that the expansion of DCTO to undertake design has not interfered with its calibration performance.
-%
-The skew apparent in the posterior distributions of $\theta_d$ occur in all of the results gathered here, and is likely due to the shape of the objective function $f$, which is much more informative below $\theta_d$ than above it in that it increases sharply for $t_d<\theta_d$ and increases much more gently for $t_d>\theta_d$.
-%
-
-%
-We performed each procedure 30 times on each of the seven different discrepancy situations (no discrepancy, and a large and small version of each of three discrepancies).
-%
-The results are summarized in Table \ref{table:vars_and_rmses}.
-%
-\begin{table}[]
-	\centering
-	\begin{tabular}{l|cc|cc}
-		&\multicolumn{2}{c|}{Posterior $\theta_c$ var.}&
-		\multicolumn{2}{c}{Posterior $\theta_d$ var.} \\ \hline
-		Discrepancy    & DCTO   & KOH+design & DCTO    & KOH+design   \\ \hline
-		0              & 0.00633 & 0.00619 & 0.145 & 0.129\\ \hline
-		1, small       & 0.0140 & 0.0137 & 0.149 & 0.129\\ \hline
-		1, large       & 0.0141 & 0.0140 & 0.149 & 0.131\\ \hline
-		2, small       & 0.0143 & 0.0141 & 0.135 & 0.116\\ \hline
-		2, large       & 0.0609 & 0.0608 & 0.0804 & 0.0731\\ \hline
-		3, small       & 0.0134 & 0.0135 & 0.0882 & 0.0743\\ \hline
-		3, large       & 0.0143 & 0.0142 & 0.0945 & 0.0814\\ \hline
-	\end{tabular}\\
-	\vspace{.25in}
-	\begin{tabular}{l|cc|cc}
-		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
-		\multicolumn{2}{c}{$\widehat\theta_d$ RMSE} \\ \hline
-		Discrepancy    & DCTO   & KOH+CTO & DCTO    & KOH+CTO   \\ \hline
-		0              & 0.0790 & 0.0795 & 0.120 & 0.121\\ \hline
-		1, small       & 0.0955 & 0.0956 & 0.149 & 0.144\\ \hline
-		1, large       & 0.137 & 0.139 & 0.209 & 0.209\\ \hline
-		2, small       & 0.109 & 0.106 & 0.130 & 0.127\\ \hline
-		2, large       & 0.158 & 0.155 & 0.123 & 0.121\\ \hline
-		3, small       & 0.294 & 0.292 & 0.0919 & 0.0919\\ \hline
-		3, large       & 0.279 & 0.281 & 0.0995 & 0.0990\\ \hline
-	\end{tabular}
-	\caption{Posterior variance and root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$ under both DCTO and two-step calibration and design (KOH+design). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$.} 
-	\label{table:vars_and_rmses}
-\end{table}
-%
-The upper table gives the sample mean, over the thirty runs, of the marginal posterior variance of each of $\theta_c$ and $\theta_d$.
-%
-The two procedures generate extremely similar outcomes with respect to $\theta_c$.
-%
-However, the posterior variance for $\theta_d$ under DCTO is slightly higher than that under two-step calibration and design in each of the seven cases considered.
-%
-This is due to the fact that DCTO includes remaining uncertainty about the values of the hyperparameters of the discrepancy GP $\delta(\cdot)$.
-%
-By contrast, design after calibration uses point estimates of those hyperparameters and thus achieves narrower posterior distributions due to excluding this source of uncertainty.
-%
-The lower table gives the root mean square errors (RMSEs) for the posterior means of $\theta_c$ and $\theta_d$, using their true value of 2 for $\theta_c$ and optimal value $4/3$ for $\theta_d$ in discrepancy cases $0,1,2$ and optimal value $1$ for discrepancy 3.
-%
-Again we see very similar outcomes in the two procedures for both parameters.
-%
-In all cases but one, DCTO has slightly higher RMSE for $\theta_d$ than does design after KOH calibration.
-%
-This is to be expected given the above-mentioned wider posterior distributions of $\theta_d$ under DCTO.
-%
-In general, we see that the DCTO expansion of the KOH framework achieves the expected similar results to KOH calibration followed by a design step, though with wider posterior distributions of the design input, because the DCTO approach properly includes in the design step the remaining uncertainty regarding the calibration parameter after KOH calibration.
-%
-
-%
 \section{Dependence of $\theta_c$ on $\theta_d$}\label{sec:as}
 %
 In many cases of computer model calibration, it is known or suspected that the value of one or more calibration parameters are functionally dependent upon the values of other model inputs \citep{Atamturktur2015,Atamturktur2017,Ezzat2018}.
@@ -935,5 +841,98 @@ Future work on this subject will include pairing adaptive sampling DCTO with oth
 
 \bibliography{lit_review}
 
+\section*{Appendix: Validation of DCTO}
+
+%
+In order to validate the performance of simultaneous calibration and design under DCTO against a two-step calibration and design approach, we use the system described by Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}) where the value of calibration parameter does not depend on the value of the design input. 
+%
+We employ a space-filling design of observations of the ``true'' system under both approaches. 
+%
+For the two-step approach, we carry apply traditional KOH calibration of $\theta_c$, followed by a second step using the KOH framework for design, obtaining a distribution of $\theta_d$. 
+%
+The first step is thus essentially DCTO with $\mathbf{x_t},\mathbf{y_t}$ as empty (null) vectors, and the second step uses the distributions obtained in the first step to estimate $\theta_d$.
+%
+Thus, the comparison between the unified approach, i.e. DCTO, and the two-step calibration and design approach shows the difference between DCTO and performing design on a system which has been calibrated using traditional methods and serves as validation of the former.
+%
+
+%
+Figure \ref{fig:no_discrep_results} shows the results of DCTO and two-step calibration and design for $f_0$, the case of no discrepancy.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_dual_calib_post_theta1-d0}
+	\includegraphics[scale=0.85]{FIG_dual_calib_post_theta2-d0}
+	\captionsetup{width=.85\linewidth}
+	\caption{Prior and posterior distributions of the calibration parameter $\theta_c$ and design parameter $\theta_d$, along with their true/optimal values, for DCTO and two-step calibration and design carried out when there is no discrepancy between the true system and the computer model. TODO WHICH DISCREP VERSION?}
+	\label{fig:no_discrep_results}
+\end{figure}
+%
+The two methods deliver comparable results, illustrating that extending calibration to include design does not undermine the performance of either task.
+%
+Strong Bayesian learning has occurred for both parameters, in that the posterior distributions of $\theta_c,\theta_d$ are peaked around their true and optimal values, respectively.
+%
+KOH gives a similar posterior for $\theta_c$, showing that the expansion of DCTO to undertake design has not interfered with its calibration performance.
+%
+The skew apparent in the posterior distributions of $\theta_d$ occur in all of the results gathered here, and is likely due to the shape of the objective function $f$, which is much more informative below $\theta_d$ than above it in that it increases sharply for $t_d<\theta_d$ and increases much more gently for $t_d>\theta_d$.
+%
+
+%
+We performed each procedure 30 times on each of the seven different discrepancy situations (no discrepancy, and a large and small version of each of three discrepancies).
+%
+The results are summarized in Table \ref{table:vars_and_rmses}.
+%
+\begin{table}[]
+	\centering
+	\begin{tabular}{l|cc|cc}
+		&\multicolumn{2}{c|}{Posterior $\theta_c$ var.}&
+		\multicolumn{2}{c}{Posterior $\theta_d$ var.} \\ \hline
+		Discrepancy    & DCTO   & KOH+design & DCTO    & KOH+design   \\ \hline
+		0              & 0.00633 & 0.00619 & 0.145 & 0.129\\ \hline
+		1, small       & 0.0140 & 0.0137 & 0.149 & 0.129\\ \hline
+		1, large       & 0.0141 & 0.0140 & 0.149 & 0.131\\ \hline
+		2, small       & 0.0143 & 0.0141 & 0.135 & 0.116\\ \hline
+		2, large       & 0.0609 & 0.0608 & 0.0804 & 0.0731\\ \hline
+		3, small       & 0.0134 & 0.0135 & 0.0882 & 0.0743\\ \hline
+		3, large       & 0.0143 & 0.0142 & 0.0945 & 0.0814\\ \hline
+	\end{tabular}\\
+	\vspace{.25in}
+	\begin{tabular}{l|cc|cc}
+		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
+		\multicolumn{2}{c}{$\widehat\theta_d$ RMSE} \\ \hline
+		Discrepancy    & DCTO   & KOH+CTO & DCTO    & KOH+CTO   \\ \hline
+		0              & 0.0790 & 0.0795 & 0.120 & 0.121\\ \hline
+		1, small       & 0.0955 & 0.0956 & 0.149 & 0.144\\ \hline
+		1, large       & 0.137 & 0.139 & 0.209 & 0.209\\ \hline
+		2, small       & 0.109 & 0.106 & 0.130 & 0.127\\ \hline
+		2, large       & 0.158 & 0.155 & 0.123 & 0.121\\ \hline
+		3, small       & 0.294 & 0.292 & 0.0919 & 0.0919\\ \hline
+		3, large       & 0.279 & 0.281 & 0.0995 & 0.0990\\ \hline
+	\end{tabular}
+	\caption{Posterior variance and root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$ under both DCTO and two-step calibration and design (KOH+design). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$.} 
+	\label{table:vars_and_rmses}
+\end{table}
+%
+The upper table gives the sample mean, over the thirty runs, of the marginal posterior variance of each of $\theta_c$ and $\theta_d$.
+%
+The two procedures generate extremely similar outcomes with respect to $\theta_c$.
+%
+However, the posterior variance for $\theta_d$ under DCTO is slightly higher than that under two-step calibration and design in each of the seven cases considered.
+%
+This is due to the fact that DCTO includes remaining uncertainty about the values of the hyperparameters of the discrepancy GP $\delta(\cdot)$.
+%
+By contrast, design after calibration uses point estimates of those hyperparameters and thus achieves narrower posterior distributions due to excluding this source of uncertainty.
+%
+The lower table gives the root mean square errors (RMSEs) for the posterior means of $\theta_c$ and $\theta_d$, using their true value of 2 for $\theta_c$ and optimal value $4/3$ for $\theta_d$ in discrepancy cases $0,1,2$ and optimal value $1$ for discrepancy 3.
+%
+Again we see very similar outcomes in the two procedures for both parameters.
+%
+In all cases but one, DCTO has slightly higher RMSE for $\theta_d$ than does design after KOH calibration.
+%
+This is to be expected given the above-mentioned wider posterior distributions of $\theta_d$ under DCTO.
+%
+In general, we see that the DCTO expansion of the KOH framework achieves the expected similar results to KOH calibration followed by a design step, though with wider posterior distributions of the design input, because the DCTO approach properly includes in the design step a source of uncertainty (hyperparameters of hte discrepancy GP $\delta(\cdot)$) ignored by the traditional two-step approach.
+%
 
 \end{document}
+
+
