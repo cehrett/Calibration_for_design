@@ -1,93 +1,140 @@
-\documentclass[12pt]{article}
-%\usepackage{amsmath}
-\usepackage{graphicx}
-%\usepackage{enumerate}
-\usepackage{natbib} %comment out if you do not have the package
-\usepackage{url}
- % not crucial - just used below for the URL 
+%%%%%%%%%%%%%%%%%%%%%%%%%%% asme2ej.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template for producing ASME-format journal articles using LaTeX    %
+% Written by   Harry H. Cheng, Professor and Director                %
+%              Integration Engineering Laboratory                    %
+%              Department of Mechanical and Aeronautical Engineering %
+%              University of California                              %
+%              Davis, CA 95616                                       %
+%              Tel: (530) 752-5020 (office)                          %
+%                   (530) 752-1028 (lab)                             %
+%              Fax: (530) 752-4158                                   %
+%              Email: hhcheng@ucdavis.edu                            %
+%              WWW:   http://iel.ucdavis.edu/people/cheng.html       %
+%              May 7, 1994                                           %
+% Modified: February 16, 2001 by Harry H. Cheng                      %
+% Modified: January  01, 2003 by Geoffrey R. Shiflett                %
+% Use at your own risk, send complaints to /dev/null                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% use twocolumn and 10pt options with the asme2ej format
+\documentclass[twocolumn,10pt]{asme2ej}
+
+\usepackage{graphicx} %% for loading jpg figures
 \usepackage{amsmath, amssymb}
-\usepackage{setspace} % NOT IN TECHNOMETRICS TEMPLATE
-\usepackage{caption} % NOT IN TECHNOMETRICS TEMPLATE
+\usepackage{bm}
+\usepackage{array}
+\usepackage{caption}
+
+% Useful definitions
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+%% The class has several options
+%  onecolumn/twocolumn - format for one or two columns per page
+%  10pt/11pt/12pt - use 10, 11, or 12 point font
+%  oneside/twoside - format for oneside/twosided printing
+%  final/draft - format for final/draft copy
+%  cleanfoot - take out copyright info in footer leave page number
+%  cleanhead - take out the conference banner on the title page
+%  titlepage/notitlepage - put in titlepage or leave out titlepage
+%  
+%% The default is oneside, onecolumn, 10pt, final
 
 
+\title{A unified framework for computer model calibration and engineering design}
 
-%\pdfminorversion=4
-% NOTE: To produce blinded version, replace "0" with "1" below.
-\newcommand{\blind}{0}
+%\author{Blinded version
+%	\affiliation{
+%		for review}
+%}	
 
-% DON'T change margins - should be 1 inch all around.
-\addtolength{\oddsidemargin}{-.5in}%
-\addtolength{\evensidemargin}{-.5in}%
-\addtolength{\textwidth}{1in}%
-\addtolength{\textheight}{1.3in}%
-\addtolength{\topmargin}{-.8in}%
+%%% first author
+\author{Carl Ehrett
+    \affiliation{
+	Research Associate\\
+	Watt Family Innovation Center\\
+	Clemson University\\
+	Clemson, South Carolina 29631\\
+    Email: cehrett@clemson.edu
+    }	
+}
+%%% second author
+%%% remove the following entry for single author papers
+%%% add more entries for additional authors
+\author{D. Andrew Brown\thanks{Corresponding author.} 
+    \affiliation{Associate Professor\\
+    School of Mathematical and \\Statistical Sciences\\
+	Clemson University\\
+	Clemson, South Carolina 29631\\
+	Email: ab7@clemson.edu
+	}	
+}
+%%% third author
+%%% remove the following entry for single author papers
+%%% add more entries for additional authors
+\author{Christopher Kitchens
+   \affiliation{Associate Professor\\
+       Department of Chemical\\and Biomolecular Engineering\\
+       Clemson University\\
+       Clemson, South Carolina 29631\\
+       Email: ckitche@clemson.edu
+   }}
+\author{Sez Atamturktur
+	\affiliation{Professor\\
+		Department of Architectural Engineering\\
+		The Pennsylvania State University\\
+		University Park, Pennsylvania 16802\\
+		Email: sez@psu.edu
+}}
+\author{Leslie Xu
+	\affiliation{
+		Graduate Research Assistant\\
+		Department of Architectural Engineering\\
+		The Pennsylvania State University\\
+		University Park, Pennsylvania 16802\\
+		Email: xkx5055@psu.edu
+}}
+\author{Roland Platz
+	\affiliation{
+		TODO TITLE\\
+		TODO AFFILIATION\\
+		Email: rxp5110@psu.edu
+}}
 
-\date{}
 \begin{document}
+	
+\maketitle    
 
-%\bibliographystyle{natbib}
-
-\def\spacingset#1{\renewcommand{\baselinestretch}%
-{#1}\small\normalsize} \spacingset{1}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\if0\blind
-{
-  \title{\bf A unified framework for computer model calibration and engineering design}
-  \author{Carl Ehrett\thanks{
-  		The authors gratefully acknowledge grant CMMI-1934438 from the National Science Foundation (NSF). CE was supported by fellowships through Department of Education GAANN grant P200A150310 and NSF NRT grant 1633608. DAB is also supported by NSF grants EEC-1744497 and OIA-1826715.}\hspace{.2cm}\\
-    Watt Family Innovation Center, Clemson University,\\
-    D. Andrew Brown \\
-    School of Mathematical and Statistical Sciences, Clemson University,\\
-    Christopher Kitchens \\
-    Department of Chemical and Biomolecular Engineering, Clemson University,\\
-    Sez Atamturktur \\
-    Department of Architectural Engineering, Pennsylvania State University,\\
-	Leslie Xu \\
-	Department of Architectural Engineering, Pennsylvania State University,
-	and \\
-	Roland Platz \\
-	TODO AFFILIATION?}
-  \maketitle
-} \fi
-
-\if1\blind
-{
-  \bigskip
-  \bigskip
-  \bigskip
-  \begin{center}
-    {\LARGE\bf Title}
-\end{center}
-  \medskip
-} \fi
-
-%\bigskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-Calibration of computer models and the use of those models for design are two activities that are traditionally carried out separately.
-%
-This paper generalizes existing Bayesian inverse analysis approaches for computer model calibration to present a methodology combining calibration and design under a unified Bayesian framework.
-%
-This provides a computationally efficient means to undertake both tasks in a way that quantifies all relevant sources of uncertainty.
-%
-Specifically, compared with the traditional approach of design using parameter estimates made during previously completed model calibration, this generalized framework inherently includes uncertainty from the calibration process in the design procedure.
-%
-We demonstrate our approach for simultaneous calibration and design in a dynamic vibration system.
-%
-We also demonstrate how, when adaptive sampling of the phenomenon of interest is possible, the proposed framework may select new sampling locations using both the available real observations and the computer model.
-%
-This is especially useful when the model is misspecified in failing to reflect that the parameter to be calibrated is functionally dependent upon the design inputs that are to be optimized.
-%
+	{\it 
+		Calibration of computer models and the use of those models for design are two activities that are traditionally carried out separately.
+		%
+		This paper generalizes existing Bayesian inverse analysis approaches for computer model calibration to present a methodology combining calibration and design under a unified Bayesian framework.
+		%
+		This provides a computationally efficient means to undertake both tasks in a way that quantifies all relevant sources of uncertainty.
+		%
+		Specifically, compared with the traditional approach of design using parameter estimates made during previously completed model calibration, this generalized framework inherently includes uncertainty from the calibration process in the design procedure.
+		%
+		We demonstrate our approach for simultaneous calibration and design in a dynamic vibration system.
+		%
+		We also demonstrate how, when adaptive sampling of the phenomenon of interest is possible, the proposed framework may select new sampling locations using both the available real observations and the computer model.
+		%
+		This is especially useful when the model is misspecified in failing to reflect that the parameter to be calibrated is functionally dependent upon the design inputs that are to be optimized.
+		%
+	}
 \end{abstract}
 
-\noindent%
-{\it Keywords: Gaussian processes, optimization, uncertainty quantification, computer model calibration, engineering design}  
-\vfill
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{nomenclature}
+	\entry{d}{test}
+\end{nomenclature}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
-\spacingset{2} % DON'T change the spacing!
+%\thanks{The authors gratefully acknowledge grant CMMI-1934438 from the National Science Foundation (NSF). CE was supported by fellowships through Department of Education GAANN grant P200A150310 and NSF NRT grant 1633608. DAB is also supported by NSF grants EEC-1744497 and OIA-1826715.}\hspace{.2cm}\\
+
+%{\it Keywords: Gaussian processes, optimization, uncertainty quantification, computer model calibration, engineering design}  
+
 \section{Introduction}\label{sec:introduction}
 
 %
@@ -119,7 +166,7 @@ Having a combined framework for calibration and design is especially of interest
 %
 Bayesian methods for computer model calibration are developed by \cite{Kennedy2001}.
 %
-Since their seminal paper, the methodology has seen numerous extensions and refinements (\citealt{Higdon2004,Williams2006}; \citeauthor{Bayarri2007a} 2007a; \citeauthor{Bayarri2007b} 2007b; \citealt{Paulo2012,Brynjarsdottir2014}).
+Since their seminal paper, the methodology has seen numerous extensions and refinements (\cite{Higdon2004,Williams2006,Bayarri2007a,Bayarri2007b,Paulo2012,Brynjarsdottir2014}).
 %
 Henceforth, we refer to this approach to calibration as KOH.
 %
@@ -149,17 +196,17 @@ And like KOH, DCTO is especially well-suited to problems that rely on black-box 
 %
 
 %
-We may divide optimization approaches in such cases broadly into three camps \citep{Regis2004}.
+We may divide optimization approaches in such cases broadly into three camps \cite{Regis2004}.
 %
-Gradient-based approaches \citep{Nocedal2006} are of limited utility when dealing with black-box functions, where we cannot evaluate the objective function's derivative.
+Gradient-based approaches \cite{Nocedal2006} are of limited utility when dealing with black-box functions, where we cannot evaluate the objective function's derivative.
 %
 Approximation of the derivative requires additional function evaluations, rapidly inflating the computational cost when each evaluation involves significant expense.
 %
-Heuristic approaches \citep{Lee2007} such as evolutionary algorithms \citep{Branke2008,Deb2002,Kim2004}, particle swarm optimization \citep{Bonyadi2017,Mason2017}, and simulated annealing \citep{Robert2004} avoid the need to know or approximate derivatives, but often require prohibitively many function evaluations.
+Heuristic approaches \cite{Lee2007} such as evolutionary algorithms \cite{Branke2008,Deb2002,Kim2004}, particle swarm optimization \cite{Bonyadi2017,Mason2017}, and simulated annealing \cite{Robert2004} avoid the need to know or approximate derivatives, but often require prohibitively many function evaluations.
 %
 Furthermore, such methods, like gradient-based approaches, do not inherently provide quantification of remaining uncertainty about optimal design settings and the system outputs at those settings.
 %
-Methods exist for using heuristic approaches while accommodating and quantifying uncertainties \citep{Deb2006,Zhou2011b}, but these come at the cost of even further inflating the number of function evaluations required.
+Methods exist for using heuristic approaches while accommodating and quantifying uncertainties \cite{Deb2006,Zhou2011b}, but these come at the cost of even further inflating the number of function evaluations required.
 %
 This problem can be mitigated by relying on a surrogate model, but the resulting uncertainty quantification is accomplished by separate methods that are layered on top of the independent heuristic approach.
 %
@@ -167,19 +214,19 @@ On the other hand, our approach includes uncertainty quantification as an intrin
 %
 
 %
-The third camp is the diverse collection of response surface methodologies  \citep[RSMs;][]{Dean2017} used for optimization.
+The third camp is the diverse collection of response surface methodologies (RSMs) \cite{Dean2017} used for optimization.
 %
 RSMs operate by fitting a predictive model to an existing set of model runs, to form a computationally inexpensive meta-model which is then used to explore the model output.
 %
 The concept of calibration to target outcomes that is built into DCTO is an example of an RSM, using GPs for its meta-model fit.
 %
-Other popular versions of RSMs include efficient global optimization \citep[EGO;][]{Jones1998,Brochu2010} and stepwise uncertainty reduction \citep[SUR;][]{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}.
+Other popular versions of RSMs include efficient global optimization (EGO) \cite{Jones1998,Brochu2010} and stepwise uncertainty reduction (SUR) \cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}.
 %
 EGO and SUR are both designed to facilitate sequential sampling from the system of interest in a search for the global optimum.
 %
 They differ in their \textit{acquisition functions}, which determine the location of the next sampling location throughout the optimization process.
 %
-EGO finds the spot that maximizes the expected improvement \citep{Mockus1978,Jones1998}, whereas SUR's acquisition function seeks to reduce the volume of excursion sets below the current best known solutions \citep{Chevalier2014}.
+EGO finds the spot that maximizes the expected improvement \cite{Mockus1978,Jones1998}, whereas SUR's acquisition function seeks to reduce the volume of excursion sets below the current best known solutions \cite{Chevalier2014}.
 %
 Because they rely on sequential sampling, EGO and SUR are of limited utility when one is constrained to rely on a pre-existing set of observations, or in general when the observation locations cannot be chosen purely to suit the goal of optimization.
 %
@@ -193,7 +240,7 @@ By contrast, our approach (understood as a pure-exploitation method) quantifies 
 %
 An example of an RSM more closely resembling our approach to design is described by \cite{Olalotiti-Lawal2015}.
 %
-Their approach defines a distribution which is designed to lie both on and near the Pareto front (PF) of the objective function and generates a posterior distribution which includes quantified uncertainties via Markov chain Monte Carlo \citep[MCMC;][]{Gelfand1990}.
+Their approach defines a distribution which is designed to lie both on and near the Pareto front (PF) of the objective function and generates a posterior distribution which includes quantified uncertainties via Markov chain Monte Carlo (MCMC) \cite{Gelfand1990}.
 %
 However, their posterior distribution is designed by the authors and is not dictated by the model itself; as such, its interpretability is not entirely clear.
 %
@@ -363,15 +410,18 @@ m_s(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T) + 
 \end{pmatrix},
 \]
 \begin{align*}
-\mathbf{C_{11}}&=C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}})\right)\\
-\mathbf{C_{21}}&=C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right)\\
-\mathbf{C_{31}}&=C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right)\\
-\mathbf{C_{12}}&=\mathbf{C_{21}}^T\\
-\mathbf{C_{22}}&=C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right) + C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf{t_{dr}}) \right) + \sigma^2_c \mathbf I\\
-\mathbf{C_{32}}&=C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right)\\
-\mathbf{C_{13}}&=\mathbf{C_{31}}^T\\
-\mathbf{C_{23}}&=\mathbf{C_{32}}^T\\
-\mathbf{C_{33}}&=C_\eta\left((\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + C_\delta\left( (\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right) + \sigma^2_c\mathbf I + \sigma^2_d \mathbf I
+\mathbf{C_{11}}=&\ C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}})\right)\\
+\mathbf{C_{21}}=&\ C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right)\\
+\mathbf{C_{31}}=&\ C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right)\\
+\mathbf{C_{12}}=&\ \mathbf{C_{21}}^T\\
+\mathbf{C_{22}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right) + \\
+&\ C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf{t_{dr}}) \right) + \sigma^2_c \mathbf I\\
+\mathbf{C_{32}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + \\
+&\ C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right)\\
+\mathbf{C_{13}}=&\ \mathbf{C_{31}}^T\\
+\mathbf{C_{23}}=&\ \mathbf{C_{32}}^T\\
+\mathbf{C_{33}}=&\ C_\eta\left((\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + \\
+&\ C_\delta\left( (\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right) + \sigma^2_c\mathbf I + \sigma^2_d \mathbf I
 \end{align*}
 %
 Note that when $\mathbf{y_t}$ and $\mathbf{x_t}$ are empty and $\mathbf m, \mathbf C$ reduce respectively to their first two and upper two-by-two block elements, this is simply the KOH framework.
@@ -409,7 +459,7 @@ This idea is explored further in Section \ref{sec:as}.
 %%
 %The hyperparameters of the GP emulating $\eta$ should be estimated using observations of $\eta$ and of the real process that $\eta$ simulates.
 %%
-%The solution in the case of CTO is to employ some form of modularity \citep{Liu2009}.
+%The solution in the case of CTO is to employ some form of modularity \cite{Liu2009}.
 %%
 %A modular analysis intentionally falls short of being a full Bayesian analysis, either for computational benefits, or to quarantine ``suspect'' aspects of the model.
 %%
@@ -441,9 +491,9 @@ Such modularization ensures that all Bayesian learning of $\boldsymbol\theta_c$ 
 %
 \section{Dependence of $\theta_c$ on $\theta_d$}\label{sec:as}
 %
-In many cases of computer model calibration, it is known or suspected that the value of one or more calibration parameters are functionally dependent upon the values of other model inputs \citep{Atamturktur2015,Atamturktur2017,Ezzat2018}.
+In many cases of computer model calibration, it is known or suspected that the value of one or more calibration parameters are functionally dependent upon the values of other model inputs \cite{Atamturktur2015,Atamturktur2017,Ezzat2018}.
 %
-If one is interested to understand the functional form of the calibration parameter, then state-aware methods can be used to arrive at such an estimate \citep{Atamturktur2015,Atamturktur2017,Brown2018}.
+If one is interested to understand the functional form of the calibration parameter, then state-aware methods can be used to arrive at such an estimate \cite{Atamturktur2015,Atamturktur2017,Brown2018}.
 %
 
 %
@@ -457,7 +507,7 @@ This will allow one to calibrate the model using observations taken from the reg
 %
 
 %
-When observations may be made adaptively, other RSM approaches such as EGO \citep{Jones1998,Brochu2010} or SUR \citep{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019} may be more efficient than the KOH framework for estimating optimal design settings, though the KOH framework offers more interpretable and model-driven uncertainty quantification.
+When observations may be made adaptively, other RSM approaches such as EGO \cite{Jones1998,Brochu2010} or SUR \cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019} may be more efficient than the KOH framework for estimating optimal design settings, though the KOH framework offers more interpretable and model-driven uncertainty quantification.
 %
 Further, RSM approaches in general do not include tools to accommodate the case in which a model stands in need of calibration as well as optimization.
 %
@@ -628,7 +678,7 @@ This ameliorative effect would likely be even greater in a higher-dimensional ca
 %
 In both versions of DCTO, we modularize the analysis by drawing each of $\boldsymbol\theta_c,\boldsymbol\rho_\delta,\lambda_\delta$ using the likelihood based only on $(\mathbf y_s^T,\mathbf y_r^T)^T$ rather than on $(\mathbf y_s^T,\mathbf y_r^T,\mathbf y_t^T)^T$.
 %
-Convergence was verified visually and by the Gelman-Rubin statistic ($\approx 1.01$; \citeauthor{Gelman1992a}, \citeyear{Gelman1992a}).
+Convergence was verified visually and by the Gelman-Rubin statistic ($\approx 1.01$; \cite{Gelman1992a}, \cite{Gelman1992a}).
 %
 
 %
@@ -738,7 +788,7 @@ Thus in our application, the inputs of the FE system are the mass $m$ of the osc
 %
 The relevant output of the system is the damping ratio.
 %
-The simulator is implemented in the commercial finite element software ABAQUS \citep{Abaqus2012} TODO VERIFY CORRECT VERSION.
+The simulator is implemented in the commercial finite element software ABAQUS \cite{Abaqus2012} TODO VERIFY CORRECT VERSION.
 %
 The experimental design for the simulator runs is a latin hypercube over a range of the inputs that covers those of the available experimental data for the known inputs $m$ and $g$, and that covers a plausible range of values for the calibration input $k$.
 %
@@ -754,11 +804,11 @@ Specifically, we set a grid of size 8 over the range of oscillator masses presen
 %
 We define our prior GP surrogate for the FE model using a mean function found via degree-2 polynomial regression on the available FE runs.
 %
-For the hyperparameters of the surrogate's covariance function, we estimate them as MLEs using the quasi-Newton BFGS method \citep{Fletcher2013}.
+For the hyperparameters of the surrogate's covariance function, we estimate them as MLEs using the quasi-Newton BFGS method \cite{Fletcher2013}.
 %
 We perform 10,000 iterations of MCMC using this surrogate and set of target observations, of which the first half are discarded as burn-in.
 %
-The convergence of the resulting MCMC chains is assessed both visually and using the Gelman-Rubin statistic ($\approx1.01$ and $1.001$ for calibration and design respectively); \citeauthor{Gelman1992a}, \citeyear{Gelman1992a}).
+The convergence of the resulting MCMC chains is assessed both visually and using the Gelman-Rubin statistic ($\approx1.01$ and $1.001$ for calibration and design respectively); \cite{Gelman1992a}, \cite{Gelman1992a}).
 %
 
 %
@@ -778,7 +828,7 @@ Strong Bayesian learning has occurred, particularly for the design input.
 %
 The posterior distribution of the elastic modulus for the system assigns high likelihood to the expected value of 6.2e10, with a posterior mean of 6.188e10.
 %
-For comparison with our design results, we also apply the NSGA-II algorithm \citep{Deb2002}, a gradient-free genetic algorithm, to the trained GP model surrogate.
+For comparison with our design results, we also apply the NSGA-II algorithm \cite{Deb2002}, a gradient-free genetic algorithm, to the trained GP model surrogate.
 %
 We use 100 generations and a population size 50, taking a total of 48 seconds of computation (wall time).
 %
@@ -843,7 +893,7 @@ Future work on this subject will include pairing adaptive sampling DCTO with oth
 %
 %\end{description}
 
-\bibliographystyle{Chicago}
+\bibliographystyle{asmems4}
 
 \bibliography{lit_review}
 
