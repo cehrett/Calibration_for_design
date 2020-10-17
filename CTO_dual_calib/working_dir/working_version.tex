@@ -127,7 +127,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{nomenclature}
-	\entry{d}{test}
+	\entry{}{}
 \end{nomenclature}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -592,7 +592,7 @@ Figure \ref{fig:true_vals} shows the locations of the true and optimal values (r
 	\centering
 	\includegraphics[scale=0.85]{FIG_true_optimal_theta1_theta2.eps}
 	\captionsetup{width=.85\linewidth}
-	\caption{The lefthand plot shows the computer model output at $x=1$ and optimal design setting for each value of the calibration parameter $t_c$. The righthand plot show the model output at $x=1,t_c=\theta_c(t_d)$ for each value of the design parameter $t_d$.}
+	\caption{The top plot shows the computer model output at $x=1$ and optimal design setting for each value of the calibration parameter $t_c$. The bottom plot show the model output at $x=1,t_c=\theta_c(t_d)$ for each value of the design parameter $t_d$.}
 	\label{fig:true_vals}
 \end{figure}
 %
@@ -628,13 +628,13 @@ The discrepancies of $f_2$ and $f_3$ are both additive.
 %
 Figure \ref{fig:discrepancies} shows the discrepancies for two different versions (corresponding to different settings of $(a,b)$) of each $f_i$.
 %
-\begin{figure}
+\begin{figure*}
 	\centering
 	\includegraphics[scale=0.85]{FIG_six_discrepancies.eps}
 	\captionsetup{width=.85\linewidth}
 	\caption{The $i^{\text{th}}$ row shows $f_i$ (the objective function with discrepancy), $\eta$ (the computer model), and the discrepancy $f_i-\eta$, all at $x=0.75$. In each row, a less aggressive version of the discrepancy appears on the left, and a more aggressive on the right. In each plot, the topmost surface is $f_i$, the middle surface is $\eta$, and the bottom surface is the discrepancy $f_i-\eta$.}
 	\label{fig:discrepancies}
-\end{figure}
+\end{figure*}
 %
 
 %
@@ -665,7 +665,7 @@ An example of the resulting difference between the adaptive sampling approach an
 	\includegraphics[scale=0.85]{FIG_AS_vs_SFD_obs_locs}
 	\captionsetup{width=.85\linewidth}
 	\caption{Design input values for observations made under the adaptive sampling approach (AS) and under a space-filling design (SFD), along with the optimal value $\theta_d$ of the design input.}
-	\label{fig:observed_data}
+	\label{fig:AS_distribution}
 \end{figure}
 %
 There, one can see that the adaptive sampling approach manages to expend its budget on observations that are near to the region of design interest.
@@ -688,7 +688,7 @@ Representative results from performing DCTO with adaptive sampling in each discr
 %
 A summary of the results of thirty applications of DCTO both with and without adaptive sampling, for each of the discrepancy cases, appears in Table \ref{table:vars_and_rmses}.
 %
-\begin{figure}
+\begin{figure*}
 	\centering
 	\begin{tabular}{p{.13\linewidth} c c}
 	$f_0$ (no discrepancy) &
@@ -716,7 +716,7 @@ A summary of the results of thirty applications of DCTO both with and without ad
 	\captionsetup{width=.85\linewidth}
 	\caption{Prior and posterior distributions of the calibration parameter $\theta_c$ and design parameter $\theta_d$, along with their true/optimal values, for DCTO with adaptive sampling (AS) and with predetermined space-filling design (SFD) in each of the cases studied. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).}
 	\label{fig:sdoe_vs_pdoe}
-\end{figure}
+\end{figure*}
 %
 \begin{table}[]
 	\centering
@@ -758,8 +758,8 @@ The dynamic vibration system (DVS) to which we apply DCTO is shown in Figure \re
 %
 \begin{figure}
 	\centering
-	\includegraphics[height=1.75in]{FIG_dvs_illustration}
-	\includegraphics[height=1.75in]{DSC_5206_crop}
+	\includegraphics[width=2in]{FIG_dvs_illustration}
+	\includegraphics[width=2in]{DSC_5206_crop}
 	\captionsetup{width=.85\linewidth}
 	\caption{The dynamic vibration system, schematic and photograph. (1) The frame, (2) the beam, (3) the mass oscillator, (4) the spring, (5) the damper, and (6) the gain.}
 	\label{fig:dvs}
@@ -937,7 +937,7 @@ We performed each procedure 30 times on each of the seven different discrepancy 
 %
 The results are summarized in Table \ref{table:vars_and_rmses}.
 %
-\begin{table}[]
+\begin{table*}[]
 	\centering
 	\begin{tabular}{l|cc|cc}
 		&\multicolumn{2}{c|}{Posterior $\theta_c$ var.}&
@@ -966,7 +966,7 @@ The results are summarized in Table \ref{table:vars_and_rmses}.
 	\end{tabular}
 	\caption{Posterior variance and root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$ under both DCTO and two-step calibration and design (KOH+design). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
 	\label{table:vars_and_rmses}
-\end{table}
+\end{table*}
 %
 The upper table gives the sample mean, over the thirty runs, of the marginal posterior variance of each of $\theta_c$ and $\theta_d$.
 %
