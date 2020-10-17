@@ -267,7 +267,7 @@ load(locstr);
 % For convenience
 % clc ; clearvars -except dpath discrep results ; close all ;
 
-fig=figure('Position',[10 10 400 300]);
+fig=figure('Position',[10 10 325 300]);
 
 % Define inputs
 xmin = .5;
@@ -329,7 +329,7 @@ set(fig,'color','w');
 
 figstr = 'FIG_observed_data';
 set(fig,'PaperPositionMode','auto')
-% print(fig,figstr,'-depsc','-r600')
+print(fig,figstr,'-depsc','-r600')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Version 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -383,12 +383,12 @@ y_all = dual_calib_example_fn(x,xmin,xrange,all_t1,t1min,t1range,...
 y = dual_calib_example_fn(x,xmin,xrange,t1,t1min,t1range,...
     t2,t2min,t2range,0,1,discrep,false);
 
-f = figure('pos',[20 20 650 250]);
+f = figure('pos',[20 20 300 450]);
 [m,i] = min(y) ; 
 t2opt = t2(i)
 t1opt = t1(i)
 
-subplot(1,2,1);
+subplot(2,1,1);
 plot(all_t1,y_all,'-','LineWidth',2);
 xlabel('t_c');
 ylabel('f(1, t_c, \theta_d(t_c))');
@@ -397,7 +397,7 @@ xlim([min(all_t1),max(all_t1)]);
 label = 'True \theta_c value at t_d = \theta_d ';
 text(t1opt+.1,0.075,label,'Interpreter','tex');
 
-subplot(1,2,2);
+subplot(2,1,2);
 plot(t2,y,'LineWidth',2);
 xlabel('t_d');
 ylabel('f(1, \theta_c(t_d), t_d)');
@@ -412,7 +412,7 @@ text(t2opt+.1,.9,label);
 set(f,'Color','w');
 savestr = 'FIG_true_optimal_theta1_theta2';
 set(f,'PaperPositionMode','auto')
-% print(f,savestr,'-depsc','-r600')
+print(f,savestr,'-depsc','-r600')
 
 %% Compare SDOE and PDOE posteriors for theta1,theta2 (with prior), B&W ver
 clc ; clearvars -except dpath ; close all ;
@@ -568,3 +568,99 @@ set(f,'color','white');
 figstr = ['FIG_AS_vs_SFD_obs_locs'];
 set(f,'PaperPositionMode','auto')
 print(f,figstr,'-depsc','-r600')
+
+%% Compare DCTO, KOH+CTO posteriors for theta1,theta2 (with prior), B&W ver
+clc ; clearvars -except dpath ; close all ;
+
+% Select discrepancy
+discrep = 0;
+
+% Load results
+locstr=[dpath,'\dual_calib\dual_calib_stored_data\2019-11-20_DCTO_vs_KOHCTO_results'];
+load(locstr);
+
+% Define inputs mins and ranges 
+xmin = .5;
+xrange = .5;
+t1min = 1.5;
+t1range = 3;
+t2min = 0;
+t2range = 5;
+
+
+% Get DCTO  and KOH+CTO results
+burn_in = results{1}.settings{1}.burn_in;
+dcto_t1 = results{discrep+1,1}.theta1(burn_in:end,10);
+dcto_t2 = results{discrep+1,1}.theta2(burn_in:end,10);
+khct_t1 = results{discrep+1,2}.theta1(burn_in:end,10);
+khct_t2 = results{discrep+1,3}.theta2(burn_in:end,10);
+
+
+% Help function
+fillunder = @(x,y,color,falpha) ...
+    fill([x(1) x x(end) fliplr(x) 0],...
+        [0 y 0 0*y 0],color,'EdgeColor','none','FaceAlpha',falpha);
+    
+% First, get prior and posterior theta1
+f1 = figure('pos',[10 10 300 200]);
+% Plot prior
+falpha=0.1; % face alpha for posteriors
+lalpha=0.65; % line alpha for posteriors
+fillunder([t1min t1min+t1range],[1/t1range 1/t1range],'g',1);
+xlim([t1min t1min + t1range]);
+hold on;
+% Get kernel estimate of theta1 with true value marked
+[pd1,xd1,bwd1] = ksdensity(dcto_t1);
+[pk1,xk1,bwk1] = ksdensity(khct_t1);
+plot1 = plot(xk1,pk1,'LineWidth',2,'color','r','LineStyle',':');
+plot1.Color(4)=lalpha;
+plot2 = plot(xd1,pd1,'LineWidth',2,'color','b');
+plot2.Color(4)=lalpha;
+% Plot true theta1
+theta1 = results{discrep+1,1}.true_theta1;
+plot([theta1 theta1],get(gca,'YLim'),'--','Color','k',...
+    'LineWidth',1.5);
+fillunder(xk1,pk1,'r',falpha);
+fillunder(xd1,pd1,'b',falpha);
+% Put a legend on it
+lg1 = legend('Prior dist.','KOH','DCTO','True value');
+title('Prior and posterior distributions of \theta_c');
+xlabel('\theta_c');
+yticks([]);
+set(f1,'color','white');
+
+
+% First, get prior and posterior theta1
+f2 = figure('pos',[320 10 300 200]);
+% Plot prior
+fillunder([t2min t2min+t2range],[1/t2range 1/t2range],'g',1);
+xlim([t2min t2min + t2range]);
+hold on;
+% Get kernel estimate of theta1 with true value marked
+[pd2,xd2,bwd2] = ksdensity(dcto_t2);
+[pk2,xk2,bwk2] = ksdensity(khct_t2);
+plot1 = plot(xk2,pk2,'LineWidth',2,'color','r','LineStyle',':');
+plot2 = plot(xd2,pd2,'LineWidth',2,'color','b');
+plot1.Color(4)=lalpha;
+plot2.Color(4)=lalpha;
+% Plot true theta2
+theta2 = results{discrep+1,1}.true_theta2;
+plot([theta2 theta2],get(gca,'YLim'),'--','Color','k' ,...
+    'LineWidth',1.5);
+fillunder(xk2,pk2,'r',falpha);
+fillunder(xd2,pd2,'b',falpha);
+% Put a legend on it
+lg2 = legend('Prior dist.','CTO','DCTO','Optimum');
+title('Prior and posterior distributions of \theta_d');
+xlabel('\theta_d');
+yticks([]);
+set(f2,'color','white');
+
+
+% Save them
+figstr1 = 'FIG_dual_calib_post_theta1-d0';
+figstr2 = 'FIG_dual_calib_post_theta2-d0';
+set(f1,'PaperPositionMode','auto')
+set(f2,'PaperPositionMode','auto')
+% print(f1,figstr1,'-depsc','-r600')
+% print(f2,figstr2,'-depsc','-r600')
