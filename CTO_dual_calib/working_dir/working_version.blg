@@ -18,43 +18,43 @@ Warning--empty institution in MiguelHernandez-Lobato2016
 Warning--empty journal in Binois2019
 You've used 39 entries,
             1984 wiz_defined-function locations,
-            770 strings with 11455 characters,
-and the built_in function-call counts, 10962 in all, are:
-= -- 1018
+            772 strings with 11427 characters,
+and the built_in function-call counts, 11113 in all, are:
+= -- 1041
 > -- 421
 < -- 0
 + -- 166
 - -- 127
-* -- 808
-:= -- 1530
+* -- 822
+:= -- 1544
 add.period$ -- 115
 call.type$ -- 39
 change.case$ -- 37
 chr.to.int$ -- 0
 cite$ -- 44
-duplicate$ -- 523
-empty$ -- 1024
+duplicate$ -- 526
+empty$ -- 1031
 format.name$ -- 127
-if$ -- 2559
+if$ -- 2598
 int.to.chr$ -- 0
 int.to.str$ -- 39
 missing$ -- 40
 newline$ -- 195
 num.names$ -- 40
-pop$ -- 135
+pop$ -- 129
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 364
+skip$ -- 377
 stack$ -- 0
-substring$ -- 773
-swap$ -- 260
+substring$ -- 805
+swap$ -- 269
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 5
-while$ -- 112
+while$ -- 115
 width$ -- 41
 write$ -- 419
 (There were 2 error messages)

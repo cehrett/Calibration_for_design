@@ -175,12 +175,12 @@ Mockus, J., Tiesis, V., and Zilinskas, A., 1978.
 \newblock ``The application of bayesian methods for seeking the extremum''.
 \newblock {\em Towards global optimization, {\bf 2}}(117-129), p.~2.
 
-\bibitem{Olalotiti-Lawal2015}
-Olalotiti-Lawal, F., and Datta-Gupta, A., 2015.
-\newblock ``{A Multi-Objective Markov Chain Monte Carlo Approach for History
-  Matching and Uncertainty Quantification}''.
-\newblock In SPE Annual Technical Conference and Exhibition, Society of
-  Petroleum Engineers.
+\bibitem{Olalotiti2018}
+Olalotiti-Lawal, F., and Datta-Gupta, A., 2018.
+\newblock ``A multiobjective markov chain monte carlo approach for history
+  matching and uncertainty quantification''.
+\newblock {\em Journal of Petroleum Science and Engineering, {\bf 166}},
+  pp.~759--777.
 
 \bibitem{Gelfand1990}
 Gelfand, A.~E., and Smith, A. F.~M., 1990.
