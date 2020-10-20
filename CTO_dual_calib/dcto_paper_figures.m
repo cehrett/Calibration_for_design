@@ -329,7 +329,7 @@ set(fig,'color','w');
 
 figstr = 'FIG_observed_data';
 set(fig,'PaperPositionMode','auto')
-print(fig,figstr,'-depsc','-r600')
+% print(fig,figstr,'-depsc','-r600')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Version 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
