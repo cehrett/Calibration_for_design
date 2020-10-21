@@ -1,237 +1,271 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{}
 
-\bibitem{Kennedy2001}
-Kennedy, M.~C., and O'Hagan, A., 2001.
-\newblock ``{Bayesian calibration of computer models}''.
-\newblock {\em Journal of the Royal Statistical Society: Series B, {\bf
-  63}}(3), pp.~425--464.
+\bibitem[\protect\citeauthoryear{Atamturktur and Brown}{Atamturktur and
+  Brown}{2015}]{Atamturktur2015}
+Atamturktur, S. and D.~A. Brown (2015).
+\newblock {State-aware calibration for inferring systematic bias in computer
+  models of complex systems}.
+\newblock {\em NAFEMS World Congress Proceedings, June 21-24\/}.
 
-\bibitem{Higdon2004}
-Higdon, D., Kennedy, M., Cavendish, J.~C., Cafeo, J.~A., and Ryne, R.~D., 2004.
-\newblock ``{Combining field data and computer simulations for calibration and
-  prediction}''.
-\newblock {\em SIAM Journal on Scientific Computing, {\bf 26}}(2),
-  pp.~448--466.
+\bibitem[\protect\citeauthoryear{Atamturktur, Hegenderfer, Williams, Egeberg,
+  Lebensohn, and Unal}{Atamturktur et~al.}{2017}]{Atamturktur2017}
+Atamturktur, S., J.~Hegenderfer, B.~Williams, M.~Egeberg, R.~A. Lebensohn, and
+  C.~Unal (2017).
+\newblock {Mechanics of advanced materials and structures: a resource
+  allocation framework for experiment-based validation of numerical models}.
+\newblock {\em Mechanics of Advanced Materials and Structures\/}~{\em 22\/}(8),
+  641--654.
 
-\bibitem{Williams2006}
-Williams, B., Higdon, D., Gattiker, J., Moore, L., McKay, M., and
-  Keller-McNulty, S., 2006.
-\newblock ``{Combining experimental data and computer simulations, with an
-  application to flyer plate experiments}''.
-\newblock {\em Bayesian Analysis, {\bf 1}}(4), pp.~765--792.
+\bibitem[\protect\citeauthoryear{Bayarri, Berger, and Cafeo}{Bayarri
+  et~al.}{007a}]{Bayarri2007a}
+Bayarri, M.~J., J.~O. Berger, and J.~Cafeo (2007a).
+\newblock {Computer model validation with functional output}.
+\newblock {\em The Annals of Statistics\/}~{\em 35}, 1874--1906.
 
-\bibitem{Bayarri2007a}
-Bayarri, M.~J., Berger, J.~O., and Cafeo, J., 2007a.
-\newblock ``{Computer model validation with functional output}''.
-\newblock {\em The Annals of Statistics, {\bf 35}}, pp.~1874--1906.
+\bibitem[\protect\citeauthoryear{Bayarri, Berger, Paulo, Sacks, Cafeo,
+  Cavendish, Lin, and Tu}{Bayarri et~al.}{007b}]{Bayarri2007b}
+Bayarri, M.~J., J.~O. Berger, R.~Paulo, J.~Sacks, J.~A. Cafeo, J.~Cavendish,
+  C.-H. Lin, and J.~Tu (2007b).
+\newblock {A framework for validation of computer models}.
+\newblock {\em Technometrics\/}~{\em 49\/}(2), 138--154.
 
-\bibitem{Bayarri2007b}
-Bayarri, M.~J., Berger, J.~O., Paulo, R., Sacks, J., Cafeo, J.~A., Cavendish,
-  J., Lin, C.-H., and Tu, J., 2007b.
-\newblock ``{A framework for validation of computer models}''.
-\newblock {\em Technometrics, {\bf 49}}(2), pp.~138--154.
+\bibitem[\protect\citeauthoryear{Binois, Picheny, Taillandier, and
+  Habbal}{Binois et~al.}{2019}]{Binois2019}
+Binois, M., V.~Picheny, P.~Taillandier, and A.~Habbal (2019, feb).
+\newblock {The Kalai-Smorodinski solution for many-objective Bayesian
+  optimization}.
 
-\bibitem{Paulo2012}
-Paulo, R., Garc{\'{i}}a-Donato, G., and Palomo, J., 2012.
-\newblock ``{Calibration of computer models with multivariate output}''.
-\newblock {\em Computational Statistics and Data Analysis, {\bf 56}},
-  pp.~3959--3974.
+\bibitem[\protect\citeauthoryear{Bonyadi and Michalewicz}{Bonyadi and
+  Michalewicz}{2017}]{Bonyadi2017}
+Bonyadi, M.~R. and Z.~Michalewicz (2017, mar).
+\newblock {Particle swarm optimization for single objective continuous space
+  problems: A review}.
 
-\bibitem{Brynjarsdottir2014}
-Brynjarsd{\'{o}}ttir, J., and O'Hagan, A., 2014.
-\newblock ``{Learning about physical parameters: The importance of model
-  discrepancy}''.
-\newblock {\em Inverse Problems, {\bf 30}}(11).
+\bibitem[\protect\citeauthoryear{Branke, Deb, Miettinen, and Slowinski}{Branke
+  et~al.}{2008}]{Branke2008}
+Branke, J., K.~Deb, K.~Miettinen, and R.~Slowinski (Eds.) (2008).
+\newblock {\em {Multiobjective Optimization: Interactive and Evolutionary
+  Approaches}}, Volume 5252 LNCS.
+\newblock Springer.
 
-\bibitem{Regis2004}
-Regis, R.~G., and Shoemaker, C.~A., 2004.
-\newblock ``{Local function approximation in evolutionary algorithms for the
-  optimization of costly functions}''.
-\newblock {\em IEEE Transactions on Evolutionary Computation, {\bf 8}}(5),
-  pp.~490--505.
+\bibitem[\protect\citeauthoryear{Brochu, Cora, and de~Freitas}{Brochu
+  et~al.}{2010}]{Brochu2010}
+Brochu, E., V.~M. Cora, and N.~de~Freitas (2010).
+\newblock {A tutorial on Bayesian optimization of expensive cost functions,
+  with application to active user modeling and hierarchical reinforcement
+  learning}.
 
-\bibitem{Nocedal2006}
-Nocedal, J., and Wright, S.~J., 2006.
+\bibitem[\protect\citeauthoryear{Brown and Atamturktur}{Brown and
+  Atamturktur}{2018}]{Brown2018}
+Brown, D.~A. and S.~Atamturktur (2018).
+\newblock Nonparametric functional calibration of computer models.
+\newblock {\em Statistica Sinica\/}~{\em 28\/}(2), 721--742.
+
+\bibitem[\protect\citeauthoryear{Brynjarsd{\'{o}}ttir and
+  O'Hagan}{Brynjarsd{\'{o}}ttir and O'Hagan}{2014}]{Brynjarsdottir2014}
+Brynjarsd{\'{o}}ttir, J. and A.~O'Hagan (2014).
+\newblock {Learning about physical parameters: The importance of model
+  discrepancy}.
+\newblock {\em Inverse Problems\/}~{\em 30\/}(11).
+
+\bibitem[\protect\citeauthoryear{Chevalier, Bect, Ginsbourger, Vazquez,
+  Picheny, and Richet}{Chevalier et~al.}{2014}]{Chevalier2014}
+Chevalier, C., J.~Bect, D.~Ginsbourger, E.~Vazquez, V.~Picheny, and Y.~Richet
+  (2014).
+\newblock {Fast Parallel Kriging-Based Stepwise Uncertainty Reduction With
+  Application to the Identification of an Excursion Set}.
+\newblock {\em Technometrics\/}~{\em 56\/}(4).
+
+\bibitem[\protect\citeauthoryear{Dean, Voss, and Dragulji{\'{c}}}{Dean
+  et~al.}{2017}]{Dean2017}
+Dean, A., D.~Voss, and D.~Dragulji{\'{c}} (2017).
+\newblock {\em Response Surface Methodology}, pp.\  565--614.
+\newblock Cham: Springer International Publishing.
+
+\bibitem[\protect\citeauthoryear{Deb and Gupta}{Deb and Gupta}{2006}]{Deb2006}
+Deb, K. and H.~Gupta (2006, dec).
+\newblock {Introducing robustness in multi-objective optimization}.
+\newblock {\em Evolutionary Computation\/}~{\em 14\/}(4), 463--494.
+
+\bibitem[\protect\citeauthoryear{Deb, Pratap, Agarwal, and Meyarivan}{Deb
+  et~al.}{2002}]{Deb2002}
+Deb, K., A.~Pratap, S.~Agarwal, and T.~Meyarivan (2002).
+\newblock {A fast and elitist multiobjective genetic algorithm: NSGA-II}.
+\newblock {\em IEEE Transactions on Evolutionary Computation\/}~{\em 6\/}(2),
+  182--197.
+
+\bibitem[\protect\citeauthoryear{Ezzat, Pourhabib, and Ding}{Ezzat
+  et~al.}{2018}]{Ezzat2018}
+Ezzat, A.~A., A.~Pourhabib, and Y.~Ding (2018, jul).
+\newblock {Sequential Design for Functional Calibration of Computer Models}.
+\newblock {\em Technometrics\/}~{\em 60\/}(3), 286--296.
+
+\bibitem[\protect\citeauthoryear{Fletcher}{Fletcher}{2013}]{Fletcher2013}
+Fletcher, R. (2013).
+\newblock {\em Practical methods of optimization}.
+\newblock John Wiley \& Sons.
+
+\bibitem[\protect\citeauthoryear{Gelfand and Smith}{Gelfand and
+  Smith}{1990}]{Gelfand1990}
+Gelfand, A.~E. and A.~F.~M. Smith (1990, jun).
+\newblock {Sampling-based approaches to calculating marginal densities}.
+\newblock {\em Journal of the American Statistical Association\/}~{\em
+  85\/}(410), 398--409.
+
+\bibitem[\protect\citeauthoryear{Gelman and Rubin}{Gelman and
+  Rubin}{1992}]{Gelman1992a}
+Gelman, A. and D.~B. Rubin (1992).
+\newblock {Inference from Iterative Simulation Using Multiple Sequences}.
+\newblock {\em Statistical Science\/}~{\em 7\/}(4), 457--472.
+
+\bibitem[\protect\citeauthoryear{Geman and Jedynak}{Geman and
+  Jedynak}{1996}]{Geman1996}
+Geman, D. and B.~Jedynak (1996).
+\newblock {An active testing model for tracking roads in satellite images}.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine
+  Intelligence\/}~{\em 18\/}(1), 1--14.
+
+\bibitem[\protect\citeauthoryear{Higdon, Kennedy, Cavendish, Cafeo, and
+  Ryne}{Higdon et~al.}{2004}]{Higdon2004}
+Higdon, D., M.~Kennedy, J.~C. Cavendish, J.~A. Cafeo, and R.~D. Ryne (2004).
+\newblock {Combining field data and computer simulations for calibration and
+  prediction}.
+\newblock {\em SIAM Journal on Scientific Computing\/}~{\em 26\/}(2), 448--466.
+
+\bibitem[\protect\citeauthoryear{Jones, Schonlau, and Welch}{Jones
+  et~al.}{1998}]{Jones1998}
+Jones, D.~R., M.~Schonlau, and W.~J. Welch (1998).
+\newblock {Efficient Global Optimization of Expensive Black-Box Functions}.
+\newblock Technical report.
+
+\bibitem[\protect\citeauthoryear{Kennedy and O'Hagan}{Kennedy and
+  O'Hagan}{2001}]{Kennedy2001}
+Kennedy, M.~C. and A.~O'Hagan (2001).
+\newblock {Bayesian calibration of computer models}.
+\newblock {\em Journal of the Royal Statistical Society: Series B\/}~{\em
+  63\/}(3), 425--464.
+
+\bibitem[\protect\citeauthoryear{Kim, Hiroyasu, Miki, and Watanabe}{Kim
+  et~al.}{2004}]{Kim2004}
+Kim, M., T.~Hiroyasu, M.~Miki, and S.~Watanabe (2004).
+\newblock {SPEA2+: Improving the performance of the strength pareto
+  evolutionary algorithm 2}.
+\newblock {\em Lecture Notes in Computer Science (including subseries Lecture
+  Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)\/}~{\em
+  3242}, 742--751.
+
+\bibitem[\protect\citeauthoryear{Lee and El-Sharkawi}{Lee and
+  El-Sharkawi}{2007}]{Lee2007}
+Lee, K.~Y. and M.~A. El-Sharkawi (2007, jun).
+\newblock {\em {Modern Heuristic Optimization Techniques: Theory and
+  Applications to Power Systems}}.
+\newblock John Wiley and Sons.
+
+\bibitem[\protect\citeauthoryear{Liu, Bayarri, and Berger}{Liu
+  et~al.}{2009}]{Liu2009}
+Liu, F., M.~J. Bayarri, and J.~O. Berger (2009).
+\newblock {Modularization in Bayesian analysis, with emphasis on analysis of
+  computer models}.
+\newblock {\em Bayesian Analysis\/}~{\em 4\/}(1), 119--150.
+
+\bibitem[\protect\citeauthoryear{Mason, Duggan, and Howley}{Mason
+  et~al.}{2017}]{Mason2017}
+Mason, K., J.~Duggan, and E.~Howley (2017, dec).
+\newblock {Multi-objective dynamic economic emission dispatch using particle
+  swarm optimisation variants}.
+\newblock {\em Neurocomputing\/}~{\em 270}, 188--197.
+
+\bibitem[\protect\citeauthoryear{{Miguel Hern{\'{a}}ndez-Lobato}, Gelbart,
+  Adams, Hoffman, Ghahramani, Hern{\'{a}}ndez-Lobato, Gelbart, Adams, Hoffman,
+  and {Ghahramani Hern{\'{a}}ndez-Lobato}}{{Miguel Hern{\'{a}}ndez-Lobato}
+  et~al.}{2016}]{MiguelHernandez-Lobato2016}
+{Miguel Hern{\'{a}}ndez-Lobato}, J., M.~A. Gelbart, R.~P. Adams, M.~W. Hoffman,
+  Z.~Ghahramani, J.~M. Hern{\'{a}}ndez-Lobato, M.~A. Gelbart, R.~P. Adams,
+  M.~W. Hoffman, and Z.~{Ghahramani Hern{\'{a}}ndez-Lobato} (2016).
+\newblock {A General Framework for Constrained Bayesian Optimization using
+  Information-based Search}.
+\newblock Technical report.
+
+\bibitem[\protect\citeauthoryear{Mockus, Tiesis, and Zilinskas}{Mockus
+  et~al.}{1978}]{Mockus1978}
+Mockus, J., V.~Tiesis, and A.~Zilinskas (1978).
+\newblock The application of bayesian methods for seeking the extremum.
+\newblock {\em Towards global optimization\/}~{\em 2\/}(117-129), 2.
+
+\bibitem[\protect\citeauthoryear{Nocedal and Wright}{Nocedal and
+  Wright}{2006}]{Nocedal2006}
+Nocedal, J. and S.~J. Wright (2006).
 \newblock {\em {Numerical optimization}}.
 \newblock Springer.
 
-\bibitem{Lee2007}
-Lee, K.~Y., and El-Sharkawi, M.~A., 2007.
-\newblock {\em {Modern Heuristic Optimization Techniques: Theory and
-  Applications to Power Systems}}.
-\newblock John Wiley and Sons, jun.
+\bibitem[\protect\citeauthoryear{Olalotiti-Lawal and
+  Datta-Gupta}{Olalotiti-Lawal and Datta-Gupta}{2018}]{Olalotiti2018}
+Olalotiti-Lawal, F. and A.~Datta-Gupta (2018).
+\newblock A multiobjective markov chain monte carlo approach for history
+  matching and uncertainty quantification.
+\newblock {\em Journal of Petroleum Science and Engineering\/}~{\em 166},
+  759--777.
 
-\bibitem{Branke2008}
-Branke, J., Deb, K., Miettinen, K., and Slowinski, R., eds., 2008.
-\newblock {\em {Multiobjective Optimization: Interactive and Evolutionary
-  Approaches}}, Vol.~5252 LNCS.
-\newblock Springer.
+\bibitem[\protect\citeauthoryear{Paulo, Garc{\'{i}}a-Donato, and Palomo}{Paulo
+  et~al.}{2012}]{Paulo2012}
+Paulo, R., G.~Garc{\'{i}}a-Donato, and J.~Palomo (2012).
+\newblock {Calibration of computer models with multivariate output}.
+\newblock {\em Computational Statistics and Data Analysis\/}~{\em 56},
+  3959--3974.
 
-\bibitem{Deb2002}
-Deb, K., Pratap, A., Agarwal, S., and Meyarivan, T., 2002.
-\newblock ``{A fast and elitist multiobjective genetic algorithm: NSGA-II}''.
-\newblock {\em IEEE Transactions on Evolutionary Computation, {\bf 6}}(2),
-  pp.~182--197.
+\bibitem[\protect\citeauthoryear{Picheny}{Picheny}{2015}]{Picheny2015}
+Picheny, V. (2015).
+\newblock {Multiobjective optimization using Gaussian process emulators via
+  stepwise uncertainty reduction}.
+\newblock {\em Statistics and Computing\/}~{\em 25\/}(6), 1265--1280.
 
-\bibitem{Kim2004}
-Kim, M., Hiroyasu, T., Miki, M., and Watanabe, S., 2004.
-\newblock ``{SPEA2+: Improving the performance of the strength pareto
-  evolutionary algorithm 2}''.
-\newblock {\em Lecture Notes in Computer Science (including subseries Lecture
-  Notes in Artificial Intelligence and Lecture Notes in Bioinformatics), {\bf
-  3242}}, pp.~742--751.
+\bibitem[\protect\citeauthoryear{Picheny, Binois, and Habbal}{Picheny
+  et~al.}{2019}]{Picheny2019}
+Picheny, V., M.~Binois, and A.~Habbal (2019, jan).
+\newblock {A Bayesian optimization approach to find Nash equilibria}.
+\newblock {\em Journal of Global Optimization\/}~{\em 73\/}(1), 171--192.
 
-\bibitem{Bonyadi2017}
-Bonyadi, M.~R., and Michalewicz, Z., 2017.
-\newblock {Particle swarm optimization for single objective continuous space
-  problems: A review}, mar.
+\bibitem[\protect\citeauthoryear{Regis and Shoemaker}{Regis and
+  Shoemaker}{2004}]{Regis2004}
+Regis, R.~G. and C.~A. Shoemaker (2004).
+\newblock {Local function approximation in evolutionary algorithms for the
+  optimization of costly functions}.
+\newblock {\em IEEE Transactions on Evolutionary Computation\/}~{\em 8\/}(5),
+  490--505.
 
-\bibitem{Mason2017}
-Mason, K., Duggan, J., and Howley, E., 2017.
-\newblock ``{Multi-objective dynamic economic emission dispatch using particle
-  swarm optimisation variants}''.
-\newblock {\em Neurocomputing, {\bf 270}}, dec, pp.~188--197.
+\bibitem[\protect\citeauthoryear{Robert and Casella}{Robert and
+  Casella}{2004}]{Robert2004}
+Robert, C.~P. and G.~Casella (2004).
+\newblock {Monte Carlo Optimization}.
+\newblock In {\em Monte Carlo Statistical Methods\/} (2 ed.)., Chapter~5, pp.\
+  157--204. New York, NY: Springer New York.
 
-\bibitem{Robert2004}
-Robert, C.~P., and Casella, G., 2004.
-\newblock ``{Monte Carlo Optimization}''.
-\newblock In {\em Monte Carlo Statistical Methods}, 2~ed. Springer New York,
-  New York, NY, ch.~5, pp.~157--204.
+\bibitem[\protect\citeauthoryear{Simulia}{Simulia}{2012}]{Abaqus2012}
+Simulia, D.~S. (2012).
+\newblock Abaqus 6.12 documentation.
+\newblock {\em Providence, Rhode Island, US\/}~{\em 261}.
 
-\bibitem{Deb2006}
-Deb, K., and Gupta, H., 2006.
-\newblock ``{Introducing robustness in multi-objective optimization}''.
-\newblock {\em Evolutionary Computation, {\bf 14}}(4), dec, pp.~463--494.
+\bibitem[\protect\citeauthoryear{Villemonteix, Vazquez, and
+  Walter}{Villemonteix et~al.}{2009}]{Villemonteix2009}
+Villemonteix, J., E.~Vazquez, and E.~Walter (2009, aug).
+\newblock {An informational approach to the global optimization of
+  expensive-to-evaluate functions}.
+\newblock {\em Journal of Global Optimization\/}~{\em 44\/}(4), 509--534.
 
-\bibitem{Zhou2011b}
-Zhou, A., Qu, B.-Y., Li, H., Zhao, S.-Z., Suganthan, P.~N., and Zhang, Q.,
-  2011.
-\newblock ``{Multiobjective evolutionary algorithms: A survey of the state of
-  the art}''.
-\newblock {\em Swarm and Evolutionary Computation, {\bf 1}}(1), mar,
-  pp.~32--49.
+\bibitem[\protect\citeauthoryear{Williams, Higdon, Gattiker, Moore, McKay, and
+  Keller-McNulty}{Williams et~al.}{2006}]{Williams2006}
+Williams, B., D.~Higdon, J.~Gattiker, L.~Moore, M.~McKay, and S.~Keller-McNulty
+  (2006).
+\newblock {Combining experimental data and computer simulations, with an
+  application to flyer plate experiments}.
+\newblock {\em Bayesian Analysis\/}~{\em 1\/}(4), 765--792.
 
-\bibitem{Dean2017}
-Dean, A., Voss, D., and Dragulji{\'{c}}, D., 2017.
-\newblock {\em Response Surface Methodology}.
-\newblock Springer International Publishing, Cham, pp.~565--614.
-
-\bibitem{Jones1998}
-Jones, D.~R., Schonlau, M., and Welch, W.~J., 1998.
-\newblock {Efficient Global Optimization of Expensive Black-Box Functions}.
-\newblock Tech. rep.
-
-\bibitem{Brochu2010}
-Brochu, E., Cora, V.~M., and de~Freitas, N., 2010.
-\newblock ``{A tutorial on Bayesian optimization of expensive cost functions,
-  with application to active user modeling and hierarchical reinforcement
-  learning}''.
-
-\bibitem{Geman1996}
-Geman, D., and Jedynak, B., 1996.
-\newblock ``{An active testing model for tracking roads in satellite images}''.
-\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence,
-  {\bf 18}}(1), pp.~1--14.
-
-\bibitem{Villemonteix2009}
-Villemonteix, J., Vazquez, E., and Walter, E., 2009.
-\newblock ``{An informational approach to the global optimization of
-  expensive-to-evaluate functions}''.
-\newblock {\em Journal of Global Optimization, {\bf 44}}(4), aug, pp.~509--534.
-
-\bibitem{Chevalier2014}
-Chevalier, C., Bect, J., Ginsbourger, D., Vazquez, E., Picheny, V., and Richet,
-  Y., 2014.
-\newblock ``{Fast Parallel Kriging-Based Stepwise Uncertainty Reduction With
-  Application to the Identification of an Excursion Set}''.
-\newblock {\em Technometrics, {\bf 56}}(4).
-
-\bibitem{Picheny2015}
-Picheny, V., 2015.
-\newblock ``{Multiobjective optimization using Gaussian process emulators via
-  stepwise uncertainty reduction}''.
-\newblock {\em Statistics and Computing, {\bf 25}}(6), pp.~1265--1280.
-
-\bibitem{MiguelHernandez-Lobato2016}
-{Miguel Hern{\'{a}}ndez-Lobato}, J., Gelbart, M.~A., Adams, R.~P., Hoffman,
-  M.~W., Ghahramani, Z., Hern{\'{a}}ndez-Lobato, J.~M., Gelbart, M.~A., Adams,
-  R.~P., Hoffman, M.~W., and {Ghahramani Hern{\'{a}}ndez-Lobato}, Z., 2016.
-\newblock {A General Framework for Constrained Bayesian Optimization using
-  Information-based Search}.
-\newblock Tech. rep.
-
-\bibitem{Picheny2019}
-Picheny, V., Binois, M., and Habbal, A., 2019.
-\newblock ``{A Bayesian optimization approach to find Nash equilibria}''.
-\newblock {\em Journal of Global Optimization, {\bf 73}}(1), jan, pp.~171--192.
-
-\bibitem{Binois2019}
-Binois, M., Picheny, V., Taillandier, P., and Habbal, A., 2019.
-\newblock ``{The Kalai-Smorodinski solution for many-objective Bayesian
-  optimization}''.
-
-\bibitem{Mockus1978}
-Mockus, J., Tiesis, V., and Zilinskas, A., 1978.
-\newblock ``The application of bayesian methods for seeking the extremum''.
-\newblock {\em Towards global optimization, {\bf 2}}(117-129), p.~2.
-
-\bibitem{Olalotiti2018}
-Olalotiti-Lawal, F., and Datta-Gupta, A., 2018.
-\newblock ``A multiobjective markov chain monte carlo approach for history
-  matching and uncertainty quantification''.
-\newblock {\em Journal of Petroleum Science and Engineering, {\bf 166}},
-  pp.~759--777.
-
-\bibitem{Gelfand1990}
-Gelfand, A.~E., and Smith, A. F.~M., 1990.
-\newblock ``{Sampling-based approaches to calculating marginal densities}''.
-\newblock {\em Journal of the American Statistical Association, {\bf 85}}(410),
-  jun, pp.~398--409.
-
-\bibitem{Liu2009}
-Liu, F., Bayarri, M.~J., and Berger, J.~O., 2009.
-\newblock ``{Modularization in Bayesian analysis, with emphasis on analysis of
-  computer models}''.
-\newblock {\em Bayesian Analysis, {\bf 4}}(1), pp.~119--150.
-
-\bibitem{Atamturktur2015}
-Atamturktur, S., and Brown, D.~A., 2015.
-\newblock ``{State-aware calibration for inferring systematic bias in computer
-  models of complex systems}''.
-\newblock {\em NAFEMS World Congress Proceedings, June 21-24}.
-
-\bibitem{Atamturktur2017}
-Atamturktur, S., Hegenderfer, J., Williams, B., Egeberg, M., Lebensohn, R.~A.,
-  and Unal, C., 2017.
-\newblock ``{Mechanics of advanced materials and structures: a resource
-  allocation framework for experiment-based validation of numerical models}''.
-\newblock {\em Mechanics of Advanced Materials and Structures, {\bf 22}}(8),
-  pp.~641--654.
-
-\bibitem{Ezzat2018}
-Ezzat, A.~A., Pourhabib, A., and Ding, Y., 2018.
-\newblock ``{Sequential Design for Functional Calibration of Computer
-  Models}''.
-\newblock {\em Technometrics, {\bf 60}}(3), jul, pp.~286--296.
-
-\bibitem{Brown2018}
-Brown, D.~A., and Atamturktur, S., 2018.
-\newblock ``Nonparametric functional calibration of computer models''.
-\newblock {\em Statistica Sinica, {\bf 28}}(2), pp.~721--742.
-
-\bibitem{Gelman1992a}
-Gelman, A., and Rubin, D.~B., 1992.
-\newblock ``{Inference from Iterative Simulation Using Multiple Sequences}''.
-\newblock {\em Statistical Science, {\bf 7}}(4), pp.~457--472.
-
-\bibitem{Abaqus2012}
-Simulia, D.~S., 2012.
-\newblock ``Abaqus 6.12 documentation''.
-\newblock {\em Providence, Rhode Island, US, {\bf 261}}.
-
-\bibitem{Fletcher2013}
-Fletcher, R., 2013.
-\newblock {\em Practical methods of optimization}.
-\newblock John Wiley \& Sons.
+\bibitem[\protect\citeauthoryear{Zhou, Qu, Li, Zhao, Suganthan, and Zhang}{Zhou
+  et~al.}{2011}]{Zhou2011b}
+Zhou, A., B.-Y. Qu, H.~Li, S.-Z. Zhao, P.~N. Suganthan, and Q.~Zhang (2011,
+  mar).
+\newblock {Multiobjective evolutionary algorithms: A survey of the state of the
+  art}.
+\newblock {\em Swarm and Evolutionary Computation\/}~{\em 1\/}(1), 32--49.
 
 \end{thebibliography}

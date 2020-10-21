@@ -16,7 +16,78 @@
 % Use at your own risk, send complaints to /dev/null                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%% use twocolumn and 10pt options with the asme2ej format
+
+
+% NOTE: PLACES WHERE THE TEX CODE NEEDS TO BE CHANGED (COMMENTING OR UNCOMMENTING) TO SWITCH BETWEEN JVVUQ SUBMISSION FORMAT AND (UNOFFICIAL) DISSERTATION FORMAT ARE MARKED BY "SWITCH_FORMAT"
+
+%% SWITCH_FORMAT: DISSERTATION FORMAT VERSION
+\newcommand{\diss}{1}
+
+\if1\diss
+\documentclass[12pt]{article}
+\newbox\tempbox
+\newenvironment{nomenclature}{%
+	\newcommand\entry[2]{%
+		\setbox\tempbox\hbox{##1.\quad}
+		\hangindent\wd\tempbox\noindent{##1}\quad\ignorespaces##2\par}
+	%\section*{NOMENCLATURE}}{\par\addvspace{12pt}}
+	\section*{Nomenclature}}{\par\addvspace{12pt}}
+%\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{enumerate}
+\usepackage{natbib} %comment out if you do not have the package
+\usepackage{url}
+% not crucial - just used below for the URL 
+\usepackage{amsmath, amssymb}
+\usepackage{setspace} % NOT IN TECHNOMETRICS TEMPLATE
+\usepackage{caption} % NOT IN TECHNOMETRICS TEMPLATE
+\usepackage[margin=1.25in]{geometry}
+
+
+
+%\pdfminorversion=4
+% NOTE: To produce blinded version, replace "0" with "1" below.
+
+%% DON'T change margins - should be 1 inch all around.
+%\addtolength{\oddsidemargin}{-.5in}%
+%\addtolength{\evensidemargin}{-.5in}%
+%\addtolength{\textwidth}{1in}%
+%\addtolength{\textheight}{1.3in}%
+%\addtolength{\topmargin}{-.8in}%
+
+\date{}
+\begin{document}
+	
+%\bibliographystyle{natbib}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+	{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{\bf A unified framework for computer model calibration and engineering design}
+\author{Carl Ehrett\thanks{
+		The authors gratefully acknowledge grant CMMI-1934438 from the National Science Foundation (NSF). CE was supported by fellowships through Department of Education GAANN grant P200A150310 and NSF NRT grant 1633608. DAB is also supported by NSF grants EEC-1744497 and OIA-1826715.}\hspace{.2cm}\\
+	Watt Family Innovation Center, \\Clemson University,\vspace{5pt} \\
+	D. Andrew Brown \\
+	School of Mathematical and Statistical Sciences, \\Clemson University,\vspace{5pt} \\
+	Christopher Kitchens \\
+	Department of Chemical and Biomolecular Engineering, \\Clemson University,\vspace{5pt} \\
+	Sez Atamturktur \\
+	Department of Architectural Engineering, \\Pennsylvania State University,\vspace{5pt} \\
+	Leslie Xu \\
+	Department of Architectural Engineering, \\Pennsylvania State University,
+	and \vspace{5pt} \\
+	Roland Platz \\
+	Department of Architectural Engineering, \\Pennsylvania State University}
+\maketitle
+
+\spacingset{2} % DON'T change the spacing!
+
+\else % HERE IS WHERE WE START IF FORMATTING IS FOR JVVUQ
+
+
 \documentclass[twocolumn,10pt]{asme2ej}
 
 \usepackage{graphicx} %% for loading jpg figures
@@ -28,17 +99,6 @@
 % Useful definitions
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
-
-%% The class has several options
-%  onecolumn/twocolumn - format for one or two columns per page
-%  10pt/11pt/12pt - use 10, 11, or 12 point font
-%  oneside/twoside - format for oneside/twosided printing
-%  final/draft - format for final/draft copy
-%  cleanfoot - take out copyright info in footer leave page number
-%  cleanhead - take out the conference banner on the title page
-%  titlepage/notitlepage - put in titlepage or leave out titlepage
-%  
-%% The default is oneside, onecolumn, 10pt, final
 
 
 \title{A unified framework for computer model calibration and engineering design}
@@ -105,6 +165,8 @@
 	
 \maketitle    
 
+\fi
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 	{\it 
@@ -124,6 +186,9 @@
 		%
 	}
 \end{abstract}
+
+\noindent%
+{\it Keywords: Gaussian processes, optimization, uncertainty quantification, computer model calibration, engineering design}  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{nomenclature}
@@ -166,6 +231,7 @@
 
 %{\it Keywords: Gaussian processes, optimization, uncertainty quantification, computer model calibration, engineering design}  
 
+
 \section{Introduction}\label{sec:introduction}
 
 %
@@ -195,9 +261,9 @@ Having a combined framework for calibration and design is especially of interest
 %
 
 %
-Bayesian methods for computer model calibration are developed by Kennedy and O'Hagan \cite{Kennedy2001}.
+Bayesian methods for computer model calibration are developed by \if1\diss\cite{Kennedy2001}\else Kennedy and O'Hagan \cite{Kennedy2001}\fi.
 %
-Since their seminal paper, the methodology has seen numerous extensions and refinements (\cite{Higdon2004,Williams2006,Bayarri2007a,Bayarri2007b,Paulo2012,Brynjarsdottir2014}).
+Since their seminal paper, the methodology has seen numerous extensions and refinements \if1\diss(\citealt{Higdon2004,Williams2006}; \citeauthor{Bayarri2007a} 2007a; \citeauthor{Bayarri2007b} 2007b; \citealt{Paulo2012,Brynjarsdottir2014})\else(\cite{Higdon2004,Williams2006,Bayarri2007a,Bayarri2007b,Paulo2012,Brynjarsdottir2014})\fi.
 %
 Henceforth, we refer to this approach to calibration as KOH.
 %
@@ -227,17 +293,17 @@ And like KOH, DCTO is especially well-suited to problems that rely on black-box 
 %
 
 %
-We may divide optimization approaches in such cases broadly into three camps \cite{Regis2004}.
+We may divide optimization approaches in such cases broadly into three camps \if1\diss\citep{Regis2004}\else\cite{Regis2004}\fi.
 %
-Gradient-based approaches \cite{Nocedal2006} are of limited utility when dealing with black-box functions, where we cannot evaluate the objective function's derivative.
+Gradient-based approaches \if1\diss\citep{Nocedal2006} \else\cite{Nocedal2006}\fi are of limited utility when dealing with black-box functions, where we cannot evaluate the objective function's derivative.
 %
 Approximation of the derivative requires additional function evaluations, rapidly inflating the computational cost when each evaluation involves significant expense.
 %
-Heuristic approaches \cite{Lee2007} such as evolutionary algorithms \cite{Branke2008,Deb2002,Kim2004}, particle swarm optimization \cite{Bonyadi2017,Mason2017}, and simulated annealing \cite{Robert2004} avoid the need to know or approximate derivatives, but often require prohibitively many function evaluations.
+Heuristic approaches \if1\diss\citep{Lee2007} \else\cite{Lee2007}\fi  such as evolutionary algorithms \if1\diss\citep{Branke2008,Deb2002,Kim2004}\else\cite{Branke2008,Deb2002,Kim2004}\fi, particle swarm optimization \if1\diss\citep{Bonyadi2017,Mason2017}\else\cite{Bonyadi2017,Mason2017}\fi, and simulated annealing \if1\diss\citep{Robert2004} \else\cite{Robert2004}\fi avoid the need to know or approximate derivatives, but often require prohibitively many function evaluations.
 %
 Furthermore, such methods, like gradient-based approaches, do not inherently provide quantification of remaining uncertainty about optimal design settings and the system outputs at those settings.
 %
-Methods exist for using heuristic approaches while accommodating and quantifying uncertainties \cite{Deb2006,Zhou2011b}, but these come at the cost of even further inflating the number of function evaluations required.
+Methods exist for using heuristic approaches while accommodating and quantifying uncertainties \if1\diss\citep{Deb2006,Zhou2011b}\else\cite{Deb2006,Zhou2011b}\fi, but these come at the cost of even further inflating the number of function evaluations required.
 %
 This problem can be mitigated by relying on a surrogate model, but the resulting uncertainty quantification is accomplished by separate methods that are layered on top of the independent heuristic approach.
 %
@@ -245,19 +311,19 @@ On the other hand, our approach includes uncertainty quantification as an intrin
 %
 
 %
-The third camp is the diverse collection of response surface methodologies (RSMs) \cite{Dean2017} used for optimization.
+The third camp is the diverse collection of response surface methodologies \if1\diss\cite[RSMs;][]{Dean2017} \else(RSMs) \cite{Dean2017}\fi used for optimization.
 %
 RSMs operate by fitting a predictive model to an existing set of model runs, to form a computationally inexpensive meta-model which is then used to explore the model output.
 %
 The concept of calibration to target outcomes that is built into DCTO is an example of an RSM, using GPs for its meta-model fit.
 %
-Other popular versions of RSMs include efficient global optimization (EGO) \cite{Jones1998,Brochu2010} and stepwise uncertainty reduction (SUR) \cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}.
+Other popular versions of RSMs include efficient global optimization \if1\diss\cite[EGO;][]{Jones1998,Brochu2010} \else(EGO) \cite{Jones1998,Brochu2010}\fi and stepwise uncertainty reduction \if1\diss\cite[SUR;][]{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}\else(SUR) \cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}\fi.
 %
 EGO and SUR are both designed to facilitate sequential sampling from the system of interest in a search for the global optimum.
 %
 They differ in their \textit{acquisition functions}, which determine the location of the next sampling location throughout the optimization process.
 %
-EGO finds the spot that maximizes the expected improvement \cite{Mockus1978,Jones1998}, whereas SUR's acquisition function seeks to reduce the volume of excursion sets below the current best known solutions \cite{Chevalier2014}.
+EGO finds the spot that maximizes the expected improvement \if1\diss\citep{Mockus1978,Jones1998}\else\cite{Mockus1978,Jones1998}\fi, whereas SUR's acquisition function seeks to reduce the volume of excursion sets below the current best known solutions \if1\diss\citep{Chevalier2014}\else\cite{Chevalier2014}\fi.
 %
 Because they rely on sequential sampling, EGO and SUR are of limited utility when one is constrained to rely on a pre-existing set of observations, or in general when the observation locations cannot be chosen purely to suit the goal of optimization.
 %
@@ -269,9 +335,9 @@ By contrast, our approach (understood as a pure-exploitation method) quantifies 
 %
 
 %
-An example of an RSM more closely resembling our approach to design is described by Olalotiti-Lawal and Datta-Gupta \cite{Olalotiti2018}.
+An example of an RSM more closely resembling our approach to design is described by \if1\diss\cite{Olalotiti2018}\else Olalotiti-Lawal and Datta-Gupta \cite{Olalotiti2018}\fi.
 %
-Their approach defines a distribution which is designed to lie both on and near the Pareto front (PF) of the objective function and generates a posterior distribution which includes quantified uncertainties via Markov chain Monte Carlo (MCMC) \cite{Gelfand1990}.
+Their approach defines a distribution which is designed to lie both on and near the Pareto front (PF) of the objective function and generates a posterior distribution which includes quantified uncertainties via Markov chain Monte Carlo \if1\diss\citep[MCMC;][]{Gelfand1990}\else(MCMC) \cite{Gelfand1990}\fi.
 %
 However, their posterior distribution is designed by the authors and is not dictated by the model itself; as such, its interpretability is not entirely clear.
 %
@@ -445,14 +511,26 @@ m_s(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T) + 
 \mathbf{C_{21}}=&\ C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right)\\
 \mathbf{C_{31}}=&\ C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right)\\
 \mathbf{C_{12}}=&\ \mathbf{C_{21}}^T\\
+\if1\diss 
+\mathbf{C_{22}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right) + C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf{t_{dr}}) \right) + \sigma^2_c \mathbf I\\
+\else
 \mathbf{C_{22}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right) + \\
 &\ C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf{t_{dr}}) \right) + \sigma^2_c \mathbf I\\
+\fi
+\if1\diss
+\mathbf{C_{32}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right)\\
+\else
 \mathbf{C_{32}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + \\
 &\ C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right)\\
+\fi
 \mathbf{C_{13}}=&\ \mathbf{C_{31}}^T\\
 \mathbf{C_{23}}=&\ \mathbf{C_{32}}^T\\
+\if1\diss
+\mathbf{C_{33}}=&\ C_\eta\left((\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + C_\delta\left( (\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right) + \sigma^2_c\mathbf I + \sigma^2_d \mathbf I\\
+\else
 \mathbf{C_{33}}=&\ C_\eta\left((\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + \\
-&\ C_\delta\left( (\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right) + \sigma^2_c\mathbf I + \sigma^2_d \mathbf I
+&\ C_\delta\left( (\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right) + \sigma^2_c\mathbf I + \sigma^2_d \mathbf I\\
+\fi
 \end{align*}
 %
 Note that when $\mathbf{y_t}$ and $\mathbf{x_t}$ are empty and $\mathbf m, \mathbf C$ reduce respectively to their first two and upper two-by-two block elements, this is simply the KOH framework.
@@ -522,9 +600,9 @@ Such modularization ensures that all Bayesian learning of $\boldsymbol\theta_c$ 
 %
 \section{Dependence of $\theta_c$ on $\theta_d$}\label{sec:as}
 %
-In many cases of computer model calibration, it is known or suspected that the value of one or more calibration parameters are functionally dependent upon the values of other model inputs \cite{Atamturktur2015,Atamturktur2017,Ezzat2018}.
+In many cases of computer model calibration, it is known or suspected that the value of one or more calibration parameters are functionally dependent upon the values of other model inputs \if1\diss\citep{Atamturktur2015,Atamturktur2017,Ezzat2018}\else\cite{Atamturktur2015,Atamturktur2017,Ezzat2018}\fi.
 %
-If one is interested to understand the functional form of the calibration parameter, then state-aware methods can be used to arrive at such an estimate \cite{Atamturktur2015,Atamturktur2017,Brown2018}.
+If one is interested to understand the functional form of the calibration parameter, then state-aware methods can be used to arrive at such an estimate \if1\diss\citep{Atamturktur2015,Atamturktur2017,Brown2018}\else\cite{Atamturktur2015,Atamturktur2017,Brown2018}\fi.
 %
 
 %
@@ -538,7 +616,7 @@ This will allow one to calibrate the model using observations taken from the reg
 %
 
 %
-When observations may be made adaptively, other RSM approaches such as EGO \cite{Jones1998,Brochu2010} or SUR \cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019} may be more efficient than the KOH framework for estimating optimal design settings, though the KOH framework offers more interpretable and model-driven uncertainty quantification.
+When observations may be made adaptively, other RSM approaches such as EGO \if1\diss\citep{Jones1998,Brochu2010} \else\cite{Jones1998,Brochu2010}\fi or SUR \if1\diss\citep{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019} \else\cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}\fi may be more efficient than the KOH framework for estimating optimal design settings, though the KOH framework offers more interpretable and model-driven uncertainty quantification.
 %
 Further, RSM approaches in general do not include tools to accommodate the case in which a model stands in need of calibration as well as optimization.
 %
@@ -709,7 +787,7 @@ This ameliorative effect would likely be even greater in a higher-dimensional ca
 %
 In both versions of DCTO, we modularize the analysis by drawing each of $\boldsymbol\theta_c,\boldsymbol\rho_\delta,\lambda_\delta$ using the likelihood based only on $(\mathbf y_s^T,\mathbf y_r^T)^T$ rather than on $(\mathbf y_s^T,\mathbf y_r^T,\mathbf y_t^T)^T$.
 %
-Convergence was verified visually and by the Gelman-Rubin statistic ($\approx 1.01$; \cite{Gelman1992a}, \cite{Gelman1992a}).
+Convergence was verified visually and by the Gelman-Rubin statistic ($\approx 1.01$; \if1\diss\citeauthor{Gelman1992a}, \citeyear{Gelman1992a}\else\cite{Gelman1992a}, \cite{Gelman1992a}\fi).
 %
 
 %
@@ -819,7 +897,7 @@ Thus in our application, the inputs of the FE system are the mass $m$ of the osc
 %
 The relevant output of the system is the damping ratio.
 %
-The simulator is implemented in the commercial finite element software ABAQUS \cite{Abaqus2012}.
+The simulator is implemented in the commercial finite element software ABAQUS \if1\diss\citep{Abaqus2012}\else\cite{Abaqus2012}\fi.
 %
 The experimental design for the simulator runs is a latin hypercube over a range of the inputs that covers those of the available experimental data for the known inputs $m$ and $g$, and that covers a plausible range of values for the calibration input $k$.
 %
@@ -835,11 +913,11 @@ Specifically, we set a grid of size 8 over the range of oscillator masses presen
 %
 We define our prior GP surrogate for the FE model using a mean function found via degree-2 polynomial regression on the available FE runs.
 %
-For the hyperparameters of the surrogate's covariance function, we estimate them as MLEs using the quasi-Newton BFGS method \cite{Fletcher2013}.
+For the hyperparameters of the surrogate's covariance function, we estimate them as MLEs using the quasi-Newton BFGS method \if1\diss\citep{Fletcher2013}\else\cite{Fletcher2013}\fi.
 %
 We perform 10,000 iterations of MCMC using this surrogate and set of target observations, of which the first half are discarded as burn-in.
 %
-The convergence of the resulting MCMC chains is assessed both visually and using the Gelman-Rubin statistic ($\approx1.01$ and $1.001$ for calibration and design respectively), \cite{Gelman1992a}).
+The convergence of the resulting MCMC chains is assessed both visually and using the Gelman-Rubin statistic ($\approx1.01$ and $1.001$ for calibration and design respectively), \if1\diss\citeauthor{Gelman1992a}, \citeyear{Gelman1992a}\else\cite{Gelman1992a}\fi).
 %
 
 %
@@ -859,7 +937,7 @@ Strong Bayesian learning has occurred, particularly for the design input.
 %
 The posterior distribution of the elastic modulus for the system assigns high likelihood to the expected value of 6.2e10, with a posterior mean of 6.188e10.
 %
-For comparison with our design results, we also apply the NSGA-II algorithm \cite{Deb2002}, a gradient-free genetic algorithm, to the trained GP model surrogate.
+For comparison with our design results, we also apply the NSGA-II algorithm \if1\diss\citep{Deb2002}\else\cite{Deb2002}\fi, a gradient-free genetic algorithm, to the trained GP model surrogate.
 %
 We use 100 generations and a population size 50, taking a total of 48 seconds of computation (wall time).
 %
@@ -924,101 +1002,109 @@ Future work on this subject will include pairing adaptive sampling DCTO with oth
 %
 %\end{description}
 
-\bibliographystyle{asmems4}
-
+\if1\diss
+\bibliographystyle{Chicago}
 \bibliography{lit_review}
+\else
+\bibliographystyle{asmems4}
+\bibliography{lit_review}
+\fi
+
+
+\if1\diss
+
+\section*{Appendix: Validation of DCTO}
+
 %
-%\section*{Appendix: Validation of DCTO}
+In order to validate the performance of simultaneous calibration and design under DCTO against a two-step calibration and design approach, we use the system described by Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}) where the value of calibration parameter does not depend on the value of the design input. 
 %
-%%
-%In order to validate the performance of simultaneous calibration and design under DCTO against a two-step calibration and design approach, we use the system described by Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}) where the value of calibration parameter does not depend on the value of the design input. 
-%%
-%We employ a space-filling design of observations of the ``true'' system under both approaches. 
-%%
-%For the two-step approach, we carry apply traditional KOH calibration of $\theta_c$, followed by a second step using the KOH framework for design, obtaining a distribution of $\theta_d$. 
-%%
-%The first step is thus essentially DCTO with $\mathbf{x_t},\mathbf{y_t}$ as empty (null) vectors, and the second step uses the distributions obtained in the first step to estimate $\theta_d$.
-%%
-%Thus, the comparison between the unified approach, i.e. DCTO, and the two-step calibration and design approach shows the difference between DCTO and performing design on a system which has been calibrated using traditional methods and serves as validation of the former.
-%%
+We employ a space-filling design of observations of the ``true'' system under both approaches. 
 %
-%%
-%Figure \ref{fig:no_discrep_results} shows the results of DCTO and two-step calibration and design for $f_0$, the case of no discrepancy.
-%%
-%\begin{figure}
-%	\centering
-%	\includegraphics[scale=0.85]{FIG_dual_calib_post_theta1-d0}
-%	\includegraphics[scale=0.85]{FIG_dual_calib_post_theta2-d0}
-%	\captionsetup{width=.85\linewidth}
-%	\caption{Prior and posterior distributions of the calibration parameter $\theta_c$ and design parameter $\theta_d$, along with their true/optimal values, for DCTO and two-step calibration and design carried out when there is no discrepancy between the true system described by Equation (\ref{eq:f0}) (the case of no discrepancy) and the computer model.}
-%	\label{fig:no_discrep_results}
-%\end{figure}
-%%
-%The two methods deliver comparable results, illustrating that extending calibration to include design does not undermine the performance of either task.
-%%
-%Strong Bayesian learning has occurred for both parameters, in that the posterior distributions of $\theta_c,\theta_d$ are peaked around their true and optimal values, respectively.
-%%
-%KOH gives a similar posterior for $\theta_c$, showing that the expansion of DCTO to undertake design has not interfered with its calibration performance.
-%%
-%The skew apparent in the posterior distributions of $\theta_d$ occur in all of the results gathered here, and is likely due to the shape of the objective function $f$, which is much more informative below $\theta_d$ than above it in that it increases sharply for $t_d<\theta_d$ and increases much more gently for $t_d>\theta_d$.
-%%
+For the two-step approach, we carry apply traditional KOH calibration of $\theta_c$, followed by a second step using the KOH framework for design, obtaining a distribution of $\theta_d$. 
 %
-%%
-%We performed each procedure 30 times on each of the seven different discrepancy situations (no discrepancy, and a large and small version of each of three discrepancies).
-%%
-%The results are summarized in Table \ref{table:val_vars_and_rmses}.
-%%
-%\begin{table*}[]
-%	\centering
-%	\begin{tabular}{l|cc|cc}
-%		&\multicolumn{2}{c|}{Posterior $\theta_c$ var.}&
-%		\multicolumn{2}{c}{Posterior $\theta_d$ var.} \\ \hline
-%		Discrepancy    & DCTO   & KOH+design & DCTO    & KOH+design   \\ \hline
-%		$f_0$ (no discrepancy)              & 0.00633 & 0.00619 & 0.145 & 0.129\\ \hline
-%		$f_1$, $a=1.5$       & 0.0140 & 0.0137 & 0.149 & 0.129\\ \hline
-%		$f_1$, $a=3.5$       & 0.0141 & 0.0140 & 0.149 & 0.131\\ \hline
-%		$f_2$, $a=.15$, $b=.075$       & 0.0143 & 0.0141 & 0.135 & 0.116\\ \hline
-%		$f_2$, $a=.65$, $b=.075$       & 0.0609 & 0.0608 & 0.0804 & 0.0731\\ \hline
-%		$f_3$, $a=.055$, $b=0$       & 0.0134 & 0.0135 & 0.0882 & 0.0743\\ \hline
-%		$f_3$, $a=.055$, $b=.1$       & 0.0143 & 0.0142 & 0.0945 & 0.0814\\ \hline
-%	\end{tabular}\\
-%	\vspace{.25in}
-%	\begin{tabular}{l|cc|cc}
-%		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
-%		\multicolumn{2}{c}{$\widehat\theta_d$ RMSE} \\ \hline
-%		Discrepancy    & DCTO   & KOH+CTO & DCTO    & KOH+CTO   \\ \hline
-%		$f_0$ (no discrepancy)              & 0.0790 & 0.0795 & 0.120 & 0.121\\ \hline
-%		$f_1$, $a=1.5$       & 0.0955 & 0.0956 & 0.149 & 0.144\\ \hline
-%		$f_1$, $a=3.5$       & 0.137 & 0.139 & 0.209 & 0.209\\ \hline
-%		$f_2$, $a=.15$, $b=.075$       & 0.109 & 0.106 & 0.130 & 0.127\\ \hline
-%		$f_2$, $a=.65$, $b=.075$       & 0.158 & 0.155 & 0.123 & 0.121\\ \hline
-%		$f_3$, $a=.055$, $b=0$       & 0.294 & 0.292 & 0.0919 & 0.0919\\ \hline
-%		$f_3$, $a=.055$, $b=.1$       & 0.279 & 0.281 & 0.0995 & 0.0990\\ \hline
-%	\end{tabular}
-%	\caption{Posterior variance and root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$ under both DCTO and two-step calibration and design (KOH+design). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
-%	\label{table:val_vars_and_rmses}
-%\end{table*}
-%%
-%The upper table gives the sample mean, over the thirty runs, of the marginal posterior variance of each of $\theta_c$ and $\theta_d$.
-%%
-%The two procedures generate extremely similar outcomes with respect to $\theta_c$.
-%%
-%However, the posterior variance for $\theta_d$ under DCTO is slightly higher than that under two-step calibration and design in each of the seven cases considered.
-%%
-%This is due to the fact that DCTO includes remaining uncertainty about the values of the hyperparameters of the discrepancy GP $\delta(\cdot)$.
-%%
-%By contrast, design after calibration uses point estimates of those hyperparameters and thus achieves narrower posterior distributions due to excluding this source of uncertainty.
-%%
-%The lower table gives the root mean square errors (RMSEs) for the posterior means of $\theta_c$ and $\theta_d$, using their true value of 2 for $\theta_c$ and optimal value $4/3$ for $\theta_d$ in discrepancy cases $0,1,2$ and optimal value $1$ for discrepancy 3.
-%%
-%Again we see very similar outcomes in the two procedures for both parameters.
-%%
-%In all cases but one, DCTO has slightly higher RMSE for $\theta_d$ than does design after KOH calibration.
-%%
-%This is to be expected given the above-mentioned wider posterior distributions of $\theta_d$ under DCTO.
-%%
-%In general, we see that the DCTO expansion of the KOH framework achieves the expected similar results to KOH calibration followed by a design step, though with wider posterior distributions of the design input, because the DCTO approach properly includes in the design step a source of uncertainty (hyperparameters of hte discrepancy GP $\delta(\cdot)$) ignored by the traditional two-step approach.
-%%
+The first step is thus essentially DCTO with $\mathbf{x_t},\mathbf{y_t}$ as empty (null) vectors, and the second step uses the distributions obtained in the first step to estimate $\theta_d$.
+%
+Thus, the comparison between the unified approach, i.e. DCTO, and the two-step calibration and design approach shows the difference between DCTO and performing design on a system which has been calibrated using traditional methods and serves as validation of the former.
+%
+
+%
+Figure \ref{fig:no_discrep_results} shows the results of DCTO and two-step calibration and design for $f_0$, the case of no discrepancy.
+%
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{FIG_dual_calib_post_theta1-d0}
+	\includegraphics[scale=0.85]{FIG_dual_calib_post_theta2-d0}
+	\captionsetup{width=.85\linewidth}
+	\caption{Prior and posterior distributions of the calibration parameter $\theta_c$ and design parameter $\theta_d$, along with their true/optimal values, for DCTO and two-step calibration and design carried out when there is no discrepancy between the true system described by Equation (\ref{eq:f0}) (the case of no discrepancy) and the computer model.}
+	\label{fig:no_discrep_results}
+\end{figure}
+%
+The two methods deliver comparable results, illustrating that extending calibration to include design does not undermine the performance of either task.
+%
+Strong Bayesian learning has occurred for both parameters, in that the posterior distributions of $\theta_c,\theta_d$ are peaked around their true and optimal values, respectively.
+%
+KOH gives a similar posterior for $\theta_c$, showing that the expansion of DCTO to undertake design has not interfered with its calibration performance.
+%
+The skew apparent in the posterior distributions of $\theta_d$ occur in all of the results gathered here, and is likely due to the shape of the objective function $f$, which is much more informative below $\theta_d$ than above it in that it increases sharply for $t_d<\theta_d$ and increases much more gently for $t_d>\theta_d$.
+%
+
+%
+We performed each procedure 30 times on each of the seven different discrepancy situations (no discrepancy, and a large and small version of each of three discrepancies).
+%
+The results are summarized in Table \ref{table:val_vars_and_rmses}.
+%
+\begin{table*}[]
+	\centering
+	\begin{tabular}{l|cc|cc}
+		&\multicolumn{2}{c|}{Posterior $\theta_c$ var.}&
+		\multicolumn{2}{c}{Posterior $\theta_d$ var.} \\ \hline
+		Discrepancy    & DCTO   & KOH+design & DCTO    & KOH+design   \\ \hline
+		$f_0$ (no discrepancy)              & 0.00633 & 0.00619 & 0.145 & 0.129\\ \hline
+		$f_1$, $a=1.5$       & 0.0140 & 0.0137 & 0.149 & 0.129\\ \hline
+		$f_1$, $a=3.5$       & 0.0141 & 0.0140 & 0.149 & 0.131\\ \hline
+		$f_2$, $a=.15$, $b=.075$       & 0.0143 & 0.0141 & 0.135 & 0.116\\ \hline
+		$f_2$, $a=.65$, $b=.075$       & 0.0609 & 0.0608 & 0.0804 & 0.0731\\ \hline
+		$f_3$, $a=.055$, $b=0$       & 0.0134 & 0.0135 & 0.0882 & 0.0743\\ \hline
+		$f_3$, $a=.055$, $b=.1$       & 0.0143 & 0.0142 & 0.0945 & 0.0814\\ \hline
+	\end{tabular}\\
+	\vspace{.25in}
+	\begin{tabular}{l|cc|cc}
+		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
+		\multicolumn{2}{c}{$\widehat\theta_d$ RMSE} \\ \hline
+		Discrepancy    & DCTO   & KOH+CTO & DCTO    & KOH+CTO   \\ \hline
+		$f_0$ (no discrepancy)              & 0.0790 & 0.0795 & 0.120 & 0.121\\ \hline
+		$f_1$, $a=1.5$       & 0.0955 & 0.0956 & 0.149 & 0.144\\ \hline
+		$f_1$, $a=3.5$       & 0.137 & 0.139 & 0.209 & 0.209\\ \hline
+		$f_2$, $a=.15$, $b=.075$       & 0.109 & 0.106 & 0.130 & 0.127\\ \hline
+		$f_2$, $a=.65$, $b=.075$       & 0.158 & 0.155 & 0.123 & 0.121\\ \hline
+		$f_3$, $a=.055$, $b=0$       & 0.294 & 0.292 & 0.0919 & 0.0919\\ \hline
+		$f_3$, $a=.055$, $b=.1$       & 0.279 & 0.281 & 0.0995 & 0.0990\\ \hline
+	\end{tabular}
+	\caption{Posterior variance and root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$ under both DCTO and two-step calibration and design (KOH+design). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
+	\label{table:val_vars_and_rmses}
+\end{table*}
+%
+The upper table gives the sample mean, over the thirty runs, of the marginal posterior variance of each of $\theta_c$ and $\theta_d$.
+%
+The two procedures generate extremely similar outcomes with respect to $\theta_c$.
+%
+However, the posterior variance for $\theta_d$ under DCTO is slightly higher than that under two-step calibration and design in each of the seven cases considered.
+%
+This is due to the fact that DCTO includes remaining uncertainty about the values of the hyperparameters of the discrepancy GP $\delta(\cdot)$.
+%
+By contrast, design after calibration uses point estimates of those hyperparameters and thus achieves narrower posterior distributions due to excluding this source of uncertainty.
+%
+The lower table gives the root mean square errors (RMSEs) for the posterior means of $\theta_c$ and $\theta_d$, using their true value of 2 for $\theta_c$ and optimal value $4/3$ for $\theta_d$ in discrepancy cases $0,1,2$ and optimal value $1$ for discrepancy 3.
+%
+Again we see very similar outcomes in the two procedures for both parameters.
+%
+In all cases but one, DCTO has slightly higher RMSE for $\theta_d$ than does design after KOH calibration.
+%
+This is to be expected given the above-mentioned wider posterior distributions of $\theta_d$ under DCTO.
+%
+In general, we see that the DCTO expansion of the KOH framework achieves the expected similar results to KOH calibration followed by a design step, though with wider posterior distributions of the design input, because the DCTO approach properly includes in the design step a source of uncertainty (hyperparameters of hte discrepancy GP $\delta(\cdot)$) ignored by the traditional two-step approach.
+%
+\fi
 
 \end{document}
 
