@@ -340,13 +340,13 @@
 \setlength{\evensidemargin}{1.25in}
 %\setlength{\bottommargin}{1.25in}
 % Added by Matt Campbell to make compatible with pdflatex 3/8/2005
-\ifpdf%
+%\ifpdf%
    %\setlength{\topmargin}{1.3in}% use 1.3in top margin for pdflatex
    \setlength{\topmargin}{1.25in}% use 1.3in top margin for pdflatex
-\else
+%\else
    \setlength{\topmargin}{1.25in}% use 2.0in top marging for latex - same as original
    %\setlength{\topmargin}{2.0in}% use 2.0in top marging for latex - same as original
-\fi
+%\fi
 %\setlength{\topmargin}{2.0in}% original line 
 % End pdflatex section
 \setlength{\marginparwidth}{0pt}

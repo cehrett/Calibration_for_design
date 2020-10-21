@@ -1,70 +1,13 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  17 OCT 2020 11:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  21 OCT 2020 16:10
 entering extended mode
 **./working_version.tex
 (working_version.tex
 LaTeX2e <2020-02-02> patch level 5
-L3 programming layer <2020-04-06> (asme2ej.cls
-
-LaTeX Warning: You have requested document class `asme2ej',
-               but the document class provides `asme2e'.
-
-Document Class: asme2e 2001/2/14 v2.0 Standard LaTeX document class
-("C:\Program Files\MiKTeX 2.9\tex/latex/base\ifthen.sty"
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-)
-(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\times.sty
-Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
-)
-(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\mathptm.sty
-Package: mathptm 2020/03/25 PSNFSS-v9.3 Times w/ Math (SPQR, WaS) 
-
-
-Package mathptm Warning: This package is to be regarded as obsolete.
-(mathptm)                See the PSNFSS documentation.
-
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 31.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/ptmcm/m/n on input line 31.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/ptmcm/m/n on input line 31.
-LaTeX Font Info:    Redeclaring symbol font `letters' on input line 32.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
-(Font)                  OML/cmm/m/it --> OML/ptmcm/m/it on input line 32.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
-(Font)                  OML/cmm/b/it --> OML/ptmcm/m/it on input line 32.
-LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 33.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
-(Font)                  OMS/cmsy/m/n --> OMS/pzccm/m/n on input line 33.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
-(Font)                  OMS/cmsy/b/n --> OMS/pzccm/m/n on input line 33.
-LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 34.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
-(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 34.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
-(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 34.
-\symbold=\mathgroup4
-\symitalic=\mathgroup5
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 37.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 37.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 37.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 38.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 38.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 38.
-) ("C:\Program Files\MiKTeX 2.9\tex/generic/iftex\ifpdf.sty"
-Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
-
-("C:\Program Files\MiKTeX 2.9\tex/generic/iftex\iftex.sty"
-Package: iftex 2020/03/06 v1.0d TeX engine tests
-))
-Ten Point
-LaTeX Font Info:    Trying to load font information for OT1+phv on input line 3
-01.
-(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\ot1phv.fd
-File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
+L3 programming layer <2020-04-06>
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\article.cls"
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\size12.clo"
+File: size12.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
 )
 \c@part=\count167
 \c@section=\count168
@@ -72,16 +15,14 @@ File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 \c@subsubsection=\count170
 \c@paragraph=\count171
 \c@subparagraph=\count172
-\tempbox=\box45
 \c@figure=\count173
 \c@table=\count174
-\@authcnt=\count175
-\@tmpcnt=\count176
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
 \bibindent=\dimen134
-\tempbox=\box46
-\minute=\count177
-\hour=\count178
 )
+\tempbox=\box45
+
 ("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
 Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -106,9 +47,20 @@ File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 \Gin@req@height=\dimen135
 \Gin@req@width=\dimen136
 )
+(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/natbib\natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip49
+\bibsep=\skip50
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count175
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/url\url.sty"
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsmath.sty"
 Package: amsmath 2020/01/20 v2.17e AMS math features
-\@mathmargin=\skip47
+\@mathmargin=\skip51
 
 For additional information on amsmath, use the `?' option.
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amstext.sty"
@@ -126,30 +78,30 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsopn.sty"
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count179
+\inf@bad=\count176
 LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count180
-\leftroot@=\count181
+\uproot@=\count177
+\leftroot@=\count178
 LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count182
-\DOTSCASE@=\count183
+\classnum@=\count179
+\DOTSCASE@=\count180
 LaTeX Info: Redefining \ldots on input line 486.
 LaTeX Info: Redefining \dots on input line 489.
 LaTeX Info: Redefining \cdots on input line 610.
-\Mathstrutbox@=\box47
-\strutbox@=\box48
+\Mathstrutbox@=\box46
+\strutbox@=\box47
 \big@size=\dimen139
 LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count184
-\c@MaxMatrixCols=\count185
-\dotsspace@=\muskip16
-\c@parentequation=\count186
-\dspbrk@lvl=\count187
+\macc@depth=\count181
+\c@MaxMatrixCols=\count182
+\dotsspace@=\muskip17
+\c@parentequation=\count183
+\dspbrk@lvl=\count184
 \tag@help=\toks17
-\row@=\count188
-\column@=\count189
-\maxfields@=\count190
+\row@=\count185
+\column@=\count186
+\maxfields@=\count187
 \andhelp@=\toks18
 \eqnshift@=\dimen140
 \alignsep@=\dimen141
@@ -158,8 +110,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
 \totwidth@=\dimen144
 \lineht@=\dimen145
 \@envbody=\toks19
-\multlinegap=\skip48
-\multlinetaggap=\skip49
+\multlinegap=\skip52
+\multlinetaggap=\skip53
 \mathdisplay@stack=\toks20
 LaTeX Info: Redefining \[ on input line 2859.
 LaTeX Info: Redefining \] on input line 2860.
@@ -169,187 +121,172 @@ Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\amsfonts.sty"
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\symAMSa=\mathgroup6
-\symAMSb=\mathgroup7
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
+(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/setspace\setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/caption\caption.sty
+Package: caption 2020/05/10 v3.4j Customizing captions (AR)
+
+(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/caption\caption3.sty
+Package: caption3 2020/05/10 v1.11 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 61.
+\captionmargin=\dimen146
+\captionmargin@=\dimen147
+\captionwidth=\dimen148
+\caption@tempdima=\dimen149
+\caption@indent=\dimen150
+\caption@parindent=\dimen151
+\caption@hangindent=\dimen152
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count188
+\c@continuedfloat=\count189
+)
+(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/geometry\geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/iftex\ifvtex.sty"
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/iftex\iftex.sty"
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count190
+\Gm@cntv=\count191
+\c@Gm@tempcnt=\count192
+\Gm@bindingoffset=\dimen153
+\Gm@wd@mp=\dimen154
+\Gm@odd@mp=\dimen155
+\Gm@even@mp=\dimen156
+\Gm@layoutwidth=\dimen157
+\Gm@layoutheight=\dimen158
+\Gm@layouthoffset=\dimen159
+\Gm@layoutvoffset=\dimen160
+\Gm@dimlist=\toks21
+
+(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/geometry\geometry.cfg))
 ("C:\Program Files\MiKTeX 2.9\tex/latex/tools\bm.sty"
 Package: bm 2019/07/24 v1.2d Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup6
+\symboldletters=\mathgroup7
+\symboldsymbols=\mathgroup8
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 141.
 LaTeX Info: Redefining \bm on input line 209.
 )
 ("C:\Program Files\MiKTeX 2.9\tex/latex/tools\array.sty"
 Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
-\col@sep=\dimen146
-\ar@mcellbox=\box49
-\extrarowheight=\dimen147
-\NC@list=\toks21
-\extratabsurround=\skip50
-\backup@length=\skip51
-\ar@cellbox=\box50
+\col@sep=\dimen161
+\ar@mcellbox=\box48
+\extrarowheight=\dimen162
+\NC@list=\toks22
+\extratabsurround=\skip54
+\backup@length=\skip55
+\ar@cellbox=\box49
 )
 ("C:\Program Files\MiKTeX 2.9\tex/latex/l3backend\l3backend-pdfmode.def"
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count191
-\l__pdf_internal_box=\box51
+\l__kernel_color_stack_int=\count193
+\l__pdf_internal_box=\box50
 )
 (working_version.aux)
 \openout1 = `working_version.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 1
-01.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
 
-(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\ot1ptm.fd
-File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-)
 ("C:\Program Files\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count192
-\scratchdimen=\dimen148
-\scratchbox=\box52
-\nofMPsegments=\count193
-\nofMParguments=\count194
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count195
-\MPscratchDim=\dimen149
-\MPnumerator=\count196
-\makeMPintoPDFobject=\count197
-\everyMPtoPDFconversion=\toks23
+\scratchcounter=\count194
+\scratchdimen=\dimen163
+\scratchbox=\box51
+\nofMPsegments=\count195
+\nofMParguments=\count196
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count197
+\MPscratchDim=\dimen164
+\MPnumerator=\count198
+\makeMPintoPDFobject=\count199
+\everyMPtoPDFconversion=\toks24
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/epstopdf-pkg\epstopdf-base.sty"
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 )
-LaTeX Font Info:    Trying to load font information for OT1+ptmcm on input line
- 103.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 
-(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\ot1ptmcm.fd
-File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
-)
-LaTeX Font Info:    Trying to load font information for OML+ptmcm on input line
- 103.
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(90.3375pt, 433.62001pt, 90.3375pt)
+* v-part:(T,H,B)=(90.3375pt, 614.295pt, 90.3375pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=433.62001pt
+* \textheight=614.295pt
+* \oddsidemargin=18.0675pt
+* \evensidemargin=18.0675pt
+* \topmargin=-18.9325pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\omlptmcm.fd
-File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
-)
-LaTeX Font Info:    Trying to load font information for OMS+pzccm on input line
- 103.
-
-(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\omspzccm.fd
-File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
-)
-LaTeX Font Info:    Trying to load font information for OMX+psycm on input line
- 103.
-
-(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\omxpsycm.fd
-File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
-)
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 103.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 103.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 103.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 103
-.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 89.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 103
-.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 89.
+
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \hbox (badness 10000) detected at line 103
-[]
+) [1
+
+{C:/Users/Carl/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3] [4] 
+[5]
+Overfull \hbox (6.59782pt too wide) in paragraph at lines 308--309
+[]\OT1/cmr/m/n/12 A promi-nent class of al-go-rithms for multi-objective op-ti-
+miza-tion (MOO) is gradient-
  []
 
-
-Overfull \hbox (39.74762pt too wide) in paragraph at lines 103--103
- [] 
- []
-
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-01.
-(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [1{C:/Users/Carl/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
-
-
-] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 528--538
-[]\OT1/ptm/m/n/10 To use an em-u-la-tor, sup-pose we have in-puts
- []
-
-
-Underfull \hbox (badness 3449) in paragraph at lines 528--538
-\OMS/pzccm/m/n/10 f\OT1/ptmcm/m/n/10 (\OT1/ptm/b/n/10 x[]\OML/ptmcm/m/it/10 ; \
-OT1/ptm/b/n/10 t[]\OT1/ptmcm/m/n/10 )\OMS/pzccm/m/n/10 g[]  \U/msb/m/n/10 R[] 
-\OMS/pzccm/m/n/10  \U/msb/m/n/10 R[]$ \OT1/ptm/m/n/10 scaled to the unit hy-pe
-r-cube
- []
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 669--692
-[]\OT1/ptm/m/n/10 Denote com-pleted runs of the sim-u-la-tor
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 669--692
-[] \OT1/ptmcm/m/n/10 = (\OML/ptmcm/m/it/10 \OT1/ptmcm/m/n/10 (\OT1/ptm/b/n/10 
-x[]\OML/ptmcm/m/it/10 ; \OT1/ptm/b/n/10 t[]\OT1/ptmcm/m/n/10 )\OML/ptmcm/m/it/1
-0 ; []  ; \OT1/ptmcm/m/n/10 (\OT1/ptm/b/n/10 x[]\OML/ptmcm/m/it/10 ; \OT1/ptm/
-b/n/10 t[]\OT1/ptmcm/m/n/10 ))[]$\OT1/ptm/m/n/10 , tar-get out-comes
- []
-
-
-Underfull \hbox (badness 2591) in paragraph at lines 669--692
-\OT1/ptm/m/it/10 per-for-mances \OT1/ptm/m/n/10 un-der the op-ti-mal de-sign in
--puts de-vi-ate
- []
-
-[4]
-Overfull \hbox (1.46693pt too wide) in paragraph at lines 743--743
-[]|\OT1/ptm/m/n/10 1.| 
- []
-
-
-Overfull \hbox (1.46693pt too wide) in paragraph at lines 747--747
-[]|\OT1/ptm/m/n/10 2.| 
- []
-
-
-Overfull \hbox (1.46693pt too wide) in paragraph at lines 748--748
-[]|\OT1/ptm/m/n/10 3.| 
- []
-
-
-Overfull \hbox (1.46693pt too wide) in paragraph at lines 749--749
-[]|\OT1/ptm/m/n/10 4.| 
- []
-
-
-Overfull \hbox (1.46693pt too wide) in paragraph at lines 750--750
-[]|\OT1/ptm/m/n/10 5.| 
- []
-
+[6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17]
 Package epstopdf Info: Source file: <FIG_des_obs_selection_example2.eps>
 (epstopdf)                    date: 2020-05-08 10:15:19
 (epstopdf)                    size: 24444 bytes
@@ -359,21 +296,22 @@ ed-to.pdf>
 (epstopdf)                    size: 8226 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_des_obs_selection_examp
 le2-eps-converted-to.pdf FIG_des_obs_selection_example2.eps>
-(epstopdf)             \includegraphics on input line 761.
+(epstopdf)             \includegraphics on input line 842.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_des_obs_selection_example2-eps-convert
 ed-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> a
 llowed
-<FIG_des_obs_selection_example2-eps-converted-to.pdf, id=26, 259.97125pt x 165.
+<FIG_des_obs_selection_example2-eps-converted-to.pdf, id=75, 259.97125pt x 165.
 61874pt>
 File: FIG_des_obs_selection_example2-eps-converted-to.pdf Graphic file (type pd
 f)
 <use FIG_des_obs_selection_example2-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_des_obs_selection_example2-eps-converted-to.pdf  u
-sed on input line 761.
+sed on input line 842.
 (pdftex.def)             Requested size: 220.9766pt x 140.77658pt.
+[18]
 Package epstopdf Info: Source file: <FIG_ZDT_model_outputs.eps>
 (epstopdf)                    date: 2020-05-08 10:15:20
 (epstopdf)                    size: 81865 bytes
@@ -383,20 +321,20 @@ Package epstopdf Info: Source file: <FIG_ZDT_model_outputs.eps>
 (epstopdf)                    size: 58620 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_ZDT_model_outputs-eps-c
 onverted-to.pdf FIG_ZDT_model_outputs.eps>
-(epstopdf)             \includegraphics on input line 811.
+(epstopdf)             \includegraphics on input line 893.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_ZDT_model_outputs-eps-converted-to.pdf
 ): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<FIG_ZDT_model_outputs-eps-converted-to.pdf, id=27, 244.915pt x 151.56625pt>
+<FIG_ZDT_model_outputs-eps-converted-to.pdf, id=79, 244.915pt x 151.56625pt>
 File: FIG_ZDT_model_outputs-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_ZDT_model_outputs-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_ZDT_model_outputs-eps-converted-to.pdf  used on in
-put line 811.
+put line 893.
 (pdftex.def)             Requested size: 208.17871pt x 128.83191pt.
-[5 <./FIG_des_obs_selection_example2-eps-converted-to.pdf> <./FIG_ZDT_model_out
-puts-eps-converted-to.pdf>]
+[19 <./FIG_des_obs_selection_example2-eps-converted-to.pdf>] [20 <./FIG_ZDT_mod
+el_outputs-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <FIG_ZDT_results_5p222SD.eps>
 (epstopdf)                    date: 2020-05-08 10:15:20
 (epstopdf)                    size: 1014008 bytes
@@ -406,18 +344,18 @@ df>
 (epstopdf)                    size: 275646 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_ZDT_results_5p222SD-eps
 -converted-to.pdf FIG_ZDT_results_5p222SD.eps>
-(epstopdf)             \includegraphics on input line 859.
+(epstopdf)             \includegraphics on input line 942.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_ZDT_results_5p222SD-eps-converted-to.p
 df): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<FIG_ZDT_results_5p222SD-eps-converted-to.pdf, id=47, 257.96375pt x 195.73125pt
->
+<FIG_ZDT_results_5p222SD-eps-converted-to.pdf, id=103, 257.96375pt x 195.73125p
+t>
 File: FIG_ZDT_results_5p222SD-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_ZDT_results_5p222SD-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_ZDT_results_5p222SD-eps-converted-to.pdf  used on 
-input line 859.
+input line 942.
 (pdftex.def)             Requested size: 219.2702pt x 166.37233pt.
 Package epstopdf Info: Source file: <FIG_ZDT_results_2SD.eps>
 (epstopdf)                    date: 2020-05-08 10:15:20
@@ -427,40 +365,20 @@ Package epstopdf Info: Source file: <FIG_ZDT_results_2SD.eps>
 (epstopdf)                    size: 256183 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_ZDT_results_2SD-eps-con
 verted-to.pdf FIG_ZDT_results_2SD.eps>
-(epstopdf)             \includegraphics on input line 861.
+(epstopdf)             \includegraphics on input line 944.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_ZDT_results_2SD-eps-converted-to.pdf):
  PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<FIG_ZDT_results_2SD-eps-converted-to.pdf, id=48, 257.96375pt x 195.73125pt>
+<FIG_ZDT_results_2SD-eps-converted-to.pdf, id=104, 257.96375pt x 195.73125pt>
 File: FIG_ZDT_results_2SD-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_ZDT_results_2SD-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_ZDT_results_2SD-eps-converted-to.pdf  used on inpu
-t line 861.
+t line 944.
 (pdftex.def)             Requested size: 219.2702pt x 166.37233pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 9
-05.
-
-(C:\Users\Carl\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \hbox (badness 1019) in paragraph at lines 958--968
-\OT1/ptm/m/n/10 tar-get out-comes were set to the es-ti-mated utopia point
- []
-
-
-Underfull \vbox (badness 3701) has occurred while \output is active []
-
- [6 <./FIG_ZDT_results_5p222SD-eps-converted-to.pdf> <./FIG_ZDT_results_2SD-eps
--converted-to.pdf>]
+[21] [22 <./FIG_ZDT_results_5p222SD-eps-converted-to.pdf> <./FIG_ZDT_results_2S
+D-eps-converted-to.pdf>] [23] [24]
 Package epstopdf Info: Source file: <FIG_est_PF_with_des_obs.eps>
 (epstopdf)                    date: 2020-05-08 10:15:19
 (epstopdf)                    size: 71411 bytes
@@ -470,23 +388,19 @@ df>
 (epstopdf)                    size: 14506 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_est_PF_with_des_obs-eps
 -converted-to.pdf FIG_est_PF_with_des_obs.eps>
-(epstopdf)             \includegraphics on input line 997.
+(epstopdf)             \includegraphics on input line 1082.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_est_PF_with_des_obs-eps-converted-to.p
 df): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<FIG_est_PF_with_des_obs-eps-converted-to.pdf, id=69, 286.06876pt x 224.84pt>
+<FIG_est_PF_with_des_obs-eps-converted-to.pdf, id=135, 286.06876pt x 224.84pt>
 File: FIG_est_PF_with_des_obs-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_est_PF_with_des_obs-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_est_PF_with_des_obs-eps-converted-to.pdf  used on 
-input line 997.
+input line 1082.
 (pdftex.def)             Requested size: 243.15959pt x 191.1149pt.
-
-Overfull \hbox (1.77751pt too wide) in paragraph at lines 997--999
- [][] 
- []
-
+[25]
 Package epstopdf Info: Source file: <FIG_post_dist_hist2.eps>
 (epstopdf)                    date: 2020-05-08 10:15:19
 (epstopdf)                    size: 182486 bytes
@@ -495,17 +409,17 @@ Package epstopdf Info: Source file: <FIG_post_dist_hist2.eps>
 (epstopdf)                    size: 226769 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_post_dist_hist2-eps-con
 verted-to.pdf FIG_post_dist_hist2.eps>
-(epstopdf)             \includegraphics on input line 1031.
+(epstopdf)             \includegraphics on input line 1117.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_post_dist_hist2-eps-converted-to.pdf):
  PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<FIG_post_dist_hist2-eps-converted-to.pdf, id=70, 272.01625pt x 181.67876pt>
+<FIG_post_dist_hist2-eps-converted-to.pdf, id=140, 272.01625pt x 181.67876pt>
 File: FIG_post_dist_hist2-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_post_dist_hist2-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_post_dist_hist2-eps-converted-to.pdf  used on inpu
-t line 1031.
+t line 1117.
 (pdftex.def)             Requested size: 231.21489pt x 154.42766pt.
 Package epstopdf Info: Source file: <FIG_prior_vs_posterior_dist.eps>
 (epstopdf)                    date: 2020-05-08 10:15:19
@@ -516,25 +430,23 @@ to.pdf>
 (epstopdf)                    size: 10951 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_prior_vs_posterior_dist
 -eps-converted-to.pdf FIG_prior_vs_posterior_dist.eps>
-(epstopdf)             \includegraphics on input line 1042.
+(epstopdf)             \includegraphics on input line 1129.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_prior_vs_posterior_dist-eps-converted-
 to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
 wed
-<FIG_prior_vs_posterior_dist-eps-converted-to.pdf, id=71, 261.97874pt x 149.558
-75pt>
+<FIG_prior_vs_posterior_dist-eps-converted-to.pdf, id=141, 261.97874pt x 149.55
+875pt>
 File: FIG_prior_vs_posterior_dist-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_prior_vs_posterior_dist-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_prior_vs_posterior_dist-eps-converted-to.pdf  used
- on input line 1042.
+ on input line 1129.
 (pdftex.def)             Requested size: 222.68298pt x 127.12553pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[7 <./FIG_est_PF_with_des_obs-eps-converted-to.pdf> <./FIG_post_dist_hist2-eps-
-converted-to.pdf>]
+[26 <./FIG_est_PF_with_des_obs-eps-converted-to.pdf>] [27 <./FIG_post_dist_hist
+2-eps-converted-to.pdf> <./FIG_prior_vs_posterior_dist-eps-converted-to.pdf>]
+[28]
 Package epstopdf Info: Source file: <FIG_cost_grid_pareto_bands.eps>
 (epstopdf)                    date: 2020-05-08 10:15:19
 (epstopdf)                    size: 29938 bytes
@@ -544,26 +456,23 @@ o.pdf>
 (epstopdf)                    size: 11137 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_cost_grid_pareto_bands-
 eps-converted-to.pdf FIG_cost_grid_pareto_bands.eps>
-(epstopdf)             \includegraphics on input line 1109.
+(epstopdf)             \includegraphics on input line 1197.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_cost_grid_pareto_bands-eps-converted-t
 o.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allow
 ed
-<FIG_cost_grid_pareto_bands-eps-converted-to.pdf, id=95, 258.9675pt x 173.64874
-pt>
+<FIG_cost_grid_pareto_bands-eps-converted-to.pdf, id=175, 258.9675pt x 173.6487
+4pt>
 File: FIG_cost_grid_pareto_bands-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_cost_grid_pareto_bands-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_cost_grid_pareto_bands-eps-converted-to.pdf  used 
-on input line 1109.
+on input line 1197.
 (pdftex.def)             Requested size: 220.12338pt x 147.60213pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Overfull \hbox (2.56395pt too wide) in paragraph at lines 1139--1139
-[]|\OT1/ptm/m/n/10 (a)| 
+[29 <./FIG_cost_grid_pareto_bands-eps-converted-to.pdf>]
+Overfull \hbox (6.47783pt too wide) in paragraph at lines 1228--1228
+[]|\OT1/cmr/m/n/12 (a)| 
  []
 
 Package epstopdf Info: Source file: <FIG_cost_grid_pareto_bands1.eps>
@@ -575,28 +484,28 @@ to.pdf>
 (epstopdf)                    size: 15096 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_cost_grid_pareto_bands1
 -eps-converted-to.pdf FIG_cost_grid_pareto_bands1.eps>
-(epstopdf)             \includegraphics on input line 1139.
+(epstopdf)             \includegraphics on input line 1228.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_cost_grid_pareto_bands1-eps-converted-
 to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
 wed
-<FIG_cost_grid_pareto_bands1-eps-converted-to.pdf, id=96, 238.8925pt x 76.285pt
->
+<FIG_cost_grid_pareto_bands1-eps-converted-to.pdf, id=184, 238.8925pt x 76.285p
+t>
 File: FIG_cost_grid_pareto_bands1-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_cost_grid_pareto_bands1-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_cost_grid_pareto_bands1-eps-converted-to.pdf  used
- on input line 1139.
+ on input line 1228.
 (pdftex.def)             Requested size: 203.05957pt x 64.84254pt.
 
-Overfull \hbox (146.15407pt too wide) in paragraph at lines 1139--1140
+Overfull \hbox (146.15407pt too wide) in paragraph at lines 1228--1229
 []|[]| 
  []
 
 
-Overfull \hbox (3.12401pt too wide) in paragraph at lines 1140--1140
-[]|\OT1/ptm/m/n/10 (b)| 
+Overfull \hbox (7.1306pt too wide) in paragraph at lines 1229--1229
+[]|\OT1/cmr/m/n/12 (b)| 
  []
 
 Package epstopdf Info: Source file: <FIG_cost_grid_pareto_bands2.eps>
@@ -608,28 +517,28 @@ to.pdf>
 (epstopdf)                    size: 15915 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_cost_grid_pareto_bands2
 -eps-converted-to.pdf FIG_cost_grid_pareto_bands2.eps>
-(epstopdf)             \includegraphics on input line 1140.
+(epstopdf)             \includegraphics on input line 1229.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_cost_grid_pareto_bands2-eps-converted-
 to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
 wed
-<FIG_cost_grid_pareto_bands2-eps-converted-to.pdf, id=97, 238.8925pt x 77.28876
-pt>
+<FIG_cost_grid_pareto_bands2-eps-converted-to.pdf, id=185, 238.8925pt x 77.2887
+6pt>
 File: FIG_cost_grid_pareto_bands2-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_cost_grid_pareto_bands2-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_cost_grid_pareto_bands2-eps-converted-to.pdf  used
- on input line 1140.
+ on input line 1229.
 (pdftex.def)             Requested size: 203.05957pt x 65.69574pt.
 
-Overfull \hbox (146.15407pt too wide) in paragraph at lines 1140--1141
+Overfull \hbox (146.15407pt too wide) in paragraph at lines 1229--1230
 []|[]| 
  []
 
 
-Overfull \hbox (2.56395pt too wide) in paragraph at lines 1141--1141
-[]|\OT1/ptm/m/n/10 (c)| 
+Overfull \hbox (5.82506pt too wide) in paragraph at lines 1230--1230
+[]|\OT1/cmr/m/n/12 (c)| 
  []
 
 Package epstopdf Info: Source file: <FIG_cost_grid_pareto_bands3.eps>
@@ -641,94 +550,35 @@ to.pdf>
 (epstopdf)                    size: 16102 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_cost_grid_pareto_bands3
 -eps-converted-to.pdf FIG_cost_grid_pareto_bands3.eps>
-(epstopdf)             \includegraphics on input line 1141.
+(epstopdf)             \includegraphics on input line 1230.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_cost_grid_pareto_bands3-eps-converted-
 to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
 wed
-<FIG_cost_grid_pareto_bands3-eps-converted-to.pdf, id=98, 238.8925pt x 77.28876
-pt>
+<FIG_cost_grid_pareto_bands3-eps-converted-to.pdf, id=186, 238.8925pt x 77.2887
+6pt>
 File: FIG_cost_grid_pareto_bands3-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_cost_grid_pareto_bands3-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_cost_grid_pareto_bands3-eps-converted-to.pdf  used
- on input line 1141.
+ on input line 1230.
 (pdftex.def)             Requested size: 203.05957pt x 65.69574pt.
 
-Overfull \hbox (146.15407pt too wide) in paragraph at lines 1141--1142
+Overfull \hbox (146.15407pt too wide) in paragraph at lines 1230--1231
 []|[]| 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[8 <./FIG_prior_vs_posterior_dist-eps-converted-to.pdf> <./FIG_cost_grid_pareto
-_bands-eps-converted-to.pdf>] [9 <./FIG_cost_grid_pareto_bands1-eps-converted-t
-o.pdf> <./FIG_cost_grid_pareto_bands2-eps-converted-to.pdf> <./FIG_cost_grid_pa
-reto_bands3-eps-converted-to.pdf>] (working_version.bbl
-Underfull \hbox (badness 1320) in paragraph at lines 64--68
-\OT1/ptm/m/n/10 ti-miza-tion in un-cer-tain en-vi-ron-ments - A sur-vey''.
- []
-
-
-Underfull \hbox (badness 5091) in paragraph at lines 126--130
-[]\OT1/ptm/m/n/10 Gelfand, A. E., and Smith, A. F. M., 1990.
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [10]
-Underfull \hbox (badness 1038) in paragraph at lines 186--189
-\OT1/ptm/m/it/10 The de-sign and anal-y-sis of com-puter ex-per-i-ments\OT1/ptm
-/m/n/10 .
- []
-
-
-Underfull \hbox (badness 1210) in paragraph at lines 226--231
-[]\OT1/ptm/m/n/10 Tuo, R., and Wu, C. F. J., 2016.  ``A the-o-ret-i-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \hbox (badness 1931) in paragraph at lines 280--284
-\OT1/ptm/m/n/10 ods us-ing Markov chains and their ap-pli-ca-tions''.
- []
-
-
-Underfull \hbox (badness 1748) in paragraph at lines 293--297
-\OT1/ptm/m/n/10 con-ver-gence and op-ti-mal scal-ing of ran-dom walk
- []
-
-
-Underfull \hbox (badness 1092) in paragraph at lines 329--334
-[]\OT1/ptm/m/n/10 Saibaba, A. K., Bard-s-ley, J., Brown, D. A., and
- []
-
-
-Underfull \hbox (badness 1824) in paragraph at lines 353--358
-[]\OT1/ptm/m/n/10 Wang, X., and Berger, J. O., 2016.  ``Es-ti-mat-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [11]
-Underfull \hbox (badness 1990) in paragraph at lines 378--383
-[]\OT1/ptm/m/n/10 Stevens, G. N., Atam-turk-tur, S., Brown, D. A.,
- []
-
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-<BladeFig.pdf, id=136, 794.97pt x 614.295pt>
+[30 <./FIG_cost_grid_pareto_bands1-eps-converted-to.pdf> <./FIG_cost_grid_paret
+o_bands2-eps-converted-to.pdf> <./FIG_cost_grid_pareto_bands3-eps-converted-to.
+pdf>] [31] [32] [33] (working_version.bbl [34] [35] [36] [37] [38] [39]
+[40] [41] [42]) [43]
+<BladeFig.pdf, id=248, 794.97pt x 614.295pt>
 File: BladeFig.pdf Graphic file (type pdf)
 <use BladeFig.pdf>
-Package pdftex.def Info: BladeFig.pdf  used on input line 1279.
+Package pdftex.def Info: BladeFig.pdf  used on input line 1379.
 (pdftex.def)             Requested size: 198.742pt x 99.371pt.
+ [44 <./BladeFig.pdf>]
 Package epstopdf Info: Source file: <FIG_GP_CV_size500.eps>
 (epstopdf)                    date: 2020-05-08 10:15:17
 (epstopdf)                    size: 1142029 bytes
@@ -737,23 +587,18 @@ Package epstopdf Info: Source file: <FIG_GP_CV_size500.eps>
 (epstopdf)                    size: 125462 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_GP_CV_size500-eps-conve
 rted-to.pdf FIG_GP_CV_size500.eps>
-(epstopdf)             \includegraphics on input line 1296.
+(epstopdf)             \includegraphics on input line 1397.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_GP_CV_size500-eps-converted-to.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<FIG_GP_CV_size500-eps-converted-to.pdf, id=137, 559.08875pt x 177.66376pt>
+<FIG_GP_CV_size500-eps-converted-to.pdf, id=272, 559.08875pt x 177.66376pt>
 File: FIG_GP_CV_size500-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_GP_CV_size500-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_GP_CV_size500-eps-converted-to.pdf  used on input 
-line 1296.
+line 1397.
 (pdftex.def)             Requested size: 251.5876pt x 79.94794pt.
-
-Overfull \hbox (10.20552pt too wide) in paragraph at lines 1296--1297
- [][] 
- []
-
 Package epstopdf Info: Source file: <FIG_GP_CV_size200.eps>
 (epstopdf)                    date: 2020-05-08 10:15:17
 (epstopdf)                    size: 470868 bytes
@@ -762,23 +607,18 @@ Package epstopdf Info: Source file: <FIG_GP_CV_size200.eps>
 (epstopdf)                    size: 59705 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_GP_CV_size200-eps-conve
 rted-to.pdf FIG_GP_CV_size200.eps>
-(epstopdf)             \includegraphics on input line 1298.
+(epstopdf)             \includegraphics on input line 1399.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_GP_CV_size200-eps-converted-to.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<FIG_GP_CV_size200-eps-converted-to.pdf, id=138, 559.08875pt x 177.66376pt>
+<FIG_GP_CV_size200-eps-converted-to.pdf, id=273, 559.08875pt x 177.66376pt>
 File: FIG_GP_CV_size200-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_GP_CV_size200-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_GP_CV_size200-eps-converted-to.pdf  used on input 
-line 1298.
+line 1399.
 (pdftex.def)             Requested size: 251.5876pt x 79.94794pt.
-
-Overfull \hbox (10.20552pt too wide) in paragraph at lines 1298--1299
- [][] 
- []
-
 Package epstopdf Info: Source file: <FIG_GP_CV_size30.eps>
 (epstopdf)                    date: 2020-05-08 10:15:17
 (epstopdf)                    size: 88770 bytes
@@ -787,53 +627,54 @@ Package epstopdf Info: Source file: <FIG_GP_CV_size30.eps>
 (epstopdf)                    size: 17424 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_GP_CV_size30-eps-conver
 ted-to.pdf FIG_GP_CV_size30.eps>
-(epstopdf)             \includegraphics on input line 1300.
+(epstopdf)             \includegraphics on input line 1401.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_GP_CV_size30-eps-converted-to.pdf): PD
 F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<FIG_GP_CV_size30-eps-converted-to.pdf, id=139, 559.08875pt x 177.66376pt>
+<FIG_GP_CV_size30-eps-converted-to.pdf, id=274, 559.08875pt x 177.66376pt>
 File: FIG_GP_CV_size30-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_GP_CV_size30-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_GP_CV_size30-eps-converted-to.pdf  used on input l
-ine 1300.
+ine 1401.
 (pdftex.def)             Requested size: 251.5876pt x 79.94794pt.
-
-Overfull \hbox (10.20552pt too wide) in paragraph at lines 1300--1302
- [][] 
- []
-
-[12 <./BladeFig.pdf>] [13
-
- <./FIG_GP_CV_size500-eps-converted-to.pdf> <./FIG_GP_CV_size200-eps-converted-
-to.pdf> <./FIG_GP_CV_size30-eps-converted-to.pdf>]
-(working_version.aux) ) 
+[45] [46 <./FIG_GP_CV_size500-eps-converted-to.pdf> <./FIG_GP_CV_size200-eps-co
+nverted-to.pdf> <./FIG_GP_CV_size30-eps-converted-to.pdf>] (working_version.aux
+) ) 
 Here is how much of TeX's memory you used:
- 3118 strings out of 480930
- 45133 string characters out of 2909550
- 285757 words of memory out of 3000000
- 18904 multiletter control sequences out of 15000+200000
- 571622 words of font info for 94 fonts, out of 3000000 for 9000
+ 5032 strings out of 480930
+ 77640 string characters out of 2909550
+ 311927 words of memory out of 3000000
+ 20826 multiletter control sequences out of 15000+200000
+ 550667 words of font info for 90 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 30i,16n,31p,1785b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
-}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/
-type1/urw/courier/ucrr8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/ty
-pe1/urw/helvetic/uhvb8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/typ
-e1/urw/helvetic/uhvr8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type
-1/urw/symbol/usyr.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw
-/times/utmb8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/tim
-es/utmr8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/u
-tmri8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/zapfchan/u
-zcmi8a.pfb>
-Output written on working_version.pdf (13 pages, 1337093 bytes).
+ 38i,16n,43p,1701b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\Carl\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\
+tcrm0800.pk> <C:\Users\Carl\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/e
+c/dpi600\tcrm0700.pk> <C:\Users\Carl\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/j
+knappen/ec/dpi600\tcrm1000.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cmextra/cmmib8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
+/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/public/amsfonts/cm/cmtt12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/symbols/msbm10.pfb>
+Output written on working_version.pdf (46 pages, 1461618 bytes).
 PDF statistics:
- 224 PDF objects out of 1000 (max. 8388607)
+ 372 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  76 words of extra memory for PDF output out of 10000 (max. 10000000)
 

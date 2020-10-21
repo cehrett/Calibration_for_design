@@ -1,49 +1,65 @@
 This is BibTeX, Version 0.99d (MiKTeX 2.9.7380 64-bit)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: working_version.aux
-The style file: asmems4.bst
+The style file: Chicago.bst
 Database file #1: lit_review.bib
 Name 2 in "Ding, L. and Mak, S., and Wu, C. F. J." has a comma at the end for entry DingEtAl19
-while executing---line 1268 of file asmems4.bst
+while executing---line 1563 of file Chicago.bst
+Name 2 in "Ding, L. and Mak, S., and Wu, C. F. J." has a comma at the end for entry DingEtAl19
+while executing---line 1563 of file Chicago.bst
+Name 2 in "Ding, L. and Mak, S., and Wu, C. F. J." has a comma at the end for entry DingEtAl19
+while executing---line 1608 of file Chicago.bst
+Name 2 in "Ding, L. and Mak, S., and Wu, C. F. J." has a comma at the end for entry DingEtAl19
+while executing---line 1608 of file Chicago.bst
+Warning--no number and no volume in Atamturktur2015
+Warning--page numbers missing in Atamturktur2015
+Warning--page numbers missing in Brynjarsdottir2014
+Warning--page numbers missing in Calvetti2014
+Warning--page numbers missing in Chevalier2014
+Name 2 in "Ding, L. and Mak, S., and Wu, C. F. J." has a comma at the end for entry DingEtAl19
+while executing---line 1645 of file Chicago.bst
+Name 2 in "Ding, L. and Mak, S., and Wu, C. F. J." has a comma at the end for entry DingEtAl19
+while executing---line 1645 of file Chicago.bst
+Warning--no number and no volume in Vasilopoulos2019
 You've used 67 entries,
-            1984 wiz_defined-function locations,
-            959 strings with 16261 characters,
-and the built_in function-call counts, 19466 in all, are:
-= -- 1867
-> -- 652
-< -- 0
-+ -- 262
-- -- 195
-* -- 1384
-:= -- 2615
-add.period$ -- 200
+            2861 wiz_defined-function locations,
+            1085 strings with 17612 characters,
+and the built_in function-call counts, 50337 in all, are:
+= -- 4111
+> -- 4182
+< -- 3
++ -- 1276
+- -- 1422
+* -- 4863
+:= -- 9227
+add.period$ -- 201
 call.type$ -- 67
-change.case$ -- 60
-chr.to.int$ -- 0
-cite$ -- 67
-duplicate$ -- 934
-empty$ -- 1847
-format.name$ -- 195
-if$ -- 4621
-int.to.chr$ -- 0
-int.to.str$ -- 67
+change.case$ -- 522
+chr.to.int$ -- 67
+cite$ -- 73
+duplicate$ -- 1201
+empty$ -- 2781
+format.name$ -- 1646
+if$ -- 9257
+int.to.chr$ -- 1
+int.to.str$ -- 0
 missing$ -- 68
 newline$ -- 337
-num.names$ -- 67
-pop$ -- 248
+num.names$ -- 670
+pop$ -- 377
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 932
 quote$ -- 0
-skip$ -- 713
+skip$ -- 1297
 stack$ -- 0
-substring$ -- 1493
-swap$ -- 501
-text.length$ -- 0
+substring$ -- 2556
+swap$ -- 399
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
-warning$ -- 0
-while$ -- 207
-width$ -- 69
-write$ -- 729
-(There was 1 error message)
+type$ -- 1260
+warning$ -- 6
+while$ -- 648
+width$ -- 0
+write$ -- 883
+(There were 6 error messages)
