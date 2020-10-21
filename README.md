@@ -3,6 +3,7 @@
 Carl Ehrett, School of Mathematical and Statistical Sciences, Clemson University; 
 D. Andrew Brown, School of Mathematical and Statistical Sciences, Clemson University;
 Christopher Kitchens, Department of Chemical and Biomolecular Engineering, Clemson University;
+Evan Chodora, Department of Civil Engineering, Clemson University;
 Roland Platz, Department of Architectural Engineering, Pennsylvania State University;
 Leslie Xu, Department of Architectural Engineering, Pennsylvania State University;
 and Sez Atamturktur, Department of Architectural Engineering, Pennsylvania State University;
