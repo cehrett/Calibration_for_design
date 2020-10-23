@@ -21,7 +21,7 @@
 % NOTE: PLACES WHERE THE TEX CODE NEEDS TO BE CHANGED (COMMENTING OR UNCOMMENTING) TO SWITCH BETWEEN JVVUQ SUBMISSION FORMAT AND (UNOFFICIAL) DISSERTATION FORMAT ARE MARKED BY "SWITCH_FORMAT"
 
 %% SWITCH_FORMAT: DISSERTATION FORMAT VERSION
-\newcommand{\diss}{1}
+\newcommand{\diss}{0}
 
 \if1\diss
 \documentclass[12pt]{article}
@@ -76,7 +76,7 @@
 	Department of Chemical and Biomolecular Engineering, \\Clemson University,\vspace{5pt} \\
 	Sez Atamturktur \\
 	Department of Architectural Engineering, \\Pennsylvania State University,\vspace{5pt} \\
-	Leslie Xu \\
+	Xiyue Xu \\
 	Department of Architectural Engineering, \\Pennsylvania State University,
 	and \vspace{5pt} \\
 	Roland Platz \\
@@ -141,23 +141,25 @@
    }}
 \author{Sez Atamturktur
 	\affiliation{Professor\\
-		Department of Architectural Engineering\\
+		Department of \\Architectural Engineering\\
 		The Pennsylvania State University\\
 		University Park, Pennsylvania 16802\\
 		Email: sez@psu.edu
 }}
-\author{Leslie Xu
+\author{Xinyue Xu
 	\affiliation{
 		Graduate Research Assistant\\
-		Department of Architectural Engineering\\
+		Department of \\Architectural Engineering\\
 		The Pennsylvania State University\\
 		University Park, Pennsylvania 16802\\
 		Email: xkx5055@psu.edu
 }}
 \author{Roland Platz
 	\affiliation{
-		TODO TITLE\\
-		TODO AFFILIATION\\
+		Visiting Scholar\\
+		Department of \\Architectural Engineering\\
+		The Pennsylvania State University\\
+		University Park, Pennsylvania 16802\\
 		Email: rxp5110@psu.edu
 }}
 
@@ -170,25 +172,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 	{\it 
-		Calibration of computer models and the use of those models for design are two activities that are traditionally carried out separately.
+		Calibration of computer models and the use of those models for design are two activities traditionally carried out separately.
 		%
-		This paper generalizes existing Bayesian inverse analysis approaches for computer model calibration to present a methodology combining calibration and design under a unified Bayesian framework.
+		This paper generalizes existing Bayesian inverse analysis approaches for computer model calibration to present a methodology combining calibration and design in a unified Bayesian framework.
 		%
-		This provides a computationally efficient means to undertake both tasks in a way that quantifies all relevant sources of uncertainty.
+		This provides a computationally efficient means to undertake both tasks while quantifying all relevant sources of uncertainty.
 		%
-		Specifically, compared with the traditional approach of design using parameter estimates made during previously completed model calibration, this generalized framework inherently includes uncertainty from the calibration process in the design procedure.
+		Specifically, compared with the traditional approach of design using parameter estimates from previously completed model calibration, this generalized framework inherently includes uncertainty from the calibration process in the design procedure.
 		%
-		We demonstrate our approach for simultaneous calibration and design in a dynamic vibration system.
+		We demonstrate our approach in a dynamic vibration system.
 		%
-		We also demonstrate how, when adaptive sampling of the phenomenon of interest is possible, the proposed framework may select new sampling locations using both the available real observations and the computer model.
+		We also demonstrate how, when adaptive sampling of the phenomenon of interest is possible, the proposed framework may select new sampling locations using both available real observations and the computer model.
 		%
-		This is especially useful when the model is misspecified in failing to reflect that the parameter to be calibrated is functionally dependent upon the design inputs that are to be optimized.
+		This is especially useful when a misspecified model fails to reflect that the calibration parameter is functionally dependent upon the design inputs to be optimized.
 		%
 	}
 \end{abstract}
 
+\if1\diss
 \noindent%
 {\it Keywords: Gaussian processes, optimization, uncertainty quantification, computer model calibration, engineering design}  
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{nomenclature}
@@ -357,7 +361,7 @@ In particular, sequential sampling with DCTO is attractive when the calibration 
 %
 We showcase the application of DCTO with sequential sampling using a synthetic example, comparing its results to that of a more traditional approach of design following calibration.
 %
-In Section \ref{sec:dvs} we apply DCTO to a dynamic vibration system, using a set of experimental observations simultaneously to calibrate a finite element model and to select optimal gain settings to minimize the system's damping ratio, and demonstrating DCTO's thorough quantification of the relevant uncertainties.
+In Section \ref{sec:dvs} we apply DCTO to a dynamic vibration system, using a set of experimental observations simultaneously to calibrate a finite element model and to select gain factor settings to achieve the optimal vibration isolation outcome, while demonstrating DCTO's thorough quantification of the relevant uncertainties.
 %
 Section \ref{sec:conclusion} concludes with discussion of the results and thoughts about future directions.\footnote{
 %
@@ -829,6 +833,8 @@ A summary of the results of thirty applications of DCTO both with and without ad
 %
 \begin{table}[]
 	\centering
+	\captionsetup{width=.85\linewidth}
+	\caption{Posterior root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$, for DCTO with adaptive sampling (AS) and a predetermined space-filling design (SFD). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
 	\begin{tabular}{l|cc|cc}
 		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
 		\multicolumn{2}{c}{$\widehat\theta_d$ RMSE} \\ \hline
@@ -841,7 +847,7 @@ A summary of the results of thirty applications of DCTO both with and without ad
 		$f_3$, $a=.055$, $b=0$       & 0.452 & 0.506 & 0.182 & 0.329\\ \hline
 		$f_3$, $a=.055$, $b=.1$       & 0.448 & 0.468 & 0.167 & 0.292\\ \hline
 	\end{tabular}
-	\caption{Posterior root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$, for DCTO with adaptive sampling (AS) and a predetermined space-filling design (SFD). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
+
 	\label{table:vars_and_rmses}
 \end{table}
 %
@@ -861,51 +867,329 @@ By relying on DCTO rather than on performing KOH using samples gathered using he
 %
 
 %
-\section{Application: Dynamic vibration system}\label{sec:dvs}
+\section{Case study application: vibration isolation design}\label{sec:dvs}
 %
-The dynamic vibration system (DVS) to which we apply DCTO is shown in Figure \ref{fig:dvs}.
+The application of DCTO methodology is demonstrated on a vibration isolation design problem. 
+%
+Vibration isolation relies on the balance of inertia, damping, and stiffness properties where, in active vibration isolation, an additional active gain factor enhances the system’s damping behavior.
+%
+To achieve the optimal vibration isolation outcome, the design engineer typically specifies the resonance and isolation frequencies and then balances mass, damping, stiffness, and the gain factor. 
+%
+
+%
+\subsection{Case study problem}
+%
+The experimental dynamical system studied herein is a one-mass oscillator subjected to passive and active vibration isolation (Figure \ref{fig:oscillator}). 
+%
+\begin{figure*}
+	\centering
+	\includegraphics[scale=0.85]{oscillator}
+	\captionsetup{width=.85\linewidth}
+	\caption{The physical test rig for the dynamic vibration system. The test setup is shown from three views. Depicted here are the rigid mass  (1), one leaf spring (2), VCA (3), fixed leaf spring support (4), mount (5) to suspend the frame (8), acceleration sensor $S_{a;z}$ (6), force sensor $S_{F_\mathrm{VCA}}$ (7), rigid frame (8), and a modal hammer (9) with a force sensor $SF$ to excite the frame. The sensor $S_{a;w}$ to measure the acceleration of the frame is on the inner side of the frame near the location where the impulse hammer hits (hammer not visible in the figure).}
+	\label{fig:oscillator}
+\end{figure*}
+%
+The system consists of a rigid rectangle frame, a rigid mass oscillator held by four identical orthogonally placed leaf springs, and a voice coil actuator (VCA).
+%
+
+%
+In Figure \ref{fig:schematic}a, a rigid mass $m$ oscillates in the z-direction due to a base point excitation w(t). A damper with the damping coefficient b and a spring element with a stiffness constant k connect the mass to the base point. 
+%
+\begin{figure*}
+	\centering
+	\includegraphics[scale=0.85]{schematic}
+	\captionsetup{width=.85\linewidth}
+	\caption{Schematic diagram of the test rig for the dynamic vibration system: (a) schematic representation of the one-mass oscillator, (b) one-mass oscillator with an additional frame as the base point, (c) schematic representation of the real test setup.}
+	\label{fig:schematic}
+\end{figure*}
+%
+The damper and spring provide the system’s internal passive damping force, active damping force, and stiffness force 
+%
+\begin{equation}
+	F_b=b[\dot z(t)-\dot w(t)],\ F_k=k[z(t)-w(t)],\ F_a=-g\dot z(t)
+\end{equation}
+%
+with $F_a$ derived from a simple velocity feedback control with the gain factor $g$.
+%
+
+%
+The inhomogeneous differential equation of motion of the one-mass oscillator in Figure \ref{fig:schematic}a can be written as
+%
+\begin{equation}\label{eq:inhomde}
+	\ddot z(t) + \left[ 2D_p\omega_0 + \frac gm\right]\dot z(t) + \omega_0^2 z(t) = 2D_p\omega_0\dot w(t)=\omega_0^2r(t)
+\end{equation}
+%
+using the abbreviation
+%
+\begin{equation}
+	2D_p\omega_0=\frac bm,\ \text{and }\omega_0^2= \frac km
+\end{equation}
+%
+including the damping ratio $D_p$ from passive damping, with $0<D_p<1$, as well as the angular eigenfrequency $omega_0$.
+%
+The term $\omega_0^2r(t)$ in \eqref{eq:inhomde} is the general expression for the excitation function, which, in this case, is the linear combination of damper and spring base point excitation $2D_p\omega_0\dot w(t) + \omega_o^2w(t)$.
+%
+
+%
+Figure \ref{fig:schematic}b depicts the representation of the laboratory set-up used in this study, in which a rigid frame with mass $m_f$ serves as a base point structure. 
+%
+The frame is fixed by a gliding support that is assumed to have no friction perpendicular to the $z$-direction.
+%
+The frame is constrained by a damper with the damping coefficient $b_f$ and springs with a total stiffness $k_f$ in the $z$-direction. 
+%
+
+%
+In the laboratory application, the frame suspends from a rigid mount via elastic straps vertical to the $z$-direction, allowing the frame to move freely in the $z$-direction as shown in Figure \ref{fig:schematic}c. 
+%
+The idealized damping $b_f$ and $k_f$ that constrain this movement are relatively small, compared to the $b$ and $k$ of the mass. 
+%
+The frame moves in a translational $z$-direction because of a time-dependent translational excitation displacement $w(t)$ in the $z$-direction. 
+%
+As shown in Figure \ref{fig:schematic}c, the frame retains two supports that fix a leaf spring at its ends at A and C, with the effective bending length $l$ on both sides A-B and B-C, with a rigid mass $m$ in the center position at B.
+%
+The leaf spring is the practical realization of the spring elements in Figure \ref{fig:schematic}a and b. Its
+stiffness 
+%
+\begin{equation}
+	k^*=12EI/l^3
+\end{equation}
+%
+is a function of the bending stiffness $EI$, where $E$ is the Young’s modulus of the leaf spring, $I$ is the geometrical moment of inertia, and $l$ is the length of the leaf spring.
+%
+Two leaf springs are mounted in parallel with length $l$ on each side of A-B and B-C (see Figure \ref{fig:schematic}c). 
+%
+With four leaf springs, the total stiffness becomes $k = 4k^*$. The two supports at A and C in Figure \ref{fig:schematic}c are adjustable along $l$ to tune the leaf spring’s bending deflection and therefore its effective stiffness $k$.
+%
+
+%
+A voice coil actuator (VCA) realizes an electromotive force $F_\mathrm{VCA}$ as the passive damping
+and the active force $F_b$ and $F_a$ (Figure \ref{fig:schematic}c). 
+%
+The force sensor $S_{F_\mathrm{VCA}}$ at B in Figure \ref{fig:schematic}c measures the sum of forces $F_b$ and $F_a$ acting on the moving mass. 
+%
+The acceleration sensors $S_{a;z}$ and $S_{a;w}$ measure directly the accelerations of mass and frame, $\ddot z$ and $\ddot w$. 
+%
+The accelerations are transformed into velocities $\dot w$ and $\dot z$ by numerical integration in the Simulink-dSpace environment. 
+%
+The masses of $S_{a;z}$, $S_{F_\mathrm{VCA}}$ and parts of the leaf spring are included in mass $m$ (Table \ref{table:rig}). 
+%
+\begin{table*}
+	\centering
+	\captionsetup{width=.85\linewidth}
+	\caption{Geometrical, mass, and material values of each component in the vibration isolation test rig} 
+	\begin{tabular}{lllll}
+		\hline
+		Category&Property&Variable&Value&Unit\\
+		\hline\hline
+		Rigid frame structure&sum mass&$m_f$&6.2073&kg\\
+		\hline
+		Vibrating rigid mass&sum mass, \textbf{\underline{min}}&$m$&0.7853&kg\\
+		&20x add. weights, small&$m_{ws}$&0.0760&kg\\
+		&24x add. weights, large&$m_{wl}$&0.2880&kg\\
+		&sum mass, \textbf{\underline{max}}&$m$&1.1493&kg\\
+		\hline
+		Geometry&leaf spring length, \textbf{\underline{min}}&$l$&4.00E-02&m\\
+		&leaf spring length, \textbf{\underline{max}}&$l$&8.00E-02&m\\
+		&leaf spring cross section, width&$d$&4.00E-02&m\\
+		&leaf spring cross section, height&$h$&0.11E-02&m\\
+		\hline
+		Material&Young's modulus (flexural) CFRP&$E$&62.00E+09&N/m\textsuperscript{2}\\
+		&stiffness CFRP, \textbf{\underline{min}}&$k$&25,788.1&N/m\\
+		&stiffness CFRP, \textbf{\underline{max}}&$k$&206,305.0&N/m\\
+		\hline
+		VCA&force constant&$f$&17.5&N/A\\
+		&voltage amplification constant&$c_v$&1.5&-\\
+		&passive damping coefficient, \textbf{\underline{min}}&$b$&16&Ns/m\\
+		&passive damping coefficient, \textbf{\underline{max}}&$b$&130&Ns/m\\
+		&passive damping ratio, \textbf{\underline{min}}&$d$&0.055&-\\
+		&passive damping ratio, \textbf{\underline{max}}&$d$&0.46&-\\
+		&active gain factor, \textbf{\underline{min}}&$g$&12&Ns/m\\
+		&active gain factor, \textbf{\underline{max}}&$g$&90&Ns/m\\
+		\hline
+	\end{tabular}
+	\label{table:rig}
+\end{table*}
+%
+
+%
+Figure \ref{fig:schematic}c also shows a modal hammer with a force sensor SF to excite the frame. 
+%
+It creates the impulse force 
+%
+\begin{equation}\label{eq:fhat}
+	\hat F(t_0)=\int_{-\infty}^\infty F(t)\cdot\delta(t-t_0)dt,
+\end{equation}
+%
+including the Dirac-impulse function $\delta(t-t_0)$ that leads to the vibrational response of the
+frame 
+%
+\begin{equation}\label{eq:wt}
+	w(t) = \frac{\hat F(t_0)}{m_f\omega_{D,f}}\cdot e^{-D_f\omega_{0,f}t}\sin\omega_{D,f}t,
+\end{equation}
+%
+in the time domain, with the damping ratio $D_f$, angular eigenfrequency $\omega_{0,f}$ and the damped
+angular eigenfrequency $\omega_{0,f}$ of the frame’s movement in $z$-direction. (6) is only valid for low damping $0 < D_f < 1$. This leads to the total vibration response 
+%
+\begin{equation}
+	z(t)=r_0 \{1-e^{-D_{\omega_0}}t[\cos\omega_D t-D\frac{\omega_0}{\omega_D}\sin \omega_Dt]\} .
+\end{equation}
+%
+The \emph{particular solution} $r_0$ is part of the general excitation function $\omega_o^2r(t)$ in (\ref{eq:inhomde}), which takes the form of an excitation step function 
+%
+\begin{equation}
+	r(t) = r_o\sigma(t-t_0)
+\end{equation}
+%
+when multiplied with the unit step function $\sigma(t - t_0)$ as the integral of the Dirac-impulse
+function $\delta(t - t_0)$ in (\ref{eq:fhat}). 
+%
+From the relation $2D_p(\dot\omega_0)\dot w(t)+\omega_0^2w(t)=\omega_0^2r(t)$ in (\ref{eq:inhomde}), 
+%
+\begin{equation}
+	r_0=\frac1{\omega_0}2D_p\dot w_0+w_0
+\end{equation}
+%
+with the velocity $\dot w_0$ and displacement $w_0$ at $t=t_0$ that are derived from (\ref{eq:wt}).
+%
+
+%
+In this demonstration, the design problem is formulated with the gain factor $g$ being the design parameter; the constant $k$ for the four leaf springs is assumed to be poorly known and assigned as the calibration parameter, and the mass $m$ of the system that needs to be vibration isolated is treated as the control parameter. 
+%
+The control parameter varies within a predetermined range, the calibration parameter is tuned with respect to the experimental data, and the design parameter is sought during the design process for the optimal vibration isolation outcome.
+%
+
+%
+\subsection{Experimental observations}
+%
+For the dual model calibration, 12 operational conditions for the test rig are designed for varying values of the mass $m$ and gain factor $g$ (shown in Table \ref{table:exp}).
+%
+\begin{table*}
+	\centering
+	\captionsetup{width=.85\linewidth}
+	\caption{A variety of experiment tests and 5-times averaged results} 
+	\begin{tabular}{c|ccc}
+		\hline
+		Case&Control Parameter&Design Parameter&5-times avg. system response\\
+		\hline\hline
+		Variable unit&Mass (kg)& Gain factor (Ns/m)&Damping ratio (-)\\
+		\hline
+		1&1.1493&0&5.23E-02\\
+		2&0.9653&0&4.81E-02\\
+		3&	0.7853&	0&	5.49E-02\\
+		4&	1.1493&	8&	7.98E-02\\
+		5&	0.9653&	8&	8.64E-02\\
+		6&	0.7853&	8&	8.71E-02\\
+		7&	1.1493&	41&	3.08E-01\\
+		8&	0.9653&	41&	2.64E-01\\
+		9&	0.7853&	41&	2.59E-01\\
+		10&	1.1493&	95&	5.42E-01\\
+		11&	0.9653&	95&	5.27E-01\\
+		12&	0.7853&	95&	6.28E-01\\
+		\hline
+	\end{tabular}
+	\label{table:exp}
+\end{table*}
+%
+To excite the test rig, an impulse force is applied in the translational $z$-direction via a modal hammer. 
+%
+The time history response of the hammer excitation is shown in Figure \ref{fig:impulse}. 
+%
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.85\linewidth]{impulse}
+	\captionsetup{width=.85\linewidth}
+	\caption{Schematic diagram of the applied impulse force in the time domain.}
+	\label{fig:impulse}
+\end{figure*}
+%
+Figure \ref{fig:vibration} shows the vibration response of the mass, as measured by the acceleration sensor $S_{a,z}$. 
+%
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.75\linewidth]{vibration}
+	\captionsetup{width=.85\linewidth}
+	\caption{Five-times averaged acceleration response of the rigid mass in the time domain.}
+	\label{fig:vibration}
+\end{figure*}
+%
+Since the rigid frame is constrained by a spring of small stiffness in the $z$-direction, the resulting relatively low resonance frequency of the frame ($\approx$1.5 Hz) does not significantly affect the mass vibration with its higher eigenfrequency ($>$20 Hz) when vibrating in the $z$-direction.
+%
+The hammer impact is repeated 5 times, and the impact force and the system response measurements are averaged. 
+%
+
+%
+One significant character of an oscillatory system is its damping (i.e. how rapidly a vibration system will decay after the initial excitation). 
+%
+The damping ratio, a dimensionless measure that describes the damping level, is calculated as follows:
+%
+\begin{equation}\label{eq:delta}
+	\delta = \frac 1n \log \left( \frac{\ddot x(t)}{\ddot x(t+nT)}  \right)
+\end{equation}
+\begin{equation}\label{eq:D}
+	D=\frac1{\sqrt{ 1+\frac{2\pi}\delta }}
+\end{equation}
+%
+where $\ddot x(t)$ is the 1\textsuperscript{st} peak value of mass acceleration, $\ddot x(t + nT)$ is the $(n+1$\textsuperscript{th} peak value of mass acceleration, and $n$ is the number of peak intervals. $\delta$ is here the logarithmic decrement, which is used to compute the damping ratio $D$. By following these two equations, the system responses under various experiment tests are summarized in Table \ref{table:exp}.
+%
+
+%
+\subsection{Numerical investigation}
+%
+To fully explore the domain of the control parameter in this dual model calibration problem, a finite element model of the one-mass oscillator is built in ANSYS v. 2018 (Figure \ref{fig:dvs}).
 %
 \begin{figure}
 	\centering
-	\includegraphics[width=2in]{FIG_dvs_illustration}
-	\includegraphics[width=2in]{DSC_5206_crop}
+	\includegraphics[width=0.85\linewidth]{dvs}
 	\captionsetup{width=.85\linewidth}
-	\caption{The dynamic vibration system, schematic and photograph. (1) The frame, (2) the beam, (3) the mass oscillator, (4) the spring, (5) the damper, and (6) the gain.}
+	\caption{The dynamic vibration system: (1) the rigid frame, (2) the leaf springs, (3) the mass oscillator, (4) the gain, (5) the damper, and (6) the spring.}
 	\label{fig:dvs}
 \end{figure}
 %
-In the DVS, an impulse force is applied to the frame of the system, causing the frame and the mass oscillator to accelerate.
+The frame and oscillatory mass are represented by a linear solid element type C3D8R in ABAQUS. 
 %
-From the resulting acceleration over time of the mass oscillator, we can calculate the damping ratio $\zeta$ of the system as
-\[
-\psi = \frac1n \log\frac{x(t)}{x(t+nT)},\quad \zeta = \frac1{\sqrt{1+\left(\frac{2\pi}{\psi}\right)^2}}
-\]
+Both the frame and the mass are assigned very high stiffness values to reflect rigid body behavior. 
 %
-where $t$ is the time in seconds of the first peak value of mass acceleration, $T$ is the time period of one oscillation, and $n$ is the total number of time steps -- i.e. the number of periods of the oscillation -- used in the calculation.
+The rigid frame is constrained in the direction of vibration by a spring of a small stiffness value, and laterally, by assumed gliding support. 
 %
-We use a finite element (FE) model of the system in conjunction with a set of 12 experimental observations in order to calibrate the elastic modulus of the spring.
+A passive damping force, an active damping force (that result from the gain factor $g$) and elastic forces (from the leaf springs) apply on the mass oscillator. 
 %
-For the simulation data, $n=1$, whereas for the experimental data we use $n=4$ in order to account for measurement error TODO VERIFY THIS EXPLANATION.
+Dashpot elements are used for the damper and the gain to model velocity-dependent forces. 
 %
-Due to the high computational cost of the FE model (roughly TODO HOW MANY seconds per model evaluation), we rely on a set of 98 runs for the calibration.
+The damper represented by DASHPOT2 element introduces a damping force as a function of the relative velocity between the rigid frame and the mass oscillator, the active damping force due to gain is modelled as a function of the absolute velocity of the mass oscillator through DASHPOT1 element, and the spring is represented by SPRING1 element in ABAQUS.
 %
-In addition to the calibration, we undertake simultaneous design using these model runs and experimental observations in order to minimize the damping ratio of the system by tuning the value of the gain.
+A Latin Hypercube sampling is completed with 98 runs for parameters ranges shown in Table \ref{table:params} for which the damping ratio of the system is calculated. 
+%
+\begin{table*}
+	\centering
+	\captionsetup{width=.85\linewidth}
+	\caption{A partial parameterized input and corresponding numerical results} 
+	\begin{tabular}{c|cccc}
+		\hline
+		Case&Control Parameter&Calibration Parameter&Design Parameter&Numerical System Response\\
+		\hline\hline
+		Variable unit&Mass (kg)&Elastic Modulus (N/m\textsuperscript{2})&Gain factor (Ns/m)&Damping ratio (-)\\
+		\hline
+		1&	0.9625&	54037300000&	11.5&	0.0979\\
+		2&	0.8175&	58698200000&	46.5&	0.217\\
+		3&	0.9525&	72098300000&	76.5&	0.268\\
+		4&	0.7275&	70350500000&	80.5&	0.3496\\
+		5&	1.0125&	71515700000&	73.5&	0.2483\\
+		6&	1.0875&	64233000000&	10.5&	0.0815\\
+		\ldots&\ldots&\ldots&\ldots&\ldots\\
+		93&	1.0575&	72389600000&	54.5&	0.1855\\
+		94&	0.8775&	68311300000&	91.5&	0.3621\\
+		95&	0.7675&	56950400000&	19.5&	0.1326\\
+		96&	0.7525&	71807000000&	83.5&	0.3489\\
+		97&	0.8125&	68893900000&	27.5&	0.1392\\
+		98&	1.0525&	48793800000&	34.5&	0.1679\\
+		\hline
+	\end{tabular}
+	\label{table:exp}
+\end{table*}
 %
 
 %
-Thus in our application, the inputs of the FE system are the mass $m$ of the oscillator (in kilograms), the elastic modulus $k$ of the spring (in Newtons per meter), and the gain $g$ (in Newtons per meter per second).
-%
-The relevant output of the system is the damping ratio.
-%
-The simulator is implemented in the commercial finite element software ABAQUS \if1\diss\citep{Abaqus2012}\else\cite{Abaqus2012}\fi.
-%
-The experimental design for the simulator runs is a latin hypercube over a range of the inputs that covers those of the available experimental data for the known inputs $m$ and $g$, and that covers a plausible range of values for the calibration input $k$.
-%
-The experimental design is a full factorial design over three different mass levels (0.7853, 0.9653, and 1.1493kg) and four different gain levels (0, 8, 41, and 95 Ns/m).
-%
-The expected elastic modulus for the system is 6.2e+10, as estimated by the leaf spring manufacturer.
-%
-
+\subsection{Application of DCTO to vibration isolation design}
 %
 Since our goal is to minimize the damping ratio, we set our target outcomes $y_t$ to be 0 across a range of oscillator masses.
 %
