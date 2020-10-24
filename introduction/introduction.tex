@@ -1,38 +1,55 @@
-\documentclass[10pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+\documentclass[12pt]{article}
 \usepackage{graphicx}
-\usepackage{natbib}
-\author{Carl Ehrett}
-\title{Introduction}
+\usepackage{natbib} 
+\usepackage{amsmath, amssymb}
+\usepackage{setspace} 
+\usepackage[margin=1.25in]{geometry}
 
 
-%	Outline:
-%	1. Introduction to computer model calibration
-%		1. Example or two of computer model calibration
-%		2. Alternative: ad hoc plug in approach that does not acknowledge uncertainty in resulting model predictions
-%	2. Lit review of computer model calibration
-%		1. Situate Bayesian calibration in wider context
-%	3. Comparison of calibration and design 
-%	4. Introduction to model-assisted design
-%		1. Broad lit review of optimization
-%		2. Place Bayesian optimization in context of other optimization methods
-%	5. Lit review for model-assisted design 
-%		1. Lit review for Bayesian optimizationDAte
-%	6. Introduction to Gaussian process meta-models
-%	7. Lit review for GP meta-models 
-%	8. Elucidation of the Kennedy-O'Hagan framework for calibration 
-%	9. Introduction to Wind Turbine System 
-%	10. Introduction to Dynamic Vibration System 
-%	11. Description of the two chapters 
 
+%\pdfminorversion=4
+% NOTE: To produce blinded version, replace "0" with "1" below.
 
+%% DON'T change margins - should be 1 inch all around.
+%\addtolength{\oddsidemargin}{-.5in}%
+%\addtolength{\evensidemargin}{-.5in}%
+%\addtolength{\textwidth}{1in}%
+%\addtolength{\textheight}{1.3in}%
+%\addtolength{\topmargin}{-.8in}%
+
+\date{}
 \begin{document}
 	
+%\bibliographystyle{natbib}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+	{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{\bf Introduction}
+\author{Carl Ehrett\\
+	Watt Family Innovation Center, \\Clemson University}
 \maketitle
+
+\spacingset{2} % DON'T change the spacing!
+
+%\documentclass[10pt,a4paper]{article}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+%\usepackage{amssymb}
+%\usepackage{graphicx}
+%\usepackage{natbib}
+%\author{Carl Ehrett}
+%\title{Introduction}
+%
+%
+%\begin{document}
+%	
+%\maketitle
 
 \section{Computer model calibration}
 
@@ -60,7 +77,7 @@ The successful quantification of uncertainty in model calibration, and the propa
 \citet{Trucano2006} provide a high-level overview of the relationship of model calibration to both model validation and sensitivity analysis.
 Much of the field of computer model calibration takes place either within the framework of, or as a response to, the work of \citet{Kennedy2001}.
 This work established the dominant paradigm for Bayesian computer model calibration.
-In this dissertation I refer to that paradigm as the KOH framework.
+In this dissertation we refer to that paradigm as the KOH framework.
 In KOH, one weds a set of experimental data to a computer model that stands in need of calibration, often mediated through a Gaussian process (GP) surrogate model when the original model is of high computational complexity.
 Systematic discrepancy between the model and the true system can also be represented by a GP, and priors are placed on the calibration parameters.
 GP hyperparameters are either estimated via maximum likelihood estimation (MLE) or else are also assigned prior distributions.
@@ -208,7 +225,7 @@ In addition, many efforts have been made to extend the capabilities of BO and to
 
 \section{Applications}
 
-In the present work I apply our methodology to two practical applications.
+In the present work we apply our methodology to two practical applications.
 One involves the engineering design of a wind turbine blade of fixed outer geometry.
 The blade is a constructed using a composite material, with a fixed choice of matrix and filler materials.
 Other properties of the composite may be varied to achieve performance and cost goals for the system.
@@ -218,21 +235,19 @@ We wed material design with the goals of the engineering design application, so 
 The engineering goals for our application are the simultaneous minimization of the tip deflection of the blade (in meters) when under load, the twist angle (in radians) of the blade under load, and the cost (in USD) of the composite used for the blade.
 This application is thus an example of multiobjective optimization. 
 
-The other practical application considered in the present work is a dynamic vibration system.
+The other practical application considered in the present work is a vibration isolation design problem.
 This is a system in which a one mass oscillator is anchored by two leaf springs.
-The oscillator induces vibration in the system.
+An impulse force is applied to the oscillator, inducing vibration in the system.
 The behavior of the resulting system may be measured via its vertical displacement over time, as well as its amplitude response over frequencies.
-The finite element model of the system must be calibrated, and the calibrated system must be used for engineering design.
-As concerns calibration, we seek to find appropriate values for [VAR].
-As concerns engineering design, we seek to minimize [MEASURE].
+The finite element model of the system must be calibrated with respect to the elastic modulus of the leaf springs, and the calibrated system must be used for engineering design to minimize resulting vibration.
 
 The following chapters are organized as follows.
-In chapter two, I adapt the KOH framework and demonstrate its potential as a technique for model-assisted design.
-I apply the resulting methodology to the wind turbine blade application.
+In chapter two, we adapt the KOH framework and demonstrate its potential as a technique for model-assisted design.
+We apply the resulting methodology to the wind turbine blade application.
 As that system involves multiobjective optimization, it provides an opportunity to demonstrate our method's ability to explore the Pareto front of a system while providing uncertainty quantification of the resulting estimates.
-In chapter three, I expand the framework developed in chapter two, in order to effect both calibration and engineering design simultaneously.
+In chapter three, qw expand the framework developed in chapter two, in order to effect both calibration and engineering design simultaneously.
 The ability to perform both of these tasks simultaneously, within a single model and with a single set of experimental observations, is a novel benefit of our approach.
-I demonstrate the resulting methodology using the dynamic vibration system.
+We demonstrate the resulting methodology in the vibration isolation design application.
 Chapter four concludes with a discussion of the results of chapters two and three, and thoughts about future directions for research in this area.
 
 \bibliographystyle{apalike}
