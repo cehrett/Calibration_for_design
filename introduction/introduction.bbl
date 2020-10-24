@@ -180,6 +180,12 @@ Jones, D.~R., Schonlau, M., and Welch, W.~J. (1998).
 \newblock {Efficient Global Optimization of Expensive Black-Box Functions}.
 \newblock Technical report.
 
+\bibitem[Kennedy and O'Hagan, 2000]{Kennedy2000}
+Kennedy, M. and O'Hagan, A. (2000).
+\newblock {Predicting the output from a complex computer code when fast
+  approximations are available}.
+\newblock {\em Biometrika}, 87(1):1--13.
+
 \bibitem[Kennedy and O'Hagan, 2001]{Kennedy2001}
 Kennedy, M.~C. and O'Hagan, A. (2001).
 \newblock {Bayesian calibration of computer models}.
@@ -345,6 +351,16 @@ Snoek, J., Rippel, O., Swersky, K., Kiros, R., Satish, N., Sundaram, N.,
 \newblock Scalable bayesian optimization using deep neural networks.
 \newblock In {\em International conference on machine learning}, pages
   2171--2180.
+
+\bibitem[Sorokowska et~al., 2017]{Sorokowska2017}
+Sorokowska, A., Sorokowski, P., Hilpert, P., et~al. (2017).
+\newblock {Preferred interpersonal distances: A global comparison}.
+\newblock {\em Journal of Cross-Cultural Psychology}, 48(4):577--592.
+
+\bibitem[Thompson and Marchant, 1995]{Thompson1995}
+Thompson, P.~A. and Marchant, E.~W. (1995).
+\newblock {A computer model for the evacuation of large building populations}.
+\newblock {\em Fire Safety Journal}, 24:131--148.
 
 \bibitem[Trucano et~al., 2006]{Trucano2006}
 Trucano, T.~G., Swiler, L.~P., Igusa, T., Oberkampf, W.~L., and Pilch, M.
