@@ -139,13 +139,6 @@
        Clemson, South Carolina 29631\\
        Email: ckitche@clemson.edu
    }}
-\author{Sez Atamturktur
-	\affiliation{Professor\\
-		Department of \\Architectural Engineering\\
-		The Pennsylvania State University\\
-		University Park, Pennsylvania 16802\\
-		Email: sez@psu.edu
-}}
 \author{Xinyue Xu
 	\affiliation{
 		Graduate Research Assistant\\
@@ -161,6 +154,14 @@
 		The Pennsylvania State University\\
 		University Park, Pennsylvania 16802\\
 		Email: rxp5110@psu.edu
+}}
+\author{Sez Atamturktur
+	\affiliation{Harry and Arlene Schell Professor\\
+		and Head of the	Department of \\
+		Architectural Engineering\\
+		The Pennsylvania State University\\
+		University Park, Pennsylvania 16802\\
+		Email: sez@psu.edu
 }}
 
 \begin{document}
@@ -180,7 +181,7 @@
 		%
 		Specifically, compared with the traditional approach of design using parameter estimates from previously completed model calibration, this generalized framework inherently includes uncertainty from the calibration process in the design procedure.
 		%
-		We demonstrate our approach in a dynamic vibration system.
+		We demonstrate our approach on the design of a vibration isolation system.
 		%
 		We also demonstrate how, when adaptive sampling of the phenomenon of interest is possible, the proposed framework may select new sampling locations using both available real observations and the computer model.
 		%
@@ -267,7 +268,7 @@ Having a combined framework for calibration and design is especially of interest
 %
 Bayesian methods for computer model calibration are developed by \if1\diss\cite{Kennedy2001}\else Kennedy and O'Hagan \cite{Kennedy2001}\fi.
 %
-Since their seminal paper, the methodology has seen numerous extensions and refinements \if1\diss(\citealt{Higdon2004,Williams2006}; \citeauthor{Bayarri2007a} 2007a; \citeauthor{Bayarri2007b} 2007b; \citealt{Paulo2012,Brynjarsdottir2014})\else(\cite{Higdon2004,Williams2006,Bayarri2007a,Bayarri2007b,Paulo2012,Brynjarsdottir2014})\fi.
+Since their seminal paper, the methodology has seen numerous extensions and refinements \if1\diss(\citealt{Higdon2004,Williams2006}; \citeauthor{Bayarri2007a} 2007a; \citeauthor{Bayarri2007b} 2007b; \citealt{Paulo2012,Brynjarsdottir2014})\else\cite{Higdon2004,Williams2006,Bayarri2007a,Bayarri2007b,Paulo2012,Brynjarsdottir2014}\fi.
 %
 Henceforth, we refer to this approach to calibration as KOH.
 %
@@ -289,7 +290,9 @@ One wants to find design settings that induce the system to behave optimally, bu
 %
 The idea of counterfactual Bayes is to identify artificial observations, or target outcomes, $y_t$ such that the resulting likelihood is highest in the optimal design region --- i.e., target outcomes $y_t$ such that their occurrence is strong evidence that the design settings are optimal.
 %
-Hence, in addition to calibrating the unknown model parameters against experimental observations, one uses the KOH framework to also find a posterior distribution on design settings given the target outcomes --- and given the nature of $y_t$, this is \textit{de facto} a distribution on optimal design settings for the system.
+Hence, in addition to calibrating the unknown model parameters against experimental observations, one uses the KOH framework to also find a posterior distribution on design settings given the target outcomes.
+%
+Given the nature of $y_t$, this is \textit{de facto} a distribution on optimal design settings for the system.
 %
 The result retains the benefits of the Bayesian model calibration tools on which it is based, namely the quantification of remaining uncertainty regarding the optimal design settings.
 %
@@ -299,11 +302,11 @@ And like KOH, DCTO is especially well-suited to problems that rely on black-box 
 %
 We may divide optimization approaches in such cases broadly into three camps \if1\diss\citep{Regis2004}\else\cite{Regis2004}\fi.
 %
-Gradient-based approaches \if1\diss\citep{Nocedal2006} \else\cite{Nocedal2006}\fi are of limited utility when dealing with black-box functions, where we cannot evaluate the objective function's derivative.
+Gradient-based approaches \if1\diss\citep{Nocedal2006} \else\cite{Nocedal2006} \fi are of limited utility when dealing with black-box functions, where we cannot evaluate the objective function's derivative.
 %
 Approximation of the derivative requires additional function evaluations, rapidly inflating the computational cost when each evaluation involves significant expense.
 %
-Heuristic approaches \if1\diss\citep{Lee2007} \else\cite{Lee2007}\fi  such as evolutionary algorithms \if1\diss\citep{Branke2008,Deb2002,Kim2004}\else\cite{Branke2008,Deb2002,Kim2004}\fi, particle swarm optimization \if1\diss\citep{Bonyadi2017,Mason2017}\else\cite{Bonyadi2017,Mason2017}\fi, and simulated annealing \if1\diss\citep{Robert2004} \else\cite{Robert2004}\fi avoid the need to know or approximate derivatives, but often require prohibitively many function evaluations.
+Heuristic approaches \if1\diss\citep{Lee2007} \else\cite{Lee2007} \fi such as evolutionary algorithms \if1\diss\citep{Branke2008,Deb2002,Kim2004}\else\cite{Branke2008,Deb2002,Kim2004}\fi, particle swarm optimization \if1\diss\citep{Bonyadi2017,Mason2017}\else\cite{Bonyadi2017,Mason2017}\fi, and simulated annealing \if1\diss\citep{Robert2004} \else\cite{Robert2004} \fi avoid the need to know or approximate derivatives, but often require prohibitively many function evaluations.
 %
 Furthermore, such methods, like gradient-based approaches, do not inherently provide quantification of remaining uncertainty about optimal design settings and the system outputs at those settings.
 %
@@ -315,13 +318,13 @@ On the other hand, our approach includes uncertainty quantification as an intrin
 %
 
 %
-The third camp is the diverse collection of response surface methodologies \if1\diss\cite[RSMs;][]{Dean2017} \else(RSMs) \cite{Dean2017}\fi used for optimization.
+The third camp is the diverse collection of response surface methodologies \if1\diss\cite[RSMs;][]{Dean2017} \else(RSMs) \cite{Dean2017} \fi used for optimization.
 %
 RSMs operate by fitting a predictive model to an existing set of model runs, to form a computationally inexpensive meta-model which is then used to explore the model output.
 %
 The concept of calibration to target outcomes that is built into DCTO is an example of an RSM, using GPs for its meta-model fit.
 %
-Other popular versions of RSMs include efficient global optimization \if1\diss\cite[EGO;][]{Jones1998,Brochu2010} \else(EGO) \cite{Jones1998,Brochu2010}\fi and stepwise uncertainty reduction \if1\diss\cite[SUR;][]{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}\else(SUR) \cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}\fi.
+Other popular versions of RSMs include efficient global optimization \if1\diss\cite[EGO;][]{Jones1998,Brochu2010} \else(EGO) \cite{Jones1998,Brochu2010} \fi and stepwise uncertainty reduction \if1\diss\cite[SUR;][]{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}\else(SUR) \cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}\fi.
 %
 EGO and SUR are both designed to facilitate sequential sampling from the system of interest in a search for the global optimum.
 %
@@ -343,7 +346,7 @@ An example of an RSM more closely resembling our approach to design is described
 %
 Their approach defines a distribution which is designed to lie both on and near the Pareto front (PF) of the objective function and generates a posterior distribution which includes quantified uncertainties via Markov chain Monte Carlo \if1\diss\citep[MCMC;][]{Gelfand1990}\else(MCMC) \cite{Gelfand1990}\fi.
 %
-However, their posterior distribution is designed by the authors and is not dictated by the model itself; as such, its interpretability is not entirely clear.
+However, the posterior distribution in that work is designed by the authors and is not dictated by the model itself; as such, its interpretability is not entirely clear.
 %
 By contrast, our approach provides a posterior distribution based on the likelihood of the optimal design settings given the (hypothetical) observation of target outcomes $y_t$, and thus the uncertainty quantified by design using the KOH framework is model-driven and interpretable as uncertainty regarding the optimal values for the design inputs and the resulting system output.
 %
@@ -416,7 +419,7 @@ However, this approach will not work, both because the inputs to be calibrated a
 %
 Hence, model calibration and system design must be separated.
 %
-An obvious choice here is to perform KOH calibration first, without involving any target outcomes, and then to use the calibrated model in order to perform CTO.
+An obvious choice here is to perform KOH calibration first, without involving any target outcomes, and then to use the calibrated model for model-assisted design.
 %
 Under this approach, with observations $
 \mathbf y_r$ of the system of interest, one would employ the model described in Equation \eqref{eq:full_dist} with $\boldsymbol \theta = \boldsymbol \theta_c$ (the parameters to be calibrated) and with $\mathcal D = \mathcal D_c = (\boldsymbol\eta^T, \mathbf y_r ^T)^T$.
@@ -463,7 +466,7 @@ However, if it is computationally expensive, we employ a surrogate by setting a 
 %
 From here on in this discussion, assume that a GP surrogate is used for $\eta$.
 %
-Model the systematic discrepancy between $\eta$ and $f$ at the true value of $\mathbf t_c=\boldsymbol\theta_c$ with another GP prior $\delta(\cdot,\cdot)$ having mean $m_\delta(\mathbf x,\mathbf t_d)$ and covariance function $C_\delta((\mathbf x,\mathbf t_d),(\mathbf x',\mathbf t_d'))$.
+We model the systematic discrepancy between $\eta$ and $f$ at the true value of $\mathbf t_c=\boldsymbol\theta_c$ with another GP prior $\delta(\cdot,\cdot)$ having mean $m_\delta(\mathbf x,\mathbf t_d)$ and covariance function $C_\delta((\mathbf x,\mathbf t_d),(\mathbf x',\mathbf t_d'))$.
 %
 In addition to systematic discrepancy between $\eta$ and reality, measurement error $\epsilon_r$ may be included in the model for real observations $\mathbf y_r$, and additional Gaussian observation error $\epsilon_d$ may be included for target outcomes $\mathbf y_t$.
 %
@@ -547,7 +550,7 @@ A primary benefit of DCTO is that the design process includes quantification of 
 %
 Performing calibration and then subsequently undertaking design using static estimates for $\widehat{\boldsymbol\theta_c}$ and $\widehat \delta$ does not properly account for the uncertainty surrounding the estimates. 
 %
-Another benefit of the combined approach appears in cases in which $\boldsymbol\theta_c$ is suspected to be a function of $\boldsymbol\theta_d$.
+Another benefit of the combined approach appears in cases in which the model is misspecified in failing to account for functional dependence of $\boldsymbol\theta_c$ on $\boldsymbol\theta_d$.
 %
 In such cases, one may be interested only or primarily in the value of $\boldsymbol\theta_c$ at the optimal value of $\boldsymbol\theta_d$.
 %
@@ -620,7 +623,7 @@ This will allow one to calibrate the model using observations taken from the reg
 %
 
 %
-When observations may be made adaptively, other RSM approaches such as EGO \if1\diss\citep{Jones1998,Brochu2010} \else\cite{Jones1998,Brochu2010}\fi or SUR \if1\diss\citep{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019} \else\cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}\fi may be more efficient than the KOH framework for estimating optimal design settings, though the KOH framework offers more interpretable and model-driven uncertainty quantification.
+When observations may be made adaptively, other RSM approaches such as EGO \if1\diss\citep{Jones1998,Brochu2010} \else\cite{Jones1998,Brochu2010} \fi or SUR \if1\diss\citep{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019} \else\cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019} \fi may be more efficient than the KOH framework for estimating optimal design settings, though the KOH framework offers more interpretable and model-driven uncertainty quantification.
 %
 Further, RSM approaches in general do not include tools to accommodate the case in which a model stands in need of calibration as well as optimization.
 %
@@ -687,7 +690,11 @@ For any value of $x$ and $t_c$, the optimal (minimizing) value of $t_d$ is $(4/3
 %
 Suppose that the calibration parameter's ``true'' value is functionally dependent on the design input, with the relationship:
 %
-\[\theta_c(t_d)= 2.25 - .75 \frac{ \exp\left(40\left(\frac{t_d-1.5}{.75}-.5\right)\right)} {1 + \exp\left( 40\left(\frac{t_d-1.5}{.75}-.5\right) \right)}.\]
+\begin{equation}
+	\theta_c(t_d)= 2.25 - .75 \frac{ \exp\left(40\left(\frac{t_d-1.5}{.75}-.5\right)\right)} {1 + \exp\left( 40\left(\frac{t_d-1.5}{.75}-.5\right) \right)}
+\end{equation}
+%
+which would be unknown in a real application.
 %
 Figure \ref{fig:SA_relationship} shows this relationship.
 %
@@ -717,7 +724,7 @@ Thus $\eta$ showcases the ability of DCTO to perform simultaneously both calibra
 % 
 We apply DCTO to four versions of the problem.
 %
-First, we assume that $\eta$ is free from discrepancy -- i.e. that $\eta(x,\theta_c,t_d)$ is an unbiased estimator of the ``true'' system $f(x,t_d)$.
+First, we assume that $\eta$ is free from discrepancy; i.e. that $\eta(x,\theta_c,t_d)$ is an unbiased estimator of the ``true'' system $f(x,t_d)$.
 %
 The other three versions each assume that $\eta$ suffers from some form of discrepancy.
 %
@@ -835,6 +842,7 @@ A summary of the results of thirty applications of DCTO both with and without ad
 	\centering
 	\captionsetup{width=.85\linewidth}
 	\caption{Posterior root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$, for DCTO with adaptive sampling (AS) and a predetermined space-filling design (SFD). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
+	\renewcommand{\arraystretch}{1.2}% Tighter
 	\begin{tabular}{l|cc|cc}
 		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
 		\multicolumn{2}{c}{$\widehat\theta_d$ RMSE} \\ \hline
@@ -893,7 +901,9 @@ The system consists of a rigid rectangle frame, a rigid mass oscillator held by 
 %
 
 %
-In Figure \ref{fig:schematic}a, a rigid mass $m$ oscillates in the z-direction due to a base point excitation w(t). A damper with the damping coefficient b and a spring element with a stiffness constant k connect the mass to the base point. 
+In Figure \ref{fig:schematic}a, a rigid mass $m$ oscillates in the $z$-direction due to a base point excitation $w(t)$. 
+%
+A damper with the damping coefficient $b$ and a spring element with a stiffness constant $k$ connect the mass to the base point. 
 %
 \begin{figure*}
 	\centering
@@ -903,37 +913,25 @@ In Figure \ref{fig:schematic}a, a rigid mass $m$ oscillates in the z-direction d
 	\label{fig:schematic}
 \end{figure*}
 %
-The damper and spring provide the system’s internal passive damping force, active damping force, and stiffness force 
-%
-\begin{equation}
-	F_b=b[\dot z(t)-\dot w(t)],\ F_k=k[z(t)-w(t)],\ F_a=-g\dot z(t)
-\end{equation}
-%
-with $F_a$ derived from a simple velocity feedback control with the gain factor $g$.
+The damper and spring provide the system's internal passive damping force, active damping force, and stiffness force $F_b=b[\dot z(t)-\dot w(t)],\ F_k=k[z(t)-w(t)],\ F_a=-g\dot z(t)$ with $F_a$ derived from a simple velocity feedback control with the gain factor $g$.
 %
 
 %
-The inhomogeneous differential equation of motion of the one-mass oscillator in Figure \ref{fig:schematic}a can be written as
+The inhomogeneous differential equation of the one-mass oscillator's motion in Figure \ref{fig:schematic}a can be written as
 %
 \begin{equation}\label{eq:inhomde}
 	\ddot z(t) + \left[ 2D_p\omega_0 + \frac gm\right]\dot z(t) + \omega_0^2 z(t) = 2D_p\omega_0\dot w(t)=\omega_0^2r(t)
 \end{equation}
 %
-using the abbreviation
+using the abbreviation $2D_p\omega_0=\frac bm,\ \text{and }\omega_0^2= \frac km$ including the damping ratio $D_p$ from passive damping, with $0<D_p<1$, and the angular eigenfrequency $\omega_0$.
 %
-\begin{equation}
-	2D_p\omega_0=\frac bm,\ \text{and }\omega_0^2= \frac km
-\end{equation}
-%
-including the damping ratio $D_p$ from passive damping, with $0<D_p<1$, as well as the angular eigenfrequency $omega_0$.
-%
-The term $\omega_0^2r(t)$ in \eqref{eq:inhomde} is the general expression for the excitation function, which, in this case, is the linear combination of damper and spring base point excitation $2D_p\omega_0\dot w(t) + \omega_o^2w(t)$.
+The term $\omega_0^2r(t)$ in \eqref{eq:inhomde} is the excitation function, which, in this case, is the linear combination of damper and spring base point excitation $2D_p\omega_0\dot w(t) + \omega_o^2w(t)$.
 %
 
 %
-Figure \ref{fig:schematic}b depicts the representation of the laboratory set-up used in this study, in which a rigid frame with mass $m_f$ serves as a base point structure. 
+Figure \ref{fig:schematic}b depicts the laboratory set-up used in this study, in which a rigid frame with mass $m_f$ serves as a base point structure. 
 %
-The frame is fixed by a gliding support that is assumed to have no friction perpendicular to the $z$-direction.
+The frame is fixed by a gliding support assumed to have no friction perpendicular to the $z$-direction.
 %
 The frame is constrained by a damper with the damping coefficient $b_f$ and springs with a total stiffness $k_f$ in the $z$-direction. 
 %
@@ -945,20 +943,18 @@ The idealized damping $b_f$ and $k_f$ that constrain this movement are relativel
 %
 The frame moves in a translational $z$-direction because of a time-dependent translational excitation displacement $w(t)$ in the $z$-direction. 
 %
-As shown in Figure \ref{fig:schematic}c, the frame retains two supports that fix a leaf spring at its ends at A and C, with the effective bending length $l$ on both sides A-B and B-C, with a rigid mass $m$ in the center position at B.
+As shown in Figure \ref{fig:schematic}c, the frame retains two supports that fix a leaf spring at its ends at A and C, with the effective bending length $l$ on sides A-B and B-C, with a rigid mass $m$ in the center position at B.
 %
-The leaf spring is the practical realization of the spring elements in Figure \ref{fig:schematic}a and b. Its
-stiffness 
+The leaf spring is the practical realization of the spring elements in Figure \ref{fig:schematic}a and b. 
 %
-\begin{equation}
-	k^*=12EI/l^3
-\end{equation}
-%
-is a function of the bending stiffness $EI$, where $E$ is the Young’s modulus of the leaf spring, $I$ is the geometrical moment of inertia, and $l$ is the length of the leaf spring.
+Its
+stiffness $k^*=12EI/l^3$ is a function of the bending stiffness $EI$, where $E$ is the Young’s modulus of the leaf spring, $I$ is the geometrical moment of inertia, and $l$ is the length of the leaf spring.
 %
 Two leaf springs are mounted in parallel with length $l$ on each side of A-B and B-C (see Figure \ref{fig:schematic}c). 
 %
-With four leaf springs, the total stiffness becomes $k = 4k^*$. The two supports at A and C in Figure \ref{fig:schematic}c are adjustable along $l$ to tune the leaf spring’s bending deflection and therefore its effective stiffness $k$.
+With four leaf springs, the total stiffness becomes $k = 4k^*$. 
+%
+The two supports at A and C in Figure \ref{fig:schematic}c are adjustable along $l$ to tune the leaf spring’s bending deflection and therefore its effective stiffness $k$.
 %
 
 %
@@ -977,6 +973,7 @@ The masses of $S_{a;z}$, $S_{F_\mathrm{VCA}}$ and parts of the leaf spring are i
 	\centering
 	\captionsetup{width=.85\linewidth}
 	\caption{Geometrical, mass, and material values of each component in the vibration isolation test rig} 
+	\renewcommand{\arraystretch}{1.2}% Tighter
 	\begin{tabular}{lllll}
 		\hline
 		Category&Property&Variable&Value&Unit\\
@@ -1027,35 +1024,25 @@ frame
 	w(t) = \frac{\hat F(t_0)}{m_f\omega_{D,f}}\cdot e^{-D_f\omega_{0,f}t}\sin\omega_{D,f}t,
 \end{equation}
 %
-in the time domain, with the damping ratio $D_f$, angular eigenfrequency $\omega_{0,f}$ and the damped
-angular eigenfrequency $\omega_{0,f}$ of the frame’s movement in $z$-direction. (6) is only valid for low damping $0 < D_f < 1$. This leads to the total vibration response 
+in the time domain, with damping ratio $D_f$, angular eigenfrequency $\omega_{0,f}$ and damped
+angular eigenfrequency $\omega_{0,f}$ of the frame’s movement in $z$-direction. 
 %
-\begin{equation}
-	z(t)=r_0 \{1-e^{-D_{\omega_0}}t[\cos\omega_D t-D\frac{\omega_0}{\omega_D}\sin \omega_Dt]\} .
-\end{equation}
-%
-The \emph{particular solution} $r_0$ is part of the general excitation function $\omega_o^2r(t)$ in (\ref{eq:inhomde}), which takes the form of an excitation step function 
-%
-\begin{equation}
-	r(t) = r_o\sigma(t-t_0)
-\end{equation}
-%
-when multiplied with the unit step function $\sigma(t - t_0)$ as the integral of the Dirac-impulse
-function $\delta(t - t_0)$ in (\ref{eq:fhat}). 
-%
-From the relation $2D_p(\dot\omega_0)\dot w(t)+\omega_0^2w(t)=\omega_0^2r(t)$ in (\ref{eq:inhomde}), 
-%
-\begin{equation}
-	r_0=\frac1{\omega_0}2D_p\dot w_0+w_0
-\end{equation}
-%
-with the velocity $\dot w_0$ and displacement $w_0$ at $t=t_0$ that are derived from (\ref{eq:wt}).
+(\ref{eq:wt}) is only valid for low damping $0 < D_f < 1$. This leads to the total vibration response $z(t)=r_0 \{1-e^{-D_{\omega_0}}t[\cos\omega_D t-D\frac{\omega_0}{\omega_D}\sin \omega_Dt]\}$.
 %
 
 %
-In this demonstration, the design problem is formulated with the gain factor $g$ being the design parameter; the constant $k$ for the four leaf springs is assumed to be poorly known and assigned as the calibration parameter, and the mass $m$ of the system that needs to be vibration isolated is treated as the control parameter. 
+The \emph{particular solution} $r_0$ is part of the general excitation function $\omega_o^2r(t)$ in (\ref{eq:inhomde}), which takes the form of an excitation step function $r(t) = r_o\sigma(t-t_0)$ when multiplied with the unit step function $\sigma(t - t_0)$ as the integral of the Dirac-impulse
+function $\delta(t - t_0)$ in (\ref{eq:fhat}). 
 %
-The control parameter varies within a predetermined range, the calibration parameter is tuned with respect to the experimental data, and the design parameter is sought during the design process for the optimal vibration isolation outcome.
+From the relation $2D_p(\dot\omega_0)\dot w(t)+\omega_0^2w(t)=\omega_0^2r(t)$ in (\ref{eq:inhomde}),  it follows that $r_0=\frac1{\omega_0}2D_p\dot w_0+w_0$ with the velocity $\dot w_0$ and displacement $w_0$ at $t=t_0$ that are derived from (\ref{eq:wt}).
+%
+
+%
+In this demonstration, the design problem is formulated with the gain factor $g$ being the design parameter $\theta_d$.
+%
+The elastic modulus $k$ of the four leaf spring is assumed to be poorly known and is assigned as the calibration parameter $\theta_c$.
+%
+The mass $m$ of the system that needs to be vibration isolated is treated as the control parameter $x$, and the damping ratio is the design objective $y$. 
 %
 
 %
@@ -1067,9 +1054,10 @@ For the dual model calibration, 12 operational conditions for the test rig are d
 	\centering
 	\captionsetup{width=.85\linewidth}
 	\caption{A variety of experiment tests and 5-times averaged results} 
+	\renewcommand{\arraystretch}{1.2}% Tighter
 	\begin{tabular}{c|ccc}
 		\hline
-		Case&Control Parameter&Design Parameter&5-times avg. system response\\
+		Case&Control Parameter $x$&Design Parameter $\theta_d$&5-times Avg. System Response $y$\\
 		\hline\hline
 		Variable unit&Mass (kg)& Gain factor (Ns/m)&Damping ratio (-)\\
 		\hline
@@ -1106,7 +1094,7 @@ Figure \ref{fig:vibration} shows the vibration response of the mass, as measured
 %
 \begin{figure*}
 	\centering
-	\includegraphics[width=0.75\linewidth]{vibration}
+	\includegraphics[width=0.85\linewidth]{vibration}
 	\captionsetup{width=.85\linewidth}
 	\caption{Five-times averaged acceleration response of the rigid mass in the time domain.}
 	\label{fig:vibration}
@@ -1120,16 +1108,7 @@ The hammer impact is repeated 5 times, and the impact force and the system respo
 %
 One significant character of an oscillatory system is its damping (i.e. how rapidly a vibration system will decay after the initial excitation). 
 %
-The damping ratio, a dimensionless measure that describes the damping level, is calculated as follows:
-%
-\begin{equation}\label{eq:delta}
-	\delta = \frac 1n \log \left( \frac{\ddot x(t)}{\ddot x(t+nT)}  \right)
-\end{equation}
-\begin{equation}\label{eq:D}
-	D=\frac1{\sqrt{ 1+\frac{2\pi}\delta }}
-\end{equation}
-%
-where $\ddot x(t)$ is the 1\textsuperscript{st} peak value of mass acceleration, $\ddot x(t + nT)$ is the $(n+1$\textsuperscript{th} peak value of mass acceleration, and $n$ is the number of peak intervals. $\delta$ is here the logarithmic decrement, which is used to compute the damping ratio $D$. By following these two equations, the system responses under various experiment tests are summarized in Table \ref{table:exp}.
+The damping ratio, a dimensionless measure that describes the damping level, is calculated as $D=\frac1{\sqrt{ 1+\frac{2\pi}\delta }}$, where $\delta = \frac 1n \log \left( \frac{\ddot x(t)}{\ddot x(t+nT)}  \right)$, $\ddot x(t)$ is the 1\textsuperscript{st} peak value of mass acceleration, $\ddot x(t + nT)$ is the $(n+1$\textsuperscript{th} peak value of mass acceleration, and $n$ is the number of peak intervals. $\delta$ is here the logarithmic decrement, which is used to compute the damping ratio $D$. By following these two equations, the system responses under various experiment tests are summarized in Table \ref{table:exp}.
 %
 
 %
@@ -1153,7 +1132,7 @@ The rigid frame is constrained in the direction of vibration by a spring of a sm
 %
 A passive damping force, an active damping force (that result from the gain factor $g$) and elastic forces (from the leaf springs) apply on the mass oscillator. 
 %
-Dashpot elements are used for the damper and the gain to model velocity-dependent forces. 
+Dashpot elements are used for the damper and gain to model velocity-dependent forces. 
 %
 The damper represented by DASHPOT2 element introduces a damping force as a function of the relative velocity between the rigid frame and the mass oscillator, the active damping force due to gain is modelled as a function of the absolute velocity of the mass oscillator through DASHPOT1 element, and the spring is represented by SPRING1 element in ABAQUS.
 %
@@ -1163,9 +1142,10 @@ A Latin Hypercube sampling is completed with 98 runs for parameters ranges shown
 	\centering
 	\captionsetup{width=.85\linewidth}
 	\caption{A partial parameterized input and corresponding numerical results} 
+	\renewcommand{\arraystretch}{1.2}% Tighter
 	\begin{tabular}{c|cccc}
 		\hline
-		Case&Control Parameter&Calibration Parameter&Design Parameter&Numerical System Response\\
+		Case&Control Parameter $x$&Calibration Parameter $\theta_c$&Design Parameter $\theta_d$&System Response $y$\\
 		\hline\hline
 		Variable unit&Mass (kg)&Elastic Modulus (N/m\textsuperscript{2})&Gain factor (Ns/m)&Damping ratio (-)\\
 		\hline
@@ -1184,7 +1164,7 @@ A Latin Hypercube sampling is completed with 98 runs for parameters ranges shown
 		98&	1.0525&	48793800000&	34.5&	0.1679\\
 		\hline
 	\end{tabular}
-	\label{table:exp}
+	\label{table:params}
 \end{table*}
 %
 
