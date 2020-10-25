@@ -1,7 +1,7 @@
 This is BibTeX, Version 0.99d (MiKTeX 2.9.7380 64-bit)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: working_version.aux
-The style file: asmems4.bst
+The style file: Chicago.bst
 Database file #1: lit_review.bib
 Repeated entry---line 1662 of file lit_review.bib
  : @article{Brochu2010
@@ -11,50 +11,59 @@ Repeated entry---line 1727 of file lit_review.bib
  : @article{Deb2002
  :                 ,
 I'm skipping whatever remains of this entry
+Warning--missing author in Branke2008
+Warning--no number and no volume in Atamturktur2015
+Warning--page numbers missing in Atamturktur2015
+Warning--no journal in Binois2019
+Warning--no number and no volume in Binois2019
+Warning--page numbers missing in Binois2019
 Warning--can't use both volume and number fields in Branke2008
+Warning--no journal in Brochu2010
+Warning--no number and no volume in Brochu2010
+Warning--page numbers missing in Brochu2010
+Warning--page numbers missing in Brynjarsdottir2014
+Warning--page numbers missing in Chevalier2014
 Warning--empty institution in Jones1998
-Warning--empty journal in Brochu2010
 Warning--empty institution in MiguelHernandez-Lobato2016
-Warning--empty journal in Binois2019
-You've used 39 entries,
-            1984 wiz_defined-function locations,
-            772 strings with 11427 characters,
-and the built_in function-call counts, 11113 in all, are:
-= -- 1041
-> -- 421
-< -- 0
-+ -- 166
-- -- 127
-* -- 822
-:= -- 1544
-add.period$ -- 115
-call.type$ -- 39
-change.case$ -- 37
-chr.to.int$ -- 0
-cite$ -- 44
-duplicate$ -- 526
-empty$ -- 1031
-format.name$ -- 127
-if$ -- 2598
-int.to.chr$ -- 0
-int.to.str$ -- 39
-missing$ -- 40
-newline$ -- 195
-num.names$ -- 40
-pop$ -- 129
+You've used 38 entries,
+            2861 wiz_defined-function locations,
+            891 strings with 12721 characters,
+and the built_in function-call counts, 29809 in all, are:
+= -- 2374
+> -- 2633
+< -- 4
++ -- 816
+- -- 876
+* -- 2977
+:= -- 5459
+add.period$ -- 112
+call.type$ -- 38
+change.case$ -- 313
+chr.to.int$ -- 38
+cite$ -- 52
+duplicate$ -- 686
+empty$ -- 1577
+format.name$ -- 1020
+if$ -- 5495
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 39
+newline$ -- 190
+num.names$ -- 381
+pop$ -- 234
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 544
 quote$ -- 0
-skip$ -- 377
+skip$ -- 744
 stack$ -- 0
-substring$ -- 805
-swap$ -- 269
-text.length$ -- 0
+substring$ -- 1409
+swap$ -- 227
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
-warning$ -- 5
-while$ -- 115
-width$ -- 41
-write$ -- 419
+type$ -- 710
+warning$ -- 14
+while$ -- 345
+width$ -- 0
+write$ -- 496
 (There were 2 error messages)
