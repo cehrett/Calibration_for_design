@@ -21,7 +21,7 @@
 % NOTE: PLACES WHERE THE TEX CODE NEEDS TO BE CHANGED (COMMENTING OR UNCOMMENTING) TO SWITCH BETWEEN JVVUQ SUBMISSION FORMAT AND (UNOFFICIAL) DISSERTATION FORMAT ARE MARKED BY "SWITCH_FORMAT"
 
 %% SWITCH_FORMAT: DISSERTATION FORMAT VERSION
-\newcommand{\diss}{1}
+\newcommand{\diss}{0}
 
 \if1\diss
 \documentclass[12pt]{article}
@@ -42,6 +42,7 @@
 \usepackage{setspace} % NOT IN TECHNOMETRICS TEMPLATE
 \usepackage{caption} % NOT IN TECHNOMETRICS TEMPLATE
 \usepackage[margin=1.25in]{geometry}
+\usepackage{multirow}
 
 
 
@@ -811,7 +812,12 @@ A summary of the results of thirty applications of DCTO both with and without ad
 %
 \begin{figure*}
 	\centering
-	\begin{tabular}{p{.13\linewidth} c c}
+	\if1\diss
+		\setlength{\tabcolsep}{-2pt}
+		\begin{tabular}{p{.16\linewidth} c c}
+	\else
+		\begin{tabular}{p{.13\linewidth} c c}
+	\fi
 	$f_0$ (no discrepancy) &
 	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta1-d0}} &
 	\raisebox{-.5\height}{\includegraphics[scale=0.85]{FIG_dual_calib_SDOE_comp_theta2-d0}}\\
@@ -894,15 +900,15 @@ The experimental dynamical system studied herein is a one-mass oscillator subjec
 	\centering
 	\includegraphics[scale=0.85]{oscillator}
 	\captionsetup{width=.85\linewidth}
-	\caption{The physical test rig for the dynamic vibration system. The test setup is shown from three views. Depicted here are the rigid mass  (1), one leaf spring (2), VCA (3), fixed leaf spring support (4), mount (5) to suspend the frame (8), acceleration sensor $S_{a;z}$ (6), force sensor $S_{F_\mathrm{VCA}}$ (7), rigid frame (8), and a modal hammer (9) with a force sensor $SF$ to excite the frame. The sensor $S_{a;w}$ to measure the acceleration of the frame is on the inner side of the frame near the location where the impulse hammer hits (hammer not visible in the figure).}
+	\caption{The physical test rig for the dynamic vibration system. The test setup is shown from three views. Depicted here are the rigid mass  (1), one leaf spring (2), VCA (3), fixed leaf spring support (4), mount (5) to suspend the frame (8), acceleration sensor $S_{a;z}$ (6), force sensor $S_{F_\mathrm{VCA}}$ (7), rigid frame (8), and a modal hammer (9) with a force sensor $S_F$ to excite the frame. The sensor $S_{a;w}$ to measure the acceleration of the frame is on the inner side of the frame near the location where the impulse hammer hits ($S_{a;w}$ not visible in the figure).}
 	\label{fig:oscillator}
 \end{figure*}
 %
-The system consists of a rigid rectangle frame, a rigid mass oscillator held by four identical orthogonally placed leaf springs, and a voice coil actuator (VCA).
+The system consists of a rigid rectangle frame, a rigid mass held by four identical orthogonally placed leaf springs mounted to the frame, and a voice coil actuator (VCA) for passive and active damping.
 %
 
 %
-In Figure \ref{fig:schematic}a, a rigid mass $m$ oscillates in the $z$-direction due to a base point excitation $w(t)$. 
+In Figure \ref{fig:schematic}a and as a simplified model, a rigid mass $m$ oscillates in the $z$-direction due to a base point excitation $w(t)$. 
 %
 A damper with the damping coefficient $b$ and a spring element with a stiffness constant $k$ connect the mass to the base point. 
 %
@@ -910,23 +916,25 @@ A damper with the damping coefficient $b$ and a spring element with a stiffness 
 	\centering
 	\includegraphics[scale=0.85]{schematic}
 	\captionsetup{width=.85\linewidth}
-	\caption{Schematic diagram of the test rig for the dynamic vibration system: (a) schematic representation of the one-mass oscillator, (b) one-mass oscillator with an additional frame as the base point, (c) schematic representation of the real test setup.}
+	\caption{Schematic diagram of the test rig for the dynamic vibration system: (a) simplified schematic representation of the one-mass oscillator, (b) one-mass oscillator with an additional frame as the base point, (c) schematic representation of the real test setup.}
 	\label{fig:schematic}
 \end{figure*}
 %
-The damper and spring provide the system's internal passive damping force, active damping force, and stiffness force $F_b=b[\dot z(t)-\dot w(t)],\ F_k=k[z(t)-w(t)],\ F_a=-g\dot z(t)$ with $F_a$ derived from a simple velocity feedback control with the gain factor $g$.
+The damper and spring provide the system's internal passive damping force, active damping force, and stiffness force $F_b=b[\dot z(t)-\dot w(t)],\ F_a=-g\dot z(t),\ F_k=k[z(t)-w(t)]$ with $F_a$ derived from a simple velocity feedback control with the gain factor $g$.
 %
 
 %
 The inhomogeneous differential equation of the one-mass oscillator's motion in Figure \ref{fig:schematic}a can be written as
 %
-\begin{equation}\label{eq:inhomde}
-	\ddot z(t) + \left[ 2D_p\omega_0 + \frac gm\right]\dot z(t) + \omega_0^2 z(t) = 2D_p\omega_0\dot w(t)=\omega_0^2r(t)
+\begin{equation}
+\begin{aligned}\label{eq:inhomde}
+	\ddot z(t) + \left[ 2D_p\omega_0 + \frac gm\right]\dot z(t) + \omega_0^2 z(t) &= 2D_p\omega_0\dot w(t) + \omega_0^2w(t)\\&=\omega_0^2r(t)
+\end{aligned}
 \end{equation}
 %
 using the abbreviation $2D_p\omega_0=\frac bm,\ \text{and }\omega_0^2= \frac km$ including the damping ratio $D_p$ from passive damping, with $0<D_p<1$, and the angular eigenfrequency $\omega_0$.
 %
-The term $\omega_0^2r(t)$ in \eqref{eq:inhomde} is the excitation function, which, in this case, is the linear combination of damper and spring base point excitation $2D_p\omega_0\dot w(t) + \omega_o^2w(t)$.
+The term $\omega_0^2r(t)$ in \eqref{eq:inhomde} is the excitation function, which, in this case, is the linear combination of the damper and spring base point excitation $2D_p\omega_0\dot w(t) + \omega_o^2w(t)$.
 %
 
 %
@@ -934,24 +942,23 @@ Figure \ref{fig:schematic}b depicts the laboratory set-up used in this study, in
 %
 The frame is fixed by a gliding support assumed to have no friction perpendicular to the $z$-direction.
 %
-The frame is constrained by a damper with the damping coefficient $b_f$ and springs with a total stiffness $k_f$ in the $z$-direction. 
+The frame is constrained by a damper with the damping coefficient $b_f$ and springs with a total stiffness $k_f$ in the $z$-direction, and in the same plane. 
 %
 
 %
-In the laboratory application, the frame suspends from a rigid mount via elastic straps vertical to the $z$-direction, allowing the frame to move freely in the $z$-direction as shown in Figure \ref{fig:schematic}c. 
+In the laboratory application, the frame suspends from a rigid mount via elastic straps vertical to the $z$-direction, allowing the frame to move freely in the $z$-direction as shown in Figure \ref{fig:oscillator}c. 
 %
 The idealized damping $b_f$ and $k_f$ that constrain this movement are relatively small, compared to the $b$ and $k$ of the mass. 
 %
 The frame moves in a translational $z$-direction because of a time-dependent translational excitation displacement $w(t)$ in the $z$-direction. 
 %
-As shown in Figure \ref{fig:schematic}c, the frame retains two supports that fix a leaf spring at its ends at A and C, with the effective bending length $l$ on sides A-B and B-C, with a rigid mass $m$ in the center position at B.
+As shown in Figure \ref{fig:schematic}c, the frame retains two supports that fix a leaf spring at its ends at A and C, with the effective bending length $l$ on sides A-B and B-C, with the rigid mass $m$ in the center position at B.
 %
 The leaf spring is the practical realization of the spring elements in Figure \ref{fig:schematic}a and b. 
 %
-Its
-stiffness $k^*=12EI/l^3$ is a function of the bending stiffness $EI$, where $E$ is the Young’s modulus of the leaf spring, $I$ is the geometrical moment of inertia, and $l$ is the length of the leaf spring.
+Its stiffness $k^*=12EI/l^3$ is a function of the bending stiffness $EI$, where $E$ is the Young’s modulus of the leaf spring made from carbon fiber reinforced polymer (CFRP), $I$ is the geometrical moment of inertia, and $l$ is the length of the leaf spring.
 %
-Two leaf springs are mounted in parallel with length $l$ on each side of A-B and B-C (see Figure \ref{fig:schematic}c). 
+Two leaf springs are mounted in parallel with length $l$ on each side of A-B and B-C (see Figures \ref{fig:oscillator}c and \ref{fig:schematic}c). 
 %
 With four leaf springs, the total stiffness becomes $k = 4k^*$. 
 %
@@ -959,10 +966,10 @@ The two supports at A and C in Figure \ref{fig:schematic}c are adjustable along 
 %
 
 %
-A voice coil actuator (VCA) realizes an electromotive force $F_\mathrm{VCA}$ as the passive damping
+A VCA realizes an electromotive force $F_\mathrm{VCA}$ as the passive damping
 and the active force $F_b$ and $F_a$ (Figure \ref{fig:schematic}c). 
 %
-The force sensor $S_{F_\mathrm{VCA}}$ at B in Figure \ref{fig:schematic}c measures the sum of forces $F_b$ and $F_a$ acting on the moving mass. 
+The force sensor $S_{F_\mathrm{VCA}}$ at B in Figure \ref{fig:schematic}c measures the sum of forces $F_b$ and $F_a$ acting on the moving mass $m$. 
 %
 The acceleration sensors $S_{a;z}$ and $S_{a;w}$ measure directly the accelerations of mass and frame, $\ddot z$ and $\ddot w$. 
 %
@@ -975,34 +982,43 @@ The masses of $S_{a;z}$, $S_{F_\mathrm{VCA}}$ and parts of the leaf spring are i
 	\captionsetup{width=.85\linewidth}
 	\caption{Geometrical, mass, and material values of each component in the vibration isolation test rig} 
 	\renewcommand{\arraystretch}{1.2}% Tighter
+	\if1\diss \setlength{\tabcolsep}{1pt} \fi
 	\begin{tabular}{lllll}
 		\hline
 		Category&Property&Variable&Value&Unit\\
 		\hline\hline
-		Rigid frame structure&sum mass&$m_f$&6.2073&kg\\
+		\if1\diss
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Rigid frame \\structure\end{tabular}&
+		\else
+			Rigid frame structure&
+		\fi
+		sum mass&$m_f$&6.2073&kg\\
 		\hline
-		Vibrating rigid mass&sum mass, \textbf{\underline{min}}&$m$&0.7853&kg\\
+		\if1\diss
+			\multirow{2}{2.5cm}{Vibrating rigid mass}&
+		\else
+			Vibrating rigid mass&
+		\fi
+		sum mass, \textbf{\underline{min}}&$m$&0.7853&kg\\
 		&20x add. weights, small&$m_{ws}$&0.0760&kg\\
 		&24x add. weights, large&$m_{wl}$&0.2880&kg\\
 		&sum mass, \textbf{\underline{max}}&$m$&1.1493&kg\\
 		\hline
-		Geometry&leaf spring length, \textbf{\underline{min}}&$l$&4.00E-02&m\\
-		&leaf spring length, \textbf{\underline{max}}&$l$&8.00E-02&m\\
-		&leaf spring cross section, width&$d$&4.00E-02&m\\
-		&leaf spring cross section, height&$h$&0.11E-02&m\\
+		Geometry&leaf spring length, \textbf{\underline{min}}&$l$&0.04&m\\
+		&leaf spring length, \textbf{\underline{max}}&$l$&0.08&m\\
+		&leaf spring cross section, width&$d$&0.04&m\\
+		&leaf spring cross section, height&$h$&0.11&m\\
 		\hline
-		Material&Young's modulus (flexural) CFRP&$E$&62.00E+09&N/m\textsuperscript{2}\\
+		Material&Young's modulus (flexural) CFRP&$E$&$6.2\cdot10^9$&N/m\textsuperscript{2}\\
 		&stiffness CFRP, \textbf{\underline{min}}&$k$&25,788.1&N/m\\
 		&stiffness CFRP, \textbf{\underline{max}}&$k$&206,305.0&N/m\\
 		\hline
-		VCA&force constant&$f$&17.5&N/A\\
-		&voltage amplification constant&$c_v$&1.5&-\\
-		&passive damping coefficient, \textbf{\underline{min}}&$b$&16&Ns/m\\
+		VCA&passive damping coefficient, \textbf{\underline{min}}&$b$&16&Ns/m\\
 		&passive damping coefficient, \textbf{\underline{max}}&$b$&130&Ns/m\\
-		&passive damping ratio, \textbf{\underline{min}}&$d$&0.055&-\\
-		&passive damping ratio, \textbf{\underline{max}}&$d$&0.46&-\\
-		&active gain factor, \textbf{\underline{min}}&$g$&12&Ns/m\\
-		&active gain factor, \textbf{\underline{max}}&$g$&90&Ns/m\\
+		&passive damping ratio, \textbf{\underline{min}}&$D_p$&0.0481&-\\
+		&passive damping ratio, \textbf{\underline{max}}&$D_p$&0.628&-\\
+		&active gain factor, \textbf{\underline{min}}&$g$&0&Ns/m\\
+		&active gain factor, \textbf{\underline{max}}&$g$&95&Ns/m\\
 		\hline
 	\end{tabular}
 	\label{table:rig}
@@ -1010,9 +1026,9 @@ The masses of $S_{a;z}$, $S_{F_\mathrm{VCA}}$ and parts of the leaf spring are i
 %
 
 %
-Figure \ref{fig:schematic}c also shows a modal hammer with a force sensor SF to excite the frame. 
+Figure \ref{fig:schematic}c also shows a modal hammer with a force sensor $S_F$ to excite the frame. 
 %
-It creates the impulse force 
+The hammer creates the impulse force 
 %
 \begin{equation}\label{eq:fhat}
 	\hat F(t_0)=\int_{-\infty}^\infty F(t)\cdot\delta(t-t_0)dt,
@@ -1028,14 +1044,14 @@ frame
 in the time domain, with damping ratio $D_f$, angular eigenfrequency $\omega_{0,f}$ and damped
 angular eigenfrequency $\omega_{0,f}$ of the frame’s movement in $z$-direction. 
 %
-(\ref{eq:wt}) is only valid for low damping $0 < D_f < 1$. This leads to the total vibration response $z(t)=r_0 \{1-e^{-D_{\omega_0}}t[\cos\omega_D t-D\frac{\omega_0}{\omega_D}\sin \omega_Dt]\}$.
+(\ref{eq:wt}) is only valid for low damping $0 < D_f < 1$. This leads to the total vibration response $z(t)=r_0 \{1-e^{-D_{\omega_0}t}[\cos\omega_D t-D\frac{\omega_0}{\omega_D}\sin \omega_Dt]\}$.
 %
 
 %
-The \emph{particular solution} $r_0$ is part of the general excitation function $\omega_o^2r(t)$ in (\ref{eq:inhomde}), which takes the form of an excitation step function $r(t) = r_o\sigma(t-t_0)$ when multiplied with the unit step function $\sigma(t - t_0)$ as the integral of the Dirac-impulse
+The particular solution $r_0$ is part of the general excitation function $\omega_o^2r(t)$ in (\ref{eq:inhomde}), which takes the form of an excitation step function $r(t) = r_o\sigma(t-t_0)$ when multiplied with the unit step function $\sigma(t - t_0)$ as the integral of the Dirac-impulse
 function $\delta(t - t_0)$ in (\ref{eq:fhat}). 
 %
-From the relation $2D_p(\dot\omega_0)\dot w(t)+\omega_0^2w(t)=\omega_0^2r(t)$ in (\ref{eq:inhomde}),  it follows that $r_0=\frac1{\omega_0}2D_p\dot w_0+w_0$ with the velocity $\dot w_0$ and displacement $w_0$ at $t=t_0$ that are derived from (\ref{eq:wt}).
+From the relation $2D_p\omega_0\dot w(t)+\omega_0^2w(t)=\omega_0^2r(t)$ in (\ref{eq:inhomde}),  it follows that $r_0=\frac1{\omega_0}2D_p\dot w_0+w_0$ with the velocity $\dot w_0$ and displacement $w_0$ at $t=t_0$ that are derived from (\ref{eq:wt}).
 %
 
 %
@@ -1058,22 +1074,36 @@ For the dual model calibration, 12 operational conditions for the test rig are d
 	\renewcommand{\arraystretch}{1.2}% Tighter
 	\begin{tabular}{c|ccc}
 		\hline
-		Case&Control Parameter $x$&Design Parameter $\theta_d$&5-times Avg. System Response $y$\\
+		Case&
+		\if1\diss
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Control \\Parameter $x$\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Design \\Parameter $\theta_d$\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}5-times Avg. \\System Response $y$\end{tabular}\\
+		\else
+			Control Parameter $x$&Design Parameter $\theta_d$&5-times Avg. System Response $y$\\
+		\fi
 		\hline\hline
-		Variable unit&Mass (kg)& Gain factor (Ns/m)&Damping ratio (-)\\
+		\if1\diss
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Variable \\unit\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Mass \\(kg)\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Gain factor \\(Ns/m)\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Damping ratio \\(-)\end{tabular}\\
+		\else
+			Variable unit&Mass (kg)& Gain factor (Ns/m)&Damping ratio (-)\\
+		\fi
 		\hline
-		1&1.1493&0&5.23E-02\\
-		2&0.9653&0&4.81E-02\\
-		3&	0.7853&	0&	5.49E-02\\
-		4&	1.1493&	8&	7.98E-02\\
-		5&	0.9653&	8&	8.64E-02\\
-		6&	0.7853&	8&	8.71E-02\\
-		7&	1.1493&	41&	3.08E-01\\
-		8&	0.9653&	41&	2.64E-01\\
-		9&	0.7853&	41&	2.59E-01\\
-		10&	1.1493&	95&	5.42E-01\\
-		11&	0.9653&	95&	5.27E-01\\
-		12&	0.7853&	95&	6.28E-01\\
+		1&1.1493&0&0.0523\\
+		2&0.9653&0&0.0481\\
+		3&	0.7853&	0&	0.0549\\
+		4&	1.1493&	8&	0.0798\\
+		5&	0.9653&	8&	0.0864\\
+		6&	0.7853&	8&	0.0871\\
+		7&	1.1493&	41&	0.308\\
+		8&	0.9653&	41&	0.264\\
+		9&	0.7853&	41&	0.259\\
+		10&	1.1493&	95&	0.542\\
+		11&	0.9653&	95&	0.527\\
+		12&	0.7853&	95&	0.628\\
 		\hline
 	\end{tabular}
 	\label{table:exp}
@@ -1091,7 +1121,7 @@ The time history response of the hammer excitation is shown in Figure \ref{fig:i
 	\label{fig:impulse}
 \end{figure*}
 %
-Figure \ref{fig:vibration} shows the vibration response of the mass, as measured by the acceleration sensor $S_{a,z}$. 
+Figure \ref{fig:vibration} shows the acceleration response $\ddot z(t)$ of the mass, as measured by the acceleration sensor $S_{a,z}$. 
 %
 \begin{figure*}
 	\centering
@@ -1103,13 +1133,15 @@ Figure \ref{fig:vibration} shows the vibration response of the mass, as measured
 %
 Since the rigid frame is constrained by a spring of small stiffness in the $z$-direction, the resulting relatively low resonance frequency of the frame ($\approx$1.5 Hz) does not significantly affect the mass vibration with its higher eigenfrequency ($>$20 Hz) when vibrating in the $z$-direction.
 %
+The low frequency content is filtered out in the measurement chain.
+%
 The hammer impact is repeated 5 times, and the impact force and the system response measurements are averaged. 
 %
 
 %
 One significant character of an oscillatory system is its damping (i.e. how rapidly a vibration system will decay after the initial excitation). 
 %
-The damping ratio, a dimensionless measure that describes the damping level, is calculated as $D=\frac1{\sqrt{ 1+\frac{2\pi}\delta }}$, where $\delta = \frac 1n \log \left( \frac{\ddot x(t)}{\ddot x(t+nT)}  \right)$, $\ddot x(t)$ is the 1\textsuperscript{st} peak value of mass acceleration, $\ddot x(t + nT)$ is the $(n+1$\textsuperscript{th} peak value of mass acceleration, and $n$ is the number of peak intervals. $\delta$ is here the logarithmic decrement, which is used to compute the damping ratio $D$. By following these two equations, the system responses under various experiment tests are summarized in Table \ref{table:exp}.
+The damping ratio, a dimensionless measure that describes the damping level, is calculated as $D=\left( 1+\left(2\pi/\delta\right)^2\right)^{-1/2} $, where $\delta = \frac 1n \ln \left( {\ddot z(t)}/{\ddot z(t+nT)}  \right)$, $\ddot z(t)$ is the 1\textsuperscript{st} peak value of mass acceleration, $\ddot z(t + nT)$ is the $n+1$\textsuperscript{th} peak value of mass acceleration, and $n$ is the number of peak intervals. $\delta$ is the logarithmic decrement, which is used to compute the damping ratio $D_p$. By following these two equations, the system responses under various numerical simulations are summarized in Table \ref{table:exp}.
 %
 
 %
@@ -1121,7 +1153,7 @@ To fully explore the domain of the control parameter in this dual model calibrat
 	\centering
 	\includegraphics[width=0.85\linewidth]{dvs}
 	\captionsetup{width=.85\linewidth}
-	\caption{The dynamic vibration system: (1) the rigid frame, (2) the leaf springs, (3) the mass oscillator, (4) the gain, (5) the damper, and (6) the spring.}
+	\caption{The dynamic vibration system: (1) the rigid frame, (2) the leaf springs, (3) the mass oscillator, (4) the damper, (5) the active force, and (6) the spring.}
 	\label{fig:dvs}
 \end{figure}
 %
@@ -1129,7 +1161,7 @@ The frame and oscillatory mass are represented by a linear solid element type C3
 %
 Both the frame and the mass are assigned very high stiffness values to reflect rigid body behavior. 
 %
-The rigid frame is constrained in the direction of vibration by a spring of a small stiffness value, and laterally, by assumed gliding support. 
+The rigid frame is constrained in the $z-$direction of vibration by a spring of a small stiffness value, and laterally, by assumed gliding support (see Figure \ref{fig:schematic}c). 
 %
 A passive damping force, an active damping force (that result from the gain factor $g$) and elastic forces (from the leaf springs) apply on the mass oscillator. 
 %
@@ -1137,7 +1169,7 @@ Dashpot elements are used for the damper and gain to model velocity-dependent fo
 %
 The damper represented by DASHPOT2 element introduces a damping force as a function of the relative velocity between the rigid frame and the mass oscillator, the active damping force due to gain is modelled as a function of the absolute velocity of the mass oscillator through DASHPOT1 element, and the spring is represented by SPRING1 element in ABAQUS.
 %
-A Latin Hypercube sampling is completed with 98 runs for parameters ranges shown in Table \ref{table:params} for which the damping ratio of the system is calculated. 
+A Latin Hypercube sampling is completed with 98 runs for parameters values partially shown in Table \ref{table:params} for which the damping ratio of the system is calculated. 
 %
 \begin{table*}
 	\centering
@@ -1146,9 +1178,23 @@ A Latin Hypercube sampling is completed with 98 runs for parameters ranges shown
 	\renewcommand{\arraystretch}{1.2}% Tighter
 	\begin{tabular}{c|cccc}
 		\hline
-		Case&Control Parameter $x$&Calibration Parameter $\theta_c$&Design Parameter $\theta_d$&System Response $y$\\
-		\hline\hline
-		Variable unit&Mass (kg)&Elastic Modulus (N/m\textsuperscript{2})&Gain factor (Ns/m)&Damping ratio (-)\\
+		Case&
+		\if1\diss
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Control \\Parameter $x$\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Calibration \\Parameter $\theta_c$\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Design \\Parameter $\theta_d$\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}System \\Response $y$\end{tabular}\\
+			\hline\hline
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Variable \\unit\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Mass \\(kg)\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Elastic Modulus \\(N/m\textsuperscript{2})\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Gain factor \\(Ns/m)\end{tabular}&
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Damping ratio \\(-)\end{tabular}\\
+		\else
+			Control Parameter $x$&Calibration Parameter $\theta_c$&Design Parameter $\theta_d$&System Response $y$\\
+			\hline\hline
+			Variable unit&Mass (kg)&Elastic Modulus (N/m\textsuperscript{2})&Gain factor (Ns/m)&Damping ratio (-)\\
+		\fi
 		\hline
 		1&	0.9625&	54037300000&	11.5&	0.0979\\
 		2&	0.8175&	58698200000&	46.5&	0.217\\

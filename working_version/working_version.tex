@@ -1226,11 +1226,19 @@ Figure \ref{fig:more_pfs} shows the application of CTO to three different proble
 %
 \begin{figure}[h]
 	% \centering
-	\begin{tabular}{m{.3cm}m{2cm}}
-	     (a)&\includegraphics[scale=.85]{FIG_cost_grid_pareto_bands1}  \\
-	     (b)&\includegraphics[scale=.85]{FIG_cost_grid_pareto_bands2}\\
-	     (c)&\includegraphics[scale=.85]{FIG_cost_grid_pareto_bands3}
-	\end{tabular}
+	\if1\diss
+		\begin{tabular}{m{2.4cm}m{.3cm}m{2cm}}
+			&(a)&\includegraphics[scale=.85]{FIG_cost_grid_pareto_bands1}  \\
+			&(b)&\includegraphics[scale=.85]{FIG_cost_grid_pareto_bands2}\\
+			&(c)&\includegraphics[scale=.85]{FIG_cost_grid_pareto_bands3}
+		\end{tabular}
+	\else
+		\begin{tabular}{m{.3cm}m{2cm}}
+		     (a)&\includegraphics[scale=.85]{FIG_cost_grid_pareto_bands1}  \\
+		     (b)&\includegraphics[scale=.85]{FIG_cost_grid_pareto_bands2}\\
+		     (c)&\includegraphics[scale=.85]{FIG_cost_grid_pareto_bands3}
+		\end{tabular}
+	\fi
 	%\captionsetup{width=.7\linewidth}
 	\if1\diss\captionsetup{width=.85\linewidth}\fi
 	\caption{Estimated Pareto front for multiple wind turbine blade systems with respect to a variety of design spaces, along with NSGA-II estimation of the fronts. 95\% credible intervals are too small to be visible.}
