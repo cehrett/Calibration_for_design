@@ -900,7 +900,7 @@ The experimental dynamical system studied herein is a one-mass oscillator subjec
 %
 \begin{figure*}
 	\centering
-	\includegraphics[scale=0.85]{oscillator}
+	\includegraphics[width=0.85\linewidth]{oscillator.jpg}
 	\captionsetup{width=.85\linewidth}
 	\caption{The physical test rig for the dynamic vibration system. The test setup is shown from three views. Depicted here are the rigid mass  (1), one leaf spring (2), VCA (3), fixed leaf spring support (4), mount (5) to suspend the frame (8), acceleration sensor $S_{a;z}$ (6), force sensor $S_{F_\mathrm{VCA}}$ (7), rigid frame (8), and a modal hammer (9) with a force sensor $S_F$ to excite the frame. The sensor $S_{a;w}$ to measure the acceleration of the frame is on the inner side of the frame near the location where the impulse hammer hits ($S_{a;w}$ not visible in the figure).}
 	\label{fig:oscillator}
@@ -916,7 +916,7 @@ A damper with the damping coefficient $b$ and a spring element with a stiffness 
 %
 \begin{figure*}
 	\centering
-	\includegraphics[scale=0.85]{schematic}
+	\includegraphics[width=0.85\linewidth]{schematic.jpg}
 	\captionsetup{width=.85\linewidth}
 	\caption{Schematic diagram of the test rig for the dynamic vibration system: (a) simplified schematic representation of the one-mass oscillator, (b) one-mass oscillator with an additional frame as the base point, (c) schematic representation of the real test setup.}
 	\label{fig:schematic}
@@ -1091,7 +1091,7 @@ For the dual model calibration, 12 operational conditions for the test rig are d
 			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Gain factor \\(Ns/m)\end{tabular}&
 			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Overall damping ratio\footnotemark \\(-)\end{tabular}\\
 		\else
-			Variable unit&Mass (kg)& Gain factor (Ns/m)&Overall damping ratio\footnotemark (-)\\
+			Variable unit&Mass (kg)& Gain factor (Ns/m)&Overall damping ratio* (-)\\
 		\fi
 		\hline
 		1&1.1493&0&0.0523\\
@@ -1110,7 +1110,8 @@ For the dual model calibration, 12 operational conditions for the test rig are d
 	\end{tabular}
 	\label{table:exp}
 \end{table*}
-\footnotetext{``Overall damping ratio'' refers to the combination of active and passive damping.}
+%
+\if1\diss \footnotetext{``Overall damping ratio'' refers to the combination of active and passive damping.}\fi
 %
 To excite the test rig, an impulse force is applied in the translational $z$-direction via a modal hammer. 
 %
@@ -1118,7 +1119,7 @@ The time history response of the hammer excitation is shown in Figure \ref{fig:i
 %
 \begin{figure*}
 	\centering
-	\includegraphics[width=0.85\linewidth]{impulse}
+	\includegraphics[width=\linewidth]{impulse}
 	\captionsetup{width=.85\linewidth}
 	\caption{Schematic diagram of the applied impulse force in the time domain.}
 	\label{fig:impulse}
@@ -1128,7 +1129,7 @@ Figure \ref{fig:vibration} shows the acceleration response $\ddot z(t)$ of the m
 %
 \begin{figure*}
 	\centering
-	\includegraphics[width=0.85\linewidth]{vibration}
+	\includegraphics[width=\linewidth]{vibration}
 	\captionsetup{width=.85\linewidth}
 	\caption{Five-times averaged acceleration response of the rigid mass in the time domain.}
 	\label{fig:vibration}
@@ -1163,6 +1164,8 @@ To fully explore the domain of the control parameter in this dual model calibrat
 The frame and oscillatory mass are represented by a linear solid element type C3D8R in ABAQUS. 
 %
 Both the frame and the mass are assigned very high stiffness values to reflect rigid body behavior. 
+%
+\if0\diss \footnotetext{``Overall damping ratio'' refers to the combination of active and passive damping.}\fi
 %
 The rigid frame is constrained in the $z-$direction of vibration by a spring of a small stiffness value, and laterally, by assumed gliding support (see Figure \ref{fig:schematic}c). 
 %
