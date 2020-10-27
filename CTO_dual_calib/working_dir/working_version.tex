@@ -21,7 +21,7 @@
 % NOTE: PLACES WHERE THE TEX CODE NEEDS TO BE CHANGED (COMMENTING OR UNCOMMENTING) TO SWITCH BETWEEN JVVUQ SUBMISSION FORMAT AND (UNOFFICIAL) DISSERTATION FORMAT ARE MARKED BY "SWITCH_FORMAT"
 
 %% SWITCH_FORMAT: DISSERTATION FORMAT VERSION
-\newcommand{\diss}{0}
+\newcommand{\diss}{1}
 
 \if1\diss
 \documentclass[12pt]{article}
@@ -98,6 +98,7 @@
 \usepackage{array}
 \usepackage{caption}
 
+
 % Useful definitions
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
@@ -171,6 +172,7 @@
 \maketitle    
 
 \fi
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
@@ -704,7 +706,7 @@ Figure \ref{fig:SA_relationship} shows this relationship.
 	\centering
 	\includegraphics[scale=0.85]{FIG_theta_1_dependence_on_t2}
 	\captionsetup{width=.85\linewidth}
-	\caption{True value of the calibration parameter $\theta_1$ for each value in the domain of $t_2$}
+	\caption{True value of the calibration parameter $\theta_c$ for each value in the domain of $t_d$}
 	\label{fig:SA_relationship}
 \end{figure}
 %
@@ -1009,7 +1011,7 @@ The masses of $S_{a;z}$, $S_{F_\mathrm{VCA}}$ and parts of the leaf spring are i
 		&leaf spring cross section, width&$d$&0.04&m\\
 		&leaf spring cross section, height&$h$&0.11&m\\
 		\hline
-		Material&Young's modulus (flexural) CFRP&$E$&$6.2\cdot10^9$&N/m\textsuperscript{2}\\
+		Material&Elastic modulus&$E$&$6.2\cdot10^9$&N/m\textsuperscript{2}\\
 		&stiffness CFRP, \textbf{\underline{min}}&$k$&25,788.1&N/m\\
 		&stiffness CFRP, \textbf{\underline{max}}&$k$&206,305.0&N/m\\
 		\hline
@@ -1057,7 +1059,7 @@ From the relation $2D_p\omega_0\dot w(t)+\omega_0^2w(t)=\omega_0^2r(t)$ in (\ref
 %
 In this demonstration, the design problem is formulated with the gain factor $g$ being the design parameter $\theta_d$.
 %
-The elastic modulus $k$ of the four leaf spring is assumed to be poorly known and is assigned as the calibration parameter $\theta_c$.
+The elastic modulus $E$ of the four leaf spring is assumed to be poorly known and is assigned as the calibration parameter $\theta_c$.
 %
 The mass $m$ of the system that needs to be vibration isolated is treated as the control parameter $x$, and the damping ratio is the design objective $y$. 
 %
@@ -1087,9 +1089,9 @@ For the dual model calibration, 12 operational conditions for the test rig are d
 			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Variable \\unit\end{tabular}&
 			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Mass \\(kg)\end{tabular}&
 			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Gain factor \\(Ns/m)\end{tabular}&
-			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Damping ratio \\(-)\end{tabular}\\
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Overall damping ratio\footnotemark \\(-)\end{tabular}\\
 		\else
-			Variable unit&Mass (kg)& Gain factor (Ns/m)&Damping ratio (-)\\
+			Variable unit&Mass (kg)& Gain factor (Ns/m)&Overall damping ratio\footnotemark (-)\\
 		\fi
 		\hline
 		1&1.1493&0&0.0523\\
@@ -1108,6 +1110,7 @@ For the dual model calibration, 12 operational conditions for the test rig are d
 	\end{tabular}
 	\label{table:exp}
 \end{table*}
+\footnotetext{``Overall damping ratio'' refers to the combination of active and passive damping.}
 %
 To excite the test rig, an impulse force is applied in the translational $z$-direction via a modal hammer. 
 %
@@ -1189,11 +1192,11 @@ A Latin Hypercube sampling is completed with 98 runs for parameters values parti
 			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Mass \\(kg)\end{tabular}&
 			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Elastic Modulus \\(N/m\textsuperscript{2})\end{tabular}&
 			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Gain factor \\(Ns/m)\end{tabular}&
-			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Damping ratio \\(-)\end{tabular}\\
+			\renewcommand{\arraystretch}{.95}\begin{tabular}{@{}c@{}}Overall damping ratio \\(-)\end{tabular}\\
 		\else
 			Control Parameter $x$&Calibration Parameter $\theta_c$&Design Parameter $\theta_d$&System Response $y$\\
 			\hline\hline
-			Variable unit&Mass (kg)&Elastic Modulus (N/m\textsuperscript{2})&Gain factor (Ns/m)&Damping ratio (-)\\
+			Variable unit&Mass (kg)&Elastic Modulus (N/m\textsuperscript{2})&Gain factor (Ns/m)&Overall damping ratio (-)\\
 		\fi
 		\hline
 		1&	0.9625&	54037300000&	11.5&	0.0979\\
