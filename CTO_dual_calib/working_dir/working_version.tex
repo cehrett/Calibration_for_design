@@ -21,7 +21,9 @@
 % NOTE: PLACES WHERE THE TEX CODE NEEDS TO BE CHANGED (COMMENTING OR UNCOMMENTING) TO SWITCH BETWEEN JVVUQ SUBMISSION FORMAT AND (UNOFFICIAL) DISSERTATION FORMAT ARE MARKED BY "SWITCH_FORMAT"
 
 %% SWITCH_FORMAT: DISSERTATION FORMAT VERSION
-\newcommand{\diss}{1}
+\newcommand{\diss}{0}
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blnd}{1}
 
 \if1\diss
 \documentclass[12pt]{article}
@@ -47,7 +49,7 @@
 
 
 %\pdfminorversion=4
-% NOTE: To produce blinded version, replace "0" with "1" below.
+
 
 %% DON'T change margins - should be 1 inch all around.
 %\addtolength{\oddsidemargin}{-.5in}%
@@ -87,7 +89,9 @@
 
 \spacingset{2} % DON'T change the spacing!
 
-\else % HERE IS WHERE WE START IF FORMATTING IS FOR JVVUQ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\else % HERE IS WHERE WE START IF FORMATTING IS FOR JVVUQ %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \documentclass[twocolumn,10pt]{asme2ej}
@@ -106,11 +110,12 @@
 
 \title{A unified framework for computer model calibration and engineering design}
 
-%\author{Blinded version
-%	\affiliation{
-%		for review}
-%}	
-
+\if1\blnd
+\author{Blinded version
+	\affiliation{
+		for review}
+}	
+\else
 %%% first author
 \author{Carl Ehrett
     \affiliation{
@@ -166,6 +171,7 @@
 		University Park, Pennsylvania 16802\\
 		Email: sez@psu.edu
 }}
+\fi
 
 \begin{document}
 	
