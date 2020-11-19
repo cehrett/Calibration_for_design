@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  25 OCT 2020 14:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  19 NOV 2020 15:15
 entering extended mode
 **./working_version.tex
 (working_version.tex
@@ -422,8 +422,8 @@ Package pdftex.def Info: FIG_post_dist_hist2-eps-converted-to.pdf  used on inpu
 t line 1119.
 (pdftex.def)             Requested size: 231.21489pt x 154.42766pt.
 Package epstopdf Info: Source file: <FIG_prior_vs_posterior_dist.eps>
-(epstopdf)                    date: 2020-05-08 10:15:19
-(epstopdf)                    size: 28292 bytes
+(epstopdf)                    date: 2020-11-19 15:14:21
+(epstopdf)                    size: 28288 bytes
 (epstopdf)             Output file: <FIG_prior_vs_posterior_dist-eps-converted-
 to.pdf>
 (epstopdf)                    date: 2020-05-08 10:15:47
@@ -431,19 +431,25 @@ to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=FIG_prior_vs_posterior_dist
 -eps-converted-to.pdf FIG_prior_vs_posterior_dist.eps>
 (epstopdf)             \includegraphics on input line 1131.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=FIG_prior_vs_posterior_dist-eps-converted-to.pdf F
+IG_prior_vs_posterior_dist.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_prior_vs_posterior_dist-eps-converted-
+to.pdf>
+(epstopdf)                    date: 2020-11-19 15:15:30
+(epstopdf)                    size: 10998 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_prior_vs_posterior_dist-eps-converted-
 to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
 wed
-<FIG_prior_vs_posterior_dist-eps-converted-to.pdf, id=141, 261.97874pt x 149.55
-875pt>
+<FIG_prior_vs_posterior_dist-eps-converted-to.pdf, id=141, 266.9975pt x 149.558
+75pt>
 File: FIG_prior_vs_posterior_dist-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_prior_vs_posterior_dist-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_prior_vs_posterior_dist-eps-converted-to.pdf  used
  on input line 1131.
-(pdftex.def)             Requested size: 222.68298pt x 127.12553pt.
+(pdftex.def)             Requested size: 226.94893pt x 127.12553pt.
 [54 <./FIG_est_PF_with_des_obs-eps-converted-to.pdf>] [55 <./FIG_post_dist_hist
 2-eps-converted-to.pdf> <./FIG_prior_vs_posterior_dist-eps-converted-to.pdf>]
 [56]
@@ -672,7 +678,7 @@ TeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/
 fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
 pe1/public/amsfonts/cm/cmtt12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
 ic/amsfonts/symbols/msbm10.pfb>
-Output written on working_version.pdf (46 pages, 1461818 bytes).
+Output written on working_version.pdf (46 pages, 1461870 bytes).
 PDF statistics:
  372 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

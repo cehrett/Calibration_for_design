@@ -21,7 +21,7 @@
 % NOTE: PLACES WHERE THE TEX CODE NEEDS TO BE CHANGED (COMMENTING OR UNCOMMENTING) TO SWITCH BETWEEN JVVUQ SUBMISSION FORMAT AND (UNOFFICIAL) DISSERTATION FORMAT ARE MARKED BY "SWITCH_FORMAT"
 
 %% SWITCH_FORMAT: DISSERTATION FORMAT VERSION
-\newcommand{\diss}{0}
+\newcommand{\diss}{1}
 % NOTE: To produce blinded version, replace "0" with "1" below.
 \newcommand{\blnd}{1}
 
@@ -252,7 +252,7 @@
 %
 This paper connects two distinct areas of research concerning computer models of real phenomena.
 %
-One area is that of computer model calibration, where the goal is to find a posterior distribution on unknown, or imperfectly known, parameters by calibrating a computer model using real-world observations of the modeled phenomenon.
+One area is that of computer model calibration, where the goal is to find a posterior distribution of unknown, or imperfectly known, parameters by calibrating a computer model using real-world observations of the modeled phenomenon.
 %
 The second area is that of enlisting a computer model for design, using the model to find settings for controllable system inputs such that the resulting system output is optimized with respect to some design goal.
 %
@@ -282,7 +282,7 @@ Since their seminal paper, the methodology has seen numerous extensions and refi
 %
 Henceforth, we refer to this approach to calibration as KOH.
 %
-Common to KOH approaches is the Bayesian framework in which one places a prior on the calibration parameters $\boldsymbol \theta_c$, often pairing it with a Gaussian process (GP) meta-model of the computer model of interest and a GP prior on the model discrepancy $\delta(\cdot)$, and using the available observations $y_r$ of the real system to find a posterior distribution $\boldsymbol\theta_c,\delta(\cdot)|y_r$.
+Common to KOH approaches is the Bayesian framework in which one places a prior on the calibration parameters $\boldsymbol \theta_c$, often pairing it with a Gaussian process (GP) metamodel of the computer model of interest and a GP prior on the model discrepancy $\delta(\cdot)$, and using the available observations $y_r$ of the real system to find a posterior distribution $\boldsymbol\theta_c,\delta(\cdot)|y_r$.
 %
 Such an approach is notable for providing not merely a point estimate of the calibration parameter, but for providing a full posterior distribution quantifying remaining uncertainty about $\boldsymbol\theta_c$ and about $\delta(\cdot)$.
 %
@@ -292,17 +292,17 @@ Herein, we leverage the KOH framework to find a posterior distribution, not only
 %
 We achieve this via an approach called counterfactual Bayes.
 %
-In traditional model calibration, one uses Bayes' rule to discover a posterior distribution on calibration parameters using real observations, so that the observations are the source of the Bayesian learning.
+In traditional model calibration, one uses Bayes' rule to discover a posterior distribution of calibration parameters using real observations, so that the observations are the source of the Bayesian learning.
 %
 In a design case, there are no relevant observations.
 %
-One wants to find design settings that induce the system to behave optimally, but one typically has not observed the system doing so, and therefore there seems to be no relevant source of Bayesian learning that could drive the use of Bayes' rule to discover a posterior distribution on optimal design settings.
+One wants to find design settings that induce the system to behave optimally, but one typically has not observed the system doing so, and therefore there seems to be no relevant source of Bayesian learning that could drive the use of Bayes' rule to discover a posterior distribution of optimal design settings.
 %
 The idea of counterfactual Bayes is to identify artificial observations, or target outcomes, $y_t$ such that the resulting likelihood is highest in the optimal design region --- i.e., target outcomes $y_t$ such that their occurrence is strong evidence that the design settings are optimal.
 %
-Hence, in addition to calibrating the unknown model parameters against experimental observations, one uses the KOH framework to also find a posterior distribution on design settings given the target outcomes.
+Hence, in addition to calibrating the unknown model parameters against experimental observations, one uses the KOH framework to also find a posterior distribution of design settings given the target outcomes.
 %
-Given the nature of $y_t$, this is \textit{de facto} a distribution on optimal design settings for the system.
+Given the nature of $y_t$, this is \textit{de facto} a distribution of optimal design settings for the system.
 %
 The result retains the benefits of the Bayesian model calibration tools on which it is based, namely the quantification of remaining uncertainty regarding the optimal design settings.
 %
@@ -330,9 +330,9 @@ On the other hand, our approach includes uncertainty quantification as an intrin
 %
 The third camp is the diverse collection of response surface methodologies \if1\diss\cite[RSMs;][]{Dean2017} \else(RSMs) \cite{Dean2017} \fi used for optimization.
 %
-RSMs operate by fitting a predictive model to an existing set of model runs, to form a computationally inexpensive meta-model which is then used to explore the model output.
+RSMs operate by fitting a predictive model to an existing set of model runs, to form a computationally inexpensive metamodel which is then used to explore the model output.
 %
-The concept of calibration to target outcomes that is built into DCTO is an example of an RSM, using GPs for its meta-model fit.
+The concept of calibration to target outcomes that is built into DCTO is an example of an RSM, using GPs for its metamodel fit.
 %
 Other popular versions of RSMs include efficient global optimization \if1\diss\cite[EGO;][]{Jones1998,Brochu2010} \else(EGO) \cite{Jones1998,Brochu2010} \fi and stepwise uncertainty reduction \if1\diss\cite[SUR;][]{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}\else(SUR) \cite{Geman1996,Villemonteix2009,Chevalier2014,Picheny2015,MiguelHernandez-Lobato2016,Picheny2019,Binois2019}\fi.
 %
@@ -395,7 +395,7 @@ Nonetheless, in some cases (such as in our discussion of sequential sampling in 
 \section{Dual calibration to target outcomes}\label{sec:dcto}
 %% Describe KOH model
 %
-The version of KOH considered here is that which finds a posterior distribution on a parameter of interest for calibration, $\boldsymbol\theta$, using a GP emulator with hyperparameters ${\boldsymbol\phi_\eta}$.
+The version of KOH considered here is that which finds a posterior distribution of a parameter of interest for calibration, $\boldsymbol\theta$, using a GP emulator with hyperparameters ${\boldsymbol\phi_\eta}$.
 %
 Similarly, one may also use a GP prior with hyperparameters $\boldsymbol\phi_\delta$ to model discrepancy between the computer model $\eta(\cdot)$ and the true function $f(\cdot)$ that it represents.
 %
@@ -1151,7 +1151,7 @@ The hammer impact is repeated 5 times, and the impact force and the system respo
 %
 One significant character of an oscillatory system is its damping (i.e. how rapidly a vibration system will decay after the initial excitation). 
 %
-The damping ratio, a dimensionless measure that describes the damping level, is calculated as $D=\left( 1+\left(2\pi/\delta\right)^2\right)^{-1/2} $, where $\delta = \frac 1n \ln \left( {\ddot z(t)}/{\ddot z(t+nT)}  \right)$, $\ddot z(t)$ is the 1\textsuperscript{st} peak value of mass acceleration, $\ddot z(t + nT)$ is the $n+1$\textsuperscript{th} peak value of mass acceleration, and $n$ is the number of peak intervals. $\delta$ is the logarithmic decrement, which is used to compute the damping ratio $D_p$. By following these two equations, the system responses under various numerical simulations are summarized in Table \ref{table:exp}.
+The damping ratio is a dimensionless measure that describes the damping level, and is calculated as $D=\left( 1+\left(2\pi/\delta\right)^2\right)^{-1/2} $, where $\delta = \frac 1n \ln \left( {\ddot z(t)}/{\ddot z(t+nT)}  \right)$, $\ddot z(t)$ is the 1\textsuperscript{st} peak value of mass acceleration, $\ddot z(t + nT)$ is the $n+1$\textsuperscript{th} peak value of mass acceleration, and $n$ is the number of peak intervals. $\delta$ is the logarithmic decrement, which is used to compute the damping ratio $D_p$. By following these two equations, the system responses under various numerical simulations are summarized in Table \ref{table:exp}.
 %
 
 %

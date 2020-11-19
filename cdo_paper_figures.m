@@ -642,9 +642,8 @@ clc ; clearvars -except dpath ; close all ;
 
 %%% Load prior predictive results
 load([dpath,'stored_data\'...
-    '2018-09-03_prior_pred_distrib'],...
-    'prior_pred_dist');
-prsamps = prior_pred_dist.prior_pred_pts;
+    '2019-11-06_prior_predictive_distributions']);
+prsamps = prior_model_output.means;
 clear prior_pred_dist;
 
 %%% Load calib results
@@ -653,7 +652,11 @@ load([dpath,'stored_data\'...
     'results');
 posamps = results.model_output.by_sample_est;
 des_obs = results.settings.desired_obs;
-clear results; 
+
+%%% Rescale prior samps
+outsds = mean(results.settings.output_sds,2);
+outmeans = mean(results.settings.output_means,2);
+prsamps = prsamps .* outsds' + outmeans';
 
 %%% Make figure using histograms
 f=figure('pos',[10 10  780.0000  200]);
@@ -706,7 +709,8 @@ line([des_obs(3) des_obs(3)],ylim,'Color','black','Linestyle',':',...
 % st=suptitle('Prior and posterior predictive distributions');
 % st.Position=[0.5 -.1 0];
 lg=legend('Posterior','Prior','Target','Location','northeast');
-pos=lg.Position; lg.Position = pos + [0.017 0.065 0 0];
+pos=lg.Position; lg.Position = pos + [0.007 0.035 0 0];
+% flushLegend(lg,'northeast');
 
 %%% Save
 set(f, 'Color','white');
@@ -1745,23 +1749,23 @@ xlbl.Position = xlbl.Position + [8.0 2 0];
 %% WTA prior predictive distribution vs posterior predictive distribution
 clc ; clearvars -except dpath ; close all ;
 
-%%% Load calib results
-% clearvars -except dpath res ; close all;
-% locstr = [dpath,'stored_data\'...
-%     '2019-11-05_CTO'];
-locstr = [dpath,'stored_data\'...
-    '2020-04-25_CTO_size500'];
-load(locstr);
-mean_y = res.settings.mean_y ; std_y = res.settings.std_y;
-posamps = res.model_output.means .* std_y + mean_y;
-des_obs = res.settings.obs_y(1,:).* std_y + mean_y;
-
 %%% Load prior predictive results
-locstr2 = [dpath,'stored_data\'...
-    '2019-11-06_prior_predictive_distributions'];
-load(locstr2);
-prsamps = prior_model_output.means.* std_y + mean_y;
+load([dpath,'stored_data\'...
+    '2019-11-06_prior_predictive_distributions']);
+prsamps = prior_model_output.means;
+clear prior_pred_dist;
 
+%%% Load calib results
+load([dpath,'stored_data\'...
+    '2018-07-27_discrepancy_d-elbow_d-p2'],...
+    'results');
+posamps = results.model_output.by_sample_est;
+des_obs = results.settings.desired_obs;
+
+%%% Rescale prior samps
+outsds = mean(results.settings.output_sds,2);
+outmeans = mean(results.settings.output_means,2);
+prsamps = prsamps .* outsds' + outmeans';
 
 %%% Make figure using histograms
 f=figure('pos',[10 10  360.0000  200]);
@@ -1778,9 +1782,9 @@ hold on;
 max_lim = max([p(:);max_lim]);
 plot(x,p,'--','LineWidth',2);
 %histogram(prsamps(:,1),'Normalization','pdf','Edgecolor','none');
-text(0.005,.9,...
+text(0.025,.9,...
     'Deflection','VerticalAlignment','bottom','Units','normalized');
-text(1.715,102,'Rotation','VerticalAlignment','bottom');
+% text(1.715,102,'Rotation','VerticalAlignment','bottom');
 % xlim([0.6 0.85]);
 % ylim([0 110]);
 line([des_obs(1) des_obs(1)],ylim,'Color','black','Linestyle',':',...
@@ -1799,7 +1803,7 @@ hold on;
 max_lim = max([p(:);max_lim]);
 plot(x,p,'--','LineWidth',2);
 %histogram(prsamps(:,2),'Normalization','pdf','Edgecolor','none');
-text(0.005,.9,...
+text(0.025,.9,...
     'Rotation','VerticalAlignment','bottom','Units','normalized');
 % xlim([0.075,0.105])
 % ylim([0 700]);
@@ -1821,7 +1825,7 @@ hold on;
 max_lim = max([p(:);max_lim]);
 plot(x,p,'--','LineWidth',2);
 %histogram(prsamps(:,3),'Normalization','pdf','Edgecolor','none');
-text(0.05,.9,...
+text(0.25,.9,...
     'Cost','VerticalAlignment','bottom','Units','normalized');
 % ylim([0 .0700]);
 xlim([60 400]);
@@ -1834,11 +1838,11 @@ set(gca,'ylim',ylim);
 % Add suptitle
 % st=suptitle('Prior and posterior predictive distributions');
 % st.Position=[0.5 -.1 0];
-[lg,icons,~,~]=legend('Posterior','Prior','Target','Location','northeast');
-% flushLegend(lg,'northeast');
+[lg,icons,~,~]=legend('Posterior','Prior','Target','Location','east');
+% flushLegend(lg,'east');
 resizeLegend();
 pos=lg.Position; 
-lg.Position = pos + [.0915 0.055 0 0];
+lg.Position = pos + [.091 0.055 0 0];
 % 
 % %%% Save
 set(f, 'Color','white');

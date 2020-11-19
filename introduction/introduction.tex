@@ -132,7 +132,7 @@ Via integration or some form of Markov-chain Monte Carlo (MCMC, \cite{Gelfand199
 
 Of course, not all work in computer model calibration derives from the KOH framework.
 For example, \citet{Craig1997} provide an influential demonstration using Bayes linear methods to calibrate a model through a combination of expert judgments (about means and variances of model parameters) and information from runs of low-fidelity versions of the model.
-Contemporaneously to \citet{Kennedy2001}, \citet{Cox2001} offer a similar calibration framework from a frequentist perspective, including the use of GPs as meta-models for computational efficiency. 
+Contemporaneously to \citet{Kennedy2001}, \citet{Cox2001} offer a similar calibration framework from a frequentist perspective, including the use of GPs as metamodels for computational efficiency. 
 The authors use MLEs of calibration parameters and GP hyperparameters.
 Similarly, and more in response to the KOH framework, \citet{Loeppky2006} also provide an MLE-based alternative to KOH that is designed to improve the identifiability of the calibration parameters when model discrepancy is present (i.e., when the model is a systematically biased representation of the target phenomenon).
 More recently, \citet{Wong2014} describe general framework for a semi-parametric frequentist approach to model calibration, using bootstrapping to provide uncertainty quantification.
@@ -155,7 +155,7 @@ Such an approach reduces the total number of required model evaluations and ther
 
 Other works have endeavored to address another known weakness of KOH: poor identifiability of the calibration parameters in the face of model discrepancy.
 With respect to this problem, \citet{Brynjarsdottir2014} emphasize the importance of strong priors on the model discrepancy term when performing model calibration.
-And for the purpose of improving identifiability over previous approaches, \citet{Gu2018} propose a novel stochastic process that combines elements of GPs with $L_2$ calibration (in which the calibration parameter is chosen so as the minimize the $L_2$ norm of the discrepancy term).
+And for the purpose of improving identifiability over previous approaches, \citet{Gu2018} propose a novel stochastic process that combines elements of GPs with $L_2$ calibration (in which the calibration parameter is chosen so as to minimize the $L_2$ norm of the discrepancy term).
 
 Some works in the area of computer model calibration are premised upon broadening the conception of calibration beyond the idea of relating experimental data to a computer model of the experimental phenomenon.
 Model calibration can be seen more generally as a method for relating two or more different sources of data with varying costs and varying levels of fidelity.
