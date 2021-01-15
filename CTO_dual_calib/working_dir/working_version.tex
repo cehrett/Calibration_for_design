@@ -21,7 +21,7 @@
 % NOTE: PLACES WHERE THE TEX CODE NEEDS TO BE CHANGED (COMMENTING OR UNCOMMENTING) TO SWITCH BETWEEN JVVUQ SUBMISSION FORMAT AND (UNOFFICIAL) DISSERTATION FORMAT ARE MARKED BY "SWITCH_FORMAT"
 
 %% SWITCH_FORMAT: DISSERTATION FORMAT VERSION
-\newcommand{\diss}{1}
+\newcommand{\diss}{0}
 % NOTE: To produce blinded version, replace "0" with "1" below.
 \newcommand{\blnd}{1}
 
@@ -324,7 +324,7 @@ Methods exist for using heuristic approaches while accommodating and quantifying
 %
 This problem can be mitigated by relying on a surrogate model, but the resulting uncertainty quantification is accomplished by separate methods that are layered on top of the independent heuristic approach.
 %
-On the other hand, our approach includes uncertainty quantification as an intrinsic aspect of the DCTO framework.
+On the other hand, our combined approach to calibration and design includes uncertainty quantification as an intrinsic aspect of the framework.
 %
 
 %
@@ -342,13 +342,17 @@ They differ in their \textit{acquisition functions}, which determine the locatio
 %
 EGO finds the spot that maximizes the expected improvement \if1\diss\citep{Mockus1978,Jones1998}\else\cite{Mockus1978,Jones1998}\fi, whereas SUR's acquisition function seeks to reduce the volume of excursion sets below the current best known solutions \if1\diss\citep{Chevalier2014}\else\cite{Chevalier2014}\fi.
 %
+Furthermore, the acquisition functions employed by EGO and SUR attempt to balance exploitation (proposing a new sample location that optimizes system output) with exploration (proposing a location that promotes learning for subsequent rounds of sampling).
+%
 Because they rely on sequential sampling, EGO and SUR are of limited utility when one is constrained to rely on a pre-existing set of observations, or in general when the observation locations cannot be chosen purely to suit the goal of optimization.
 %
-Furthermore, the acquisition functions employed by EGO and SUR attempt to balance exploitation (proposing a new sample location that optimizes system output) with exploration (proposing a location that promotes learning for subsequent rounds of sampling).
+The value of exploration is in guiding future adaptive sampling to avoid settling on merely local optima.
+%
+In cases where adaptive sampling is not possible, this value cannot be realized, and hence it is preferable to adopt a pure-exploitation result.
 %
 As a result, although these acquisition functions constitute distributions of sampling locations, by their nature they are not interpretable as distributions of the \textit{optimal} design settings for a given problem, and hence these distributions do not quantify uncertainty regarding the location of that optimum.
 %
-By contrast, our approach (understood as a pure-exploitation method) quantifies remaining uncertainty regarding the location of the system optimum.
+By contrast, our combined approach (understood as a pure-exploitation method) quantifies remaining uncertainty regarding the location of the system optimum.
 %
 
 %
@@ -361,6 +365,8 @@ However, the posterior distribution in that work is designed by the authors and 
 By contrast, our approach provides a posterior distribution based on the likelihood of the optimal design settings given the (hypothetical) observation of target outcomes $y_t$, and thus the uncertainty quantified by design using the KOH framework is model-driven and interpretable as uncertainty regarding the optimal values for the design inputs and the resulting system output.
 %
 
+%
+The combined approach to calibration and design presented here thus contrasts with traditional approaches by providing for quantification of remaining uncertainty in the joint posterior distribution of the calibration and design inputs using an integrated framework incorporating both sets of inputs.
 %
 The rest of the paper is organized as follows.
 %
@@ -419,11 +425,11 @@ where $\mathcal D = (\boldsymbol\eta^T,\ \mathbf y^T)^T$ for some observations $
 %
 In a computer calibration problem, $\mathbf y$ is a set of observations of the system modeled by $\eta()$.
 %
-When calibrating to target outcomes as in DCTO, by contrast, $y$ is a set of target outcomes representing the way that one wishes to induce the system to behave (rather than observations one has made of the system in reality).
+When calibrating to target outcomes as in DCTO, by contrast, $\mathbf y$ is a set of target outcomes representing the way that one wishes to induce the system to behave (rather than observations one has made of the system in reality).
 %
 When one wishes to perform design leveraging a simulation model that also requires traditional calibration, then, one might consider combining the two approaches by using Equation \eqref{eq:full_dist} with $\mathbf y= (\mathbf y_r^T,\ \mathbf y_t^T)^T$, an array containing both real observations $\mathbf y_r$ (for calibration) and target outcomes $\mathbf y_t$ (for design).
 %
-However, this approach will not work, both because the inputs to be calibrated are typically not the same as the design settings under researcher control, and also because for successful calibration one must train one's model on observations of reality rather than on unobserved target outcomes.
+However, this approach will not work for two reasons. Firstly, though the matter of whether a given input is considered to be a calibration parameter is dependent upon the nature of the research problem under investigation, typically the inputs to be calibrated are not design settings under researcher control. Secondly, for successful calibration one must train one's model on observations of reality rather than on unobserved target outcomes.
 %
 
 %
@@ -456,15 +462,15 @@ For the purposes of Equation \eqref{eq:full_dist}, this amounts to setting a deg
 %
 
 %
-A problem with the above-described approach of performing calibration prior to a separate design optimization is that relying on static calibration estimates $\widehat{\boldsymbol \theta_c}$ ignores uncertainty remaining after calibration with respect to the true value of $\boldsymbol\theta_c$.
+A problem with the above-described approach of performing calibration prior to a separate design optimization is that relying on static calibration estimates $\widehat{\boldsymbol \theta_c}$ ignores uncertainty remaining after calibration with respect to the true value of $\boldsymbol\theta_c$ (if one takes a Bayesian view, one may prefer to consider calibration as finding optimal settings for inducing a model to approximate reality, rather than as finding true values of some parameter; for ease exposition, we will continue to use the latter phrasing).
 %
 In order to produce results that take into account all sources of uncertainty, it is necessary to integrate calibration and design, so that the uncertainty remaining from calibration is propagated through the design process.
 %
 This can be accomplished either asynchronously (so that the posterior distribution of $\widehat{\boldsymbol\theta_c}$ is sampled while undertaking design) or, for lower computational overhead, synchronously (so that a single MCMC run is used to perform both calibration and design).
 %
-In either case, it will be useful to produce an integrated model which describes the use of both procedures, and which makes clear the relationship between them.
+In either case, it will be useful to produce an integrated model for the combined tasks of calibration and design which describes the use of both procedures, and which makes clear the relationship between them.
 %
-This integrated model will also serve to demonstrate the unified framework underlying the synchronous approach.
+This integrated model will also serve to demonstrate the unified framework underlying the combined approach.
 %
 
 %
@@ -1306,7 +1312,9 @@ However, if one only wishes to estimate the calibration parameter at the optimal
 %
 In this application, DCTO with adaptive sampling uses information from both the sequentially-performed observations of the real system and from the existing computer model to identify new sampling locations.
 %
-Future work on this subject will include pairing adaptive sampling DCTO with other methodologies for selecting new sampling locations, such as EGO and SUR.
+MCMC methods struggle to converge in the context of high dimensionality; future work on this subject will include the application to DCTO of ongoing research in the area of high-dimensional MCMC \cite{Saibaba2019}.
+%
+Future work will also include pairing adaptive sampling DCTO with other methodologies for selecting new sampling locations, such as EGO and SUR.
 %
 
 \bigskip

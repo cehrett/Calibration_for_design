@@ -1,0 +1,253 @@
+\begin{thebibliography}{10}
+
+\bibitem{aror:alits}
+{A.} Arora, {P.} Dutta, {S.} Bapat, {V.} Kulathumani, {H.} Zhang, {V.} Naik,
+  {V.} Mittal, {H.} Cao, {M.} Demirbas, {M.} Gouda, {Y.R.} Choi, {T.} Herman,
+  {S.S.} Kulkarni, {U.} Arumugam, {M.} Nesterenko, {A.} Vora, and {M.}
+  Miyashita.
+\newblock A line in the sand: A wireless sensor network for target detection,
+  classification, and tracking.
+\newblock {\em Computer Networks}, 46(5):605--634, 2004.
+
+\bibitem{aror:eseoa}
+{A.} Arora, {R.} Ramnath, {E.} Ertin, {P.} Sinha, {S.} Bapat, {V.} Naik, {V.}
+  Kulathumani, {H.} Zhang, {H.} Cao, {M.} Sridharan, {S.} Kumar, {N.} Seddon,
+  {C.} Anderson, {T.} Herman, {N.} Trivedi, {C.} Zhang, {M.} Gouda, {Y.R.}
+  Choi, {M.} Nesterenko, {R.} Shah, {S.} Kulkarni, {M.} Aramugam, {L.} Wang,
+  {D.E.} Culler, {P.} Dutta, {C.} Sharp, {G.} Tolle, {M.} Grimmer, {B.}
+  Ferriera, and {K.} Parker.
+\newblock Exscal: Elements of an extreme scale wireless sensor network.
+\newblock In {\em The 11$^{th}$ {IEEE} International Conference on Embedded and
+  Real-Time Computing Systems and Applications}, pages 102--108. {IEEE}
+  Computer Society Press, August 2005.
+
+\bibitem{barr:swahn}
+{R.} Barr, {Z.J.} Haas, and {R.V.} Renesse.
+\newblock Scalable wireless ad hoc network simulation.
+\newblock In {J.} Wu, editor, {\em Handbook on Theoretical and Algorithmic
+  Aspects of Sensor, Ad Hoc Wireless, and Peer-to-Peer Networks}, pages
+  297--311. {CRC} Press, 2005.
+
+\bibitem{cham:tgrar}
+{B.A.} Chambers.
+\newblock The grid roofnet: a rooftop ad hoc wireless network.
+\newblock Master's thesis, Massachusetts Institute of Technology, May 2002.
+
+\bibitem{chin:mcswa}
+{K.} Chintalapudi, {T.} Fu, {J.} Paek, {N.} Kothari, {S.} Rangwala, {J.}
+  Caffrey, {R.} Govindan, {E.} Johnson, and {S.} Masri.
+\newblock Monitoring civil structures with a wireless sensor network.
+\newblock {\em {IEEE} Internet Computing}, 10(2):26--34, 2006.
+
+\bibitem{chun:mum}
+{B.} Chun.
+\newblock Mirage user manual.
+\newblock
+  \\https://mirage.berkeley.intel-research.net/usermanual/singlepage.html,
+  2004.
+
+\bibitem{chun:mamra}
+{B.} Chun, {P.} Buonadonna, {A.} {A}u{Y}oung, {C.} Ng, {D.} Parkes, {J.}
+  Shneidman, {A.} Snoeren, and {A.} Vahdat.
+\newblock Mirage: A microeconomic resource allocation system for sensornet
+  testbeds.
+\newblock In {\em The 2$^{nd}$ {IEEE} Workshop on Embedded Networked Sensors},
+  page 10pp. {IEEE} Computer Society, May 2005.
+
+\bibitem{comp:usbsr}
+{Compaq Computer Corporation}, {Hewlett-Packard Company}, {Intel Corporation},
+  {Lucent Technologies Inc.}, {Microsoft Corporation}, {NEC Corporation}, and
+  {Koninklijke Philips Electronics N.V.}
+\newblock Universal serial bus specification (revision 2.0).
+\newblock \\http://www.usb.org/developers/docs/usb\_20\_05122006.zip, 2000.
+
+\bibitem{cti:m2d}
+{Crossbow Technology Incorporated}.
+\newblock {Mica2} datasheet.
+\newblock
+  \\http://www.xbow.com/Products/Product\_pdf\_files/Wireless\_pdf/6020-0042-06\_B\_MICA2.pdf,
+  2003.
+
+\bibitem{cti:m2dd}
+{Crossbow Technology Incorporated}.
+\newblock {Mica2Dot} datasheet.
+\newblock
+  \\http://www.xbow.com/Products/Product\_pdf\_files/Wireless\_pdf/6020-0043-04\_C\_MICA2DOT.pdf,
+  2003.
+
+\bibitem{cti:sgds}
+{Crossbow Technology Incorporated}.
+\newblock {Stargate} datasheet.
+\newblock
+  \\http://www.xbow.com/Products/Product\_pdf\_files/Wireless\_pdf/Stargate\_Datasheet.pdf,
+  2003.
+
+\bibitem{de:mamnt}
+{P.} De, {A.} Raniwala, {S.} Sharma, and {T.} Chiueh.
+\newblock {MiNT}: A miniaturized network testbed for mobile wireless research.
+\newblock In {\em The 24$^{th}$ Annual Joint Conference of the {IEEE} Computer
+  and Communications Societies}, pages 2731--2742. {IEEE} Computer Society,
+  March 2005.
+
+\bibitem{dool:wsfwm}
+{D.M.} Doolin and {N.} Sitar.
+\newblock Wireless sensors for wildfire monitoring.
+\newblock In {\em {SPIE} Symposium on Smart Structures and Materials / {NDE}
+  2005}, pages 477--484. {SPIE} Press, March 2005.
+
+\bibitem{dutt:doaws}
+{P.} Dutta, {M.} Grimmer, {A.} Arora, {S.} Bibyk, and {D.E.} Culler.
+\newblock Design of a wireless sensor network platform for detecting rare,
+  random, and ephemeral events.
+\newblock In {\em The 4$^{th}$ International Conference on Information
+  Processing in Sensor Networks}, pages 497--502. {IEEE} Computer Society,
+  April 2005.
+
+\bibitem{dutt:tesas}
+{P.} Dutta, {J.} Hui, {J.} Jeong, {S.} Kim, {C.} Sharp, {J.} Taneja, {G.}
+  Tolle, {K.} Whitehouse, and {D.} Culler.
+\newblock Trio: Enabling sustainable and scalable outdoor wireless sensor
+  network deployments.
+\newblock In {\em Proceedings of the 5$^{th}$ International Conference on
+  Information Processing in Sensor Networks}, pages 407--415. {ACM} Press,
+  April 2006.
+
+\bibitem{erti:ktsas}
+{E.} Ertin, {A.} Arora, {R.} Ramnath, {M.} Nesterenko, {V.} Naik, {S.} Bapat,
+  {V.} Kulathumani, {M.} Sridharan, {H.} Zhang, and {H.} Cao.
+\newblock Kansei: A testbed for sensing at scale.
+\newblock In {\em The 5$^{th}$ International Conference on Information
+  Processing in Sensor Networks}, pages 399--406. {ACM} Press, April 2006.
+
+\bibitem{gamm:dpeor}
+{E.} Gamma, {R.} Helm, {R.} Johnson, and {J.} Vlissides.
+\newblock {\em Design Patterns: Elements of Reusable Object-Oriented Software}.
+\newblock Addison-Wesley, 1995.
+
+\bibitem{gay:sdpft}
+{D.} Gay, {P.} Levis, and {D.} Culler.
+\newblock Software design patterns for {TinyOS}.
+\newblock In {\em The 2005 {ACM SIGPLAN/SIGBED} Conference on Languages,
+  Compilers, and Tools for Embedded Systems}, pages 40--49. ACM Press, June
+  2005.
+
+\bibitem{gay:tnlah}
+{D.} Gay, {P.} Levis, {R.} {von Behren}, {M.} Welsh, {E.} Brewer, and {D.E.}
+  Culler.
+\newblock The {nesC} language: A holistic approach to networked embedded
+  systems.
+\newblock In {\em {ACM} {SIGPLAN} 2003 Conference on Programming Language
+  Design and Implementation}, pages 1--11. {ACM} Press, June 2003.
+
+\bibitem{giro:esase}
+{L.} Girod, {J.} Elson, {A.} Cerpa, {T.} Stathopoulos, {N.} Ramanathan, and
+  {D.} Estrin.
+\newblock {EmStar}: a software environment for developing and deploying
+  wireless sensor networks.
+\newblock In {\em The 2004 {USENIX} Technical Conference}. {USENIX}
+  Association, June--July 2004.
+
+\bibitem{giro:asfse}
+{L.} Girod, {T.} Stathopoulos, {N.} Ramanathan, {J.} Elson, {D.} Estrin, {E.}
+  Osterweil, and {T.}Schoellhammer.
+\newblock A system for simulation, emulation, and deployment of heterogeneous
+  sensor networks.
+\newblock In {\em The 2$^{nd}$ International Conference on Embedded Networked
+  Sensor Systems}, pages 201--213. {ACM} Press, November 2004.
+
+\bibitem{glas:srwao}
+{S.D.} Glaser.
+\newblock Some real-world applications of wireless sensor nodes.
+\newblock In {\em {SPIE} Symposium on Smart Structures \& Materials / {NDE}
+  2004}, pages 344--355. {SPIE} Press, March 2004.
+
+\bibitem{hand:twist}
+{V.} Handziski, {A.} K\"{o}pke, {A.} Willig, and {A.} Wolisz.
+\newblock {TWIST:} a scalable and reconfigurable testbed for wireless indoor
+  experiments with sensor networks.
+\newblock In {\em Proceedings of the 2$^{nd}$ International Workshop on
+  Multi-hop Ad Hoc Networks: From Theory to Reality}, pages 63--70. {ACM}
+  Press, January 2006.
+
+\bibitem{hart:famtp}
+{C.} Hartung, {S.} Holbrook, {R.} Han, and {C.} Seielstad.
+\newblock {FireWxNet:} a multi-tiered portable wireless system for monitoring
+  weather conditions in wildland fire environments.
+\newblock In {\em The 4$^{th}$ International Conference on Mobile Systems,
+  Applications, and Services}. {ACM} Press, June 2006.
+\newblock (to appear).
+
+\bibitem{harv:mlhns}
+{Harvard University}.
+\newblock {MoteLab:} harvard network sensor testbed.
+\newblock \\http://motelab.eecs.harvard.edu/, 2006.
+
+\bibitem{hill:sadfn}
+{J.} Hill, {R.} Szewczyk, {A.} Woo, {S.} Hollar, {D.E.} Culler, and {K.}
+  Pister.
+\newblock System architecture directions for networked sensors.
+\newblock In {\em The 9$^{th}$ International Conference on Architectural
+  Support for Programming Languages and Operating Systems}, volume~34, pages
+  93--104. {ACM} Press, November 2000.
+
+\bibitem{hu:tdaeo}
+{W.} Hu, {V.N.} Tran, {N.} Bulusu, {C.T.} Chou, {S.K.} Jha, and {A.} Taylor.
+\newblock The design and evaluation of a hybrid sensor network for cane-toad
+  monitoring.
+\newblock In {\em The 4$^{th}$ International Symposium on Information
+  Processing in Sensor Networks}, pages 503--508. {IEEE} Computer Society
+  Press, April 2005.
+
+\bibitem{hui:tdboa}
+{J.W.} Hui and {D.E.} Culler.
+\newblock The dynamic behavior of a data dissemination protocol for network
+  programming at scale.
+\newblock In {\em The 2$^{nd}$ International Conference on Embedded Networked
+  Sensor Systems}, pages 81--94. {ACM} Press, November 2004.
+
+\bibitem{john:tmamr}
+{D.} Johnson, {T.} Stack, {R.} Fish, {D.} Flickinger, {R.} Ricci, and {J.}
+  Lepreau.
+\newblock {TrueMobile}: A mobile robotic wireless and sensor network testbed.
+\newblock In {\em The 25$^{th}$ Annual Joint Conference of the {IEEE} Computer
+  and Communications Societies}. {IEEE} Computer Society, April 2006.
+
+\bibitem{kary:mlaba}
+{A.} Karygiannis and {E.} Antonakakis.
+\newblock {mLab:} a mobile ad hoc network testbed.
+\newblock In {\em The 1$^{st}$ Workshop on Security, Privacy, and Trust in
+  Pervasive and Ubiquitous Computing}, pages 88--97. Diavlos {S.A.}, July 2005.
+
+\bibitem{levi:taass}
+{P.} Levis, {N.} Lee, {M.} Welsh, and {D.E.} Culler.
+\newblock {TOSSIM}: Accurate and scalable simulation of entire {TinyOS}
+  applications.
+\newblock In {\em The 1$^{st}$ {ACM} Conference on Embedded Networked Sensor
+  Systems}, pages 126--137. {ACM} Press, November 2003.
+
+\bibitem{lori:snfer}
+{K.} Lorincz, {D.J.} Malan, {T.R.F.} {Fulford-Jones}, {A.} Nawoj, {A.} Clavel,
+  {V.} Shnayder, {G.} Mainland, {M.} Welsh, and {S.} Moulton.
+\newblock Sensor networks for emergency response: Challenges and opportunities.
+\newblock {\em {IEEE} Pervasive Computing}, 3(4):16--23, 2004.
+
+\bibitem{main:wsnfh}
+{A.} Mainwaring, {J.} Polastre, {R.} Szewczyk, {D.E.} Culler, and {J.}
+  Anderson.
+\newblock Wireless sensor networks for habitat monitoring.
+\newblock In {\em The 1$^{st}$ {ACM} International Workshop on Wireless Sensor
+  Networks and Applications}, pages 88--97. {ACM} Press, September 2002.
+
+\bibitem{may:arpcd}
+{T.D.} May, {S.H.} Dunning, {G.A.} Dowding, and {J.O.} Hallstrom.
+\newblock An {RPC} design for wireless sensor networks.
+\newblock {\em Journal of Pervasive Computing and Communications}, 1(1), 2007.
+\newblock (to appear).
+
+\bibitem{mc:tmcds}
+{Moteiv Corporation}.
+\newblock {Tmote Connect} datasheet.
+\newblock \\http://www.moteiv.com/products/docs/tmote-connect-datasheet.pdf,
+  2006.
+
+\end{thebibliography}

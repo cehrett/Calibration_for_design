@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (MiKTeX 2.9.7380 64-bit)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: thesis.aux
+The style file: plain.bst
+Database file #1: bibliography.bib
+Warning--can't use both volume and number fields in hill:sadfn
+You've used 35 entries,
+            2118 wiz_defined-function locations,
+            680 strings with 12255 characters,
+and the built_in function-call counts, 16596 in all, are:
+= -- 1597
+> -- 1051
+< -- 20
++ -- 423
+- -- 381
+* -- 1238
+:= -- 2660
+add.period$ -- 129
+call.type$ -- 35
+change.case$ -- 294
+chr.to.int$ -- 0
+cite$ -- 36
+duplicate$ -- 580
+empty$ -- 1124
+format.name$ -- 381
+if$ -- 3533
+int.to.chr$ -- 0
+int.to.str$ -- 35
+missing$ -- 28
+newline$ -- 180
+num.names$ -- 72
+pop$ -- 363
+preamble$ -- 1
+purify$ -- 260
+quote$ -- 0
+skip$ -- 452
+stack$ -- 0
+substring$ -- 777
+swap$ -- 216
+text.length$ -- 20
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 138
+warning$ -- 1
+while$ -- 131
+width$ -- 37
+write$ -- 403
+(There was 1 warning)
