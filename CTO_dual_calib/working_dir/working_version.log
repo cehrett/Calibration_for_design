@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  15 JAN 2021 11:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.4.18)  18 JAN 2021 09:54
 entering extended mode
 **./working_version.tex
 (working_version.tex
@@ -330,27 +330,16 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 397.
 
-Overfull \vbox (11.7001pt too high) has occurred while \output is active []
+Overfull \vbox (11.95088pt too high) has occurred while \output is active []
 
 
 [3]
-Underfull \hbox (badness 1596) in paragraph at lines 477--489
-\OT1/ptmcm/m/n/10 (\OT1/ptm/b/n/10 x\OML/ptmcm/m/it/10 ; \OT1/ptm/b/n/10 t[]\OM
-L/ptmcm/m/it/10 ; \OT1/ptm/b/n/10 t[]\OT1/ptmcm/m/n/10 )$ \OT1/ptm/m/n/10 where
- $\OT1/ptm/b/n/10 t[]$ \OT1/ptm/m/n/10 de-notes the pa-ram-e-ters tar-geted for
-
- []
-
-
-Underfull \hbox (badness 2057) in paragraph at lines 491--507
+Underfull \hbox (badness 2057) in paragraph at lines 493--509
 []\OT1/ptm/m/n/10 The pur-pose of ad-di-tional ob-ser-va-tion er-ror $\OML/ptmc
 m/m/it/10 []$ \OT1/ptm/m/n/10 is
  []
 
-
-Underfull \vbox (badness 3803) has occurred while \output is active []
-
- [4]
+[4]
 Package epstopdf Info: Source file: <FIG_obj_fn.eps>
 (epstopdf)                    date: 2020-04-18 13:43:49
 (epstopdf)                    size: 513404 bytes
@@ -359,7 +348,7 @@ Package epstopdf Info: Source file: <FIG_obj_fn.eps>
 (epstopdf)                    size: 541889 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_obj_fn-eps-converted-to
 .pdf FIG_obj_fn.eps>
-(epstopdf)             \includegraphics on input line 699.
+(epstopdf)             \includegraphics on input line 703.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -368,11 +357,11 @@ usion: found PDF version <1.7>, but at most version <1.5> allowed
 <FIG_obj_fn-eps-converted-to.pdf, id=25, 302.12875pt x 302.12875pt>
 File: FIG_obj_fn-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_obj_fn-eps-converted-to.pdf>
-Package pdftex.def Info: FIG_obj_fn-eps-converted-to.pdf  used on input line 69
-9.
+Package pdftex.def Info: FIG_obj_fn-eps-converted-to.pdf  used on input line 70
+3.
 (pdftex.def)             Requested size: 256.81064pt x 256.81064pt.
 
-Overfull \hbox (15.42856pt too wide) in paragraph at lines 699--701
+Overfull \hbox (15.42856pt too wide) in paragraph at lines 703--705
  [][] 
  []
 
@@ -385,7 +374,7 @@ Package epstopdf Info: Source file: <FIG_theta_1_dependence_on_t2.eps>
 (epstopdf)                    size: 43151 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_theta_1_dependence_on_t
 2-eps-converted-to.pdf FIG_theta_1_dependence_on_t2.eps>
-(epstopdf)             \includegraphics on input line 719.
+(epstopdf)             \includegraphics on input line 723.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -398,45 +387,45 @@ File: FIG_theta_1_dependence_on_t2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use FIG_theta_1_dependence_on_t2-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_theta_1_dependence_on_t2-eps-converted-to.pdf  use
-d on input line 719.
+d on input line 723.
 (pdftex.def)             Requested size: 174.05106pt x 123.71275pt.
 Package epstopdf Info: Source file: <FIG_true_optimal_theta1_theta2.eps>
-(epstopdf)                    date: 2020-10-21 08:16:10
-(epstopdf)                    size: 31400 bytes
+(epstopdf)                    date: 2021-01-18 09:44:23
+(epstopdf)                    size: 31987 bytes
 (epstopdf)             Output file: <FIG_true_optimal_theta1_theta2-eps-convert
 ed-to.pdf>
-(epstopdf)                    date: 2020-10-21 08:17:18
-(epstopdf)                    size: 11954 bytes
+(epstopdf)                    date: 2021-01-18 09:45:11
+(epstopdf)                    size: 11948 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_true_optimal_theta1_the
 ta2-eps-converted-to.pdf FIG_true_optimal_theta1_theta2.eps>
-(epstopdf)             \includegraphics on input line 729.
+(epstopdf)             \includegraphics on input line 733.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_true_optimal_theta1_theta2-eps-convert
 ed-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> a
 llowed
-<FIG_true_optimal_theta1_theta2-eps-converted-to.pdf, id=27, 203.76125pt x 307.
+<FIG_true_optimal_theta1_theta2-eps-converted-to.pdf, id=27, 207.77625pt x 307.
 1475pt>
 File: FIG_true_optimal_theta1_theta2-eps-converted-to.pdf Graphic file (type pd
 f)
 <use FIG_true_optimal_theta1_theta2-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_true_optimal_theta1_theta2-eps-converted-to.pdf  u
-sed on input line 729.
-(pdftex.def)             Requested size: 173.19786pt x 261.0766pt.
+sed on input line 733.
+(pdftex.def)             Requested size: 176.61063pt x 261.0766pt.
 [5]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1748) has occurred while \output is active []
 
 Package epstopdf Info: Source file: <FIG_six_discrepancies.eps>
-(epstopdf)                    date: 2020-10-07 08:48:54
-(epstopdf)                    size: 2629932 bytes
+(epstopdf)                    date: 2021-01-18 09:49:39
+(epstopdf)                    size: 2630467 bytes
 (epstopdf)             Output file: <FIG_six_discrepancies-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2020-10-07 08:49:22
-(epstopdf)                    size: 934095 bytes
+(epstopdf)                    date: 2021-01-18 09:50:09
+(epstopdf)                    size: 935302 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_six_discrepancies-eps-c
 onverted-to.pdf FIG_six_discrepancies.eps>
-(epstopdf)             \includegraphics on input line 769.
+(epstopdf)             \includegraphics on input line 773.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -446,18 +435,23 @@ pdfTeX warning: pdflatex.exe (file ./FIG_six_discrepancies-eps-converted-to.pdf
 File: FIG_six_discrepancies-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_six_discrepancies-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_six_discrepancies-eps-converted-to.pdf  used on in
-put line 769.
+put line 773.
 (pdftex.def)             Requested size: 346.39575pt x 512.76811pt.
 Package epstopdf Info: Source file: <FIG_observed_data.eps>
-(epstopdf)                    date: 2020-10-21 08:16:10
-(epstopdf)                    size: 419225 bytes
+(epstopdf)                    date: 2021-01-18 09:53:43
+(epstopdf)                    size: 433822 bytes
 (epstopdf)             Output file: <FIG_observed_data-eps-converted-to.pdf>
 (epstopdf)                    date: 2020-10-21 08:17:19
 (epstopdf)                    size: 330526 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_observed_data-eps-conve
 rted-to.pdf FIG_observed_data.eps>
-(epstopdf)             \includegraphics on input line 787.
-Package epstopdf Info: Output file is already uptodate.
+(epstopdf)             \includegraphics on input line 791.
+runsystem(epstopdf --outfile=FIG_observed_data-eps-converted-to.pdf FIG_observe
+d_data.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <FIG_observed_data-eps-converted-to.pdf>
+(epstopdf)                    date: 2021-01-18 09:54:04
+(epstopdf)                    size: 340138 bytes.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_observed_data-eps-converted-to.pdf): P
@@ -466,7 +460,7 @@ DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 File: FIG_observed_data-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_observed_data-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_observed_data-eps-converted-to.pdf  used on input 
-line 787.
+line 791.
 (pdftex.def)             Requested size: 208.17871pt x 192.82127pt.
 Package epstopdf Info: Source file: <FIG_AS_vs_SFD_obs_locs.eps>
 (epstopdf)                    date: 2020-10-13 13:27:18
@@ -477,7 +471,7 @@ f>
 (epstopdf)                    size: 61736 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_AS_vs_SFD_obs_locs-eps-
 converted-to.pdf FIG_AS_vs_SFD_obs_locs.eps>
-(epstopdf)             \includegraphics on input line 801.
+(epstopdf)             \includegraphics on input line 805.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -487,7 +481,7 @@ f): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 File: FIG_AS_vs_SFD_obs_locs-eps-converted-to.pdf Graphic file (type pdf)
 <use FIG_AS_vs_SFD_obs_locs-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_AS_vs_SFD_obs_locs-eps-converted-to.pdf  used on i
-nput line 801.
+nput line 805.
 (pdftex.def)             Requested size: 176.61063pt x 160.4pt.
 [6 <./FIG_obj_fn-eps-converted-to.pdf> <./FIG_theta_1_dependence_on_t2-eps-conv
 erted-to.pdf> <./FIG_true_optimal_theta1_theta2-eps-converted-to.pdf>]
@@ -506,7 +500,7 @@ verted-to.pdf>
 (epstopdf)                    size: 44109 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d0-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d0.eps>
-(epstopdf)             \includegraphics on input line 836.
+(epstopdf)             \includegraphics on input line 840.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -519,7 +513,7 @@ File: FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-to.pd
-f  used on input line 836.
+f  used on input line 840.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d0.eps>
 (epstopdf)                    date: 2020-10-10 08:52:49
@@ -530,7 +524,7 @@ verted-to.pdf>
 (epstopdf)                    size: 46249 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d0-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d0.eps>
-(epstopdf)             \includegraphics on input line 837.
+(epstopdf)             \includegraphics on input line 841.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -543,7 +537,7 @@ File: FIG_dual_calib_SDOE_comp_theta2-d0-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta2-d0-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d0-eps-converted-to.pd
-f  used on input line 837.
+f  used on input line 841.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d1.eps>
 (epstopdf)                    date: 2020-10-10 08:52:49
@@ -554,7 +548,7 @@ verted-to.pdf>
 (epstopdf)                    size: 45364 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d1-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d1.eps>
-(epstopdf)             \includegraphics on input line 839.
+(epstopdf)             \includegraphics on input line 843.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -567,7 +561,7 @@ File: FIG_dual_calib_SDOE_comp_theta1-d1-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta1-d1-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d1-eps-converted-to.pd
-f  used on input line 839.
+f  used on input line 843.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d1.eps>
 (epstopdf)                    date: 2020-10-10 08:52:50
@@ -578,7 +572,7 @@ verted-to.pdf>
 (epstopdf)                    size: 48959 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d1-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d1.eps>
-(epstopdf)             \includegraphics on input line 840.
+(epstopdf)             \includegraphics on input line 844.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -591,7 +585,7 @@ File: FIG_dual_calib_SDOE_comp_theta2-d1-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta2-d1-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d1-eps-converted-to.pd
-f  used on input line 840.
+f  used on input line 844.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d2.eps>
 (epstopdf)                    date: 2020-10-10 08:52:51
@@ -602,7 +596,7 @@ verted-to.pdf>
 (epstopdf)                    size: 45455 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d2-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d2.eps>
-(epstopdf)             \includegraphics on input line 842.
+(epstopdf)             \includegraphics on input line 846.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -615,7 +609,7 @@ File: FIG_dual_calib_SDOE_comp_theta1-d2-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta1-d2-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d2-eps-converted-to.pd
-f  used on input line 842.
+f  used on input line 846.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d2.eps>
 (epstopdf)                    date: 2020-10-10 08:52:51
@@ -626,7 +620,7 @@ verted-to.pdf>
 (epstopdf)                    size: 46353 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d2-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d2.eps>
-(epstopdf)             \includegraphics on input line 843.
+(epstopdf)             \includegraphics on input line 847.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -639,7 +633,7 @@ File: FIG_dual_calib_SDOE_comp_theta2-d2-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta2-d2-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d2-eps-converted-to.pd
-f  used on input line 843.
+f  used on input line 847.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d3.eps>
 (epstopdf)                    date: 2020-10-10 08:52:52
@@ -650,7 +644,7 @@ verted-to.pdf>
 (epstopdf)                    size: 46459 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d3-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d3.eps>
-(epstopdf)             \includegraphics on input line 845.
+(epstopdf)             \includegraphics on input line 849.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -663,7 +657,7 @@ File: FIG_dual_calib_SDOE_comp_theta1-d3-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta1-d3-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d3-eps-converted-to.pd
-f  used on input line 845.
+f  used on input line 849.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d3.eps>
 (epstopdf)                    date: 2020-10-10 08:52:52
@@ -674,7 +668,7 @@ verted-to.pdf>
 (epstopdf)                    size: 47294 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d3-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d3.eps>
-(epstopdf)             \includegraphics on input line 846.
+(epstopdf)             \includegraphics on input line 850.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -687,7 +681,7 @@ File: FIG_dual_calib_SDOE_comp_theta2-d3-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta2-d3-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d3-eps-converted-to.pd
-f  used on input line 846.
+f  used on input line 850.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta1-d4.eps>
 (epstopdf)                    date: 2020-10-10 08:52:53
@@ -698,7 +692,7 @@ verted-to.pdf>
 (epstopdf)                    size: 48278 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d4-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d4.eps>
-(epstopdf)             \includegraphics on input line 848.
+(epstopdf)             \includegraphics on input line 852.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -711,7 +705,7 @@ File: FIG_dual_calib_SDOE_comp_theta1-d4-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta1-d4-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d4-eps-converted-to.pd
-f  used on input line 848.
+f  used on input line 852.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d4.eps>
 (epstopdf)                    date: 2020-10-10 08:52:53
@@ -722,7 +716,7 @@ verted-to.pdf>
 (epstopdf)                    size: 45436 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d4-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d4.eps>
-(epstopdf)             \includegraphics on input line 849.
+(epstopdf)             \includegraphics on input line 853.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -735,10 +729,10 @@ File: FIG_dual_calib_SDOE_comp_theta2-d4-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta2-d4-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d4-eps-converted-to.pd
-f  used on input line 849.
+f  used on input line 853.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 
-Underfull \hbox (badness 5105) in paragraph at lines 850--850
+Underfull \hbox (badness 5105) in paragraph at lines 854--854
 []|$\OML/ptmcm/m/it/10 f[]$\OT1/ptm/m/n/10 , $\OML/ptmcm/m/it/10 a \OT1/ptmcm/m
 /n/10 = \OML/ptmcm/m/it/10 :\OT1/ptmcm/m/n/10 055$\OT1/ptm/m/n/10 ,
  []
@@ -752,7 +746,7 @@ verted-to.pdf>
 (epstopdf)                    size: 40981 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d5-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d5.eps>
-(epstopdf)             \includegraphics on input line 851.
+(epstopdf)             \includegraphics on input line 855.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -765,7 +759,7 @@ File: FIG_dual_calib_SDOE_comp_theta1-d5-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta1-d5-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d5-eps-converted-to.pd
-f  used on input line 851.
+f  used on input line 855.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d5.eps>
 (epstopdf)                    date: 2020-10-10 08:52:55
@@ -776,7 +770,7 @@ verted-to.pdf>
 (epstopdf)                    size: 43944 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d5-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d5.eps>
-(epstopdf)             \includegraphics on input line 852.
+(epstopdf)             \includegraphics on input line 856.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -789,10 +783,10 @@ File: FIG_dual_calib_SDOE_comp_theta2-d5-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta2-d5-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d5-eps-converted-to.pd
-f  used on input line 852.
+f  used on input line 856.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 
-Underfull \hbox (badness 5105) in paragraph at lines 853--853
+Underfull \hbox (badness 5105) in paragraph at lines 857--857
 []|$\OML/ptmcm/m/it/10 f[]$\OT1/ptm/m/n/10 , $\OML/ptmcm/m/it/10 a \OT1/ptmcm/m
 /n/10 = \OML/ptmcm/m/it/10 :\OT1/ptmcm/m/n/10 055$\OT1/ptm/m/n/10 ,
  []
@@ -806,7 +800,7 @@ verted-to.pdf>
 (epstopdf)                    size: 46135 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta1-d6-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta1-d6.eps>
-(epstopdf)             \includegraphics on input line 854.
+(epstopdf)             \includegraphics on input line 858.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -819,7 +813,7 @@ File: FIG_dual_calib_SDOE_comp_theta1-d6-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta1-d6-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta1-d6-eps-converted-to.pd
-f  used on input line 854.
+f  used on input line 858.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 Package epstopdf Info: Source file: <FIG_dual_calib_SDOE_comp_theta2-d6.eps>
 (epstopdf)                    date: 2020-10-10 08:52:56
@@ -830,7 +824,7 @@ verted-to.pdf>
 (epstopdf)                    size: 46281 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_dual_calib_SDOE_comp_th
 eta2-d6-eps-converted-to.pdf FIG_dual_calib_SDOE_comp_theta2-d6.eps>
-(epstopdf)             \includegraphics on input line 855.
+(epstopdf)             \includegraphics on input line 859.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -843,29 +837,24 @@ File: FIG_dual_calib_SDOE_comp_theta2-d6-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use FIG_dual_calib_SDOE_comp_theta2-d6-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_dual_calib_SDOE_comp_theta2-d6-eps-converted-to.pd
-f  used on input line 855.
+f  used on input line 859.
 (pdftex.def)             Requested size: 192.82127pt x 77.64041pt.
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 862.
+               Default added (so using `tbp') on input line 866.
 
-<oscillator.jpg, id=100, 934.692pt x 375.804pt>
-File: oscillator.jpg Graphic file (type jpg)
-<use oscillator.jpg>
-Package pdftex.def Info: oscillator.jpg  used on input line 915.
-(pdftex.def)             Requested size: 420.79546pt x 169.18478pt.
 [8 <./FIG_observed_data-eps-converted-to.pdf> <./FIG_AS_vs_SFD_obs_locs-eps-con
 verted-to.pdf>]
-<schematic.jpg, id=126, 864.831pt x 323.7696pt>
+<schematic.jpg, id=125, 864.831pt x 323.7696pt>
 File: schematic.jpg Graphic file (type jpg)
 <use schematic.jpg>
-Package pdftex.def Info: schematic.jpg  used on input line 931.
+Package pdftex.def Info: schematic.jpg  used on input line 935.
 (pdftex.def)             Requested size: 420.79546pt x 157.53691pt.
 
 Underfull \vbox (badness 3323) has occurred while \output is active []
 
 
-Underfull \vbox (badness 3323) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9 <./FIG_dual_calib_SDOE_comp_theta1-d0-eps-converted-to.pdf> <./FIG_dual_cal
 ib_SDOE_comp_theta2-d0-eps-converted-to.pdf> <./FIG_dual_calib_SDOE_comp_theta1
@@ -878,26 +867,36 @@ al_calib_SDOE_comp_theta2-d4-eps-converted-to.pdf> <./FIG_dual_calib_SDOE_comp_
 theta1-d5-eps-converted-to.pdf> <./FIG_dual_calib_SDOE_comp_theta2-d5-eps-conve
 rted-to.pdf> <./FIG_dual_calib_SDOE_comp_theta1-d6-eps-converted-to.pdf> <./FIG
 _dual_calib_SDOE_comp_theta2-d6-eps-converted-to.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [10 <./oscillator.jpg> <./schematic.jpg>]
-<impulse.jpg, id=287, 1006.76125pt x 477.785pt>
-File: impulse.jpg Graphic file (type jpg)
-<use impulse.jpg>
-Package pdftex.def Info: impulse.jpg  used on input line 1134.
-(pdftex.def)             Requested size: 495.04993pt x 234.9405pt.
-<vibration.jpg, id=288, 1006.76125pt x 484.81125pt>
-File: vibration.jpg Graphic file (type jpg)
-<use vibration.jpg>
-Package pdftex.def Info: vibration.jpg  used on input line 1144.
-(pdftex.def)             Requested size: 495.04993pt x 238.39551pt.
+LaTeX Warning: Reference `fig:oscillator' on page 10 undefined on input line 96
+7.
+
+
+LaTeX Warning: Reference `fig:oscillator' on page 10 undefined on input line 97
+9.
+
+[10 <./schematic.jpg>]
+
+LaTeX Warning: Reference `fig:impulse-vibration' on page 11 undefined on input 
+line 1134.
+
+<Figure_9.png, id=287, 376.2858pt x 301.125pt>
+File: Figure_9.png Graphic file (type png)
+<use Figure_9.png>
+Package pdftex.def Info: Figure_9.png  used on input line 1138.
+(pdftex.def)             Requested size: 222.77095pt x 178.2733pt.
+<Figure_10.png, id=288, 376.2858pt x 301.125pt>
+File: Figure_10.png Graphic file (type png)
+<use Figure_10.png>
+Package pdftex.def Info: Figure_10.png  used on input line 1139.
+(pdftex.def)             Requested size: 222.77095pt x 178.2733pt.
 <dvs.png, id=289, 741.43666pt x 475.7775pt>
 File: dvs.png Graphic file (type png)
 <use dvs.png>
-Package pdftex.def Info: dvs.png  used on input line 1170.
+Package pdftex.def Info: dvs.png  used on input line 1167.
 (pdftex.def)             Requested size: 205.17624pt x 131.6632pt.
 
-Overfull \vbox (18.08719pt too high) has occurred while \output is active []
+Overfull \vbox (9.88605pt too high) has occurred while \output is active []
 
 
 [11]
@@ -910,28 +909,25 @@ d-to.pdf>
 (epstopdf)                    size: 150243 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_DVS_DCTO_input_posterio
 rs-eps-converted-to.pdf FIG_DVS_DCTO_input_posteriors.eps>
-(epstopdf)             \includegraphics on input line 1259.
+(epstopdf)             \includegraphics on input line 1256.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_DVS_DCTO_input_posteriors-eps-converte
 d-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
 lowed
-<FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf, id=295, 226.8475pt x 377.4
+<FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf, id=294, 226.8475pt x 377.4
 1pt>
 File: FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf Graphic file (type pdf
 )
 <use FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf  us
-ed on input line 1259.
+ed on input line 1256.
 (pdftex.def)             Requested size: 192.82127pt x 320.8pt.
-
-Underfull \vbox (badness 7944) has occurred while \output is active []
-
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [12]
+ [12 <./Figure_9.png> <./Figure_10.png>]
 Package epstopdf Info: Source file: <FIG_DVS_DCTO_prior_and_posterior_output.ep
 s>
 (epstopdf)                    date: 2020-10-24 11:32:20
@@ -942,69 +938,68 @@ s-converted-to.pdf>
 (epstopdf)                    size: 171885 bytes
 (epstopdf)             Command: <epstopdf --outfile=FIG_DVS_DCTO_prior_and_post
 erior_output-eps-converted-to.pdf FIG_DVS_DCTO_prior_and_posterior_output.eps>
-(epstopdf)             \includegraphics on input line 1285.
+(epstopdf)             \includegraphics on input line 1282.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex.exe (file ./FIG_DVS_DCTO_prior_and_posterior_output-ep
 s-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most versio
 n <1.5> allowed
-<FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf, id=299, 188.705p
+<FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf, id=298, 188.705p
 t x 452.69125pt>
 File: FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf Graphic file
  (type pdf)
 <use FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf>
 Package pdftex.def Info: FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-
-to.pdf  used on input line 1285.
+to.pdf  used on input line 1282.
 (pdftex.def)             Requested size: 160.4pt x 384.78937pt.
 
-Underfull \vbox (badness 3803) has occurred while \output is active []
-
- [13 <./impulse.jpg> <./vibration.jpg>]
-Underfull \vbox (badness 1152) has occurred while \output is active []
-
- [14 <./dvs.png> <./FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf>]
-(working_version.bbl
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [15 <./FIG_DVS_DCTO_prior_and_posterior_output-eps-converted-to.pdf>]
+ [13 <./dvs.png> <./FIG_DVS_DCTO_input_posteriors-eps-converted-to.pdf>]
+(working_version.bbl [14 <./FIG_DVS_DCTO_prior_and_posterior_output-eps-convert
+ed-to.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 Underfull \hbox (badness 5091) in paragraph at lines 186--190
 []\OT1/ptm/m/n/10 Gelfand, A. E., and Smith, A. F. M., 1990.
  []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \hbox (badness 1092) in paragraph at lines 233--238
 []\OT1/ptm/m/n/10 Saibaba, A. K., Bard-s-ley, J., Brown, D. A., and
  []
 
-) [16] (working_version.aux) ) 
+) [15] (working_version.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4448 strings out of 480930
- 75277 string characters out of 2909550
- 316354 words of memory out of 3000000
- 20233 multiletter control sequences out of 15000+200000
+ 4440 strings out of 480930
+ 75165 string characters out of 2909550
+ 310354 words of memory out of 3000000
+ 20226 multiletter control sequences out of 15000+200000
  575974 words of font info for 107 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,14n,43p,732b,359s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base
-/8r.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><C:/
-Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Carl/AppData/Roamin
-g/MiKTeX/2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/Carl/AppData/Roaming
-/MiKTeX/2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/Carl/AppData/Roaming/
-MiKTeX/2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/Carl/AppData/Roaming/MiKTe
-X/2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.
-9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fo
-nts/type1/urw/times/utmri8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts
-/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on working_version.pdf (16 pages, 4520528 bytes).
+ 38i,14n,43p,692b,359s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw
+/helvetic/uhvb8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/
+helvetic/uhvr8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/s
+ymbol/usyr.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/
+utmb8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmr
+8a.pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmri8a.
+pfb><C:/Users/Carl/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/zapfchan/uzcmi8a.
+pfb>
+Output written on working_version.pdf (15 pages, 4316539 bytes).
 PDF statistics:
- 375 PDF objects out of 1000 (max. 8388607)
+ 371 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 136 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 131 words of extra memory for PDF output out of 10000 (max. 10000000)
 

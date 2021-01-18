@@ -324,6 +324,10 @@ for ii = 1 : length(true_y)
     
 end
 
+% Add ticks to t_d axis
+
+yticks([0,1,2,3,4,5]);
+
 fig.Children.View = [-40 15];
 set(fig,'color','w');
 
@@ -364,7 +368,7 @@ t1_fn = @(x) high_theta1 - ...
 x = 1;
 t2 = linspace(t2min,t2min+t2range,100)';
 t1 = t1_fn(t2);
-all_t1 = linspace(t1min,t2min+t2range,100)';
+all_t1 = linspace(t1min,t1min+t1range,100)';
 % Get optimal theta2 for each t1
 fmfn_t = @(z,t) dual_calib_example_fn(x,xmin,xrange,...
     t,t2min,t1range,...
@@ -746,3 +750,100 @@ savestr = ...
 sprintf(['FIG_theta_1_dependence_on_t2']);
 set(f,'PaperPositionMode','auto')
 % print(f,savestr,'-depsc','-r600')
+
+%% Examine six different discrepancy versions
+clc ; clearvars -except dpath ; close all ;
+
+f=figure('pos',[640 5 540 800]);
+set(f,'color','white');
+
+% Define inputs
+xmin = .5;
+xrange = .5;
+x = linspace(0,1);
+t1min = 1.5;
+t1range = 3;
+t1=linspace(0,1);
+t2min = 0;
+t2range = 5;
+t2 = linspace(0,1);
+
+[X,T1,T2] = meshgrid(x,t1,t2) ; 
+
+discrep_title_content = [ {1;'a = 1.5'}, {1;'a = 3.5'}, ...
+    {2;'a = 0.15, b = 0.075'}, {2;'a = 0.65, b = 0.075'}, ...
+    {3;'a = 0.055, b=0'}, {3;'a = 0.055, b = 0.1'} ] ;
+
+%%% Loop through all discrepancies and plot each
+for ii=1:6
+    subplot(3,2,ii);
+%     if mod(ii,2)==1 figure('pos',[10 + ii*20, 5, 540, 250],'color','w');end
+%     subplot(1,2,mod(ii-1,2)+1);
+    discrep = ii ; % Select which discrepancy
+    Y = reshape(...
+        dual_calib_example_fn(X(:),xmin,xrange,T1(:),t1min,t1range,...
+        T2(:),t2min,t2range,0,1,0,true),length(x),length(t1),length(t2));
+    Yd= reshape(...
+        dual_calib_example_fn(X(:),xmin,xrange,T1(:),t1min,t1range,...
+        T2(:),t2min,t2range,0,1,discrep,true),length(x),length(t1),length(t2));
+
+    % Take a look
+    xidx=50;
+    xx=reshape(X(:,xidx,:),100,100);
+    % Get value of x
+    xval = xx(1)*xrange + xmin;
+    tt1=reshape(T1(:,xidx,:),100,100);
+    tt2=reshape(T2(:,xidx,:),100,100);
+    Discrep = Yd-Y;
+    ea=.25;
+    surf(tt1*t1range+t1min,tt2*t2range+t2min,...
+        reshape(Y(:,xidx,:),100,100),...
+        'EdgeAlpha',ea);
+    hold on;
+    surf(tt1*t1range+t1min,tt2*t2range+t2min,...
+        reshape(Yd(:,xidx,:),100,100),...
+        'EdgeAlpha',ea);
+    surf(tt1*t1range+t1min,tt2*t2range+t2min,...
+        reshape(Discrep(:,xidx,:),100,100),...
+        'EdgeAlpha',ea);
+    zlim([0,1.33]);
+    
+    % Sort out title and labels
+    dtc = discrep_title_content(:,ii);
+    dtc_lab=dtc{1};
+    title(sprintf('f_%d, %s',dtc{:}));
+    xlabel('t_c');ylabel('t_d');
+    zlabel(sprintf('f_%d(x,t_c,t_d)',dtc_lab));
+    axis vis3d;
+    view([-110.4000    6.5334]);
+    
+    % Save
+    savestr = sprintf(['FIG_obj_fn_g',int2str(ceil(ii/2))]);
+    if mod(ii,2)==0 export_fig(savestr,'-png','-m2'); end
+end
+
+%%% Fix sizing
+f.Children(6).Position = [0.0 0.685 0.575 0.32];
+f.Children(5).Position = [0.5 0.685 0.575 0.32];
+f.Children(4).Position = [0.0 0.355 0.575 0.32];
+f.Children(3).Position = [0.5 0.355 0.575 0.32];
+f.Children(2).Position = [0.0 0.025 0.575 0.32];
+f.Children(1).Position = [0.5 0.025 0.575 0.32];
+
+% % Get a rotating gif
+% viewpt = [-27.2667 10.4000];
+% view(viewpt);
+% % gif('FIG_dual_calib_obf_fn.gif','frame',gcf);
+% nfms = 120;
+% for ii = 1:nfms
+%     viewpt = viewpt + [ 360/nfms 0 ];
+%     view(viewpt);
+%     pause(.01);
+% %     gif
+% end
+
+% Save it:
+% saveas(f,'FIG_six_discrepancies.png');
+figstr = 'FIG_six_discrepancies';
+set(f,'PaperPositionMode','auto')
+% print(f,figstr,'-depsc','-r600')

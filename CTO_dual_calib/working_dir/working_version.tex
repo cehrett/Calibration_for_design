@@ -358,7 +358,7 @@ By contrast, our combined approach (understood as a pure-exploitation method) qu
 %
 An example of an RSM more closely resembling our approach to design is described by \if1\diss\cite{Olalotiti2018}\else Olalotiti-Lawal and Datta-Gupta \cite{Olalotiti2018}\fi.
 %
-Their approach defines a distribution which is designed to lie both on and near the Pareto front (PF) of the objective function and generates a posterior distribution which includes quantified uncertainties via Markov chain Monte Carlo \if1\diss\citep[MCMC;][]{Gelfand1990}\else(MCMC) \cite{Gelfand1990}\fi.
+Their approach defines a distribution which is designed to lie both on and near the Pareto front (PF) of the objective function and generates a posterior distribution which includes quantified uncertainties via Markov Chain Monte Carlo \if1\diss\citep[MCMC;][]{Gelfand1990}\else(MCMC) \cite{Gelfand1990}\fi.
 %
 However, the posterior distribution in that work is designed by the authors and is not dictated by the model itself; as such, its interpretability is not entirely clear.
 %
@@ -400,6 +400,7 @@ Nonetheless, in some cases (such as in our discussion of sequential sampling in 
 %
 \section{Dual calibration to target outcomes}\label{sec:dcto}
 %% Describe KOH model
+\subsection{Separate calibration and design}
 %
 The version of KOH considered here is that which finds a posterior distribution of a parameter of interest for calibration, $\boldsymbol\theta$, using a GP emulator with hyperparameters ${\boldsymbol\phi_\eta}$.
 %
@@ -442,9 +443,9 @@ Under this approach, with observations $
 %
 The result would be a posterior distribution of $\boldsymbol \theta_c$ and of $\delta(\cdot)$, the systematic discrepancy between the computer model $\eta(\cdot,\cdot)$ and the true system $f(\cdot)$.
 %
-These can be used to produce estimates $\widehat{\boldsymbol\theta_c}$ and $\widehat\delta(\cdot)$ such that $f(\mathbf z)\approx\eta(\mathbf z,\widehat{\boldsymbol\theta_c})+\widehat\delta(\mathbf z)$ for all $\mathbf z$ in the domain of $f$.
+These can be used to produce estimates $\widehat{\boldsymbol\theta}_c$ and $\widehat\delta(\cdot)$ such that $f(\mathbf z)\approx\eta(\mathbf z,\widehat{\boldsymbol\theta}_c)+\widehat\delta(\mathbf z)$ for all $\mathbf z$ in the domain of $f$.
 %
-The result is a calibrated model $\eta_c(\mathbf z)=\eta(\mathbf z,\widehat{\boldsymbol\theta_c})+\widehat\delta(\mathbf z)$ which can be used for design.
+The result is a calibrated model $\eta_c(\mathbf z)=\eta(\mathbf z,\widehat{\boldsymbol\theta}_c)+\widehat\delta(\mathbf z)$ which can be used for design.
 %
 
 %
@@ -454,27 +455,28 @@ We can write $\eta_c(\mathbf z)$ as $\eta_c(\mathbf x,\boldsymbol\theta_d)$.
 %
 Then one can perform design again using Equation \eqref{eq:full_dist}, this time with $\boldsymbol\theta = \boldsymbol\theta_d$ and $\mathcal D = \mathcal D_t = (\boldsymbol\eta_c^T,\mathbf y_t^T)^T$ where $\boldsymbol\eta_c = \boldsymbol \eta+ \widehat{\boldsymbol \delta}= \boldsymbol \eta+ (\widehat\delta(\mathbf z_1), \cdots, \widehat\delta(\mathbf z_n))^T.$
 %
-Notice that a single set of simulator runs $\boldsymbol\eta$ can be used both for KOH and for subsequent CTO.
+Notice that a single set of simulator runs $\boldsymbol\eta$ can be used both for KOH and for subsequent design.
 %
 A crucial difference between calibration and design is that for the design step one would not attempt to model any systematic discrepancy between $\eta_c$ and $f$, since an estimate of that discrepancy is already included in $\eta_c$.
 %
-For the purposes of Equation \eqref{eq:full_dist}, this amounts to setting a degenerate prior on $\phi_\delta$ at 0.
+For the purposes of Equation \eqref{eq:full_dist}, this amounts to setting a degenerate prior on $\phi_\delta$ that is a point mass at 0.
 %
 
 %
-A problem with the above-described approach of performing calibration prior to a separate design optimization is that relying on static calibration estimates $\widehat{\boldsymbol \theta_c}$ ignores uncertainty remaining after calibration with respect to the true value of $\boldsymbol\theta_c$ (if one takes a Bayesian view, one may prefer to consider calibration as finding optimal settings for inducing a model to approximate reality, rather than as finding true values of some parameter; for ease exposition, we will continue to use the latter phrasing).
+A problem with the above-described approach of performing calibration prior to a separate design optimization is that relying on static calibration estimates $\widehat{\boldsymbol \theta}_c$ ignores uncertainty remaining after calibration with respect to the true value of $\boldsymbol\theta_c$ (if one takes a Bayesian view, one may prefer to consider calibration as finding optimal settings for inducing a model to approximate reality, rather than as finding true values of some parameter; for ease exposition, we will continue to use the latter phrasing).
 %
 In order to produce results that take into account all sources of uncertainty, it is necessary to integrate calibration and design, so that the uncertainty remaining from calibration is propagated through the design process.
 %
-This can be accomplished either asynchronously (so that the posterior distribution of $\widehat{\boldsymbol\theta_c}$ is sampled while undertaking design) or, for lower computational overhead, synchronously (so that a single MCMC run is used to perform both calibration and design).
+This can be accomplished either asynchronously (so that the posterior distribution of $\widehat{\boldsymbol\theta}_c$ is sampled while undertaking design) or, for lower computational overhead, synchronously (so that a single MCMC run is used to perform both calibration and design).
 %
 In either case, it will be useful to produce an integrated model for the combined tasks of calibration and design which describes the use of both procedures, and which makes clear the relationship between them.
 %
 This integrated model will also serve to demonstrate the unified framework underlying the combined approach.
 %
 
+\subsection{Integrated model}
 %
-For this purpose, consider $\eta$ as having three inputs $(\mathbf x,\mathbf t_c,\mathbf t_d)$ where $\mathbf t_c$ denotes the parameters targeted for KOH calibration, $\mathbf t_d$ denotes the input settings targeted for design, and $\mathbf x$ denotes the remaining controllable inputs.
+Consider $\eta$ as having three inputs $(\mathbf x,\mathbf t_c,\mathbf t_d)$ where $\mathbf t_c$ denotes the parameters targeted for KOH calibration, $\mathbf t_d$ denotes the input settings targeted for design, and $\mathbf x$ denotes the remaining controllable inputs.
 %
 If $\eta$ can be run quickly, then we use it directly in MCMC.
 %
@@ -514,22 +516,22 @@ Similarly, let $\mathbf{y_r}$ be observations made at $\mathbf{x_r},\mathbf{t_{d
 %
 Finally, let $\mathbf y = (\mathbf{y_s}^T,\mathbf{y_r}^T,\mathbf{y_t}^T)^T$, and $\mathbf 1$ a vector of ones.
 %
-Then it follows that $\mathbf y\sim \mathrm{N}(\mathbf m,\mathbf C)$, where
-\[
+Then it follows that $\mathbf y\sim {N}(\mathbf m,\mathbf C)$, where
+\begin{equation}
 \mathbf m = \begin{pmatrix}
 m_s(\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}})\\
 m_s(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}) + m_\delta(\mathbf{x_r},\mathbf{t_{dr}})\\
 m_s(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T) + m_\delta(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T)
 \end{pmatrix},
-\]
-\[
+\end{equation}
+\begin{equation}
 \mathbf C = \begin{pmatrix}
 \mathbf{C_{11}} & \mathbf{C_{12}} & \mathbf{C_{13}}\\
 \mathbf{C_{21}} & \mathbf{C_{22}} & \mathbf{C_{23}}\\
 \mathbf{C_{31}} & \mathbf{C_{32}} & \mathbf{C_{33}}
 \end{pmatrix},
-\]
-\begin{align*}
+\end{equation}
+\begin{align}
 \mathbf{C_{11}}=&\ C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}})\right)\\
 \mathbf{C_{21}}=&\ C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right)\\
 \mathbf{C_{31}}=&\ C_\eta\left((\mathbf{x_s},\mathbf{t_{cs}},\mathbf{t_{ds}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right)\\
@@ -537,13 +539,13 @@ m_s(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T) + 
 \if1\diss 
 \mathbf{C_{22}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right) + C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf{t_{dr}}) \right) + \sigma^2_c \mathbf I\\
 \else
-\mathbf{C_{22}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right) + \\
+\mathbf{C_{22}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}})\right) + \nonumber\\
 &\ C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_r},\mathbf{t_{dr}}) \right) + \sigma^2_c \mathbf I\\
 \fi
 \if1\diss
 \mathbf{C_{32}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right)\\
 \else
-\mathbf{C_{32}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + \\
+\mathbf{C_{32}}=&\ C_\eta\left((\mathbf{x_r},\mathbf1\boldsymbol\theta_c^T,\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + \nonumber\\
 &\ C_\delta\left( (\mathbf{x_r},\mathbf{t_{dr}}),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right)\\
 \fi
 \mathbf{C_{13}}=&\ \mathbf{C_{31}}^T\\
@@ -551,10 +553,10 @@ m_s(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T) + 
 \if1\diss
 \mathbf{C_{33}}=&\ C_\eta\left((\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + C_\delta\left( (\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right) + \sigma^2_c\mathbf I + \sigma^2_d \mathbf I\\
 \else
-\mathbf{C_{33}}=&\ C_\eta\left((\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + \\
-&\ C_\delta\left( (\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right) + \sigma^2_c\mathbf I + \sigma^2_d \mathbf I\\
+\mathbf{C_{33}}=&\ C_\eta\left((\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_c^T,\mathbf1\boldsymbol\theta_d^T)\right) + \nonumber\\
+&\ C_\delta\left( (\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T),(\mathbf{x_t},\mathbf1\boldsymbol\theta_d^T) \right) + \sigma^2_c\mathbf I + \sigma^2_d \mathbf I
 \fi
-\end{align*}
+\end{align}
 %
 Note that when $\mathbf{y_t}$ and $\mathbf{x_t}$ are empty and $\mathbf m, \mathbf C$ reduce respectively to their first two and upper two-by-two block elements, this is simply the KOH framework.
 %
@@ -564,7 +566,7 @@ Thus, DCTO is an extension of the KOH framework to include design using target o
 %
 A primary benefit of DCTO is that the design process includes quantification of all sources of uncertainty.
 %
-Performing calibration and then subsequently undertaking design using static estimates for $\widehat{\boldsymbol\theta_c}$ and $\widehat \delta$ does not properly account for the uncertainty surrounding the estimates. 
+Performing calibration and then subsequently undertaking design using static estimates for $\widehat{\boldsymbol\theta}_c$ and $\widehat \delta$ does not properly account for the uncertainty surrounding the estimates. 
 %
 Another benefit of the combined approach appears in cases in which the model is misspecified in failing to account for functional dependence of $\boldsymbol\theta_c$ on $\boldsymbol\theta_d$.
 %
@@ -622,6 +624,7 @@ Such modularization ensures that all Bayesian learning of $\boldsymbol\theta_c$ 
 
 %
 \section{Dependence of $\theta_c$ on $\theta_d$}\label{sec:as}
+\subsection{Background}
 %
 In many cases of computer model calibration, it is known or suspected that the value of one or more calibration parameters are functionally dependent upon the values of other model inputs \if1\diss\citep{Atamturktur2015,Atamturktur2017,Ezzat2018}\else\cite{Atamturktur2015,Atamturktur2017,Ezzat2018}\fi.
 %
@@ -663,9 +666,9 @@ The process of performing DCTO with adaptive sampling is described in Algorithm 
 		1& Set $\mathbf y=[\mathbf y_r^T \mathbf y_t^T]^T$ where $\mathbf y_t$ are the target outcomes and $\mathbf y_r=[\ ]$ is an empty array.\\
 		2& Begin MCMC burn-in. Set $i=1$. Let $m$ be the budget of function evaluations. While $i\leq m$:\\
 		&2.1\qquad Complete $n$ iterations of MCMC burn-in (where e.g. $n=100$).\\
-		&2.2\qquad  Draw $\widehat{\theta_d}$ from the available size $n\cdot i$ sample of $t_d|\mathbf y$.\\
-		&2.3\qquad  Evaluate $f(\mathbf x_i, \widehat{\theta_d})$.\\
-		&2.4\qquad  Set $\mathbf y_r = [\mathbf y_r^T f(\mathbf x_i, \widehat{\theta_d})]^T$.\\
+		&2.2\qquad  Draw $\widehat{\theta}_d$ from the available size $n\cdot i$ sample of $t_d|\mathbf y$.\\
+		&2.3\qquad  Evaluate $f(\mathbf x_i, \widehat{\theta}_d)$.\\
+		&2.4\qquad  Set $\mathbf y_r = [\mathbf y_r^T f(\mathbf x_i, \widehat{\theta}_d)]^T$.\\
 		3& Continue burn-in until convergence.\\
 		4& Draw a sample of desired size from the posterior distributions of $\theta_c,\theta_d$.\\
 %		
@@ -685,8 +688,9 @@ When adaptively evaluating the objective function, the locations of the input se
 The result of applying this algorithm is that observations are concentrated around the design settings of interest, so that the unknown calibration parameter values in those observations are concentrated around the value $\theta_c(\theta_d)$.
 %
 
+\subsection{Simulated example}
 %
-To demonstrate the use of DCTO with adaptive sampling in a case of functional dependence of the calibration parameter on design settings, we use the function of three inputs 
+To demonstrate the use of DCTO with adaptive sampling in a case of functional dependence of the calibration parameter on design settings, we apply the method to a simulated system described by the function of three inputs 
 %
 \begin{align}
 	f_0(x,t_c,t_d) = x / (t_d^{t_c-1}\exp(-0.75t_d)+1). \label{eq:f0}
@@ -776,7 +780,7 @@ Figure \ref{fig:discrepancies} shows the discrepancies for two different version
 %
 We apply DCTO with and without adaptive sampling to each of seven cases, without using an emulator: the non-discrepancy case, and the two different versions of each $f_i$ shown in Figure \ref{fig:discrepancies}.
 %
-In each case, we gather 30 ``observations'' of $f_i$ on a latin hypercube design over the supports of $x$ and $t_d$, setting $\theta_c$ equal to its ``true'' value of $\theta_c(t_d)$.
+In each case, we gather 20 ``observations'' of $f_i$ on a latin hypercube design over the supports of $x$ and $t_d$, setting $\theta_c$ equal to its ``true'' value of $\theta_c(t_d)$.
 %
 After standardizing the response to have mean 0 and standard deviation 1, we add i.i.d.\ N(0,0.05) noise to the response.
 %
@@ -814,7 +818,7 @@ This ameliorative effect would likely be even greater in a higher-dimensional ca
 %
 In both versions of DCTO, we modularize the analysis by drawing each of $\boldsymbol\theta_c,\boldsymbol\rho_\delta,\lambda_\delta$ using the likelihood based only on $(\mathbf y_s^T,\mathbf y_r^T)^T$ rather than on $(\mathbf y_s^T,\mathbf y_r^T,\mathbf y_t^T)^T$.
 %
-Convergence was verified visually and by the Gelman-Rubin statistic ($\approx 1.01$; \if1\diss\citeauthor{Gelman1992a}, \citeyear{Gelman1992a}\else\cite{Gelman1992a}, \cite{Gelman1992a}\fi).
+Convergence was verified visually and by the Gelman-Rubin statistic ($\approx 1.01$; \if1\diss\citeauthor{Gelman1992a}, \citeyear{Gelman1992a}\else\cite{Gelman1992a}\fi).
 %
 
 %
@@ -862,7 +866,7 @@ A summary of the results of thirty applications of DCTO both with and without ad
 \begin{table}[]
 	\centering
 	\captionsetup{width=.85\linewidth}
-	\caption{Posterior root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$, for DCTO with adaptive sampling (AS) and a predetermined space-filling design (SFD). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
+	\caption{Posterior root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$, for DCTO with adaptive sampling (AS) and a predetermined space-filling design (SFD). The estimator $\widehat{\theta}_i$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
 	\renewcommand{\arraystretch}{1.2}% Tighter
 	\begin{tabular}{l|cc|cc}
 		&\multicolumn{2}{c|}{$\widehat\theta_c$ RMSE}&
@@ -886,7 +890,7 @@ The results show superior performance for the adaptive sampling DCTO over DCTO u
 %
 The adaptive DCTO posterior means have lower RMSEs in all cases for $\theta_d$, and in all cases except one for $\theta_c$.
 %
-This demonstrates a useful robustness of adaptive DCTO to model misspecification, specifically in the case that the model treats as constant a calibration parameter that is more properly understood as functionally dependent upon other model inputs.
+Though both models suffer from the misspecification of treating as constant a calibration parameter that is more properly understood as functionally dependent upon other model inputs (particularly, e.g., in the case of $f_3$), the adaptive form of DCTO is consistently more robust to these difficulties.
 %
 By using the CTO-driven estimate $\widehat\theta_d$ to sample from the region of interest, DCTO learns from observations such that $\theta_c(\widehat\theta_d)$ is near to the value $\theta_c(\theta_d)$.
 %
@@ -908,15 +912,15 @@ To achieve the optimal vibration isolation outcome, the design engineer typicall
 %
 \subsection{Case study problem}
 %
-The experimental dynamical system studied herein is a one-mass oscillator subjected to passive and active vibration isolation (Figure \ref{fig:oscillator}). 
+The experimental dynamical system studied herein is a one-mass oscillator subjected to passive and active vibration isolation. %(Figure \ref{fig:oscillator}). 
 %
-\begin{figure*}
-	\centering
-	\includegraphics[width=0.85\linewidth]{oscillator.jpg}
-	\captionsetup{width=.85\linewidth}
-	\caption{The physical test rig for the dynamic vibration system. The test setup is shown from three views. Depicted here are the rigid mass  (1), one leaf spring (2), VCA (3), fixed leaf spring support (4), mount (5) to suspend the frame (8), acceleration sensor $S_{a;z}$ (6), force sensor $S_{F_\mathrm{VCA}}$ (7), rigid frame (8), and a modal hammer (9) with a force sensor $S_F$ to excite the frame. The sensor $S_{a;w}$ to measure the acceleration of the frame is on the inner side of the frame near the location where the impulse hammer hits ($S_{a;w}$ not visible in the figure).}
-	\label{fig:oscillator}
-\end{figure*}
+%\begin{figure*}
+%	\centering
+%	\includegraphics[width=0.85\linewidth]{oscillator.jpg}
+%	\captionsetup{width=.85\linewidth}
+%	\caption{The physical test rig for the dynamic vibration system. The test setup is shown from three views. Depicted here are the rigid mass  (1), one leaf spring (2), VCA (3), fixed leaf spring support (4), mount (5) to suspend the frame (8), acceleration sensor $S_{a;z}$ (6), force sensor $S_{F_\mathrm{VCA}}$ (7), rigid frame (8), and a modal hammer (9) with a force sensor $S_F$ to excite the frame. The sensor $S_{a;w}$ to measure the acceleration of the frame is on the inner side of the frame near the location where the impulse hammer hits ($S_{a;w}$ not visible in the figure).}
+%	\label{fig:oscillator}
+%\end{figure*}
 %
 The system consists of a rigid rectangle frame, a rigid mass held by four identical orthogonally placed leaf springs mounted to the frame, and a voice coil actuator (VCA) for passive and active damping.
 %
@@ -1127,25 +1131,18 @@ For the dual model calibration, 12 operational conditions for the test rig are d
 %
 To excite the test rig, an impulse force is applied in the translational $z$-direction via a modal hammer. 
 %
-The time history response of the hammer excitation is shown in Figure \ref{fig:impulse}. 
+The time history response of the hammer excitation is shown in the left panel of Figure \ref{fig:impulse-vibration}. 
 %
 \begin{figure*}
 	\centering
-	\includegraphics[width=\linewidth]{impulse}
+	\includegraphics[width=.45\linewidth]{Figure_9}
+	\includegraphics[width=.45\linewidth]{Figure_10}
 	\captionsetup{width=.85\linewidth}
-	\caption{Schematic diagram of the applied impulse force in the time domain.}
+	\caption{Schematic diagram of the applied impulse force in the time domain (left) and five-times averaged acceleration response of the rigid mass in the time domain (right).}
 	\label{fig:impulse}
 \end{figure*}
 %
-Figure \ref{fig:vibration} shows the acceleration response $\ddot z(t)$ of the mass, as measured by the acceleration sensor $S_{a,z}$. 
-%
-\begin{figure*}
-	\centering
-	\includegraphics[width=\linewidth]{vibration}
-	\captionsetup{width=.85\linewidth}
-	\caption{Five-times averaged acceleration response of the rigid mass in the time domain.}
-	\label{fig:vibration}
-\end{figure*}
+The right panel shows the acceleration response $\ddot z(t)$ of the mass, as measured by the acceleration sensor $S_{a,z}$. 
 %
 Since the rigid frame is constrained by a spring of small stiffness in the $z$-direction, the resulting relatively low resonance frequency of the frame ($\approx$1.5 Hz) does not significantly affect the mass vibration with its higher eigenfrequency ($>$20 Hz) when vibrating in the $z$-direction.
 %
@@ -1411,7 +1408,7 @@ The results are summarized in Table \ref{table:val_vars_and_rmses}.
 		$f_3$, $a=.055$, $b=0$       & 0.294 & 0.292 & 0.0919 & 0.0919\\ \hline
 		$f_3$, $a=.055$, $b=.1$       & 0.279 & 0.281 & 0.0995 & 0.0990\\ \hline
 	\end{tabular}
-	\caption{Posterior variance and root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$ under both DCTO and two-step calibration and design (KOH+design). The estimator $\widehat{\theta_i}$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
+	\caption{Posterior variance and root mean square error (RMSE) for the calibration variable $\theta_c$ and the design variable $\theta_d$ under both DCTO and two-step calibration and design (KOH+design). The estimator $\widehat{\theta}_i$ is the posterior mean of $t_i$ for $i=c,d$. For each $f_i$, $a$ and $b$ control the size of the discrepancy as specified in Equations (\ref{eq:objs1},\ref{eq:objs2},\ref{eq:objs3}).} 
 	\label{table:val_vars_and_rmses}
 \end{table*}
 %
