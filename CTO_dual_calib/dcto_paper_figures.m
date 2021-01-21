@@ -396,7 +396,7 @@ subplot(2,1,1);
 plot(all_t1,y_all,'-','LineWidth',2);
 xlabel('t_c');
 ylabel('f(1, t_c, \theta_d(t_c))');
-xline(t1opt,'r','LineWidth',2);
+xline(t1opt,'g','LineWidth',2);
 xlim([min(all_t1),max(all_t1)]);
 label = 'True \theta_c value at t_d = \theta_d ';
 text(t1opt+.1,0.075,label,'Interpreter','tex');
@@ -408,7 +408,7 @@ ylabel('f(1, \theta_c(t_d), t_d)');
 hold on;
 % plot(t2,y_wrong);
 % plot(t2,y_wrong2);
-xline(t2opt,'r','LineWidth',2);
+xline(t2opt,'g','LineWidth',2);
 label = sprintf('Optimal\n\\theta_d value');
 text(t2opt+.1,.9,label);
 

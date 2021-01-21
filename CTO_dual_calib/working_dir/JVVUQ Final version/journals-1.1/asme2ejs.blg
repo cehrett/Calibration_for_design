@@ -1,0 +1,60 @@
+This is BibTeX, Version 0.99d (MiKTeX 2.9.7380 64-bit)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: asme2ejs.aux
+The style file: asmems4.bst
+Database file #1: bibfile.bib
+Repeated entry---line 1662 of file bibfile.bib
+ : @article{Brochu2010
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1727 of file bibfile.bib
+ : @article{Deb2002
+ :                 ,
+I'm skipping whatever remains of this entry
+Warning--can't use both volume and number fields in Branke2008
+Warning--empty institution in Jones1998
+Warning--empty journal in Brochu2010
+Warning--empty institution in MiguelHernandez-Lobato2016
+Warning--empty journal in Binois2019
+You've used 39 entries,
+            1984 wiz_defined-function locations,
+            772 strings with 11544 characters,
+and the built_in function-call counts, 11367 in all, are:
+= -- 1071
+> -- 430
+< -- 0
++ -- 169
+- -- 130
+* -- 842
+:= -- 1572
+add.period$ -- 115
+call.type$ -- 39
+change.case$ -- 37
+chr.to.int$ -- 0
+cite$ -- 44
+duplicate$ -- 536
+empty$ -- 1047
+format.name$ -- 130
+if$ -- 2661
+int.to.chr$ -- 0
+int.to.str$ -- 39
+missing$ -- 40
+newline$ -- 195
+num.names$ -- 40
+pop$ -- 128
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 393
+stack$ -- 0
+substring$ -- 845
+swap$ -- 279
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 5
+while$ -- 118
+width$ -- 41
+write$ -- 420
+(There were 2 error messages)

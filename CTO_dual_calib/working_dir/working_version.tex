@@ -70,7 +70,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{\bf A unified framework for computer model calibration and engineering design}
+%A unified framework for computer model calibration and engineering design
+\title{\bf Simultaneous Bayesian calibration and engineering design with an application to a vibration isolation system}
 \author{Carl Ehrett\thanks{
 		The authors gratefully acknowledge grant CMMI-1934438 from the National Science Foundation (NSF). CE was supported by fellowships through Department of Education GAANN grant P200A150310 and NSF NRT grant 1633608. DAB is also supported by NSF grants EEC-1744497 and OIA-1826715.}\hspace{.2cm}\\
 	Watt Family Innovation Center, \\Clemson University,\vspace{5pt} \\
@@ -80,7 +81,7 @@
 	Department of Chemical and Biomolecular Engineering, \\Clemson University,\vspace{5pt} \\
 	Sez Atamturktur \\
 	Department of Architectural Engineering, \\Pennsylvania State University,\vspace{5pt} \\
-	Xiyue Xu \\
+	Xinyue Xu \\
 	Department of Architectural Engineering, \\Pennsylvania State University,
 	and \vspace{5pt} \\
 	Roland Platz \\
@@ -108,7 +109,7 @@
 \DeclareMathOperator*{\argmax}{argmax}
 
 
-\title{A unified framework for computer model calibration and engineering design}
+\title{Simultaneous Bayesian calibration and engineering design with an application to a vibration isolation system}
 
 \if1\blnd
 \author{Blinded version
@@ -726,7 +727,7 @@ Figure \ref{fig:SA_relationship} shows this relationship.
 	\label{fig:SA_relationship}
 \end{figure}
 %
-Figure \ref{fig:true_vals} shows the locations of the true and optimal values (respectively) of $\theta_c$ and $\theta_d$.
+Figure \ref{fig:true_vals} shows the locations of the true value of $\theta_c$ and the optimal value of $\theta_d$ with respect to the function $f(x,\theta_c(t_d),t_d)$ of the design input $t_d$ (where that optimum is independent of the value of $x$).
 %
 \begin{figure}
 	\centering
@@ -736,7 +737,7 @@ Figure \ref{fig:true_vals} shows the locations of the true and optimal values (r
 	\label{fig:true_vals}
 \end{figure}
 %
-There it is clear that the true value of $\theta_c$ is far from optimal, in the sense that if this value \textit{were} within our control (which, being a calibration parameter, it is not), we would prefer to place it at the upper end of its support, at 4.5.
+In Figure \ref{fig:true_vals} it is clear that the true value of $\theta_c$ is far from optimal, in the sense that if this value \textit{were} within our control (which, being a calibration parameter, it is not), we would prefer to place it at the upper end of its support, at 4.5.
 %
 Thus $\eta$ showcases the ability of DCTO to perform simultaneously both calibration and design in the case when our ``truth-seeking'' goals and our design goals are in tension.
 %
@@ -744,7 +745,7 @@ Thus $\eta$ showcases the ability of DCTO to perform simultaneously both calibra
 % 
 We apply DCTO to four versions of the problem.
 %
-First, we assume that $\eta$ is free from discrepancy; i.e. that $\eta(x,\theta_c,t_d)$ is an unbiased estimator of the ``true'' system $f(x,t_d)$.
+First, we assume that $\eta$ is free from discrepancy; i.e. that $\eta(x,\theta_c,t_d)$ is an unbiased estimator of the ``true'' system $f_0(x,t_d)$, described by Equation \ref{eq:f0} above.
 %
 The other three versions each assume that $\eta$ suffers from some form of discrepancy.
 %
@@ -772,7 +773,7 @@ Figure \ref{fig:discrepancies} shows the discrepancies for two different version
 	\centering
 	\includegraphics[scale=0.85]{FIG_six_discrepancies.eps}
 	\captionsetup{width=.85\linewidth}
-	\caption{The $i^{\text{th}}$ row shows $f_i$ (the objective function with discrepancy), $\eta$ (the computer model), and the discrepancy $f_i-\eta$, all at $x=0.75$. In each row, a less aggressive version of the discrepancy appears on the left, and a more aggressive on the right. In each plot, the topmost surface is $f_i$, the middle surface is $\eta$, and the bottom surface is the discrepancy $f_i-\eta$.}
+	\caption{The $i^{\text{th}}$ row shows $f_i$ (the objective function with discrepancy), $\eta$ (the computer model, identical in each panel), and the discrepancy $f_i-\eta$, all at $x=0.75$. In each row, a less aggressive version of the discrepancy appears on the left, and a more aggressive on the right. In each plot, the topmost surface is $f_i$, the middle surface is $\eta$, and the bottom surface is the discrepancy $f_i-\eta$.}
 	\label{fig:discrepancies}
 \end{figure*}
 %
@@ -804,7 +805,7 @@ An example of the resulting difference between the adaptive sampling approach an
 	\centering
 	\includegraphics[scale=0.85]{FIG_AS_vs_SFD_obs_locs}
 	\captionsetup{width=.85\linewidth}
-	\caption{Design input values for observations made under the adaptive sampling approach (AS) and under a space-filling design (SFD), along with the optimal value $\theta_d$ of the design input.}
+	\caption{Design input values for observations made under the adaptive sampling approach (AS) and under a space-filling design (SFD), along with the optimal value $\theta_d$ visible as the system global minimum in Figure \ref{fig:true_vals}.}
 	\label{fig:AS_distribution}
 \end{figure}
 %
